@@ -513,6 +513,25 @@
             Клиент заказын косу ушин
             </summary>
         </member>
+        <member name="T:WebAppIMaster.Controllers.WebApi.ClientProfileController">
+            <summary>
+            Клиент ClientProfile Api
+            </summary>
+        </member>
+        <member name="M:WebAppIMaster.Controllers.WebApi.ClientProfileController.Get(System.Int32)">
+            <summary>
+            передайте id(api/ClientProfile/5) возращает один элемент
+            </summary>
+            <param name="id">Принимает параметр id.(GetUserId)</param>
+        </member>
+        <member name="T:WebAppIMaster.Controllers.WebApi.NewsItemServiceController">
+            <summary>
+            News новости 
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:WebAppIMaster.Controllers.WebApi.NewsItemServiceController.Get" -->
+        <!-- Badly formed XML comment ignored for member "M:WebAppIMaster.Controllers.WebApi.NewsItemServiceController.Get(System.Int32)" -->
+        <!-- Badly formed XML comment ignored for member "M:WebAppIMaster.Controllers.WebApi.NewsItemServiceController.GetSearch(System.String)" -->
         <member name="T:WebAppIMaster.Resources.Resource">
             <summary>
               Класс ресурса со строгой типизацией для поиска локализованных строк и т.д.
