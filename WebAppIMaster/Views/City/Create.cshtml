@@ -1,0 +1,142 @@
+﻿@model WebAppIMaster.Models.NewManagerModels.CityInsMdl
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using WebAppIMaster.Resources
+
+<h2>@Resource.CreatingCity</h2>
+
+
+@Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+        <div class="col-md-2">
+            @Resource.Name_kz
+        </div>
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Name_kz, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Name_kz, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-2">
+            @Resource.Name_ru
+        </div>
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Name_ru, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Name_ru, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-2">
+            @Resource.Priority
+        </div>
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Preority, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Preority, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-2">
+            @Resource.Latitude
+        </div>
+        <div class="col-md-10">
+            <input type="text" class="form-control Latitude" id="Latitude" name="Latitude" value="" />
+            @Html.ValidationMessageFor(model => model.Latitude, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-2">
+            @Resource.Longitude
+        </div>
+        <div class="col-md-10">
+            <input type="text" class="form-control Longitudey" id="Longitudey" name="Longitudey" value="" />
+            @Html.ValidationMessageFor(model => model.Longitudey, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <p>Координаты ваше</p>
+    <div id="location">(@Model.Latitude, @Model.Longitudey)</div>
+    <div id="map" style="width: 100%; height: 400px;"></div>
+
+    <div class="form-group">
+        <div class="col-md-10" style="margin-top:10px;">
+            <input id="btnSubmit" type="submit" value="@Resource.Create" class="btn btn-default" />
+        </div>
+    </div>
+
+    @Html.ActionLink(Resource.BacktoList, "Index")
+</div>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="https://maps.api.2gis.ru/2.0/loader.js"></script>
+    <script type="text/javascript">
+        var locationInfo = document.getElementById('location');
+
+        DG.then(function () {
+            var map,
+                marker;
+
+            map = DG.map('map', {
+                center: [54.981, 82.891],
+                zoom: 15
+            });
+
+            marker = DG.marker([54.981, 82.891], {
+                draggable: true
+            }).addTo(map);
+
+            marker.on('drag', function (e) {
+                var lat = e.target._latlng.lat.toFixed(3),
+                    lng = e.target._latlng.lng.toFixed(3);
+
+                locationInfo.innerHTML = lat + ', ' + lng;
+                document.getElementById('Latitude').value = lat;
+                document.getElementById('Longitudey').value = lng;
+                return true;
+            });
+        });
+
+        $("#btnSubmit").click(function (event) {
+
+            event.preventDefault();
+            var Name_ru = $('#Name_ru').val();
+            var Name_kz = $('#Name_kz').val();
+            var Preority = $('#Preority').val();
+            var latitude = $('.Latitude').val();
+            var longitudey = $('.Longitudey').val();
+            console.log(latitude);
+            console.log(longitudey);
+            $.ajax({
+                type: 'POST',
+                url: '/City/Create',
+                data: {
+                    'Name_ru': Name_ru,
+                    'Name_kz': Name_kz,
+                    'Preority': Preority,
+                    'Latitude': latitude,
+                    'Longitudey': longitudey,
+                },
+                success: function (data) {
+                    alert("Ваше город добавлен:");
+                }
+            })
+                .fail(function (data) {
+                    alert("Не правильно добавлен проверьте еще раз: ");
+                    return false;
+                })
+
+            return false;
+        })
+    </script>
+}

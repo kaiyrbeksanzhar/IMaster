@@ -1,0 +1,38 @@
+﻿@model List<WebAppIMaster.Models.NewManagerModels.CityVmMdl>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using WebAppIMaster.Resources
+
+<p class="text-right" style="margin-top:20px;">
+    @Html.ActionLink(Resource.CityCreate, "Create")
+</p>
+<table class="table">
+    <caption>Страница городов</caption>
+    <thead>
+        <tr>
+            <th scope="col">@Resource.NameCity</th>
+            <th scope="col">@Resource.Latitude</th>
+            <th scope="col">@Resource.Longitude</th>
+            <th scope="col">@Resource.Priority</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Name</td>
+                <td>@item.Latitude</td>
+                <td>@item.Longitudey</td>
+                <td>@item.Priroty</td>
+                <td>
+                    @Html.ActionLink(Resource.Edit, "Edit", new { id = item.Id }) |
+                    @Html.ActionLink(Resource.Delete, "Delete", new { id = item.Id })
+                </td>
+            </tr>
+        }
+
+    </tbody>
+</table>

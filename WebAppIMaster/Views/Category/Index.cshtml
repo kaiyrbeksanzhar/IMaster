@@ -1,0 +1,67 @@
+﻿@model List<WebAppIMaster.Models.NewManagerModels.CategoryModels.CategorySelect>
+@using WebAppIMaster.Resources
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Категории</h2>
+
+<p>
+    @Html.ActionLink(Resource.Create, "Create")
+</p>
+
+
+<table id="example" class="display" style="width:100%">
+    <thead>
+        <tr>
+            <th>
+                Название
+            </th>
+            <th>
+                Приоритет
+            </th>
+            <th>
+                Количество специализации
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <a href="/Specilization/Index?categoryId=@item.Id">
+                        @item.Name
+                    </a>
+                </td>
+                <td>
+                    @item.Priority
+                </td>
+                <td>
+                    @item.SpecializationCount
+                </td>
+                <td>
+                    @Html.ActionLink(Resource.Edit, "Edit", new { id = item.Id }) |
+                    @Html.ActionLink(Resource.Delete, "Delete", new { id = item.Id })
+                </td>
+            </tr>
+        }
+    </tbody>
+    <tfoot>
+        <tr>
+            <th>
+                Название
+            </th>
+            <th>
+                Приоритет
+            </th>
+            <th>
+                Количество специализации
+            </th>
+            <th></th>
+        </tr>
+    </tfoot>
+</table>
+

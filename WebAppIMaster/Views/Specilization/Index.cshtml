@@ -1,0 +1,55 @@
+﻿@model IList<WebAppIMaster.Models.NewManagerModels.SpecilizationModels.SpecilizationSelect>
+@using WebAppIMaster.Resources
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Специализации категории @ViewBag.CategoryName</h2>
+<p>
+    <a href="/Specilization/Create?categoryId=@ViewBag.CategiryId">Добавить специализацию</a>
+</p>
+<p>
+    <a href="/Category/Index">Назад к категориям</a>
+</p>
+
+
+
+<table id="example" class="display" style="width:100%">
+    <thead>
+        <tr>
+            <th>Название</th>
+            <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 253px;">Приоритет</th>
+            <th>Изображение</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Name</td>
+                <td>@item.Priority</td>
+                @if (item.PhotoUrl != null)
+                {
+                    <td>Добавленно фото</td>
+                }
+                else
+                {
+                    <td>нет фото</td>
+                }
+                <td>
+                    <a href="/Specilization/Delete?id=@item.Id&categoryId=@ViewBag.CategiryId">@Resource.Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+    @*<tfoot>
+        <tr>
+            <th>Название</th>
+            <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 253px;">Приоритет</th>
+            <th>Изброжение</th>
+        </tr>
+    </tfoot>*@
+</table>
+

@@ -1,0 +1,53 @@
+﻿@model IPagedList<WebAppIMaster.Models.NewManagerModels.HowDidYouAboutUsSelect>
+@using WebAppIMaster.Resources;
+@using PagedList;
+
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Откуда вы о нас узнали?</h2>
+<p>
+    @Html.ActionLink(@Resource.Create, "Create")
+</p>
+<p>
+    @Html.ActionLink("Просмотреть статистику", "Index")
+</p>
+<form action="/HowDidYouAboutUs/IndexMain" method="post" style="float: left;margin-right: 2px;">
+    <input type="text" name="sourceName" value="" />
+    <input type="submit" name="name" value="Найти" />
+</form>
+<form action="/HowDidYouAboutUs/Index" method="post">
+    <input type="submit" name="name" value="Очистить" />
+</form>
+<table class="table">
+    <tr>
+        <th>
+            Значение источника
+        </th>
+        <th>
+            Дата и время добавление
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.SourceName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateTime)
+            </td>
+            <td>
+                @Html.ActionLink(Resource.Edit, "Edit", new { id = item.Id }) |
+                @Html.ActionLink(Resource.Delete, "Delete", new { id = item.Id })
+            </td>
+        </tr>
+    }
+    @Html.PagedListPager(Model, pageNumber => Url.Action("IndexMain", new { pageNumber }))
+
+</table>

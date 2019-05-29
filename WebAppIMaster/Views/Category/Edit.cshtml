@@ -1,0 +1,66 @@
+﻿@model WebAppIMaster.Models.NewManagerModels.CategoryModels.CategoryEdit
+@using WebAppIMaster.Resources
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Редактировать категории</h2>
+
+
+@using (Html.BeginForm("Edit", "Category", FormMethod.Post,
+                            new { enctype = "multipart/form-data" }))
+{
+<div class="form-horizontal">
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.Id)
+
+
+    <div class="form-group">
+        <label class="control-label col-md-2">Название  на русском</label>
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Name_ru, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Name_ru, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-2">Название  на казахском</label>
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Name_kz, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Name_kz, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+
+        <label class="control-label col-md-2" for="SourceName_ru">Приоритет</label>
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Priority, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Priority, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-2">Выберите изображение</label>
+        <div class="col-md-10" style="padding-top:10px;">
+            <input type="file" class="custom-file-input" name="Photo" id="Photo"
+                   aria-describedby="inputGroupFileAddon01">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="@Resource.Save" class="btn btn-default" />
+        </div>
+    </div>
+</div>
+}
+
+<div>
+    @Html.ActionLink(Resource.BacktoList, "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

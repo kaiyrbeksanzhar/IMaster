@@ -1,0 +1,41 @@
+﻿@model IPagedList<WebAppIMaster.Models.NewManagerModels.HowDidYouAboutUsSelectPopulation>
+@using WebAppIMaster.Resources;
+@using PagedList;
+
+@using PagedList.Mvc;
+
+
+
+<div id="Upgrade">
+    <table class="table">
+        <tr>
+            <th>
+                Значение источника
+            </th>
+            <th>
+                Клик
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SourceName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Clickcount)
+                </td>
+            </tr>
+        }
+
+        @*@Html.PagedListPager(Model, pageNumber1 => Url.Action("Population", new { pageNumber1 }))*@
+
+        @Html.PagedListPager(Model, pageNumber1 => Url.Action("Population",
+           new
+           {
+               pageNumber1
+           }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "results" }))
+    </table>
+</div>
