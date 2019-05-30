@@ -27,6 +27,9 @@ namespace WebAppIMaster.Models
             Documents = new HashSet<UserDocument>();
         }
 
+        public string LastName { get; set; }
+        public string FirstName { get; set; }
+        public string FatherName { get; set; }
         public virtual UserProfile Profile { get; set; }
         public virtual Executor Executor { get; set; }
         public virtual Customer Customer { get; set; }

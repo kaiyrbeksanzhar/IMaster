@@ -27,7 +27,7 @@ namespace WebAppIMaster.Models
 
         public DateTime BirthDay { get; set; }
         public Gender Gender { get; set; }
-
+        public bool ExecutorCheck { get; set; }
         public string PhoneNumber { get; set; }
         public ExecutorType ExecutorType { get; set; }
         public ExecutorStatus ExecutorStatus { get; set; }
@@ -37,6 +37,10 @@ namespace WebAppIMaster.Models
         public bool Banned { get; set; }
         public DateTime BannedDateTime { get; set; }
         public string OrganizationName { get; set; }
+
+        public bool ExecotorOnline { get; set; }
+
+        public int ExecutorClosedOrdersCount { get; set; }
 
         public ICollection<ExecutorService> Services { get; set; }
         public ICollection<ExecutorPhotoFiles> ExecutorPhotoFiles { get; set; }

@@ -321,6 +321,7 @@
     <Compile Include="Models\WebApiModel\CategoryServiceMdl.cs" />
     <Compile Include="Models\WebApiModel\ClientOrderMdl.cs" />
     <Compile Include="Models\WebApiModel\ClientProfileMdl.cs" />
+    <Compile Include="Models\WebApiModel\ExecutorMdl.cs" />
     <Compile Include="Models\WebApiModel\NewsItemMdl.cs" />
     <Compile Include="Models\WebApiService\CategoryService.cs" />
     <Compile Include="Models\WebApiService\ClientOrderService.cs" />

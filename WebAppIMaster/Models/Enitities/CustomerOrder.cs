@@ -13,6 +13,8 @@ namespace WebAppIMaster.Models
     {
         public int Id { get; set; }
         public string Title { get; set; }
+
+        public string OrderNumber { get; set; }
         public string Description { get; set; }
         public string Photo1Url { get; set; }
         public string Photo2Url { get; set; }
@@ -23,6 +25,7 @@ namespace WebAppIMaster.Models
         public OrderCostType CostType { get; set; }
         public decimal Cost { get; set; }
         public OrderState OrderState { get; set; }
+        public int NewNotifications { get; set; }
 
         public int InCityId { get; set; }
         public virtual City InCity { get; set; }
@@ -32,14 +35,19 @@ namespace WebAppIMaster.Models
 
         public bool ReceiveOnlyResponses { get; set; }
 
+        public bool PayWithBounce { get; set; }
+
         public int CategoryAndSpecializationId { get; set; }
         public virtual Category CategoryAndSpecialization { get; set; }
 
         public int CustomerId { get; set; }
         public virtual Customer Customer { get; set; }
 
+
+
         public int ExecutorId { get; set; }
         public virtual Executor Executor { get; set; }
+
 
         public DateTime EndedDateTime { get; set; }
         public DateTime CreatedDateTime { get; set; }
