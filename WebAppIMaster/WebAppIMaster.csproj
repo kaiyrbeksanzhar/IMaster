@@ -246,21 +246,32 @@
     <Compile Include="Migrations\201905251946387_PhotoUrlU_DbSpecilization.Designer.cs">
       <DependentUpon>201905251946387_PhotoUrlU_DbSpecilization.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201905310035110_DbBase.cs" />
+    <Compile Include="Migrations\201905310035110_DbBase.Designer.cs">
+      <DependentUpon>201905310035110_DbBase.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Enitities\AddExecutorToOrder.cs" />
     <Compile Include="Models\Enitities\Address.cs" />
     <Compile Include="Models\Enitities\AddressLang.cs" />
     <Compile Include="Models\Enitities\ApplicationUser.cs" />
+    <Compile Include="Models\Enitities\CallToClient.cs" />
+    <Compile Include="Models\Enitities\CancelExecutorResponse.cs" />
+    <Compile Include="Models\Enitities\CancelOrder.cs" />
     <Compile Include="Models\Enitities\Category.cs" />
     <Compile Include="Models\Enitities\CategoryLang.cs" />
     <Compile Include="Models\Enitities\City.cs" />
     <Compile Include="Models\Enitities\CityLang.cs" />
+    <Compile Include="Models\Enitities\ClientPhone.cs" />
     <Compile Include="Models\Enitities\Customer.cs" />
     <Compile Include="Models\Enitities\CustomerOrder.cs" />
     <Compile Include="Models\Enitities\Enums\EvaluationPerformerWork.cs" />
     <Compile Include="Models\Enitities\Enums\ExecutorStatus.cs" />
     <Compile Include="Models\Enitities\Enums\ExecutorType.cs" />
     <Compile Include="Models\Enitities\Enums\Gender.cs" />
+    <Compile Include="Models\Enitities\Enums\NotificationType.cs" />
+    <Compile Include="Models\Enitities\Enums\OrderCancelType.cs" />
     <Compile Include="Models\Enitities\Enums\OrderCostType.cs" />
     <Compile Include="Models\Enitities\Enums\OrderStartDateType.cs" />
     <Compile Include="Models\Enitities\Enums\OrderState.cs" />
@@ -275,6 +286,7 @@
     <Compile Include="Models\Enitities\Executor.cs" />
     <Compile Include="Models\Enitities\ExecutorCategoryAndSpecialization.cs" />
     <Compile Include="Models\Enitities\ExecutorPassportFiles.cs" />
+    <Compile Include="Models\Enitities\ExecutorPhone.cs" />
     <Compile Include="Models\Enitities\ExecutorPhotoFiles.cs" />
     <Compile Include="Models\Enitities\ExecutorService.cs" />
     <Compile Include="Models\Enitities\HowDidYouAboutUs.cs" />
@@ -291,6 +303,7 @@
     <Compile Include="Models\Enitities\Payment.cs" />
     <Compile Include="Models\Enitities\PriceCategoryAndSpecialization.cs" />
     <Compile Include="Models\Enitities\PriceCategoryAndSpecializationType.cs" />
+    <Compile Include="Models\Enitities\Response.cs" />
     <Compile Include="Models\Enitities\SendBonus.cs" />
     <Compile Include="Models\Enitities\Service.cs" />
     <Compile Include="Models\Enitities\ServiceLang.cs" />
@@ -305,9 +318,17 @@
     <Compile Include="Models\FileManager.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\IWebApiService\ICategoryService.cs" />
+    <Compile Include="Models\IWebApiService\IClientExecutorService.cs" />
     <Compile Include="Models\IWebApiService\IClientOrder.cs" />
     <Compile Include="Models\IWebApiService\IClientProfileService.cs" />
+    <Compile Include="Models\IWebApiService\IExecutorOrderService.cs" />
+    <Compile Include="Models\IWebApiService\IExecutorService.cs" />
+    <Compile Include="Models\IWebApiService\IGenderService.cs" />
+    <Compile Include="Models\IWebApiService\IMarketingService.cs" />
+    <Compile Include="Models\IWebApiService\IMarketService.cs" />
     <Compile Include="Models\IWebApiService\INewsItemService.cs" />
+    <Compile Include="Models\IWebApiService\INotificationService.cs" />
+    <Compile Include="Models\IWebApiService\IRegionService.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\NewManagerManage\CategoryManagerModels.cs" />
     <Compile Include="Models\NewManagerManage\HowDidYouAboutUsModel.cs" />
@@ -319,13 +340,23 @@
     <Compile Include="Models\NewManagerModels\HowDidYouAboutUs.cs" />
     <Compile Include="Models\NewManagerModels\SpecilizationModels.cs" />
     <Compile Include="Models\WebApiModel\CategoryServiceMdl.cs" />
+    <Compile Include="Models\WebApiModel\ClientExecutorServiceMdl.cs" />
     <Compile Include="Models\WebApiModel\ClientOrderMdl.cs" />
     <Compile Include="Models\WebApiModel\ClientProfileMdl.cs" />
     <Compile Include="Models\WebApiModel\ExecutorMdl.cs" />
+    <Compile Include="Models\WebApiModel\ExecutorOrderMdl.cs" />
+    <Compile Include="Models\WebApiModel\GenderServiceMdl.cs" />
+    <Compile Include="Models\WebApiModel\MarketingService.cs" />
+    <Compile Include="Models\WebApiModel\MarketServiceMdl.cs" />
     <Compile Include="Models\WebApiModel\NewsItemMdl.cs" />
+    <Compile Include="Models\WebApiModel\NotificationItemViewMdl.cs" />
+    <Compile Include="Models\WebApiModel\RegionNameView.cs" />
     <Compile Include="Models\WebApiService\CategoryService.cs" />
+    <Compile Include="Models\WebApiService\ClientExecutorService.cs" />
     <Compile Include="Models\WebApiService\ClientOrderService.cs" />
     <Compile Include="Models\WebApiService\ClientProfileService.cs" />
+    <Compile Include="Models\WebApiService\ExecutorOrderService.cs" />
+    <Compile Include="Models\WebApiService\ExecutorService.cs" />
     <Compile Include="Models\WebApiService\NewsItemService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
@@ -450,6 +481,7 @@
     <Content Include="Areas\HelpPage\Views\Help\Api.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\TestClientReferences.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\TestClientDialogs.cshtml" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -551,6 +583,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201905251946387_PhotoUrlU_DbSpecilization.resx">
       <DependentUpon>201905251946387_PhotoUrlU_DbSpecilization.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905310035110_DbBase.resx">
+      <DependentUpon>201905310035110_DbBase.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Resource.kk-KZ.resx" />
     <EmbeddedResource Include="Resources\Resource.resx" />

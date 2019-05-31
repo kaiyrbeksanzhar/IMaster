@@ -30,7 +30,6 @@ namespace WebAppIMaster.Models.WebApiModel
             public int RegionId { get; set; }
         }
 
-
         public class ExecutorProfile
         {
             public string Id { get; set; }
@@ -75,6 +74,7 @@ namespace WebAppIMaster.Models.WebApiModel
                 public string ReviewText { get; set; }
             }
         }
+
         public class ExecutiveService
         {
             public string Name { get; set; }

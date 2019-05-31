@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using WebAppIMaster.Models.Enums;
 
 namespace WebAppIMaster.Models.WebApiModel
 {
@@ -10,20 +11,35 @@ namespace WebAppIMaster.Models.WebApiModel
         public class ClientProfileView
         {
             public string CustomerId { get; set; }
-            public String Firstname;
-            public String Lastname;
-            public String Fathername;
+            public string Firstname { get; set; }
+            public string Lastname { get; set; }
+            public string Fathername { get; set; }
 
-            public int RegionId;
-            public String RegionName;
-            public String CityName;
-            public int Bonus;
-            public int GenderId;
-            public String Gender;
-            public String Phonenumber;
+            public int RegionId { get; set; }
+            public string CityName { get; set; }
+            public int Bonus { get; set; }
+            public int GenderId { get; set; }
+            public string Gender { get; set; }
+            public string Phonenumber { get; set; }
+
+            public byte[] AvatarFile { get; set; }
+            public string AvatarFileType { get; set; }
+        }
+
+        public class ClientProfileEdit
+        {
+            public int Id { get; set; }
+            public string Firstname;
+            public string Lastname;
+            public string Fathername;
 
             public byte[] AvatarFile;
-            public String AvatarFileType;
+            public string AvatarFileType;
+
+            public int RegionId;
+
+            public int GenderId;
+            public string GenderName { get; set; }
         }
     }
 }

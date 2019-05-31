@@ -504,13 +504,24 @@
         </member>
         <member name="M:WebAppIMaster.Controllers.WebApi.ClientOrderServiceController.Get(System.Int32)">
             <summary>
-            передайте id(api/ClientOrderService/5) возращает один элемент
+            передайте id(api/ClientOrderItemView/5) возращает один элемент
+            </summary>
+            <param name="id">Принимает параметр id.</param>
+        </member>
+        <member name="M:WebAppIMaster.Controllers.WebApi.ClientOrderServiceController.GetClientOrderDetailsView(System.Int32)">
+            <summary>
+            передайте id(api/GetClientOrderDetailsView/5) возращает один элемент
             </summary>
             <param name="id">Принимает параметр id.</param>
         </member>
         <member name="M:WebAppIMaster.Controllers.WebApi.ClientOrderServiceController.Post(WebAppIMaster.Models.WebApiModel.ClientOrderCreate)">
             <summary>
-            Клиент заказын косу ушин
+            ClientOrderCreate чтоб передать данные
+            </summary>
+        </member>
+        <member name="M:WebAppIMaster.Controllers.WebApi.ClientOrderServiceController.GetClientOrderItemView">
+            <summary>
+            ClientOrderItemView лист возвращает
             </summary>
         </member>
         <member name="T:WebAppIMaster.Controllers.WebApi.ClientProfileController">
@@ -524,14 +535,20 @@
             </summary>
             <param name="id">Принимает параметр id.(GetUserId)</param>
         </member>
+        <member name="M:WebAppIMaster.Controllers.WebApi.ClientProfileController.Post(WebAppIMaster.Models.WebApiModel.ClientProfileMdl.ClientProfileEdit)">
+            <summary>
+            Post запрос  ClientProfileEdit изменить данные
+            </summary>
+            <param name="id">Принимает параметр id.(GetUserId)</param>
+        </member>
         <member name="T:WebAppIMaster.Controllers.WebApi.NewsItemServiceController">
             <summary>
             News новости 
             </summary>
         </member>
-        <!-- Badly formed XML comment ignored for member "M:WebAppIMaster.Controllers.WebApi.NewsItemServiceController.Get" -->
-        <!-- Badly formed XML comment ignored for member "M:WebAppIMaster.Controllers.WebApi.NewsItemServiceController.Get(System.Int32)" -->
-        <!-- Badly formed XML comment ignored for member "M:WebAppIMaster.Controllers.WebApi.NewsItemServiceController.GetSearch(System.String)" -->
+        <!-- Проигнорирован некорректный комментарий XML для члена "M:WebAppIMaster.Controllers.WebApi.NewsItemServiceController.Get" -->
+        <!-- Проигнорирован некорректный комментарий XML для члена "M:WebAppIMaster.Controllers.WebApi.NewsItemServiceController.Get(System.Int32)" -->
+        <!-- Проигнорирован некорректный комментарий XML для члена "M:WebAppIMaster.Controllers.WebApi.NewsItemServiceController.GetSearch(System.String)" -->
         <member name="T:WebAppIMaster.Resources.Resource">
             <summary>
               Класс ресурса со строгой типизацией для поиска локализованных строк и т.д.

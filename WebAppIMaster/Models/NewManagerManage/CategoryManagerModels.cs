@@ -58,7 +58,7 @@ namespace WebAppIMaster.Models.NewManagerManage
                     }
                 }
                 };
-                category.UrlPhoto = FileManager.SavePhoto(controller, model.Photo);
+                category.UrlPhoto = FileManager.SavePhoto1(controller, model.Photo);
                 db.Categories.Add(category);
                 db.SaveChanges();
                 return true;
@@ -77,7 +77,7 @@ namespace WebAppIMaster.Models.NewManagerManage
                 string lang_ru = LanguageController.GetRuCode();
                 Category category = db.Categories.Find(model.Id);
                 category.Priority = model.Priority;
-                category.UrlPhoto = FileManager.SavePhoto(controller, model.Photo);
+                category.UrlPhoto = FileManager.SavePhoto1(controller, model.Photo);
                 category.Langs = db.CategoryLangs.Where(cl => cl.CategoryId == category.Id).ToList();
                 category.Langs.Where(l => l.Langcode == lang_kz).FirstOrDefault().Name = model.Name_kz;
                 category.Langs.Where(l => l.Langcode == lang_ru).FirstOrDefault().Name = model.Name_ru;

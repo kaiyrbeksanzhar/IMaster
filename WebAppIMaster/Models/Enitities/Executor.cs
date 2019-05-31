@@ -38,6 +38,9 @@ namespace WebAppIMaster.Models
         public DateTime BannedDateTime { get; set; }
         public string OrganizationName { get; set; }
 
+        public int CityId { get; set; }
+        public virtual City City { get; set; }
+
         public bool ExecotorOnline { get; set; }
 
         public int ExecutorClosedOrdersCount { get; set; }

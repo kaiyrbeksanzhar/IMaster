@@ -23,9 +23,14 @@ namespace WebAppIMaster.Models
         public string LastName { get; set; }
         public string FirstName { get; set; }
         public string FatherName { get; set; }
+        public decimal Bonus { get; set; }
         public string PhoneNumber { get; set; }
         public string AvatarUrl { get; set; }
         public StatusCustomer Status { get; set; }
+
+        public int InCityId { get; set; }
+        public virtual City InCity { get; set; }
+
 
         public virtual ApplicationUser ApplicationUser { get; set; }
 

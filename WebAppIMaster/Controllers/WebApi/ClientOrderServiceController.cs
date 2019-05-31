@@ -17,20 +17,35 @@ namespace WebAppIMaster.Controllers.WebApi
     {
 
         /// <summary>
-        /// передайте id(api/ClientOrderService/5) возращает один элемент
+        /// передайте id(api/ClientOrderItemView/5) возращает один элемент
         /// </summary>
         /// <param name="id">Принимает параметр id.</param>
-        // GET: api/ClientOrderService/5
+        // GET: api/Get/5
+        [System.Web.Http.Route("api/Get")]
         public ClientOrderItemView Get( int id )
         {
 
             ApplicationDbContext db = new ApplicationDbContext();
             ClientOrderService repository = new ClientOrderService(db);
-            var model = repository.Get(id);
+            var model = repository.GetClientOrderItemView(id);
             return model;
         }
         /// <summary>
-        /// Клиент заказын косу ушин
+        /// передайте id(api/GetClientOrderDetailsView/5) возращает один элемент
+        /// </summary>
+        /// <param name="id">Принимает параметр id.</param>
+        // GET: api/GetClientOrderDetailsView/5
+        [System.Web.Http.Route("api/GetClientOrderDetailsView")]
+        public ClientOrderDetailsView GetClientOrderDetailsView( int id )
+        {
+
+            ApplicationDbContext db = new ApplicationDbContext();
+            ClientOrderService repository = new ClientOrderService(db);
+            var model = repository.GetClientOrderDetailsView(id);
+            return model;
+        }
+        /// <summary>
+        /// ClientOrderCreate чтоб передать данные
         /// </summary>
         // POST: api/ClientOrderService
         [HttpPost,System.Web.Http.Route("api/ClientOrderService")]
@@ -42,15 +57,18 @@ namespace WebAppIMaster.Controllers.WebApi
 
             return new HttpResponseMessage(HttpStatusCode.Created);
         }
+        /// <summary>
+        /// ClientOrderItemView лист возвращает
+        /// </summary>
+        // GET: api/Get
 
-        // PUT: api/ClientOrderService/5
-        public void Put( int id, [FromBody]string value )
+        [System.Web.Http.Route("api/GetClientOrderItemView")]
+        public List<ClientOrderItemView> GetClientOrderItemView()
         {
-        }
-
-        // DELETE: api/ClientOrderService/5
-        public void Delete( int id )
-        {
+            ApplicationDbContext db = new ApplicationDbContext();
+            ClientOrderService repository = new ClientOrderService(db);
+            var model = repository.GetList();
+            return model;
         }
     }
 }

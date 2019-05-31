@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -11,6 +12,7 @@ namespace WebAppIMaster.Models
     {
 
         static string CategoryImagesUrl = "/Images/Category";
+        static string ImagesSave = "/Images";
         static string DefaulAvatarUrl = "/Images/Default/NoPhoto.png";
         private static bool isFilesPathReady;
 
@@ -24,8 +26,17 @@ namespace WebAppIMaster.Models
             isFilesPathReady = true;
         }
 
+        public static byte[] ImageToByteArray( System.Drawing.Image imageIn )
+        {
+            using (var ms = new MemoryStream())
+            {
+                imageIn.Save(ms, imageIn.RawFormat);
+                return ms.ToArray();
+            }
+        }
 
-        public static string SavePhoto( Controller controller, HttpPostedFileBase postedFile )
+
+        public static string SavePhoto1( Controller controller, HttpPostedFileBase postedFile )
         {
             if (!isFilesPathReady)
                 PrepareFilesPath(controller);
@@ -39,6 +50,14 @@ namespace WebAppIMaster.Models
             {
                 savedLogoUrl = DefaulAvatarUrl;
             }
+            return savedLogoUrl;
+        }
+
+        public static string  SavePhoto(Controller controller,Image img )
+        {
+            string savedLogoUrl = "";
+            savedLogoUrl = CategoryImagesUrl + "/" + img;
+            img.Save(controller.Server.MapPath(savedLogoUrl));
             return savedLogoUrl;
         }
 

@@ -14,6 +14,8 @@ namespace WebAppIMaster.Models
             Users = new HashSet<UserProfile>();
             CustomerOrders = new HashSet<CustomerOrder>();
             Organizations = new HashSet<Organization>();
+            Customers = new HashSet<Customer>();
+            Executors = new HashSet<Executor>();
         }
 
         public int Id { get; set; }
@@ -26,5 +28,7 @@ namespace WebAppIMaster.Models
         public ICollection<UserProfile> Users { get; set; }
         public ICollection<CustomerOrder> CustomerOrders { get; set; }
         public ICollection<Organization> Organizations { get; set; }
+        public ICollection<Customer>  Customers { get; set; }
+        public ICollection<Executor> Executors { get; set; }
     }
 }

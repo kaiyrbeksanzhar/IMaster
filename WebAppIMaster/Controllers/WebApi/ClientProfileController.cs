@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Mvc;
 using WebAppIMaster.Models.Enitities;
 using WebAppIMaster.Models.WebApiModel;
 using WebAppIMaster.Models.WebApiService;
@@ -25,11 +26,24 @@ namespace WebAppIMaster.Controllers.WebApi
         {
             ApplicationDbContext db = new ApplicationDbContext();
             ClientProfileService repository = new ClientProfileService(db);
-            var model = repository.Get(id);
+            var model = repository.GetCurrentClientProfileView(id);
             return model;
         }
+        /// <summary>
+        /// Post запрос  ClientProfileEdit изменить данные
+        /// </summary>
+        /// <param name="id">Принимает параметр id.(GetUserId)</param>
+        // GET: api/ClientProfile/5
+        [System.Web.Http.HttpPost, System.Web.Http.Route("api/Post")]
+        public HttpResponseMessage Post( [FromBody]ClientProfileEdit model )
+        {
+            System.Web.Mvc.Controller controller = null;
+            ApplicationDbContext db = new ApplicationDbContext();
+            ClientProfileService repository = new ClientProfileService(db);
+            repository.EditCurrentClientProfile(controller, model);
 
-
+            return new HttpResponseMessage(HttpStatusCode.Accepted);
+        }
         // POST: api/ClientProfile
         public void Post([FromBody]string value)
         {

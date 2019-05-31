@@ -59,6 +59,9 @@ namespace WebAppIMaster.Models.Enitities
         public DbSet<TransitionExecutorCost> transitionExecutorCosts { get; set; }
         public DbSet<Address> Addreses { get; set; }
         public DbSet<AddressLang> AddressLangs { get; set; }
+        public DbSet<CancelExecutorResponse>   cancelExecutorResponses { get; set; }
+        public DbSet<AddExecutorToOrder> addExecutorToOrders { get; set; }
+
 
     }
 }

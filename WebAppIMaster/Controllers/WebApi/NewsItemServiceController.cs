@@ -52,19 +52,5 @@ namespace WebAppIMaster.Controllers.WebApi
             return model;
         }
 
-        // POST: api/NewsItemService
-        public void Post([FromBody]string value)
-        {
-        }
-
-        // PUT: api/NewsItemService/5
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
-        // DELETE: api/NewsItemService/5
-        public void Delete(int id)
-        {
-        }
     }
 }

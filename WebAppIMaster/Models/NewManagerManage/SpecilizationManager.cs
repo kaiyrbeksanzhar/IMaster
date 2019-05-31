@@ -43,7 +43,7 @@ namespace WebAppIMaster.Models.NewManagerManage
                 {
                     CategoryId = models.CategoryId,
                     Priority = models.Priority,
-                    PhotoUrl = FileManager.SavePhoto(controller, models.Photo),
+                    PhotoUrl = FileManager.SavePhoto1(controller, models.Photo),
                     Langs = new List<SpecializationLang>()
                     {
                         new SpecializationLang
@@ -75,7 +75,7 @@ namespace WebAppIMaster.Models.NewManagerManage
                 string lang_kz = LanguageController.GetKzCode();
                 string lang_ru = LanguageController.GetRuCode();
                 Specialization specialization = db.Specializations.Find(model.Id);
-                specialization.PhotoUrl = FileManager.SavePhoto(controller, model.Photo);
+                specialization.PhotoUrl = FileManager.SavePhoto1(controller, model.Photo);
                 specialization.Priority = model.Priority;
                 specialization.Langs = db.SpecializationLangs.Where(sl => sl.SpecializationId == specialization.Id).ToList();
                 specialization.Langs.Where(l => l.Langcode == lang_kz).FirstOrDefault().Name = model.Name_kz;
