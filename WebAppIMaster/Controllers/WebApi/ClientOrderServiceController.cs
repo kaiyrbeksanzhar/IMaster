@@ -49,11 +49,11 @@ namespace WebAppIMaster.Controllers.WebApi
         /// </summary>
         // POST: api/ClientOrderService
         [HttpPost,System.Web.Http.Route("api/ClientOrderService")]
-        public HttpResponseMessage Post( [FromBody]ClientOrderCreate model )
+        public HttpResponseMessage Post( [FromBody]ClientOrderCreate model)
         {
             ApplicationDbContext db = new ApplicationDbContext();
             ClientOrderService repository = new ClientOrderService(db);
-            var result = repository.Create(model);
+            var result = repository.Create( model);
 
             return new HttpResponseMessage(HttpStatusCode.Created);
         }
@@ -61,13 +61,42 @@ namespace WebAppIMaster.Controllers.WebApi
         /// ClientOrderItemView лист возвращает
         /// </summary>
         // GET: api/Get
-
         [System.Web.Http.Route("api/GetClientOrderItemView")]
         public List<ClientOrderItemView> GetClientOrderItemView()
         {
             ApplicationDbContext db = new ApplicationDbContext();
             ClientOrderService repository = new ClientOrderService(db);
             var model = repository.GetList();
+            return model;
+        }
+
+        /// <summary>
+        /// передайте api/GetListForClient/5 возращает лист элементов
+        /// </summary>
+        /// <param name="clientId">Принимает параметр clientId.</param>
+        // GET: api/GetListForClient/5
+        [System.Web.Http.Route("api/GetListForClient")]
+        public List<ClientOrderItemView> GetListForClient( string clientId )
+        {
+
+            ApplicationDbContext db = new ApplicationDbContext();
+            ClientOrderService repository = new ClientOrderService(db);
+            var model = repository.GetListForClient(clientId);
+            return model;
+        }
+
+        /// <summary>
+        /// передайте api/GetListForExecutor/5 возращает лист элементов
+        /// </summary>
+        /// <param name="executorId">Принимает параметр executorId.</param>
+        // GET: api/GetListForExecutor/5
+        [System.Web.Http.Route("api/GetListForExecutor")]
+        public List<ClientOrderItemView> GetListForExecutor( string executorId )
+        {
+
+            ApplicationDbContext db = new ApplicationDbContext();
+            ClientOrderService repository = new ClientOrderService(db);
+            var model = repository.GetListForExecutor(executorId);
             return model;
         }
     }

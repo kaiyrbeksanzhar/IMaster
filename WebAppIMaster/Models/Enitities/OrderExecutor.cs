@@ -18,7 +18,7 @@ namespace WebAppIMaster.Models
 
         [Key]
         [Column(Order = 1)]
-        public int CustomerId { get; set; }
+        public string CustomerId { get; set; }
         public DateTime CreateAt { get; set; }
         public Status Status { get; set; }
     }

@@ -10,7 +10,5 @@ namespace WebAppIMaster.Models.IWebApiService
     {
         RegionNameView Get( int id );
         List<RegionNameView> GetList();
-        List<RegionNameView> GetListForParent( int parentId );
-        List<RegionNameView> GetListForfilterByName( String filterByName );
     }
 }

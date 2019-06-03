@@ -10,6 +10,7 @@ using System.Web.Optimization;
 using System.Web.Routing;
 using WebAppIMaster.App_Start;
 using WebAppIMaster.Controllers.Base;
+using WebAppIMaster.Models;
 
 namespace WebAppWebAppIMaster
 {
@@ -18,7 +19,7 @@ namespace WebAppWebAppIMaster
         protected void Application_Start()
         {
             GlobalConfiguration.Configure(WebApiConfig.Register);
-
+            
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);

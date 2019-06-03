@@ -61,6 +61,12 @@ namespace WebAppIMaster.Models.Enitities
         public DbSet<AddressLang> AddressLangs { get; set; }
         public DbSet<CancelExecutorResponse>   cancelExecutorResponses { get; set; }
         public DbSet<AddExecutorToOrder> addExecutorToOrders { get; set; }
+        public DbSet<CallToClient> CallToClients { get; set; }
+        public DbSet<CancelOrder> CancelOrders { get; set; }
+        public DbSet<Response> Responses { get; set; }
+        
+
+
 
 
     }

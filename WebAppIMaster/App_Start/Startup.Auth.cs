@@ -7,6 +7,7 @@ using Microsoft.Owin.Security.Google;
 using Owin;
 using WebAppIMaster.Models;
 using WebAppIMaster.Models.Enitities;
+using static WebAppWebAppIMaster.SmsService;
 
 namespace WebAppWebAppIMaster
 {

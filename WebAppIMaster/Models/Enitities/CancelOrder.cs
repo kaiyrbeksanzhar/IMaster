@@ -21,5 +21,7 @@ namespace WebAppIMaster.Models.Enitities
         public virtual OrderExecutor OrderExecutor { get; set; }
 
         public OrderCancelType cancelType { get; set; }
+
+        public DateTime CanceledDateTime { get; set; }
     }
 }

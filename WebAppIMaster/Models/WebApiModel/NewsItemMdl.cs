@@ -13,5 +13,6 @@ namespace WebAppIMaster.Models.WebApiModel
         public DateTime DateTime { get; set; }
         public int ViewCount { get; set; }
         public byte[] PhotoFile { get; set; }
+        public string PhotoFileType { get; set; }
     }
 }

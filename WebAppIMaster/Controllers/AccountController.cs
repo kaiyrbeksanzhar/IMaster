@@ -11,6 +11,7 @@ using Microsoft.Owin.Security;
 using WebAppIMaster.Models;
 using WebAppIMaster;
 using WebAppWebAppIMaster;
+using static WebAppWebAppIMaster.SmsService;
 
 namespace WebAppIMaster.Controllers
 {

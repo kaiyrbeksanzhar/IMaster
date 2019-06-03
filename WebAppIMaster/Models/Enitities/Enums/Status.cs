@@ -8,7 +8,7 @@ namespace WebAppIMaster.Models.Enums
 {
     public enum Status
     {
-        Active,
+        Active = 1,
         Archived,
         Deleted
     }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web;
+using System.Web.Mvc;
 using WebAppIMaster.Models.WebApiModel;
 
 namespace WebAppIMaster.Models.IWebApiService
@@ -14,5 +15,7 @@ namespace WebAppIMaster.Models.IWebApiService
         ClientOrderItemView GetClientOrderItemView(int id);
         List<ClientOrderItemView> GetList();
         int Create(ClientOrderCreate item);
+        List<ClientOrderItemView> GetListForClient( string clientId );
+        List<ClientOrderItemView> GetListForExecutor( string executorId );
     }
 }

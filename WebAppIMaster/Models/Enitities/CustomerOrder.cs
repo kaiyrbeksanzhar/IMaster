@@ -37,15 +37,15 @@ namespace WebAppIMaster.Models
 
         public bool PayWithBounce { get; set; }
 
-        public int CategoryAndSpecializationId { get; set; }
-        public virtual Category CategoryAndSpecialization { get; set; }
+        public int CategoryId { get; set; }
+        public virtual Category Category{ get; set; }
 
-        public int CustomerId { get; set; }
+        public string CustomerId { get; set; }
         public virtual Customer Customer { get; set; }
 
 
 
-        public int ExecutorId { get; set; }
+        public string ExecutorId { get; set; }
         public virtual Executor Executor { get; set; }
 
 

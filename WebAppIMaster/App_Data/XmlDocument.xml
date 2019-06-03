@@ -497,6 +497,62 @@
             </summary>
             <param name="id">Принимает параметр id.</param>
         </member>
+        <member name="T:WebAppIMaster.Controllers.WebApi.ClientExecutorServiceController">
+            <summary>
+            Клиент  ClientExecutorService
+            </summary>
+        </member>
+        <member name="M:WebAppIMaster.Controllers.WebApi.ClientExecutorServiceController.Get">
+            <summary>
+            ClientExecutorService лист возвращает
+            </summary>
+        </member>
+        <member name="M:WebAppIMaster.Controllers.WebApi.ClientExecutorServiceController.Get(System.String)">
+            <summary>
+            передайте id(api/ClientExecutorService/5)  лист элементов от ExecutorResponse
+            </summary>
+            <param name="clientId">Принимает параметр clientId.</param>
+        </member>
+        <member name="M:WebAppIMaster.Controllers.WebApi.ClientExecutorServiceController.AddExecutorToOrder(System.String,System.Int32,System.String)">
+            <summary>
+            передайте (api/AddExecutorToOrder/{clientId,orderId,executorId}) добавляет AddExecutorToOrder
+            </summary>
+            <param name="clientId">Принимает параметр сlientId.</param>
+            <param name="orderId">Принимает параметр orderId.</param>
+            <param name="executorId">Принимает параметр orderId.</param>
+        </member>
+        <member name="M:WebAppIMaster.Controllers.WebApi.ClientExecutorServiceController.CancelExecutorResponse(System.String,System.Int32,System.String)">
+            <summary>
+            передайте (api/CancelExecutorResponse/{clientId,orderId,executorId}) добавляет CancelExecutorResponse
+            </summary>
+            <param name="clientId">Принимает параметр сlientId.</param>
+            <param name="orderId">Принимает параметр orderId.</param>
+            <param name="executorId">Принимает параметр orderId.</param>
+        </member>
+        <member name="M:WebAppIMaster.Controllers.WebApi.ClientExecutorServiceController.GetDetails(System.String)">
+            <summary>
+            передайте executorId(api/GetDetails/{executorId}) возвращает один элемент
+            </summary>
+            <param name="executorId">Принимает параметр executorId.</param>
+        </member>
+        <member name="M:WebAppIMaster.Controllers.WebApi.ClientExecutorServiceController.GetItemListForCategory(System.Int32)">
+            <summary>
+            передайте categoryId(api/GetItemListForCategory/{categoryId}) возвращает лист элементов
+            </summary>
+            <param name="categoryId">Принимает параметр categoryId.</param>
+        </member>
+        <member name="M:WebAppIMaster.Controllers.WebApi.ClientExecutorServiceController.GetItemListForSpecialty(System.Int32)">
+            <summary>
+            передайте specialtyId(api/GetItemListForSpecialty/{specialtyId}) возвращает лист элементов
+            </summary>
+            <param name="specialtyId">Принимает параметр specialtyId.</param>
+        </member>
+        <member name="M:WebAppIMaster.Controllers.WebApi.ClientExecutorServiceController.GetResponseList(System.String)">
+            <summary>
+            передайте clientId(api/GetResponseList/{clientId}) возвращает лист элементов
+            </summary>
+            <param name="clientId">Принимает параметр clientId.</param>
+        </member>
         <member name="T:WebAppIMaster.Controllers.WebApi.ClientOrderServiceController">
             <summary>
             Клиент заказы Service
@@ -524,6 +580,18 @@
             ClientOrderItemView лист возвращает
             </summary>
         </member>
+        <member name="M:WebAppIMaster.Controllers.WebApi.ClientOrderServiceController.GetListForClient(System.String)">
+            <summary>
+            передайте api/GetListForClient/5 возращает лист элементов
+            </summary>
+            <param name="clientId">Принимает параметр clientId.</param>
+        </member>
+        <member name="M:WebAppIMaster.Controllers.WebApi.ClientOrderServiceController.GetListForExecutor(System.String)">
+            <summary>
+            передайте api/GetListForExecutor/5 возращает лист элементов
+            </summary>
+            <param name="executorId">Принимает параметр executorId.</param>
+        </member>
         <member name="T:WebAppIMaster.Controllers.WebApi.ClientProfileController">
             <summary>
             Клиент ClientProfile Api
@@ -539,16 +607,118 @@
             <summary>
             Post запрос  ClientProfileEdit изменить данные
             </summary>
-            <param name="id">Принимает параметр id.(GetUserId)</param>
+        </member>
+        <member name="T:WebAppIMaster.Controllers.WebApi.ExecutorOrderServiceController">
+            <summary>
+              ExecutorOrderService
+            </summary>
+        </member>
+        <member name="M:WebAppIMaster.Controllers.WebApi.ExecutorOrderServiceController.Get(System.Int32)">
+            <summary>
+            передайте id(api/ExecutorOrderService/5)  один элемент от ExecutorOrder
+            </summary>
+            <param name="orderId">Принимает параметр orderId.</param>
+        </member>
+        <member name="M:WebAppIMaster.Controllers.WebApi.ExecutorOrderServiceController.Response(System.String,System.Int32,System.String)">
+            <summary>
+            передайте (api/Response/{executorId,orderId,responseComment}) добавляет Response
+            </summary>
+            <param name="executorId">Принимает параметр executorId.</param>
+            <param name="orderId">Принимает параметр orderId.</param>
+            <param name="responseComment">Принимает параметр responseComment.</param>
+        </member>
+        <member name="M:WebAppIMaster.Controllers.WebApi.ExecutorOrderServiceController.CancelOrder(System.String,System.Int32,WebAppIMaster.Models.Enitities.Enums.OrderCancelType)">
+            <summary>
+            передайте (api/CancelOrder/{executorId,orderId,responseComment}) добавляет CancelOrder
+            </summary>
+            <param name="executorId">Принимает параметр executorId.</param>
+            <param name="orderId">Принимает параметр orderId.</param>
+            <param name="cancelType">Принимает параметр cancelType.</param>
+        </member>
+        <member name="M:WebAppIMaster.Controllers.WebApi.ExecutorOrderServiceController.CallToClient(System.String,System.Int32)">
+            <summary>
+            передайте (api/CallToClient/{executorId,orderId,responseComment}) добавляет CallToClient
+            </summary>
+            <param name="executorId">Принимает параметр executorId.</param>
+            <param name="orderId">Принимает параметр orderId.</param>
+        </member>
+        <member name="M:WebAppIMaster.Controllers.WebApi.ExecutorOrderServiceController.GetItemList(System.Collections.Generic.List{System.Int32},System.Collections.Generic.List{System.Int32})">
+            <summary>
+            передайте (api/GetItemList/{CategoryIds,SpecializationIds}) добавляет CallToClient
+            </summary>
+            <param name="CategoryIds">Принимает параметр CategoryIds.</param>
+            <param name="SpecializationIds">Принимает параметр SpecializationIds.</param>
+        </member>
+        <member name="T:WebAppIMaster.Controllers.WebApi.GenderServiceController">
+            <summary>
+             GenderService Api
+            </summary>
+        </member>
+        <member name="M:WebAppIMaster.Controllers.WebApi.GenderServiceController.Get">
+            <summary>
+             возращает лист элементов
+            </summary>
+        </member>
+        <member name="M:WebAppIMaster.Controllers.WebApi.GenderServiceController.Get(System.Int32)">
+            <summary>
+            передайте id(api/GenderService/5) возращает один элемент
+            </summary>
+            <param name="id">Принимает параметр id.</param>
+        </member>
+        <member name="T:WebAppIMaster.Controllers.WebApi.MarketingServiceController">
+            <summary>
+            MarketingService
+            </summary>
+        </member>
+        <member name="M:WebAppIMaster.Controllers.WebApi.MarketingServiceController.Get">
+            <summary>
+            (api/GetClientOrderDetailsView) возращает лист элемент
+            </summary>
+        </member>
+        <member name="M:WebAppIMaster.Controllers.WebApi.MarketingServiceController.Get(System.Int32)">
+            <summary>
+            передайте id(api/MarketingService/5) возращает один элемент
+            </summary>
+            <param name="id">Принимает параметр id.</param>
         </member>
         <member name="T:WebAppIMaster.Controllers.WebApi.NewsItemServiceController">
             <summary>
             News новости 
             </summary>
         </member>
-        <!-- Проигнорирован некорректный комментарий XML для члена "M:WebAppIMaster.Controllers.WebApi.NewsItemServiceController.Get" -->
-        <!-- Проигнорирован некорректный комментарий XML для члена "M:WebAppIMaster.Controllers.WebApi.NewsItemServiceController.Get(System.Int32)" -->
-        <!-- Проигнорирован некорректный комментарий XML для члена "M:WebAppIMaster.Controllers.WebApi.NewsItemServiceController.GetSearch(System.String)" -->
+        <member name="M:WebAppIMaster.Controllers.WebApi.NewsItemServiceController.Get">
+            <summary>
+            (api/NewsItemService) возращает лист элементов
+            </summary>
+        </member>
+        <member name="M:WebAppIMaster.Controllers.WebApi.NewsItemServiceController.Get(System.Int32)">
+            <summary>
+            передайте id(api/NewsItemService/5) возращает один элемент
+            </summary>
+            <param name="id">Принимает параметр id</param>
+        </member>
+        <member name="M:WebAppIMaster.Controllers.WebApi.NewsItemServiceController.GetSearch(System.String)">
+            <summary>
+            передайте id(api/NewsItemService/Казахстан) возращает один элемент
+            </summary>
+            <param name="SearchText">принимает string{Казахстан}  возвращает вам один элемент</param>
+        </member>
+        <member name="T:WebAppIMaster.Controllers.WebApi.RegionServiceController">
+            <summary>
+            Клиент RegionService Api
+            </summary>
+        </member>
+        <member name="M:WebAppIMaster.Controllers.WebApi.RegionServiceController.Get">
+            <summary>
+            (api/RegionService) возращает лист элемент
+            </summary>
+        </member>
+        <member name="M:WebAppIMaster.Controllers.WebApi.RegionServiceController.Get(System.Int32)">
+            <summary>
+            передайте id(api/RegionService/5) возращает один элемент
+            </summary>
+            <param name="id">Принимает параметр id.</param>
+        </member>
         <member name="T:WebAppIMaster.Resources.Resource">
             <summary>
               Класс ресурса со строгой типизацией для поиска локализованных строк и т.д.

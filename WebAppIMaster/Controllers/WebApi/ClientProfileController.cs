@@ -32,9 +32,8 @@ namespace WebAppIMaster.Controllers.WebApi
         /// <summary>
         /// Post запрос  ClientProfileEdit изменить данные
         /// </summary>
-        /// <param name="id">Принимает параметр id.(GetUserId)</param>
         // GET: api/ClientProfile/5
-        [System.Web.Http.HttpPost, System.Web.Http.Route("api/Post")]
+        [System.Web.Http.HttpPost]
         public HttpResponseMessage Post( [FromBody]ClientProfileEdit model )
         {
             System.Web.Mvc.Controller controller = null;
@@ -43,20 +42,6 @@ namespace WebAppIMaster.Controllers.WebApi
             repository.EditCurrentClientProfile(controller, model);
 
             return new HttpResponseMessage(HttpStatusCode.Accepted);
-        }
-        // POST: api/ClientProfile
-        public void Post([FromBody]string value)
-        {
-        }
-
-        // PUT: api/ClientProfile/5
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
-        // DELETE: api/ClientProfile/5
-        public void Delete(int id)
-        {
         }
     }
 }

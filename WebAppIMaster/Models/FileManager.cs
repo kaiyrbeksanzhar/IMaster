@@ -53,11 +53,11 @@ namespace WebAppIMaster.Models
             return savedLogoUrl;
         }
 
-        public static string  SavePhoto(Controller controller,Image img )
+        public static string  SavePhoto(Image img )
         {
             string savedLogoUrl = "";
             savedLogoUrl = CategoryImagesUrl + "/" + img;
-            img.Save(controller.Server.MapPath(savedLogoUrl));
+            img.Save(HttpContext.Current.Server.MapPath(savedLogoUrl));
             return savedLogoUrl;
         }
 
@@ -69,6 +69,11 @@ namespace WebAppIMaster.Models
             }
 
             return UrlPhoto;
+        }
+
+        public static void SendMessage()
+        {
+
         }
     }
 }

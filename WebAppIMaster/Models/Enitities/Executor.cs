@@ -32,6 +32,7 @@ namespace WebAppIMaster.Models
         public ExecutorType ExecutorType { get; set; }
         public ExecutorStatus ExecutorStatus { get; set; }
         public int Rating { get; set; }
+        public string AvatarUrl { get; set; }
         public DateTime RegistrationDateTime { get; set; }
         public string YouTubeVideoUrl { get; set; }
         public bool Banned { get; set; }

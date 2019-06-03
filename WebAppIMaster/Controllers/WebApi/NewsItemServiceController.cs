@@ -16,7 +16,7 @@ namespace WebAppIMaster.Controllers.WebApi
     public class NewsItemServiceController : ApiController
     {
         /// <summary>
-        /// возвращает List<NewsItemMdl> лист новости
+        /// (api/NewsItemService) возращает лист элементов
         /// </summary>
         // GET: api/NewsItemService
         public List<NewsItemMdl> Get()
@@ -27,9 +27,9 @@ namespace WebAppIMaster.Controllers.WebApi
             return model;
         }
         /// <summary>
-        /// возвращает List<NewsItemMdl> лист новости
+        /// передайте id(api/NewsItemService/5) возращает один элемент
         /// </summary>
-        /// <param name="id">id должны передать метод возвращает вам одну новость</param>
+        /// <param name="id">Принимает параметр id</param>
         // GET: api/NewsItemService/5
         public NewsItemMdl Get(int id)
         {
@@ -40,9 +40,9 @@ namespace WebAppIMaster.Controllers.WebApi
         }
 
         /// <summary>
-        /// возвращает List<NewsItemMdl> лист новости
+        /// передайте id(api/NewsItemService/Казахстан) возращает один элемент
         /// </summary>
-        /// <param name="SearchText">id должны передать метод возвращает вам одну новость</param>
+        /// <param name="SearchText">принимает string{Казахстан}  возвращает вам один элемент</param>
         // GET: api/NewsItemService/title{Казахстан}
         public List<NewsItemMdl> GetSearch(string SearchText)
         {

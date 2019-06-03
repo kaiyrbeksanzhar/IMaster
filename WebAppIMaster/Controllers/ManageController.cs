@@ -8,6 +8,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using WebAppIMaster.Models;
 using WebAppWebAppIMaster;
+using static WebAppWebAppIMaster.SmsService;
 
 namespace WebAppIMaster.Controllers
 {

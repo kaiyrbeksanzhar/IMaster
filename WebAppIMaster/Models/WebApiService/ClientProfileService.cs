@@ -26,7 +26,7 @@ namespace WebAppIMaster.Models.WebApiService
             using (MemoryStream mStream = new MemoryStream(item.AvatarFile))
             {
                 img = Image.FromStream(mStream);
-                photourl = FileManager.SavePhoto(controller, img);
+                photourl = FileManager.SavePhoto( img);
             }
             Customer customer = new Customer();
             string langkz = LanguageController.GetKzCode();
@@ -37,8 +37,7 @@ namespace WebAppIMaster.Models.WebApiService
             customer.FatherName = item.Fathername == null ? " " : item.Fathername;
             customer.AvatarUrl = photourl;
             customer.InCityId = item.RegionId;
-            customer.ApplicationUser.GenderName = item.GenderName;
-            customer.ApplicationUser.GenderId = item.GenderName == "Мусжкой" ? 1 : 2;
+            customer.ApplicationUser.GenderId = item.GenderId;
             db.Entry(customer).State = System.Data.Entity.EntityState.Modified;
             db.SaveChanges();
         }
