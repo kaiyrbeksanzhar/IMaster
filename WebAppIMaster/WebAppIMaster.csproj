@@ -126,8 +126,14 @@
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.11.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="Twilio.Api, Version=3.4.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Twilio.4.7.2\lib\3.5\Twilio.Api.dll</HintPath>
+    <Reference Include="Twilio, Version=5.29.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Twilio.5.29.1\lib\net451\Twilio.dll</HintPath>
+    </Reference>
+    <Reference Include="Twilio.AspNet.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Twilio.AspNet.Common.5.20.1\lib\net45\Twilio.AspNet.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Twilio.AspNet.Mvc, Version=5.20.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Twilio.AspNet.Mvc.5.20.1\lib\net451\Twilio.AspNet.Mvc.dll</HintPath>
     </Reference>
     <Reference Include="WebGrease">
       <Private>True</Private>
@@ -236,10 +242,11 @@
     <Compile Include="Controllers\WebApi\ClientOrderServiceController.cs" />
     <Compile Include="Controllers\WebApi\ClientProfileController.cs" />
     <Compile Include="Controllers\WebApi\ExecutorOrderServiceController.cs" />
+    <Compile Include="Controllers\WebApi\ExecutorServiceController.cs" />
     <Compile Include="Controllers\WebApi\GenderServiceController.cs" />
     <Compile Include="Controllers\WebApi\MarketingServiceController.cs" />
+    <Compile Include="Controllers\WebApi\MarketSerivecController.cs" />
     <Compile Include="Controllers\WebApi\NewsItemServiceController.cs" />
-    <Compile Include="Controllers\WebApi\PhoneVerifyController.cs" />
     <Compile Include="Controllers\WebApi\RegionServiceController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -275,6 +282,22 @@
     <Compile Include="Migrations\201906021131153_Db.cs" />
     <Compile Include="Migrations\201906021131153_Db.Designer.cs">
       <DependentUpon>201906021131153_Db.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201906040322374_DbCommit.cs" />
+    <Compile Include="Migrations\201906040322374_DbCommit.Designer.cs">
+      <DependentUpon>201906040322374_DbCommit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201906040439172_dbDatetime.cs" />
+    <Compile Include="Migrations\201906040439172_dbDatetime.Designer.cs">
+      <DependentUpon>201906040439172_dbDatetime.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201906040453350_null.cs" />
+    <Compile Include="Migrations\201906040453350_null.Designer.cs">
+      <DependentUpon>201906040453350_null.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201906040710101_Commit12.cs" />
+    <Compile Include="Migrations\201906040710101_Commit12.Designer.cs">
+      <DependentUpon>201906040710101_Commit12.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -371,7 +394,7 @@
     <Compile Include="Models\WebApiModel\ClientExecutorServiceMdl.cs" />
     <Compile Include="Models\WebApiModel\ClientOrderMdl.cs" />
     <Compile Include="Models\WebApiModel\ClientProfileMdl.cs" />
-    <Compile Include="Models\WebApiModel\ExecutorMdl.cs" />
+    <Compile Include="Models\WebApiModel\ExecutorServiceMdl.cs" />
     <Compile Include="Models\WebApiModel\ExecutorOrderMdl.cs" />
     <Compile Include="Models\WebApiModel\GenderServiceMdl.cs" />
     <Compile Include="Models\WebApiModel\MarketingService.cs" />
@@ -387,6 +410,7 @@
     <Compile Include="Models\WebApiService\ExecutorService.cs" />
     <Compile Include="Models\WebApiService\GenderService.cs" />
     <Compile Include="Models\WebApiService\MarketingService.cs" />
+    <Compile Include="Models\WebApiService\MarketService.cs" />
     <Compile Include="Models\WebApiService\NewsItemService.cs" />
     <Compile Include="Models\WebApiService\RegionService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -620,6 +644,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201906021131153_Db.resx">
       <DependentUpon>201906021131153_Db.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906040322374_DbCommit.resx">
+      <DependentUpon>201906040322374_DbCommit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906040439172_dbDatetime.resx">
+      <DependentUpon>201906040439172_dbDatetime.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906040453350_null.resx">
+      <DependentUpon>201906040453350_null.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906040710101_Commit12.resx">
+      <DependentUpon>201906040710101_Commit12.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Resource.kk-KZ.resx" />
     <EmbeddedResource Include="Resources\Resource.resx" />

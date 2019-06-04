@@ -64,7 +64,9 @@ namespace WebAppIMaster.Models.Enitities
         public DbSet<CallToClient> CallToClients { get; set; }
         public DbSet<CancelOrder> CancelOrders { get; set; }
         public DbSet<Response> Responses { get; set; }
-        
+        public DbSet<ExecutorPhone> ExecutorPhonies { get; set; }
+        public DbSet<ClientPhone> ClientPhones { get; set; }
+
 
 
 

@@ -51,20 +51,20 @@ namespace WebAppIMaster.Models.WebApiService
                 Region = model.InCity.Langs.Where(l => l.Langcode == langcode).Select(l => l.Name).FirstOrDefault(),
                 ExecotorRating = model.Executor.Rating.ToString(),
                 ExecutorId = model.ExecutorId.ToString(),
-                ExecoturBirthday = model.Executor.BirthDay,
+                ExecoturBirthday = (DateTime)model.Executor.BirthDay,
                 ExecutorLastname = model.Executor.User.LastName,
                 ExecutorFathername = model.Executor.User.FatherName,
                 ExecutorFirstname = model.Executor.User.FirstName,
-                ExecutorClosedOrdersCount = model.Executor.ExecutorClosedOrdersCount,
+                ExecutorClosedOrdersCount = (int)model.Executor.ExecutorClosedOrdersCount,
                 RegionId = model.InCityId,
                 Photos = photos,
                 ExecutorGenderId = (int)model.Executor.Gender,
-                ExecutorCheck = model.Executor.ExecutorCheck,
+                ExecutorCheck = (bool)model.Executor.ExecutorCheck,
                 PayWithBounce = model.PayWithBounce,
                 ExecutorAvatarFile = System.IO.File.ReadAllBytes(model.Executor.ExecutorPhotoFiles.Where(epf => epf.ExecutorId == model.ExecutorId).Select(epf => epf.PhotoFileUrl).FirstOrDefault()),
-                ExecutorRegisterDate = model.Executor.RegistrationDateTime,
+                ExecutorRegisterDate = (DateTime)model.Executor.RegistrationDateTime,
                 ReceiveOnlyResponses = model.ReceiveOnlyResponses,
-                ExecotorOnline = model.Executor.ExecotorOnline
+                ExecotorOnline = (bool)model.Executor.ExecotorOnline
             };
         }
 

@@ -35,8 +35,8 @@ namespace WebAppWebAppIMaster
 
             string twilioPhoneNumber = "+14193860152";
 
-            var twilio = new TwilioRestClient(AccountSid, AuthToken);
-            twilio.SendMessage(twilioPhoneNumber, message.Destination, message.Body);
+            //var twilio = new TwilioRestClient(AccountSid, AuthToken);
+           //twilio.SendMessage(twilioPhoneNumber, message.Destination, message.Body);
 
             return Task.FromResult(0);
         }

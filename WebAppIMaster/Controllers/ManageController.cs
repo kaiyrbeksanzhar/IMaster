@@ -132,6 +132,28 @@ namespace WebAppIMaster.Controllers
             return RedirectToAction("VerifyPhoneNumber", new { PhoneNumber = model.Number });
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public  string AddPhoneNumber1( AddPhoneNumberViewModel model ,string UserId )
+        {
+            if (!ModelState.IsValid)
+            {
+                return "Нет такого номера в базе";
+            }
+            // Создание и отправка маркера
+            var code =  UserManager.GenerateChangePhoneNumberTokenAsync(User.Identity.GetUserId(), model.Number);
+            if (UserManager.SmsService != null)
+            {
+                var message = new IdentityMessage
+                {
+                    Destination = model.Number,
+                    Body = "Ваш код безопасности: " + code
+                };
+                 UserManager.SmsService.SendAsync(message);
+            }
+            return code.ToString();
+        }
+
         //
         // POST: /Manage/EnableTwoFactorAuthentication
         [HttpPost]

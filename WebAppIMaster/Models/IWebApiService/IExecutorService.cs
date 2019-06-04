@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using static WebAppIMaster.Models.WebApiModel.ExecutorMdl;
+using static WebAppIMaster.Models.WebApiModel.ExecutorServiceMdl;
 
 namespace WebAppIMaster.Models.IWebApiService
 {
@@ -16,6 +16,6 @@ namespace WebAppIMaster.Models.IWebApiService
         void SendCheckingCodeForUpdatePhoneNumber( string newPhoneNumber );
         bool UpdatePhoneNumber( string executorId, string newPhoneNumber, string checkingCode );
         void UpdatePhotoFiles( Dictionary<byte[], String> actualPhotoFiles );
-        void UpdateServices( List<Models.WebApiModel.ExecutorMdl.ExecutiveService> actualServices );
+        void UpdateServices( List<Models.WebApiModel.ExecutorServiceMdl.ExecutiveService> actualServices );
     }
 }

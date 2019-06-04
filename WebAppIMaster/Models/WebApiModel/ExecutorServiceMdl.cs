@@ -6,7 +6,7 @@ using WebAppIMaster.Models.Enums;
 
 namespace WebAppIMaster.Models.WebApiModel
 {
-    public class ExecutorMdl
+    public class ExecutorServiceMdl
     {
         public class ExecutorRegister
         {

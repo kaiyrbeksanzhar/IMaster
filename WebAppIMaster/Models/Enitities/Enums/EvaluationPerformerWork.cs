@@ -8,7 +8,7 @@ namespace WebAppIMaster.Models.Enums
 {
     public enum EvaluationPerformerWork
     {
-        OneStar,
+        OneStar =1,
         TwoStar,
         ThreeStar,
         FourStar,

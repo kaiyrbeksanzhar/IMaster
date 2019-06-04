@@ -61,8 +61,7 @@ namespace WebAppIMaster.Models.WebApiService
                 Phonenumber = model.ApplicationUser.PhoneNumber,
                 AvatarFileType = PhotoType,
                 Bonus = (int)model.Bonus,
-                Gender = model.ApplicationUser.GenderName,
-                GenderId = model.ApplicationUser.GenderName == "Male"  ? 1 : 2,
+                GenderId = model.ApplicationUser.GenderId,
                 CityName = model.InCity.Langs.Where(l => l.Langcode == langcode).Select(l => l.Name).FirstOrDefault(),
 
             };

@@ -11,7 +11,14 @@ namespace WebAppIMaster.Models
     public class ExecutorService
     {
         public int Id { get; set; }
-        public decimal Cost { get; set; }
+
+        public int CostType { get; set; }
+
+        public string Name { get; set; }
+
+        public int FromCost { get; set; }
+        public int ToCost { get; set; }
+        public int FixedCost { get; set; }
 
         public int UnitMeasurementId { get; set; }
         public virtual UnitMeasurement UnitMeasurement { get; set; }
