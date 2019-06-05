@@ -123,15 +123,15 @@ namespace WebAppIMaster.Models.WebApiService
         {
             List<ClientExecutorServiceMdl.ExecutorItem> listitem = new List<ClientExecutorServiceMdl.ExecutorItem>();
             string langcode = LanguageController.CurrentCultureCode;
-            var model = db.Categories.Where(c => c.Id == categoryId).SelectMany(c => c.Executors).ToList();
+            var model = db.Categories.Where(c => c.Id == categoryId).SelectMany(c => c.executorSpecializations).Select(es=>es.Executor).ToList();
             Image img;
             string PhotoType = "";
             foreach (var executor in model)
             {
-                img = Image.FromFile(executor.Executor.AvatarUrl);
-                PhotoType = executor.Executor.AvatarUrl.Substring(executor.Executor.AvatarUrl.LastIndexOf(".") + 1);
+                img = Image.FromFile(executor.AvatarUrl);
+                PhotoType = executor.AvatarUrl.Substring(executor.AvatarUrl.LastIndexOf(".") + 1);
                 byte[] Imagesbyte = FileManager.ImageToByteArray(img);
-                Status check = executor.Executor.ExecutorPasswordFiles.Select(epf => epf.Status).FirstOrDefault();
+                Status check = executor.ExecutorPasswordFiles.Select(epf => epf.Status).FirstOrDefault();
                 int statuscheck = 0;
                 switch (check)
                 {
@@ -147,16 +147,16 @@ namespace WebAppIMaster.Models.WebApiService
                 }
                 listitem.Add(new ClientExecutorServiceMdl.ExecutorItem
                 {
-                    Id = executor.ExecutorId,
-                    Firstname = executor.Executor.User.FatherName,
-                    Lastname = executor.Executor.User.LastName,
-                    Fathername = executor.Executor.User.FatherName,
+                    Id = executor.Id,
+                    Firstname = executor.User.FatherName,
+                    Lastname = executor.User.LastName,
+                    Fathername = executor.User.FatherName,
                     AvatarFile = Imagesbyte,
                     AvatarFileType = PhotoType,
-                    Rating = executor.Executor.Rating.ToString(),
-                    RegisterDate = (DateTime)executor.Executor.RegistrationDateTime,
+                    Rating = executor.Rating.ToString(),
+                    RegisterDate = (DateTime)executor.RegistrationDateTime,
                     Check = statuscheck == 1 ? true : false,
-                    ClosedOrdersCount = (int)executor.Executor.ExecutorClosedOrdersCount,
+                    ClosedOrdersCount = (int)executor.ExecutorClosedOrdersCount,
                     Online = true,
 
                 });
@@ -168,15 +168,15 @@ namespace WebAppIMaster.Models.WebApiService
         {
             List<ClientExecutorServiceMdl.ExecutorItem> listitem = new List<ClientExecutorServiceMdl.ExecutorItem>();
             string langcode = LanguageController.CurrentCultureCode;
-            var model = db.Specializations.Where(s => s.Id == specialtyId).Select(s => s.Category).SelectMany(c => c.Executors).ToList();
+            var model = db.ExecutorSpecializations.Where(es => es.SpecializationId == specialtyId).Select(es => es.Executor).ToList();
             Image img;
             string PhotoType = "";
             foreach (var specialty in model)
             {
-                img = Image.FromFile(specialty.Executor.AvatarUrl);
-                PhotoType = specialty.Executor.AvatarUrl.Substring(specialty.Executor.AvatarUrl.LastIndexOf(".") + 1);
+                img = Image.FromFile(specialty.AvatarUrl);
+                PhotoType = specialty.AvatarUrl.Substring(specialty.AvatarUrl.LastIndexOf(".") + 1);
                 byte[] Imagesbyte = FileManager.ImageToByteArray(img);
-                Status check = specialty.Executor.ExecutorPasswordFiles.Select(epf => epf.Status).FirstOrDefault();
+                Status check = specialty.ExecutorPasswordFiles.Select(epf => epf.Status).FirstOrDefault();
                 int statuscheck = 0;
                 switch (check)
                 {
@@ -192,16 +192,16 @@ namespace WebAppIMaster.Models.WebApiService
                 }
                 listitem.Add(new ClientExecutorServiceMdl.ExecutorItem
                 {
-                    Id = specialty.ExecutorId,
-                    Firstname = specialty.Executor.User.FatherName,
-                    Lastname = specialty.Executor.User.LastName,
-                    Fathername = specialty.Executor.User.FatherName,
+                    Id = specialty.Id,
+                    Firstname = specialty.User.FatherName,
+                    Lastname = specialty.User.LastName,
+                    Fathername = specialty.User.FatherName,
                     AvatarFile = Imagesbyte,
                     AvatarFileType = PhotoType,
-                    Rating = specialty.Executor.Rating.ToString(),
-                    RegisterDate = (DateTime)specialty.Executor.RegistrationDateTime,
+                    Rating = specialty.Rating.ToString(),
+                    RegisterDate = (DateTime)specialty.RegistrationDateTime,
                     Check = statuscheck == 1 ? true : false,
-                    ClosedOrdersCount = (int)specialty.Executor.ExecutorClosedOrdersCount,
+                    ClosedOrdersCount = (int)specialty.ExecutorClosedOrdersCount,
                     Online = true,
 
                 });

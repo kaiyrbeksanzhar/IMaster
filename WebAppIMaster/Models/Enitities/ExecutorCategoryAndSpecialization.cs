@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace WebAppIMaster.Models
 {
-    public class ExecutorCategoryAndSpecialization
+    public class ExecutorSpecialization
     {
         [Key]
         [Column(Order = 0)]
@@ -17,7 +17,7 @@ namespace WebAppIMaster.Models
 
         [Key]
         [Column(Order = 1)]
-        public int CategoryId { get; set; }
-        public virtual Category Category { get; set; }
+        public int SpecializationId { get; set; }
+        public virtual Specialization Specialization { get; set; }
     }
 }

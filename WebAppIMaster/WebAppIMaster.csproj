@@ -248,6 +248,7 @@
     <Compile Include="Controllers\WebApi\MarketSerivecController.cs" />
     <Compile Include="Controllers\WebApi\NewsItemServiceController.cs" />
     <Compile Include="Controllers\WebApi\RegionServiceController.cs" />
+    <Compile Include="Controllers\WebApi\VerifyPhoneController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -299,7 +300,28 @@
     <Compile Include="Migrations\201906040710101_Commit12.Designer.cs">
       <DependentUpon>201906040710101_Commit12.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201906051940026_UserName.cs" />
+    <Compile Include="Migrations\201906051940026_UserName.Designer.cs">
+      <DependentUpon>201906051940026_UserName.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201906052003457_UserName11.cs" />
+    <Compile Include="Migrations\201906052003457_UserName11.Designer.cs">
+      <DependentUpon>201906052003457_UserName11.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201906052045369_PhoneNumberChecking.cs" />
+    <Compile Include="Migrations\201906052045369_PhoneNumberChecking.Designer.cs">
+      <DependentUpon>201906052045369_PhoneNumberChecking.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201906052129533_Specilization.cs" />
+    <Compile Include="Migrations\201906052129533_Specilization.Designer.cs">
+      <DependentUpon>201906052129533_Specilization.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201906052143344_CustomerEdit.cs" />
+    <Compile Include="Migrations\201906052143344_CustomerEdit.Designer.cs">
+      <DependentUpon>201906052143344_CustomerEdit.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Enitities\AddExecutorToOrder.cs" />
     <Compile Include="Models\Enitities\Address.cs" />
@@ -352,6 +374,7 @@
     <Compile Include="Models\Enitities\OrganizationLang.cs" />
     <Compile Include="Models\Enitities\OrganizationPromotionAndDiscount.cs" />
     <Compile Include="Models\Enitities\Payment.cs" />
+    <Compile Include="Models\Enitities\PhoneCheckingCode.cs" />
     <Compile Include="Models\Enitities\PriceCategoryAndSpecialization.cs" />
     <Compile Include="Models\Enitities\PriceCategoryAndSpecializationType.cs" />
     <Compile Include="Models\Enitities\Response.cs" />
@@ -413,7 +436,9 @@
     <Compile Include="Models\WebApiService\MarketService.cs" />
     <Compile Include="Models\WebApiService\NewsItemService.cs" />
     <Compile Include="Models\WebApiService\RegionService.cs" />
+    <Compile Include="Models\WebApiService\VerifyService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Providers\ApplicationOAuthProvider.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Resources\Resource.kk-KZ.Designer.cs" />
     <Compile Include="Resources\Resource.ru-RU.Designer.cs" />
@@ -577,7 +602,6 @@
     <Content Include="Views\Account\ForgotPassword.cshtml" />
     <Content Include="Views\Account\ForgotPasswordConfirmation.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
-    <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Account\ResetPassword.cshtml" />
     <Content Include="Views\Account\ResetPasswordConfirmation.cshtml" />
     <Content Include="Views\Account\SendCode.cshtml" />
@@ -603,8 +627,10 @@
     <Content Include="Views\HowDidYouAboutUs\Population.cshtml" />
     <Content Include="Views\Specilization\Create.cshtml" />
     <Content Include="Views\Specilization\Index.cshtml" />
+    <Content Include="Views\Account\Register.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Results\" />
     <Folder Include="Views\Language\" />
   </ItemGroup>
   <ItemGroup>
@@ -656,6 +682,21 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201906040710101_Commit12.resx">
       <DependentUpon>201906040710101_Commit12.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906051940026_UserName.resx">
+      <DependentUpon>201906051940026_UserName.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906052003457_UserName11.resx">
+      <DependentUpon>201906052003457_UserName11.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906052045369_PhoneNumberChecking.resx">
+      <DependentUpon>201906052045369_PhoneNumberChecking.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906052129533_Specilization.resx">
+      <DependentUpon>201906052129533_Specilization.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906052143344_CustomerEdit.resx">
+      <DependentUpon>201906052143344_CustomerEdit.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Resource.kk-KZ.resx" />
     <EmbeddedResource Include="Resources\Resource.resx" />

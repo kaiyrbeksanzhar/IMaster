@@ -149,12 +149,19 @@ namespace WebAppIMaster.Controllers
         // POST: /Account/Register
         [HttpPost]
         [AllowAnonymous]
-        [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser
+                {
+                    LastName = model.LastName,
+                    FirstName = model.FirstName,
+                    FatherName = model.FatherName==null? " " : model.FatherName,
+                    GenderId = model.GenderId,
+                    PhoneNumber = model.PhoneNumber,
+                    UserName = model.UserName
+                };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -166,7 +173,7 @@ namespace WebAppIMaster.Controllers
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Подтверждение учетной записи", "Подтвердите вашу учетную запись, щелкнув <a href=\"" + callbackUrl + "\">здесь</a>");
 
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "Help" , new {area ="HelpPage" });
                 }
                 AddErrors(result);
             }

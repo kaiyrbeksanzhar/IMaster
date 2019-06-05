@@ -608,6 +608,11 @@
             Post запрос  ClientProfileEdit изменить данные
             </summary>
         </member>
+        <member name="M:WebAppIMaster.Controllers.WebApi.ClientProfileController.Put(WebAppIMaster.Models.WebApiModel.ClientProfileMdl.ClientProfileRegister)">
+            <summary>
+            Post запрос  ClientProfileRegister изменить данные
+            </summary>
+        </member>
         <member name="T:WebAppIMaster.Controllers.WebApi.ExecutorOrderServiceController">
             <summary>
               ExecutorOrderService
@@ -688,14 +693,14 @@
         </member>
         <member name="M:WebAppIMaster.Controllers.WebApi.MarketSerivecController.PutClient(System.String,System.Int32)">
             <summary>
-            передайте clientId,marketId(api/MarketSerivece/) возращает один элемент
+            передайте clientId,marketId(api/MarketSerivece/) сохранять в базу
             </summary>
             <param name="clientId">Принимает параметр clientId.</param>
             <param name="marketId">Принимает параметр marketId.</param>
         </member>
         <member name="M:WebAppIMaster.Controllers.WebApi.MarketSerivecController.PutExecutor(System.String,System.Int32)">
             <summary>
-            передайте clientId,marketId(api/MarketSerivece/) возращает один элемент
+            передайте clientId,marketId(api/MarketSerivece/) сохранять в базу
             </summary>
             <param name="executorId">Принимает параметр executorId.</param>
             <param name="marketId">Принимает параметр marketId.</param>

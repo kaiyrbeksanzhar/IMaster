@@ -11,5 +11,6 @@ namespace WebAppIMaster.Models.IWebApiService
     {
         ClientProfileView GetCurrentClientProfileView(int id);
         void EditCurrentClientProfile(Controller controller, ClientProfileEdit item );
+        string Register( ClientProfileRegister item );
     }
 }

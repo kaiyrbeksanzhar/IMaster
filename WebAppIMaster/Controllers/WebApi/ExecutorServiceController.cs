@@ -7,6 +7,7 @@ using System.Web.Http;
 using WebAppIMaster.Models.Enitities;
 using WebAppIMaster.Models.WebApiModel;
 using WebAppIMaster.Models.WebApiService;
+using static WebAppIMaster.Models.WebApiModel.ExecutorServiceMdl;
 
 namespace WebAppIMaster.Controllers.WebApi
 {
@@ -19,11 +20,29 @@ namespace WebAppIMaster.Controllers.WebApi
         }
 
         // GET: api/ExecutorService/5
-        public void Get(string newPhoneNumber )
+        public void SendCheckingCodeForUpdatePhoneNumber( string newPhoneNumber )
         {
             ApplicationDbContext db = new ApplicationDbContext();
             ExecutorService repository = new ExecutorService(db);
             repository.SendCheckingCodeForUpdatePhoneNumber(newPhoneNumber);
+        }
+
+        // GET: api/ExecutorService/5
+        public ExecutorProfile GetById(string id)
+        {
+            ApplicationDbContext db = new ApplicationDbContext();
+            ExecutorService repository = new ExecutorService(db);
+            var model = repository.GetById(id);
+            return model;
+        }
+
+        // GET: api/ExecutorService/5
+        public ExecutorProfile GetByPhoneNumber( string phoneNumber )
+        {
+            ApplicationDbContext db = new ApplicationDbContext();
+            ExecutorService repository = new ExecutorService(db);
+            var model = repository.GetByPhoneNumber(phoneNumber);
+            return model;
         }
 
         // POST: api/ExecutorService

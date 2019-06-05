@@ -52,6 +52,6 @@ namespace WebAppIMaster.Models
         public ICollection<CustomerOrder> Orders { get; set; }
         public ICollection<Category> Categories { get; set; }
         public ICollection<Specialization> specializations { get; set; }
-        public ICollection<ExecutorCategoryAndSpecialization> executorCategory { get; set; }
+        public ICollection<ExecutorSpecialization>  ExecutorSpecializations { get; set; }
     }
 }

@@ -40,5 +40,17 @@ namespace WebAppIMaster.Models.WebApiModel
 
             public int GenderId { get; set; }
         }
+
+        public class ClientProfileRegister
+        {
+            public string PhoneNumber { get; set; }
+            public string LastName { get; set; }
+            public string FirstName { get; set; } 
+            public string FatherName { get; set; }
+            public int GenderId { get; set; }
+            public int RegionId { get; set; }
+            public int MarketingId { get; set; }
+
+        }
     }
 }

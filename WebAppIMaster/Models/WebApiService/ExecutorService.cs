@@ -18,7 +18,7 @@ namespace WebAppIMaster.Models.WebApiService
 {
     public class ExecutorService : IExecutorService
     {
-        
+
         private ApplicationDbContext db = new ApplicationDbContext();
 
         public ExecutorService( ApplicationDbContext db ) => this.db = db;
@@ -189,39 +189,28 @@ namespace WebAppIMaster.Models.WebApiService
         {
             string lang_kz = LanguageController.GetKzCode();
             string lang_ru = LanguageController.GetRuCode();
-
+            List<ExecutorSpecialization> executorSpecializations = new List<ExecutorSpecialization>();
+            var user = db.Users.Where(u => u.PhoneNumber == item.PhoneNumber).SingleOrDefault();
+            for (int i = 0; i < item.SpecializationIds.Count(); i++)
+            {
+                executorSpecializations.Add(new ExecutorSpecialization
+                {
+                    ExecutorId = user.Id,
+                    SpecializationId = item.SpecializationIds[i]
+                });
+            }
             Executor executor = new Executor()
             {
-                User = new ApplicationUser
-                {
-                    UserName = item.PhoneNumber,
-                    LastName = item.LastName,
-                    FirstName = item.FirstName,
-                    FatherName = item.FatherName == null ? " " : item.FatherName,
-                    PhoneNumber = item.PhoneNumber,
-                    GenderId = item.GenderId,
-                },
+                Id = user.Id,
                 BirthDay = item.BirthDay,
                 PhoneNumber = item.PhoneNumber,
+                ExecutorSpecializations = executorSpecializations,
+                Gender = (Gender?)item.GenderId,
+                ExecutorType = item.ExecutorType
             };
             db.Executors.Add(executor);
             db.SaveChanges();
 
-            List<ExecutorCategoryAndSpecialization> executorCategoryAndSpecializations = new List<ExecutorCategoryAndSpecialization>();
-            foreach (var sp in item.SpecializationIds)
-            {
-                var specialtiy = db.Specializations.Find(sp);
-                executorCategoryAndSpecializations.Add(new ExecutorCategoryAndSpecialization
-                {
-                    CategoryId = specialtiy.CategoryId,
-                    ExecutorId = executor.Id
-                });
-            }
-            foreach (var ecas in executorCategoryAndSpecializations)
-            {
-                db.ExecutorCategoryAndSpecializations.Add(ecas);
-            }
-            db.SaveChanges();
             return executor.Id;
         }
 
@@ -241,13 +230,21 @@ namespace WebAppIMaster.Models.WebApiService
             const string authToken = "59a8ffe9a848c07bfe598a99c43abfd2";
 
             Random random = new Random();
-            int code =  random.Next(100000, 999999);
+            int code = random.Next(100000, 999999);
             TwilioClient.Init(accountSid, authToken);
             var message = MessageResource.Create(
                 body: "Ваше код безопасности:" + code,
                 from: new Twilio.Types.PhoneNumber("+14193860152"),
                 to: new Twilio.Types.PhoneNumber(model.User.PhoneNumber)
             );
+            PhoneCheckingCode phoneCheckingCode = new PhoneCheckingCode()
+            {
+                PhoneNumber = addPhone.Number,
+                CheckingCode = code.ToString(),
+                DateTime = DateTime.Now
+            };
+            db.phoneCheckingCodes.Add(phoneCheckingCode);
+            db.SaveChanges();
         }
 
         public bool UpdatePhoneNumber( string executorId, string newPhoneNumber, string checkingCode )

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
@@ -10,23 +12,29 @@ using WebAppIMaster.Models.Enitities;
 using WebAppIMaster.Models.Enums;
 using WebAppIMaster.Models.IWebApiService;
 using WebAppIMaster.Models.WebApiModel;
+using WebAppWebAppIMaster;
+using Microsoft.Owin;
+using static WebAppWebAppIMaster.SmsService;
 
 namespace WebAppIMaster.Models.WebApiService
 {
     public class ClientProfileService : IClientProfileService
     {
         private ApplicationDbContext db = new ApplicationDbContext();
+        private ApplicationSignInManager _signInManager;
+        private ApplicationUserManager _userManager;
+
         public ClientProfileService( ApplicationDbContext db ) => this.db = db;
 
 
-        public void EditCurrentClientProfile(Controller controller, ClientProfileMdl.ClientProfileEdit item )
+        public void EditCurrentClientProfile( Controller controller, ClientProfileMdl.ClientProfileEdit item )
         {
             Image img;
             string photourl = " ";
             using (MemoryStream mStream = new MemoryStream(item.AvatarFile))
             {
                 img = Image.FromStream(mStream);
-                photourl = FileManager.SavePhoto( img);
+                photourl = FileManager.SavePhoto(img);
             }
             Customer customer = new Customer();
             string langkz = LanguageController.GetKzCode();
@@ -42,7 +50,7 @@ namespace WebAppIMaster.Models.WebApiService
             db.SaveChanges();
         }
 
- 
+
 
         public ClientProfileMdl.ClientProfileView GetCurrentClientProfileView( int Id )
         {
@@ -66,5 +74,28 @@ namespace WebAppIMaster.Models.WebApiService
 
             };
         }
+
+        public string Register( ClientProfileMdl.ClientProfileRegister item )
+        {
+            string lang_kz = LanguageController.GetKzCode();
+            string lang_ru = LanguageController.GetRuCode();
+
+            var user = db.Users.Where(u => u.PhoneNumber == item.PhoneNumber).SingleOrDefault();
+            Customer customer = new Customer()
+            {
+                Id = user.Id,
+                LastName = item.LastName,
+                FirstName = item.FirstName,
+                FatherName = item.FatherName == null ? " " : item.FatherName,
+                PhoneNumber = user.PhoneNumber,
+                InCityId = item.RegionId
+            };
+            db.Customers.Add(customer);
+            db.SaveChanges();
+
+            return customer.Id;
+        }
+
+
     }
 }

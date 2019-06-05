@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Owin.Security.OAuth;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -10,7 +11,7 @@ namespace WebAppIMaster.App_Start
     {
         public static void Register( HttpConfiguration config )
         {
-            // Web API routes
+            // Маршруты Web API
             config.MapHttpAttributeRoutes();
 
             config.Routes.MapHttpRoute(
@@ -18,6 +19,10 @@ namespace WebAppIMaster.App_Start
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+
+
+            // отключаем возможность вывода данных в формате xml
+            config.Formatters.Remove(config.Formatters.XmlFormatter);
         }
     }
 }
