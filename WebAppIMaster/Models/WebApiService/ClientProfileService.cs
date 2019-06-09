@@ -88,7 +88,8 @@ namespace WebAppIMaster.Models.WebApiService
                 FirstName = item.FirstName,
                 FatherName = item.FatherName == null ? " " : item.FatherName,
                 PhoneNumber = user.PhoneNumber,
-                InCityId = item.RegionId
+                InCityId = item.RegionId,
+                HowDidYouAboutUsId = item.MarketingId
             };
             db.Customers.Add(customer);
             db.SaveChanges();

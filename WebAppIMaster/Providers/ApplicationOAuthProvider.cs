@@ -32,14 +32,16 @@ namespace WebAppIMaster.Providers
         {
             var userManager = context.OwinContext.GetUserManager<ApplicationUserManager>();
 
-            string phoneNumber = context.UserName;
+            string phoneNumber = System.Text.RegularExpressions.Regex.Replace(context.UserName, @"\s+", "");
             string checkingCode = context.Password;
 
+            
+            string phonenumber = phoneNumber.Substring(phoneNumber.Length - 10, 10);
             ApplicationUser user = null;
             PhoneCheckingCode phoneCheckingCode = null;
             using (ApplicationDbContext db = new ApplicationDbContext())
             {
-                phoneCheckingCode = db.phoneCheckingCodes.Where(pcc => pcc.PhoneNumber.Contains(phoneNumber) 
+                phoneCheckingCode = db.phoneCheckingCodes.Where(pcc => pcc.PhoneNumber.Contains(phonenumber) 
                 || pcc.CheckingCode.Contains(checkingCode) ).FirstOrDefault();
 
                     
