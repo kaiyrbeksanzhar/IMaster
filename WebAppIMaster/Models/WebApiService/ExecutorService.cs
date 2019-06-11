@@ -22,9 +22,9 @@ namespace WebAppIMaster.Models.WebApiService
 
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        public ExecutorService( ApplicationDbContext db ) => this.db = db;
+        public ExecutorService(ApplicationDbContext db) => this.db = db;
 
-        public ExecutorServiceMdl.ExecutorProfile GetById( string id )
+        public ExecutorServiceMdl.ExecutorProfile GetById(string id)
         {
             string langcode = LanguageController.CurrentCultureCode;
             var model = db.Executors.Find(id);
@@ -105,7 +105,7 @@ namespace WebAppIMaster.Models.WebApiService
             };
         }
 
-        public ExecutorServiceMdl.ExecutorProfile GetByPhoneNumber( string phoneNumber )
+        public ExecutorServiceMdl.ExecutorProfile GetByPhoneNumber(string phoneNumber)
         {
             string langcode = LanguageController.CurrentCultureCode;
 
@@ -186,7 +186,7 @@ namespace WebAppIMaster.Models.WebApiService
             };
         }
 
-        public string Register( ExecutorServiceMdl.ExecutorRegister item )
+        public string Register(ExecutorServiceMdl.ExecutorRegister item)
         {
             string lang_kz = LanguageController.GetKzCode();
             string lang_ru = LanguageController.GetRuCode();
@@ -215,7 +215,7 @@ namespace WebAppIMaster.Models.WebApiService
             return executor.Id;
         }
 
-        public void SendCheckingCodeForUpdatePhoneNumber( string newPhoneNumber )
+        public void SendCheckingCodeForUpdatePhoneNumber(string newPhoneNumber)
         {
             string phonenumber = "+" + newPhoneNumber;
             var model = db.Executors.Where(e => e.User.PhoneNumber == phonenumber).FirstOrDefault();
@@ -248,7 +248,7 @@ namespace WebAppIMaster.Models.WebApiService
             db.SaveChanges();
         }
 
-        public bool UpdatePhoneNumber( string executorId, string newPhoneNumber, string checkingCode )
+        public bool UpdatePhoneNumber(string executorId, string newPhoneNumber, string checkingCode)
         {
             try
             {
@@ -286,7 +286,7 @@ namespace WebAppIMaster.Models.WebApiService
 
         }
 
-        public void UpdatePhotoFiles( string executorId, Dictionary<byte[], string> actualPhotoFiles )
+        public void UpdatePhotoFiles(string executorId, Dictionary<byte[], string> actualPhotoFiles)
         {
 
             List<string> photos = new List<string>();
@@ -311,12 +311,12 @@ namespace WebAppIMaster.Models.WebApiService
             db.SaveChanges();
         }
 
-        public void UpdateProfile( ExecutorServiceMdl.ExecutorProfileEdit item )
+        public void UpdateProfile(ExecutorServiceMdl.ExecutorProfileEdit item)
         {
             string langcode = LanguageController.CurrentCultureCode;
 
             var hidder = (from e in db.Executors
-                        where e.Id == item.Id
+                          where e.Id == item.Id
                           select e).SingleOrDefault();
 
             hidder.User.LastName = item.LastName;
@@ -326,17 +326,67 @@ namespace WebAppIMaster.Models.WebApiService
             hidder.CityId = item.RegionId;
 
             db.Entry(hidder).State = System.Data.Entity.EntityState.Modified;
+
+            var user = (from u in db.Users
+                        where u.Id == item.Id
+                        select u).SingleOrDefault();
+            user.LastName = item.LastName;
+            user.FatherName = item.FatherName;
+            user.FirstName = item.FirstName;
+
+            db.Entry(user).State = System.Data.Entity.EntityState.Modified;
             db.SaveChanges();
         }
 
-        public void UpdateServices(List<ExecutorServiceMdl.ExecutiveService> actualServices)
+        public void UpdateServices(List<ExecutorServiceMdl.ExecutiveService> actualServices, string executorId)
         {
-            throw new NotImplementedException();
+            List<Models.ExecutorService> executiveServices = new List<Models.ExecutorService>();
+            string lang_kz = LanguageController.GetKzCode();
+            string lang_ru = LanguageController.GetRuCode();
+
+            var item = (from es in db.ExecutorServices
+                        where es.ExecutorId == executorId
+                        select new ExecutorServiceMdl.ExecutiveService
+                        {
+                            Name = es.Name,
+                            CostType = (OrderCostType)es.CostType,
+                            FixedCost = es.FixedCost,
+                            FromCost = es.FromCost,
+                            ToCost = es.ToCost
+                        }).ToList();
+
+            foreach (var executorservice in item)
+            {
+                executiveServices.Add(new Models.ExecutorService
+                {
+                    CostType = (int)executorservice.CostType,
+                    FixedCost = executorservice.FixedCost,
+                    FromCost = executorservice.FromCost,
+                    Name = executorservice.Name,
+                    ToCost = executorservice.ToCost
+                });
+            }
+            db.Entry(executiveServices).State = System.Data.Entity.EntityState.Modified;
+            db.SaveChanges();
         }
 
-        public void UpdateType( ExecutorServiceMdl.ExecutorTypeEdit item )
+        public void UpdateType(ExecutorServiceMdl.ExecutorTypeEdit item, string executorId)
         {
-            throw new NotImplementedException();
+            string lang_kz = LanguageController.GetKzCode();
+            string lang_ru = LanguageController.GetRuCode();
+
+
+            var executor = db.Executors.Where(e => e.Id == executorId).SingleOrDefault();
+            executor.ExecutorType = item.ExecutorType;
+            foreach (var executorSpecialty in item.SpecializationIds)
+            {
+                executor.specializations.Add(new Specialization
+                {
+                    Id = executorSpecialty,
+                });
+            }
+            db.Entry(executor).State = System.Data.Entity.EntityState.Modified;
+            db.SaveChanges();
         }
     }
 }
