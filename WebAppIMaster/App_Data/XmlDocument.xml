@@ -608,11 +608,6 @@
             Post запрос  ClientProfileEdit изменить данные
             </summary>
         </member>
-        <member name="M:WebAppIMaster.Controllers.WebApi.ClientProfileController.Put(WebAppIMaster.Models.WebApiModel.ClientProfileMdl.ClientProfileRegister)">
-            <summary>
-            Post запрос  ClientProfileRegister изменить данные
-            </summary>
-        </member>
         <member name="T:WebAppIMaster.Controllers.WebApi.ExecutorOrderServiceController">
             <summary>
               ExecutorOrderService
@@ -654,6 +649,43 @@
             <param name="CategoryIds">Принимает параметр CategoryIds.</param>
             <param name="SpecializationIds">Принимает параметр SpecializationIds.</param>
         </member>
+        <member name="M:WebAppIMaster.Controllers.WebApi.ExecutorServiceController.SendCheckingCodeForUpdatePhoneNumber(System.String)">
+            <summary>
+            передайте (api/ExecutorService/{id}) ссылает смс
+            </summary>
+            <param name="newPhoneNumber">Принимает параметр newPhoneNumber(Executor).</param>
+        </member>
+        <member name="M:WebAppIMaster.Controllers.WebApi.ExecutorServiceController.UpdatePhoneNumber(System.String,System.String,System.String)">
+            <summary>
+            передайте (api/UpdatePhoneNumber/{executorId,newPhoneNumber,checkingCode}) обновляет номер телефона Executor
+            </summary>
+            <param name="executorId">Принимает параметр сlientId.</param>
+            <param name="newPhoneNumber">Принимает параметр newPhoneNumber.</param>
+            <param name="checkingCode">Принимает параметр checkingCode.</param>
+        </member>
+        <member name="M:WebAppIMaster.Controllers.WebApi.ExecutorServiceController.GetById(System.String)">
+            <summary>
+            передайте (api/GetById/{id}) возвращает профиль исполнителя
+            </summary>
+            <param name="id">Принимает параметр id(Executor).</param>
+        </member>
+        <member name="M:WebAppIMaster.Controllers.WebApi.ExecutorServiceController.PostUpdatePhotoFiles(System.String,System.Collections.Generic.Dictionary{System.Byte[],System.String})">
+            <summary>
+            передайте (api/UpdatePhotoFiles/{executorId,actualPhotoFiles}) обновляется фото Executor
+            </summary>
+            <param name="executorId">Принимает параметр id(executorId).</param>
+            <param name="actualPhotoFiles">Принимает параметр (actualPhotoFile).</param>
+        </member>
+        <member name="M:WebAppIMaster.Controllers.WebApi.ExecutorServiceController.PutExecutorRegister(WebAppIMaster.Models.WebApiModel.ExecutorServiceMdl.ExecutorRegister)">
+            <summary>
+            передайте (ExecutorRegister) регистрация Executor-a
+            </summary>
+        </member>
+        <member name="M:WebAppIMaster.Controllers.WebApi.ExecutorServiceController.PostExecutorProfileEdit(WebAppIMaster.Models.WebApiModel.ExecutorServiceMdl.ExecutorProfileEdit)">
+            <summary>
+            передайте (api/ExecutorProfileEdit/{ExecutorProfileEdit}) обновляется профиль Executor
+            </summary>
+        </member>
         <member name="T:WebAppIMaster.Controllers.WebApi.GenderServiceController">
             <summary>
              GenderService Api
@@ -691,14 +723,14 @@
             MarketService
             </summary>
         </member>
-        <member name="M:WebAppIMaster.Controllers.WebApi.MarketSerivecController.PutClient(System.String,System.Int32)">
+        <member name="M:WebAppIMaster.Controllers.WebApi.MarketSerivecController.PostClient(System.String,System.Int32)">
             <summary>
             передайте clientId,marketId(api/MarketSerivece/) сохранять в базу
             </summary>
             <param name="clientId">Принимает параметр clientId.</param>
             <param name="marketId">Принимает параметр marketId.</param>
         </member>
-        <member name="M:WebAppIMaster.Controllers.WebApi.MarketSerivecController.PutExecutor(System.String,System.Int32)">
+        <member name="M:WebAppIMaster.Controllers.WebApi.MarketSerivecController.PostExecutor(System.String,System.Int32)">
             <summary>
             передайте clientId,marketId(api/MarketSerivece/) сохранять в базу
             </summary>

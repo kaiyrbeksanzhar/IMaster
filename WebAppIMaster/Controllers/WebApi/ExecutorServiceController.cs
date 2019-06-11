@@ -1,4 +1,4 @@
-﻿ using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -13,22 +13,41 @@ namespace WebAppIMaster.Controllers.WebApi
 {
     public class ExecutorServiceController : ApiController
     {
-        // GET: api/ExecutorService
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
-
+        /// <summary>
+        /// передайте (api/ExecutorService/{id}) ссылает смс
+        /// </summary>
+        /// <param name="newPhoneNumber">Принимает параметр newPhoneNumber(Executor).</param>
         // GET: api/ExecutorService/5
         public void SendCheckingCodeForUpdatePhoneNumber( string newPhoneNumber )
         {
             ApplicationDbContext db = new ApplicationDbContext();
             ExecutorService repository = new ExecutorService(db);
             repository.SendCheckingCodeForUpdatePhoneNumber(newPhoneNumber);
-        }
 
+        }
+        /// <summary>
+        /// передайте (api/UpdatePhoneNumber/{executorId,newPhoneNumber,checkingCode}) обновляет номер телефона Executor
+        /// </summary>
+        /// <param name="executorId">Принимает параметр сlientId.</param>
+        /// <param name="newPhoneNumber">Принимает параметр newPhoneNumber.</param>
+        /// <param name="checkingCode">Принимает параметр checkingCode.</param>
+        // Post: api/UpdatePhoneNumber/5
+        [System.Web.Http.Route("api/UpdatePhoneNumber")]
+        public bool UpdatePhoneNumber( string executorId, string newPhoneNumber, string checkingCode )
+        {
+            ApplicationDbContext db = new ApplicationDbContext();
+            ExecutorService repository = new ExecutorService(db);
+            bool result = repository.UpdatePhoneNumber(executorId, newPhoneNumber, checkingCode);
+            if (!result)
+                return false;
+            return true;
+        }
+        /// <summary>
+        /// передайте (api/GetById/{id}) возвращает профиль исполнителя
+        /// </summary>
+        /// <param name="id">Принимает параметр id(Executor).</param>
         // GET: api/ExecutorService/5
-        public ExecutorProfile GetById(string id)
+        public ExecutorProfile GetById( string id )
         {
             ApplicationDbContext db = new ApplicationDbContext();
             ExecutorService repository = new ExecutorService(db);
@@ -45,13 +64,24 @@ namespace WebAppIMaster.Controllers.WebApi
             return model;
         }
 
-        // POST: api/ExecutorService
-        public void Post([FromBody]string value)
+        /// <summary>
+        /// передайте (api/UpdatePhotoFiles/{executorId,actualPhotoFiles}) обновляется фото Executor
+        /// </summary>
+        /// <param name="executorId">Принимает параметр id(executorId).</param>
+        /// <param name="actualPhotoFiles">Принимает параметр (actualPhotoFile).</param>
+        [System.Web.Http.Route("api/UpdatePhotoFiles")]
+        public void PostUpdatePhotoFiles( string executorId, Dictionary<byte[], string> actualPhotoFiles )
         {
+            ApplicationDbContext db = new ApplicationDbContext();
+            ExecutorService repository = new ExecutorService(db);
+            repository.UpdatePhotoFiles(executorId, actualPhotoFiles);
         }
 
-        // PUT: api/ExecutorService/5
-        public string Put([FromBody]ExecutorServiceMdl.ExecutorRegister item )
+        /// <summary>
+        /// передайте (ExecutorRegister) регистрация Executor-a
+        /// </summary>
+        [System.Web.Http.Route("api/ExecutorRegister")]
+        public string PutExecutorRegister( [FromBody]ExecutorServiceMdl.ExecutorRegister item )
         {
             ApplicationDbContext db = new ApplicationDbContext();
             ExecutorService repository = new ExecutorService(db);
@@ -59,9 +89,17 @@ namespace WebAppIMaster.Controllers.WebApi
             return id;
         }
 
-        // DELETE: api/ExecutorService/5
-        public void Delete(int id)
+
+        /// <summary>
+        /// передайте (api/ExecutorProfileEdit/{ExecutorProfileEdit}) обновляется профиль Executor
+        /// </summary>
+        [System.Web.Http.Route("api/ExecutorProfileEdit")]
+        public void PostExecutorProfileEdit( [FromBody]ExecutorServiceMdl.ExecutorProfileEdit item )
         {
+            ApplicationDbContext db = new ApplicationDbContext();
+            ExecutorService repository = new ExecutorService(db);
+            repository.UpdateProfile(item);
         }
+
     }
 }

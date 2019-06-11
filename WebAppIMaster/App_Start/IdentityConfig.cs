@@ -61,7 +61,7 @@ namespace WebAppWebAppIMaster
                 // Настройка логики проверки паролей
                 manager.PasswordValidator = new PasswordValidator
                 {
-                    RequiredLength = 5,
+                    RequiredLength = 4,
                     RequireNonLetterOrDigit = false,
                     RequireDigit = false,
                     RequireLowercase = false,

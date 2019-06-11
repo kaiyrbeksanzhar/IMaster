@@ -39,13 +39,15 @@ namespace WebAppIMaster.Models.WebApiService
             var model = db.NewsLangs.Where(l => l.Langcode == langcode).ToList();
             foreach(var item in model)
             {
-                byte[] byteData = System.IO.File.ReadAllBytes(item.News.PhotoUrl1);
+                string PhotoType = item.News.PhotoUrl1.Substring(item.News.PhotoUrl1.LastIndexOf(".") + 1);
+                byte[] byteData = System.IO.File.ReadAllBytes(HttpContext.Current.Server.MapPath(item.News.PhotoUrl1));
                 news.Add(new NewsItemMdl
                 {
                     Id = item.Id,
                     DateTime = item.News.PublishedDateTime,
                     Description = item.Description,
                     PhotoFile = byteData,
+                    PhotoFileType = PhotoType,
                     Title = item.Title,
                     ViewCount = item.News.ViewsNumber
                 });

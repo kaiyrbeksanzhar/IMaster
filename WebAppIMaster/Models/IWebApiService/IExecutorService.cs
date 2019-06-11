@@ -15,7 +15,7 @@ namespace WebAppIMaster.Models.IWebApiService
         void UpdateType( ExecutorTypeEdit item );
         void SendCheckingCodeForUpdatePhoneNumber( string newPhoneNumber );
         bool UpdatePhoneNumber( string executorId, string newPhoneNumber, string checkingCode );
-        void UpdatePhotoFiles( Dictionary<byte[], String> actualPhotoFiles );
+        void UpdatePhotoFiles(string executorId, Dictionary<byte[], String> actualPhotoFiles );
         void UpdateServices( List<Models.WebApiModel.ExecutorServiceMdl.ExecutiveService> actualServices );
     }
 }

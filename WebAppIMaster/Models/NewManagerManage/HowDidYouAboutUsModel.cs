@@ -34,10 +34,9 @@ namespace WebAppIMaster.Models.NewManagerManage
                 DateTime = q.HowDidYouAboutUs.DateTime,
                 SourceName = q.SourceName,
                 Id = q.HowDidYouAboutUs.Id,
-                Order = q.HowDidYouAboutUs.Order,
-                Clickcount = q.HowDidYouAboutUs.Click
+                Order = (int)q.HowDidYouAboutUs.Order,
             }).OrderByDescending(hl => hl.DateTime).ToList().ToPagedList(pageNumber ?? 1, 10);
-         
+
             return sortedQuery;
         }
         public IPagedList<HowDidYouAboutUsSelectPopulation> SelectPopulation( string sourceName, int? pageNumber )
@@ -56,8 +55,7 @@ namespace WebAppIMaster.Models.NewManagerManage
                 DateTime = q.HowDidYouAboutUs.DateTime,
                 SourceName = q.SourceName,
                 Id = q.HowDidYouAboutUs.Id,
-                Order = q.HowDidYouAboutUs.Order,
-                Clickcount = q.HowDidYouAboutUs.Click
+                Order = (int)q.HowDidYouAboutUs.Order,
             }).OrderByDescending(hl => hl.Clickcount).ToList().ToPagedList(pageNumber ?? 1, 10);
             return sortedQuery;
         }
@@ -127,7 +125,7 @@ namespace WebAppIMaster.Models.NewManagerManage
                             Id = id,
                             SourceName_kz = h.Langs.Where(l => l.Langcode == lang_kz).Select(l => l.SourceName).FirstOrDefault(),
                             SourceName_ru = h.Langs.Where(l => l.Langcode == lang_ru).Select(l => l.SourceName).FirstOrDefault(),
-                            Order = h.Order,
+                            Order = (int)h.Order,
                             DateTime = h.DateTime
                         }).SingleOrDefault();
             return item;

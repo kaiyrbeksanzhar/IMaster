@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Web.Http;
 using WebAppIMaster.Models.Enitities;
 using WebAppIMaster.Models.WebApiService;
+using static WebAppIMaster.Models.WebApiModel.MarketServiceMdl;
 
 namespace WebAppIMaster.Controllers.WebApi
 {
@@ -15,9 +16,12 @@ namespace WebAppIMaster.Controllers.WebApi
     public class MarketSerivecController : ApiController
     {
         // GET: api/MarketSerivece
-        public IEnumerable<string> Get()
+        public MarketDetails Get(int Id)
         {
-            return new string[] { "value1", "value2" };
+            ApplicationDbContext db = new ApplicationDbContext();
+            MarketService repository = new MarketService(db);
+            var model = repository.GetDetails(Id);
+            return model;
         }
 
         /// <summary>
@@ -26,7 +30,7 @@ namespace WebAppIMaster.Controllers.WebApi
         /// <param name="clientId">Принимает параметр clientId.</param>
         /// <param name="marketId">Принимает параметр marketId.</param>
         // GET: api/MarketSerivece/5
-        public void PutClient( string clientId, int marketId )
+        public void PostClient( string clientId, int marketId )
         {
             ApplicationDbContext db = new ApplicationDbContext();
             MarketService repository = new MarketService(db);
@@ -39,15 +43,11 @@ namespace WebAppIMaster.Controllers.WebApi
         /// <param name="executorId">Принимает параметр executorId.</param>
         /// <param name="marketId">Принимает параметр marketId.</param>
         // GET: api/MarketSerivece/5
-        public void PutExecutor( string executorId, int marketId )
+        public void PostExecutor( string executorId, int marketId )
         {
             ApplicationDbContext db = new ApplicationDbContext();
             MarketService repository = new MarketService(db);
             repository.ClientPhone(executorId, marketId);
-        }
-        // POST: api/MarketSerivece
-        public void Post([FromBody]string value)
-        {
         }
 
         // PUT: api/MarketSerivece/5

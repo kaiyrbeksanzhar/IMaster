@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNet.Identity.Owin;
+﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OAuth;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -33,53 +35,33 @@ namespace WebAppIMaster.Providers
             var userManager = context.OwinContext.GetUserManager<ApplicationUserManager>();
 
             string phoneNumber = System.Text.RegularExpressions.Regex.Replace(context.UserName, @"\s+", "");
+            string phonenumber = phoneNumber.Substring(phoneNumber.Length - 10, 10);
             string checkingCode = context.Password;
 
-            
-            string phonenumber = phoneNumber.Substring(phoneNumber.Length - 10, 10);
+
+
             ApplicationUser user = null;
-            PhoneCheckingCode phoneCheckingCode = null;
             using (ApplicationDbContext db = new ApplicationDbContext())
             {
-                phoneCheckingCode = db.phoneCheckingCodes.Where(pcc => pcc.PhoneNumber.Contains(phonenumber) 
-                || pcc.CheckingCode.Contains(checkingCode) ).FirstOrDefault();
-
-                    
-                if (phoneCheckingCode == null)
-                {
-                    context.SetError("invalid_grant", "Номер пользователя или Code  неправильно.");
-                    return;
-                }
-                int secsInAMin = 60;
-                int secsInAnHour = 60 * secsInAMin;
-                int secsInADay = 24 * secsInAnHour;
-                double secsInAYear = (int)365.25 * secsInADay;
-                int totalSeconds = (int)(phoneCheckingCode.DateTime.Year * secsInAYear) +
-                         (phoneCheckingCode.DateTime.DayOfYear * secsInADay) +
-                         (phoneCheckingCode.DateTime.Hour * secsInAnHour) +
-                         (phoneCheckingCode.DateTime.Minute * secsInAMin) +
-                         phoneCheckingCode.DateTime.Second;
-                totalSeconds = totalSeconds + 240;
-                int totalDateTimeNowSeconds = (int)(DateTime.Now.Year * secsInAYear) +
-                         (DateTime.Now.DayOfYear * secsInADay) +
-                         (DateTime.Now.Hour * secsInAnHour) +
-                         (DateTime.Now.Minute * secsInAMin) +
-                         DateTime.Now.Second;
-                if (totalSeconds > totalDateTimeNowSeconds)
-                {
-                    user = db.Users.Where(u => u.PhoneNumber == phoneCheckingCode.PhoneNumber).SingleOrDefault();
-                }
-                else
+                DateTime now = DateTime.Now;
+                bool any = (from phcc in db.phoneCheckingCodes
+                            where phcc.PhoneNumber.Contains(phonenumber)
+                            where phcc.CheckingCode == checkingCode
+                            where DbFunctions.DiffMinutes(phcc.DateTime, now) <= 5
+                            select phcc).Any();
+                
+                if (any == false)
                 {
                     context.SetError("invalid_grant", "Code  устарело.");
                     return;
                 }
+                user = await db.Users.Where(u => u.PhoneNumber.Contains(phonenumber)).SingleOrDefaultAsync();
             }
-
-            //ApplicationUser user = await userManager.FindAsync(context.UserName, context.Password);
-
-
-
+            
+            if (user == null)
+            {
+                return;
+            }
             ClaimsIdentity oAuthIdentity = await user.GenerateUserIdentityAsync(userManager,
                OAuthDefaults.AuthenticationType);
             ClaimsIdentity cookiesIdentity = await user.GenerateUserIdentityAsync(userManager,

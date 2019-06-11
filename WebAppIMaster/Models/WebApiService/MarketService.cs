@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using WebAppIMaster.Controllers.Base;
 using WebAppIMaster.Models.Enitities;
 using WebAppIMaster.Models.IWebApiService;
 using WebAppIMaster.Models.WebApiModel;
@@ -41,6 +42,7 @@ namespace WebAppIMaster.Models.WebApiService
 
         public MarketServiceMdl.MarketDetails GetDetails( int id )
         {
+            string langcode = LanguageController.CurrentCultureCode;
             throw new NotImplementedException();
         }
 

@@ -12,6 +12,8 @@ using WebAppIMaster.Models;
 using WebAppIMaster;
 using WebAppWebAppIMaster;
 using static WebAppWebAppIMaster.SmsService;
+using WebAppIMaster.Models.Enitities;
+using static WebAppIMaster.Models.WebApiModel.ClientProfileMdl;
 
 namespace WebAppIMaster.Controllers
 {
@@ -166,7 +168,19 @@ namespace WebAppIMaster.Controllers
                 if (result.Succeeded)
                 {
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
+                    using (ApplicationDbContext db = new ApplicationDbContext())
+                    {
+                        Customer customer = new Customer()
+                        {
+                            Id = user.Id,
+                            LastName = user.LastName,
+                            FirstName = user.FirstName,
+                            FatherName = user.FatherName,
+                            PhoneNumber = user.PhoneNumber
+                        };
+                        db.Customers.Add(customer);
+                        db.SaveChanges();
+                    };
                     // Дополнительные сведения о включении подтверждения учетной записи и сброса пароля см. на странице https://go.microsoft.com/fwlink/?LinkID=320771.
                     // Отправка сообщения электронной почты с этой ссылкой
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
@@ -179,6 +193,56 @@ namespace WebAppIMaster.Controllers
 
             // Появление этого сообщения означает наличие ошибки; повторное отображение формы
             return View(model);
+        }
+
+
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<string> RegisterNewClient( ClientProfileRegister item )
+        {
+            if (ModelState.IsValid)
+            {
+                item.PhoneNumber = item.PhoneNumber.Replace(" ", "");
+                item.PhoneNumber = item.PhoneNumber.Replace("+7", "8");
+                var user = new ApplicationUser
+                {
+                    LastName = item.LastName,
+                    FirstName = item.FirstName,
+                    FatherName = item.FatherName,
+                    GenderId = item.GenderId,
+                    PhoneNumber = item.PhoneNumber,
+                    UserName = item.PhoneNumber,
+                };
+                var result = await UserManager.CreateAsync(user);
+                if (result.Succeeded)
+                {
+                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                    using (ApplicationDbContext db = new ApplicationDbContext())
+                    {
+                        Customer customer = new Customer()
+                        {
+                            Id = user.Id,
+                            LastName = user.LastName,
+                            FirstName = user.FirstName,
+                            FatherName = user.FatherName,
+                            PhoneNumber = user.PhoneNumber
+                        };
+                        db.Customers.Add(customer);
+                        db.SaveChanges();
+                    };
+                    // Дополнительные сведения о включении подтверждения учетной записи и сброса пароля см. на странице https://go.microsoft.com/fwlink/?LinkID=320771.
+                    // Отправка сообщения электронной почты с этой ссылкой
+                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                    // await UserManager.SendEmailAsync(user.Id, "Подтверждение учетной записи", "Подтвердите вашу учетную запись, щелкнув <a href=\"" + callbackUrl + "\">здесь</a>");
+
+                }
+                AddErrors(result);
+
+                // Появление этого сообщения означает наличие ошибки; повторное отображение формы
+                return user.Id;
+            }
+            return null;
         }
 
         //

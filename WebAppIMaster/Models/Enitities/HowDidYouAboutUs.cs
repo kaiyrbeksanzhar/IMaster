@@ -11,12 +11,15 @@ namespace WebAppIMaster.Models
         public HowDidYouAboutUs()
         {
             Langs = new HashSet<HowDidYouAboutUsLang>();
+            Customers = new HashSet<Customer>();
         }
 
         public int Id { get; set; }
         public DateTime DateTime { get; set; }
-        public int Order { get; set; }
-        public int? Click { get; set; }
+        public int? Order { get; set; }
+        public ICollection<Customer> Customers { get; set; }
+
+
         public ICollection<HowDidYouAboutUsLang> Langs { get; set; }
 
     }

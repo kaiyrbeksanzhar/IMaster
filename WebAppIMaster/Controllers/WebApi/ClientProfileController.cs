@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Mvc;
 using WebAppIMaster.Models.Enitities;
@@ -44,18 +45,5 @@ namespace WebAppIMaster.Controllers.WebApi
             return new HttpResponseMessage(HttpStatusCode.Accepted);
         }
 
-        /// <summary>
-        /// Post запрос  ClientProfileRegister изменить данные
-        /// </summary>
-        // PUT: api/ClientProfile/5
-        public string Put( [FromBody]ClientProfileRegister item )
-        {
-            System.Web.Mvc.Controller controller = null;
-            ApplicationDbContext db = new ApplicationDbContext();
-            ClientProfileService repository = new ClientProfileService(db);
-            string userId = repository.Register(item);
-
-            return userId;
-        }
     }
 }

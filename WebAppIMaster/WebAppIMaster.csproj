@@ -324,6 +324,10 @@
     <Compile Include="Migrations\201906060037101_PhoneChecking.Designer.cs">
       <DependentUpon>201906060037101_PhoneChecking.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201906090443095_DbEditor.cs" />
+    <Compile Include="Migrations\201906090443095_DbEditor.Designer.cs">
+      <DependentUpon>201906090443095_DbEditor.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -704,6 +708,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201906060037101_PhoneChecking.resx">
       <DependentUpon>201906060037101_PhoneChecking.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906090443095_DbEditor.resx">
+      <DependentUpon>201906090443095_DbEditor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Resource.kk-KZ.resx" />
     <EmbeddedResource Include="Resources\Resource.resx" />

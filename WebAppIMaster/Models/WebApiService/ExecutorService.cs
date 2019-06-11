@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Web;
 using Twilio;
@@ -249,20 +250,86 @@ namespace WebAppIMaster.Models.WebApiService
 
         public bool UpdatePhoneNumber( string executorId, string newPhoneNumber, string checkingCode )
         {
-            throw new NotImplementedException();
+            try
+            {
+                string langcode = LanguageController.CurrentCultureCode;
+
+                var user = (from e in db.Users.Select(u => u.Executor)
+                            where e.Id == executorId
+
+                            select e).SingleOrDefault();
+
+                string phoneNumber = System.Text.RegularExpressions.Regex.Replace(user.PhoneNumber, @"\s+", "");
+                string phonenumber = user.PhoneNumber.Substring(user.PhoneNumber.Length - 10, 10);
+                var Phonecheking = db.phoneCheckingCodes.Where(pcc => pcc.PhoneNumber.Contains(phonenumber)).FirstOrDefault();
+
+                newPhoneNumber = newPhoneNumber.Replace(" ", "");
+                newPhoneNumber = newPhoneNumber.Replace("+7", "8");
+
+                var executor = db.Executors.Find(executorId);
+                executor.PhoneNumber = newPhoneNumber;
+                db.Entry(executor).State = System.Data.Entity.EntityState.Modified;
+
+                user.PhoneNumber = newPhoneNumber;
+                db.Entry(user).State = System.Data.Entity.EntityState.Modified;
+
+                Phonecheking.PhoneNumber = newPhoneNumber;
+                Phonecheking.CheckingCode = checkingCode;
+                db.Entry(Phonecheking).State = System.Data.Entity.EntityState.Modified;
+                db.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+
         }
 
-        public void UpdatePhotoFiles( Dictionary<byte[], string> actualPhotoFiles )
+        public void UpdatePhotoFiles( string executorId, Dictionary<byte[], string> actualPhotoFiles )
         {
-            throw new NotImplementedException();
+
+            List<string> photos = new List<string>();
+            var item = (from epf in db.ExecutorPhotoFiles
+                        where epf.ExecutorId == executorId
+
+                        select epf).ToList();
+            foreach (var aPhotoFile in actualPhotoFiles)
+            {
+                MemoryStream ms = new MemoryStream(aPhotoFile.Key);
+                Image img = Image.FromStream(ms);
+                string url = FileManager.SavePhoto(img);
+                photos.Add(url);
+            }
+            int i = 0;
+            foreach (var executorphoto in item)
+            {
+                executorphoto.PhotoFileUrl = photos[i];
+                db.Entry(executorphoto).State = System.Data.Entity.EntityState.Modified;
+                i++;
+            }
+            db.SaveChanges();
         }
 
         public void UpdateProfile( ExecutorServiceMdl.ExecutorProfileEdit item )
         {
-            throw new NotImplementedException();
+            string langcode = LanguageController.CurrentCultureCode;
+
+            var hidder = (from e in db.Executors
+                        where e.Id == item.Id
+                          select e).SingleOrDefault();
+
+            hidder.User.LastName = item.LastName;
+            hidder.User.FirstName = item.FirstName;
+            hidder.User.FatherName = item.FatherName;
+            hidder.BirthDay = item.BirthDay;
+            hidder.CityId = item.RegionId;
+
+            db.Entry(hidder).State = System.Data.Entity.EntityState.Modified;
+            db.SaveChanges();
         }
 
-        public void UpdateServices( List<ExecutorServiceMdl.ExecutiveService> actualServices )
+        public void UpdateServices(List<ExecutorServiceMdl.ExecutiveService> actualServices)
         {
             throw new NotImplementedException();
         }

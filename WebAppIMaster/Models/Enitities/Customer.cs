@@ -27,8 +27,9 @@ namespace WebAppIMaster.Models
         public string PhoneNumber { get; set; }
         public string AvatarUrl { get; set; }
         public StatusCustomer? Status { get; set; }
-        public int HowDidYouAboutUsId { get; set; }
-        public virtual HowDidYouAboutUs HowDidYouAboutUs { get; set; }
+
+        public int? HowDidYouAboutUsId { get; set; }
+        public virtual HowDidYouAboutUs  HowDidYouAboutUs { get; set; }
 
         public int? InCityId { get; set; }
         public virtual City InCity { get; set; }
