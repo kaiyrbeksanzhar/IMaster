@@ -17,5 +17,6 @@ namespace WebAppIMaster.Models.IWebApiService
         int Create(ClientOrderCreate item);
         List<ClientOrderItemView> GetListForClient( string clientId );
         List<ClientOrderItemView> GetListForExecutor( string executorId );
+        ClientCommonOrderDetailsView GetClientCommonOrderDetailsView(int orderId);
     }
 }

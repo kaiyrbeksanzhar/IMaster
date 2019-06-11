@@ -19,7 +19,7 @@ namespace WebAppIMaster.Models.WebApiModel
         public bool PayWithBounce { get; set; }
         public string Address { get; set; }
         public string CustomerId { get; set; }
-        public Dictionary<byte[],string> Photos { get; set; }
+        public Dictionary<byte[], string> Photos { get; set; }
     }
     public class ClientOrderDetailsView
     {
@@ -68,5 +68,26 @@ namespace WebAppIMaster.Models.WebApiModel
         public OrderState Type { get; set; }
         public int NewNotifications { get; set; }
 
+    }
+
+    public class ClientCommonOrderDetailsView
+    {
+        public int Id { get; set; }
+        public String OrderNumber { get; set; }
+        public String Title { get; set; }
+        public String Description { get; set; }
+        //public List<ClientOrderService.Photo> Photos { get; set; }
+        //public ClientOrderService.OrderStartDateType OrderStartDateType { get; set; }
+        //public Calendar StartedDate { get; set; }
+        //public ClientOrderService.OrderCostType OrderCostType { get; set; }
+        public int Cost { get; set; }
+        public int RegionId { get; set; }
+        public String Region { get; set; }
+        public int CategoryAndSpecializationId { get; set; }
+        public String CategoryAndSpecialization { get; set; }
+        public String Address { get; set; }
+        public int ViewCount { get; set; }
+        //public OrderType OrderType { get; set; }
+        public DateTime CreateAt { get; set; }
     }
 }
