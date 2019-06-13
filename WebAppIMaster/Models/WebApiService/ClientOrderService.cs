@@ -10,6 +10,7 @@ using System.Web;
 using System.Web.Mvc;
 using WebAppIMaster.Controllers.Base;
 using WebAppIMaster.Models.Enitities;
+using WebAppIMaster.Models.Enums;
 using WebAppIMaster.Models.IWebApiService;
 using WebAppIMaster.Models.WebApiModel;
 
@@ -103,7 +104,7 @@ namespace WebAppIMaster.Models.WebApiService
             return clientOrderItemViews;
         }
 
-        public int Create(ClientOrderCreate model )
+        public int Create( ClientOrderCreate model )
         {
             Dictionary<int, string> photos = new Dictionary<int, string>();
             int i = 1;
@@ -155,14 +156,14 @@ namespace WebAppIMaster.Models.WebApiService
             string langcode = LanguageController.CurrentCultureCode;
             List<ClientOrderItemView> clientOrders = new List<ClientOrderItemView>();
             var model = db.CustomerOrders.Where(co => co.CustomerId == clientId).ToList();
-            foreach(var clientorder in model)
+            foreach (var clientorder in model)
             {
                 clientOrders.Add(new ClientOrderItemView
                 {
                     Id = clientorder.Id,
                     Cost = (int)clientorder.Cost,
-                    CategoryName = clientorder.Category.Langs.Where(l=>l.Langcode==langcode).Select(l=>l.Name).FirstOrDefault(),
-                    StartingDatetime = clientorder.StartedDate.ToShortDateString() +" "+clientorder.StartedDate.ToShortTimeString(),
+                    CategoryName = clientorder.Category.Langs.Where(l => l.Langcode == langcode).Select(l => l.Name).FirstOrDefault(),
+                    StartingDatetime = clientorder.StartedDate.ToShortDateString() + " " + clientorder.StartedDate.ToShortTimeString(),
                     NewNotifications = clientorder.NewNotifications,
                     Title = clientorder.Title,
                     Type = clientorder.OrderState
@@ -190,6 +191,81 @@ namespace WebAppIMaster.Models.WebApiService
                 });
             }
             return clientOrders;
+        }
+
+        public ClientCommonOrderDetailsView GetClientCommonOrderDetailsView( int orderId )
+        {
+            string langcode = LanguageController.CurrentCultureCode;
+
+            var item = (from cd in db.CustomerOrders
+                        where cd.Id == orderId
+                        select new
+                        {
+                            Id = cd.Id,
+                            Description = cd.Description,
+                            StartedDate = cd.StartedDate,
+                            CategoryAndSpecializationId = cd.CategoryId,
+                            Address = cd.Address.Langs.Where(l => l.Langcode == langcode).Select(l => l.Name).FirstOrDefault(),
+                            OrderNumber = cd.OrderNumber,
+                            Cost = (int)cd.Cost,
+                            OrderCostType = cd.CostType,
+                            OrderType = cd.OrderType,
+                            OrderStartDateType = cd.StartDateType,
+                            Region = cd.InCity.Langs.Where(l => l.Langcode == langcode).Select(l => l.Name).FirstOrDefault(),
+                            RegionId = cd.InCityId,
+                            Title = cd.Title,
+                            ViewCount = cd.ViewCount,
+                            CategoryAndSpecialization = cd.Category.Langs.Where(l => l.Langcode == langcode).Select(l => l.Name).FirstOrDefault(),
+                            CreateAt = cd.CreatedDateTime,
+                            Photourl1 = cd.Photo1Url,
+                            Photourl2 = cd.Photo2Url,
+                            Photourl3 = cd.Photo3Url,
+                            Photourl4 = cd.Photo4Url,
+                        }).SingleOrDefault();
+            List<ClientCommonOrderDetailsView.Photo> photos = new List<ClientCommonOrderDetailsView.Photo>()
+            {
+                new ClientCommonOrderDetailsView.Photo
+                {
+                    File = System.IO.File.ReadAllBytes(item.Photourl1),
+                    Type =item.Photourl1.Substring(item.Photourl1.LastIndexOf(".") + 1),
+                },
+                new ClientCommonOrderDetailsView.Photo
+                {
+                      File = System.IO.File.ReadAllBytes(item.Photourl2),
+                    Type =item.Photourl2.Substring(item.Photourl2.LastIndexOf(".") + 1),
+                },
+                new ClientCommonOrderDetailsView.Photo
+                {
+                      File = System.IO.File.ReadAllBytes(item.Photourl3),
+                    Type =item.Photourl3.Substring(item.Photourl3.LastIndexOf(".") + 1),
+                },
+                new ClientCommonOrderDetailsView.Photo
+                {
+                      File = System.IO.File.ReadAllBytes(item.Photourl4),
+                    Type =item.Photourl4.Substring(item.Photourl4.LastIndexOf(".") + 1),
+                },
+            };
+
+            return new ClientCommonOrderDetailsView
+            {
+                Id = item.Id,
+                Description = item.Description,
+                StartedDate = item.StartedDate,
+                CategoryAndSpecializationId = item.CategoryAndSpecializationId,
+                Address = item.Address,
+                OrderNumber = item.OrderNumber,
+                Cost = item.Cost,
+                OrderCostType = item.OrderCostType,
+                OrderType = item.OrderType,
+                OrderStartDateType = item.OrderStartDateType,
+                Region = item.Region,
+                RegionId = item.RegionId,
+                Title = item.Title,
+                ViewCount = item.ViewCount,
+                CategoryAndSpecialization = item.CategoryAndSpecialization,
+                CreateAt = item.CreateAt,
+                Photos = photos
+            };
         }
     }
 }

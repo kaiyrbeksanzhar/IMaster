@@ -99,5 +99,19 @@ namespace WebAppIMaster.Controllers.WebApi
             var model = repository.GetListForExecutor(executorId);
             return model;
         }
+
+        /// <summary>
+        /// передайте api/GetClientCommonOrderDetails/5 возращает заказ клиента
+        /// </summary>
+        /// <param name="orderId">Принимает параметр orderId.</param>
+        // GET: api/GetClientCommonOrderDetails/5
+        [System.Web.Http.Route("api/GetClientCommonOrderDetails")]
+        public ClientCommonOrderDetailsView GetClientCommonOrderDetailsView( int orderId )
+        {
+            ApplicationDbContext db = new ApplicationDbContext();
+            ClientOrderService repository = new ClientOrderService(db);
+            var model = repository.GetClientCommonOrderDetailsView(orderId);
+            return model;
+        }
     }
 }

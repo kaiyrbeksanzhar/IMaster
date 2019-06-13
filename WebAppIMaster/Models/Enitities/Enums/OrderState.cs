@@ -12,5 +12,6 @@ namespace WebAppIMaster.Models.Enums
         Canceled,
         InProcess,
         Finished
+
     }
 }

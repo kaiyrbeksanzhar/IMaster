@@ -328,6 +328,10 @@
     <Compile Include="Migrations\201906090443095_DbEditor.Designer.cs">
       <DependentUpon>201906090443095_DbEditor.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201906111739521_dbEditcurrent.cs" />
+    <Compile Include="Migrations\201906111739521_dbEditcurrent.Designer.cs">
+      <DependentUpon>201906111739521_dbEditcurrent.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -354,6 +358,7 @@
     <Compile Include="Models\Enitities\Enums\OrderCostType.cs" />
     <Compile Include="Models\Enitities\Enums\OrderStartDateType.cs" />
     <Compile Include="Models\Enitities\Enums\OrderState.cs" />
+    <Compile Include="Models\Enitities\Enums\OrderType.cs" />
     <Compile Include="Models\Enitities\Enums\OrganizationIpTarif.cs" />
     <Compile Include="Models\Enitities\Enums\Relevance.cs" />
     <Compile Include="Models\Enitities\Enums\Roles.cs" />
@@ -711,6 +716,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201906090443095_DbEditor.resx">
       <DependentUpon>201906090443095_DbEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906111739521_dbEditcurrent.resx">
+      <DependentUpon>201906111739521_dbEditcurrent.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Resource.kk-KZ.resx" />
     <EmbeddedResource Include="Resources\Resource.resx" />

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using WebAppIMaster.Models.Enitities.Enums;
 using WebAppIMaster.Models.Enums;
 
 namespace WebAppIMaster.Models.WebApiModel
@@ -73,21 +74,27 @@ namespace WebAppIMaster.Models.WebApiModel
     public class ClientCommonOrderDetailsView
     {
         public int Id { get; set; }
-        public String OrderNumber { get; set; }
-        public String Title { get; set; }
-        public String Description { get; set; }
-        //public List<ClientOrderService.Photo> Photos { get; set; }
-        //public ClientOrderService.OrderStartDateType OrderStartDateType { get; set; }
-        //public Calendar StartedDate { get; set; }
-        //public ClientOrderService.OrderCostType OrderCostType { get; set; }
+        public string OrderNumber { get; set; }
+        public string Title { get; set; }
+        public string Description { get; set; }
+        public List<Photo> Photos { get; set; }
+        public OrderStartDateType OrderStartDateType { get; set; }
+        public DateTime StartedDate { get; set; }
+        public OrderCostType OrderCostType { get; set; }
         public int Cost { get; set; }
         public int RegionId { get; set; }
-        public String Region { get; set; }
+        public string Region { get; set; }
         public int CategoryAndSpecializationId { get; set; }
-        public String CategoryAndSpecialization { get; set; }
-        public String Address { get; set; }
+        public string CategoryAndSpecialization { get; set; }
+        public string Address { get; set; }
         public int ViewCount { get; set; }
-        //public OrderType OrderType { get; set; }
+        public OrderType OrderType { get; set; }
         public DateTime CreateAt { get; set; }
+
+        public class Photo
+        {
+            public byte[] File { get; set; }
+            public string Type { get; set; }
+        }
     }
 }

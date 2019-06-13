@@ -89,5 +89,21 @@ namespace WebAppIMaster.Models.WebApiModel
             public ExecutorType ExecutorType { get; set; }
             public List<int> SpecializationIds { get; set; }
         }
+
+        public class ExecutorItem
+        {
+            public string Id { get; set; }
+            public string LastName { get; set; }
+            public string FirstName { get; set; }
+            public string FatherName { get; set; }
+            public int Rating { get; set; }
+            public bool Check { get; set; }
+            public DateTime RegisteredAt { get; set; }
+            public int ClosedOrdersCount { get; set; }
+            public byte[] AvatarFile { get; set; }
+            public string AvatarFileType { get; set; }
+
+            public ExecutorType ExecutorType { get; set; }
+        }
     }
 }

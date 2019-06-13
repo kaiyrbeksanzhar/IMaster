@@ -14,6 +14,8 @@ namespace WebAppIMaster.Models.IWebApiService
         void Response( string executorId, int orderId, string responseComment );
         void CallToClient( string executorId, int orderId );
         void CancelOrder( string executorId, int orderId, OrderCancelType cancelType );
+        void AddBookmark( int orderId );
+        void RemoveBookmark( int orderId );
 
     }
 }

@@ -20,6 +20,10 @@ namespace WebAppIMaster.Models.WebApiService
 
             string Phonenumber = System.Text.RegularExpressions.Regex.Replace(PhoneNumber, @"\s+", "");
             string phonenumber = PhoneNumber.Substring(Phonenumber.Length - 10, 10);
+
+            phonenumber = phonenumber.Replace(" ", "");
+            phonenumber = phonenumber.Replace("+7", "8");
+
             var model = db.Users.Where(u => u.PhoneNumber.Contains(phonenumber)).SingleOrDefault();
             if(model == null)
             {
@@ -38,13 +42,14 @@ namespace WebAppIMaster.Models.WebApiService
             const string authToken = "59a8ffe9a848c07bfe598a99c43abfd2";
 
             Random random = new Random();
-            int code = random.Next(1000, 9999);
+            //int code = random.Next(1000, 9999);
+            int code = 4444;
             TwilioClient.Init(accountSid, authToken);
-            var message = MessageResource.Create(
-                body: "Ваше код безопасности:" + code,
-                from: new Twilio.Types.PhoneNumber("+14193860152"),
-                to: new Twilio.Types.PhoneNumber(Phonenumber)
-            );
+            //var message = MessageResource.Create(
+            //    body: "Ваше код безопасности:" + code,
+            //    from: new Twilio.Types.PhoneNumber("+14193860152"),
+            //    to: new Twilio.Types.PhoneNumber(Phonenumber)
+            //);
             PhoneCheckingCode phoneCheckingCode = null;
             var phoneCheckingcode = db.phoneCheckingCodes.Where(pcc => pcc.PhoneNumber.Contains(phonenumber)).FirstOrDefault();
             if (phoneCheckingcode == null)

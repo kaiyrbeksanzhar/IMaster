@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WebAppIMaster.Models.Enitities;
+using WebAppIMaster.Models.Enitities.Enums;
 
 namespace WebAppIMaster.Models
 {
@@ -26,6 +27,7 @@ namespace WebAppIMaster.Models
         public decimal Cost { get; set; }
         public OrderState OrderState { get; set; }
         public int NewNotifications { get; set; }
+        public OrderType OrderType { get; set; }
 
         public int InCityId { get; set; }
         public virtual City InCity { get; set; }

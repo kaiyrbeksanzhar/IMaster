@@ -16,6 +16,8 @@ namespace WebAppIMaster.Models.WebApiService
 
         public ExecutorOrderService( ApplicationDbContext db ) => this.db = db;
 
+
+
         public void CallToClient( string executorId, int orderId )
         {
             CallToClient callToClient = new CallToClient()
@@ -77,6 +79,17 @@ namespace WebAppIMaster.Models.WebApiService
             };
             db.Responses.Add(responsies);
             db.SaveChanges();
+        }
+
+
+        public void RemoveBookmark( int orderId )
+        {
+            throw new NotImplementedException();
+        }
+
+        public void AddBookmark( int orderId )
+        {
+            throw new NotImplementedException();
         }
     }
 }

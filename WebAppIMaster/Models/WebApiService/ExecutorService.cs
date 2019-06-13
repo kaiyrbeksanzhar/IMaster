@@ -22,9 +22,9 @@ namespace WebAppIMaster.Models.WebApiService
 
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        public ExecutorService(ApplicationDbContext db) => this.db = db;
+        public ExecutorService( ApplicationDbContext db ) => this.db = db;
 
-        public ExecutorServiceMdl.ExecutorProfile GetById(string id)
+        public ExecutorServiceMdl.ExecutorProfile GetById( string id )
         {
             string langcode = LanguageController.CurrentCultureCode;
             var model = db.Executors.Find(id);
@@ -105,7 +105,7 @@ namespace WebAppIMaster.Models.WebApiService
             };
         }
 
-        public ExecutorServiceMdl.ExecutorProfile GetByPhoneNumber(string phoneNumber)
+        public ExecutorServiceMdl.ExecutorProfile GetByPhoneNumber( string phoneNumber )
         {
             string langcode = LanguageController.CurrentCultureCode;
 
@@ -186,7 +186,89 @@ namespace WebAppIMaster.Models.WebApiService
             };
         }
 
-        public string Register(ExecutorServiceMdl.ExecutorRegister item)
+        public List<ExecutorServiceMdl.ExecutorItem> GetItemList()
+        {
+            string langcode = LanguageController.CurrentCultureCode;
+            List<ExecutorServiceMdl.ExecutorItem> executorItems = new List<ExecutorServiceMdl.ExecutorItem>();
+
+            var executors = db.Executors.ToList();
+            foreach (var item in executors)
+            {
+                executorItems.Add(new ExecutorServiceMdl.ExecutorItem
+                {
+                    Id = item.Id,
+                    LastName = item.User.LastName,
+                    FirstName = item.User.FirstName,
+                    FatherName = item.User.FatherName,
+                    Rating = (int)item.Rating,
+                    Check = (bool)item.ExecutorCheck,
+                    RegisteredAt = (DateTime)item.RegistrationDateTime,
+                    ClosedOrdersCount = (int)item.ExecutorClosedOrdersCount,
+                    AvatarFile = System.IO.File.ReadAllBytes(item.AvatarUrl),
+                    ExecutorType = (ExecutorType)item.ExecutorType,
+                    AvatarFileType = item.AvatarUrl.Substring(item.AvatarUrl.LastIndexOf(".") + 1),
+                });
+            }
+
+            return executorItems;
+        }
+
+        public List<ExecutorServiceMdl.ExecutorItem> GetItemListForSpecialization( int specializationId )
+        {
+            string langcode = LanguageController.CurrentCultureCode;
+
+            List<ExecutorServiceMdl.ExecutorItem> executorItems = new List<ExecutorServiceMdl.ExecutorItem>();
+
+            var executors = db.ExecutorSpecializations.Where(es => es.SpecializationId == specializationId).ToList();
+            foreach (var item in executors)
+            {
+                executorItems.Add(new ExecutorServiceMdl.ExecutorItem
+                {
+                    Id = item.ExecutorId,
+                    LastName = item.Executor.User.LastName,
+                    FirstName = item.Executor.User.FirstName,
+                    FatherName = item.Executor.User.FatherName,
+                    AvatarFile = System.IO.File.ReadAllBytes(item.Executor.AvatarUrl),
+                    AvatarFileType = item.Executor.AvatarUrl.Substring(item.Executor.AvatarUrl.LastIndexOf(".") + 1),
+                    ExecutorType = (ExecutorType)item.Executor.ExecutorType,
+                    Check = (bool)item.Executor.ExecutorCheck,
+                    ClosedOrdersCount = (int)item.Executor.ExecutorClosedOrdersCount,
+                    Rating = (int)item.Executor.Rating,
+                    RegisteredAt = (DateTime)item.Executor.RegistrationDateTime,
+                });
+            }
+            return executorItems;
+        }
+
+        public List<ExecutorServiceMdl.ExecutorItem> GetItemListSuitableForOrder( int orderId )
+        {
+            string langcode = LanguageController.CurrentCultureCode;
+
+            List<ExecutorServiceMdl.ExecutorItem> executorItems = new List<ExecutorServiceMdl.ExecutorItem>();
+
+            var executors = db.CustomerOrders.Where(o => o.Id == orderId).ToList();
+
+            foreach (var item in executors)
+            {
+                executorItems.Add(new ExecutorServiceMdl.ExecutorItem
+                {
+                    Id = item.ExecutorId,
+                    LastName = item.Executor.User.LastName,
+                    FirstName = item.Executor.User.FirstName,
+                    FatherName = item.Executor.User.FatherName,
+                    AvatarFile = System.IO.File.ReadAllBytes(item.Executor.AvatarUrl),
+                    AvatarFileType = item.Executor.AvatarUrl.Substring(item.Executor.AvatarUrl.LastIndexOf(".") + 1),
+                    ExecutorType = (ExecutorType)item.Executor.ExecutorType,
+                    Check = (bool)item.Executor.ExecutorCheck,
+                    ClosedOrdersCount = (int)item.Executor.ExecutorClosedOrdersCount,
+                    Rating = (int)item.Executor.Rating,
+                    RegisteredAt = (DateTime)item.Executor.RegistrationDateTime,
+                });
+            }
+            return executorItems;
+        }
+
+        public string Register( ExecutorServiceMdl.ExecutorRegister item )
         {
             string lang_kz = LanguageController.GetKzCode();
             string lang_ru = LanguageController.GetRuCode();
@@ -215,7 +297,7 @@ namespace WebAppIMaster.Models.WebApiService
             return executor.Id;
         }
 
-        public void SendCheckingCodeForUpdatePhoneNumber(string newPhoneNumber)
+        public void SendCheckingCodeForUpdatePhoneNumber( string newPhoneNumber )
         {
             string phonenumber = "+" + newPhoneNumber;
             var model = db.Executors.Where(e => e.User.PhoneNumber == phonenumber).FirstOrDefault();
@@ -248,7 +330,7 @@ namespace WebAppIMaster.Models.WebApiService
             db.SaveChanges();
         }
 
-        public bool UpdatePhoneNumber(string executorId, string newPhoneNumber, string checkingCode)
+        public bool UpdatePhoneNumber( string executorId, string newPhoneNumber, string checkingCode )
         {
             try
             {
@@ -286,7 +368,7 @@ namespace WebAppIMaster.Models.WebApiService
 
         }
 
-        public void UpdatePhotoFiles(string executorId, Dictionary<byte[], string> actualPhotoFiles)
+        public void UpdatePhotoFiles( string executorId, Dictionary<byte[], string> actualPhotoFiles )
         {
 
             List<string> photos = new List<string>();
@@ -311,7 +393,7 @@ namespace WebAppIMaster.Models.WebApiService
             db.SaveChanges();
         }
 
-        public void UpdateProfile(ExecutorServiceMdl.ExecutorProfileEdit item)
+        public void UpdateProfile( ExecutorServiceMdl.ExecutorProfileEdit item )
         {
             string langcode = LanguageController.CurrentCultureCode;
 
@@ -338,7 +420,7 @@ namespace WebAppIMaster.Models.WebApiService
             db.SaveChanges();
         }
 
-        public void UpdateServices(List<ExecutorServiceMdl.ExecutiveService> actualServices, string executorId)
+        public void UpdateServices( List<ExecutorServiceMdl.ExecutiveService> actualServices, string executorId )
         {
             List<Models.ExecutorService> executiveServices = new List<Models.ExecutorService>();
             string lang_kz = LanguageController.GetKzCode();
@@ -370,7 +452,7 @@ namespace WebAppIMaster.Models.WebApiService
             db.SaveChanges();
         }
 
-        public void UpdateType(ExecutorServiceMdl.ExecutorTypeEdit item, string executorId)
+        public void UpdateType( ExecutorServiceMdl.ExecutorTypeEdit item, string executorId )
         {
             string lang_kz = LanguageController.GetKzCode();
             string lang_ru = LanguageController.GetRuCode();
