@@ -54,7 +54,7 @@ namespace WebAppIMaster.Models.WebApiService
 
 
 
-        public ClientProfileMdl.ClientProfileView GetCurrentClientProfileView( int Id )
+        public ClientProfileMdl.ClientProfileView GetCurrentClientProfileView( string Id )
         {
             string langcode = LanguageController.CurrentCultureCode;
             var model = db.Customers.Find(Id);

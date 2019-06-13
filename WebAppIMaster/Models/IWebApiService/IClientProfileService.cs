@@ -10,7 +10,7 @@ namespace WebAppIMaster.Models.IWebApiService
 {
     public interface IClientProfileService
     {
-        ClientProfileView GetCurrentClientProfileView(int id);
+        ClientProfileView GetCurrentClientProfileView(string id);
         void EditCurrentClientProfile(Controller controller, ClientProfileEdit item );
         Task<string> Register( ClientProfileRegister item );
     }
