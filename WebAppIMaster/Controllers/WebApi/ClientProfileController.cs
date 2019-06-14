@@ -21,9 +21,9 @@ namespace WebAppIMaster.Controllers.WebApi
         /// <summary>
         /// передайте id(api/ClientProfile/5) возращает один элемент
         /// </summary>
-        /// <param name="id">Принимает параметр id.(GetUserId)</param>
+        /// <param name="string">Принимает параметр string.(GetUserId)</param>
         // GET: api/ClientProfile/5
-        public ClientProfileView Get(int id)
+        public ClientProfileView Get(string id)
         {
             ApplicationDbContext db = new ApplicationDbContext();
             ClientProfileService repository = new ClientProfileService(db);

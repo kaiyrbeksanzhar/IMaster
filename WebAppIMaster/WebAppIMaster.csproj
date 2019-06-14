@@ -339,6 +339,7 @@
     <Compile Include="Models\Enitities\Address.cs" />
     <Compile Include="Models\Enitities\AddressLang.cs" />
     <Compile Include="Models\Enitities\ApplicationUser.cs" />
+    <Compile Include="Models\Enitities\Bookmark.cs" />
     <Compile Include="Models\Enitities\CallToClient.cs" />
     <Compile Include="Models\Enitities\CancelExecutorResponse.cs" />
     <Compile Include="Models\Enitities\CancelOrder.cs" />
