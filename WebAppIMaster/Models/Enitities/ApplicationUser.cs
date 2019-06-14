@@ -22,6 +22,7 @@ namespace WebAppIMaster.Models
         public string FirstName { get; set; }
         public string FatherName { get; set; }
         public int GenderId { get; set; }
+        public int RegionId { get; set; }
 
         public virtual UserProfile Profile { get; set; }
         public virtual Executor Executor { get; set; }

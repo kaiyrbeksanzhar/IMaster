@@ -17,7 +17,7 @@ namespace WebAppIMaster.Models.WebApiModel
 
             public int RegionId { get; set; }
             public string CityName { get; set; }
-            public int Bonus { get; set; }
+            public int? Bonus { get; set; }
             public int GenderId { get; set; }
             public string Gender { get; set; }
             public string Phonenumber { get; set; }

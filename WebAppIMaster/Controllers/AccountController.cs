@@ -173,6 +173,7 @@ namespace WebAppIMaster.Controllers
                         Customer customer = new Customer()
                         {
                             Id = user.Id,
+                            InCityId = model.RegionId,
                             LastName = user.LastName,
                             FirstName = user.FirstName,
                             FatherName = user.FatherName,

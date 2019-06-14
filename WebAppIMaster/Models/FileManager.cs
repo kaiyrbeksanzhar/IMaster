@@ -13,7 +13,7 @@ namespace WebAppIMaster.Models
 
         static string CategoryImagesUrl = "/Images/Category";
         static string ImagesSave = "/Images";
-        static string DefaulAvatarUrl = "/Images/Default/NoPhoto.png";
+        public static string DefaulAvatarUrl = "/Images/Default/NoPhoto.png";
         private static bool isFilesPathReady;
 
         private static void PrepareFilesPath( Controller controller )

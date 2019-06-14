@@ -26,10 +26,10 @@ namespace WebAppIMaster.Models.WebApiService
         private ApplicationDbContext db = new ApplicationDbContext();
 
 
-        public ClientProfileService( ApplicationDbContext db ) => this.db = db;
+        public ClientProfileService(ApplicationDbContext db) => this.db = db;
 
 
-        public void EditCurrentClientProfile( Controller controller, ClientProfileMdl.ClientProfileEdit item )
+        public void EditCurrentClientProfile(Controller controller, ClientProfileMdl.ClientProfileEdit item)
         {
             Image img;
             string photourl = " ";
@@ -54,30 +54,48 @@ namespace WebAppIMaster.Models.WebApiService
 
 
 
-        public ClientProfileMdl.ClientProfileView GetCurrentClientProfileView( string Id )
+        public ClientProfileMdl.ClientProfileView GetCurrentClientProfileView(string Id)
         {
+            Image img = null;
+            byte[] Imagesbyte = null;
+            string PhotoType = " ";
             string langcode = LanguageController.CurrentCultureCode;
-            var model = db.Customers.Find(Id);
-            Image img = Image.FromFile(model.AvatarUrl);
-            string PhotoType = model.AvatarUrl.Substring(model.AvatarUrl.LastIndexOf(".") + 1);
-            byte[] Imagesbyte = FileManager.ImageToByteArray(img);
-            return new ClientProfileMdl.ClientProfileView
+            var item = db.Customers.Where(u => u.Id == Id).Select(model => new
             {
                 Firstname = model.FirstName,
                 Lastname = model.LastName,
-                AvatarFile = Imagesbyte,
-                Fathername = model.FatherName != null ? model.FatherName : " ",
+                AvatarFile = model.AvatarUrl,
+                Fathername = model.FatherName,
                 RegionId = 1,
                 Phonenumber = model.ApplicationUser.PhoneNumber,
-                AvatarFileType = PhotoType,
-                Bonus = (int)model.Bonus,
+                AvatarFileType = "",
+                Bonus = (int?)model.Bonus,
                 GenderId = model.ApplicationUser.GenderId,
                 CityName = model.InCity.Langs.Where(l => l.Langcode == langcode).Select(l => l.Name).FirstOrDefault(),
 
+            }).SingleOrDefault();
+            if (item.AvatarFile != null)
+            {
+                img = Image.FromFile(item.AvatarFile);
+                PhotoType = item.AvatarFile.Substring(item.AvatarFile.LastIndexOf(".") + 1);
+                Imagesbyte = FileManager.ImageToByteArray(img);
+            }
+            return new ClientProfileMdl.ClientProfileView()
+            {
+                Firstname = item.Firstname,
+                Lastname = item.Lastname,
+                AvatarFile = Imagesbyte,
+                Fathername = item.Fathername,
+                RegionId = 1,
+                Phonenumber = item.Phonenumber,
+                AvatarFileType = PhotoType,
+                Bonus = (int?)item.Bonus,
+                GenderId = item.GenderId,
+                CityName = item.CityName,
             };
         }
 
-        public async Task<string> Register( ClientProfileMdl.ClientProfileRegister item )
+        public async Task<string> Register(ClientProfileMdl.ClientProfileRegister item)
         {
             string lang_kz = LanguageController.GetKzCode();
             string lang_ru = LanguageController.GetRuCode();
@@ -129,7 +147,7 @@ namespace WebAppIMaster.Models.WebApiService
 
                     }
                 }
-                catch (Exception e )
+                catch (Exception e)
                 {
                     int ijo = 5;
                 }
@@ -140,7 +158,7 @@ namespace WebAppIMaster.Models.WebApiService
         private ApplicationUserManager _userManager;
 
 
-        public ClientProfileService( ApplicationUserManager userManager, ApplicationSignInManager signInManager )
+        public ClientProfileService(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
         {
             UserManager = userManager;
             SignInManager = signInManager;
@@ -170,9 +188,9 @@ namespace WebAppIMaster.Models.WebApiService
             }
         }
 
-   
 
-        protected override void Dispose( bool disposing )
+
+        protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
@@ -204,7 +222,7 @@ namespace WebAppIMaster.Models.WebApiService
             }
         }
 
-        private void AddErrors( IdentityResult result )
+        private void AddErrors(IdentityResult result)
         {
             foreach (var error in result.Errors)
             {
@@ -212,7 +230,7 @@ namespace WebAppIMaster.Models.WebApiService
             }
         }
 
-        private ActionResult RedirectToLocal( string returnUrl )
+        private ActionResult RedirectToLocal(string returnUrl)
         {
             if (Url.IsLocalUrl(returnUrl))
             {
@@ -223,12 +241,12 @@ namespace WebAppIMaster.Models.WebApiService
 
         internal class ChallengeResult : HttpUnauthorizedResult
         {
-            public ChallengeResult( string provider, string redirectUri )
+            public ChallengeResult(string provider, string redirectUri)
                 : this(provider, redirectUri, null)
             {
             }
 
-            public ChallengeResult( string provider, string redirectUri, string userId )
+            public ChallengeResult(string provider, string redirectUri, string userId)
             {
                 LoginProvider = provider;
                 RedirectUri = redirectUri;
@@ -239,7 +257,7 @@ namespace WebAppIMaster.Models.WebApiService
             public string RedirectUri { get; set; }
             public string UserId { get; set; }
 
-            public override void ExecuteResult( ControllerContext context )
+            public override void ExecuteResult(ControllerContext context)
             {
                 var properties = new AuthenticationProperties { RedirectUri = RedirectUri };
                 if (UserId != null)
