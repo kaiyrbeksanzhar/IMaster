@@ -48,5 +48,11 @@ namespace WebAppIMaster.Models.WebApiModel
             public Dictionary<byte[], String> PhotoFiles { get; set; }
         }
 
+        public class BookMarkMdl
+        {
+            public string BookMarkUserId { get; set; }
+            public int OrderId { get; set; }
+        }
+
     }
 }

@@ -603,11 +603,11 @@
             Клиент ClientProfile Api
             </summary>
         </member>
-        <member name="M:WebAppIMaster.Controllers.WebApi.ClientProfileController.Get(System.Int32)">
+        <member name="M:WebAppIMaster.Controllers.WebApi.ClientProfileController.Get(System.String)">
             <summary>
             передайте id(api/ClientProfile/5) возращает один элемент
             </summary>
-            <param name="id">Принимает параметр id.(GetUserId)</param>
+            <param name="string">Принимает параметр string.(GetUserId)</param>
         </member>
         <member name="M:WebAppIMaster.Controllers.WebApi.ClientProfileController.Post(WebAppIMaster.Models.WebApiModel.ClientProfileMdl.ClientProfileEdit)">
             <summary>
@@ -654,6 +654,20 @@
             </summary>
             <param name="CategoryIds">Принимает параметр CategoryIds.</param>
             <param name="SpecializationIds">Принимает параметр SpecializationIds.</param>
+        </member>
+        <member name="M:WebAppIMaster.Controllers.WebApi.ExecutorOrderServiceController.AddBookMark(System.String,System.Int32)">
+            <summary>
+            передайте (api/AddBookMark/{userId,orderId})  сохраняет bookMark
+            </summary>
+            <param name="userId">Принимает параметр userId.</param>
+            <param name="orderId">Принимает параметр orderId.</param>
+        </member>
+        <member name="M:WebAppIMaster.Controllers.WebApi.ExecutorOrderServiceController.Delete(System.String,System.Int32)">
+            <summary>
+            передайте (api/DeleteBookMark/{userId,orderId})  сохраняет bookMark
+            </summary>
+            <param name="userId">Принимает параметр userId.</param>
+            <param name="orderId">Принимает параметр orderId.</param>
         </member>
         <member name="T:WebAppIMaster.Controllers.WebApi.ExecutorServiceController">
             <summary>

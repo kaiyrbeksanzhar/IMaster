@@ -80,16 +80,26 @@ namespace WebAppIMaster.Models.WebApiService
             db.Responses.Add(responsies);
             db.SaveChanges();
         }
-
-
-        public void RemoveBookmark( int orderId )
+        public void RemoveBookmark( string userId,int orderId )
         {
-            throw new NotImplementedException();
+            var item = (from b in db.Bookmarks
+
+                        where b.BookMarkUserId == userId
+                        where b.OrderId == orderId
+                        select b).SingleOrDefault(); ;
+            db.Bookmarks.Remove(item);
+            db.SaveChanges();
         }
 
-        public void AddBookmark( int orderId )
+        public void AddBookmark(string userId, int orderId )
         {
-            throw new NotImplementedException();
+            Bookmark bookmark = new Bookmark()
+            {
+                BookMarkUserId = userId,
+                OrderId = orderId
+            };
+            db.Bookmarks.Add(bookmark);
+            db.SaveChanges();
         }
     }
 }

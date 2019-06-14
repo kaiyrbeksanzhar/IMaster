@@ -67,7 +67,9 @@ namespace WebAppIMaster.Models.Enitities
         public DbSet<ExecutorPhone> ExecutorPhonies { get; set; }
         public DbSet<ClientPhone> ClientPhones { get; set; }
         public DbSet<PhoneCheckingCode>  phoneCheckingCodes { get; set; }
+        public DbSet<Bookmark> Bookmarks { get; set; }
         
+
 
 
 

@@ -22,7 +22,7 @@ namespace WebAppIMaster.Controllers.WebApi
         /// </summary>
         /// <param name="orderId">Принимает параметр orderId.</param>
         // GET: api/ExecutorOrderService/5
-        public ExecutorOrderMdl.ExecutorOrderDetails Get( int orderId )
+        public ExecutorOrderMdl.ExecutorOrderDetails Get(int orderId)
         {
             ApplicationDbContext db = new ApplicationDbContext();
             ExecutorOrderService repository = new ExecutorOrderService(db);
@@ -45,7 +45,7 @@ namespace WebAppIMaster.Controllers.WebApi
         /// <param name="orderId">Принимает параметр orderId.</param>
         /// <param name="responseComment">Принимает параметр responseComment.</param>
         [System.Web.Http.Route("api/Response")]
-        public void Response( string executorId, int orderId, string responseComment )
+        public void Response(string executorId, int orderId, string responseComment)
         {
             ApplicationDbContext db = new ApplicationDbContext();
             ExecutorOrderService repository = new ExecutorOrderService(db);
@@ -59,7 +59,7 @@ namespace WebAppIMaster.Controllers.WebApi
         /// <param name="orderId">Принимает параметр orderId.</param>
         /// <param name="cancelType">Принимает параметр cancelType.</param>
         [System.Web.Http.Route("api/CancelOrder")]
-        public void CancelOrder( string executorId, int orderId, OrderCancelType cancelType )
+        public void CancelOrder(string executorId, int orderId, OrderCancelType cancelType)
         {
             ApplicationDbContext db = new ApplicationDbContext();
             ExecutorOrderService repository = new ExecutorOrderService(db);
@@ -72,7 +72,7 @@ namespace WebAppIMaster.Controllers.WebApi
         /// <param name="executorId">Принимает параметр executorId.</param>
         /// <param name="orderId">Принимает параметр orderId.</param>
         [System.Web.Http.Route("api/CallToClient")]
-        public void CallToClient( string executorId, int orderId )
+        public void CallToClient(string executorId, int orderId)
         {
             ApplicationDbContext db = new ApplicationDbContext();
             ExecutorOrderService repository = new ExecutorOrderService(db);
@@ -85,14 +85,40 @@ namespace WebAppIMaster.Controllers.WebApi
         /// <param name="CategoryIds">Принимает параметр CategoryIds.</param>
         /// <param name="SpecializationIds">Принимает параметр SpecializationIds.</param>
         [System.Web.Http.Route("api/GetItemList")]
-        public List<ExecutorOrderMdl.ExecutorOrderItem> GetItemList( List<int> CategoryIds, List<int> SpecializationIds )
+        public List<ExecutorOrderMdl.ExecutorOrderItem> GetItemList(List<int> CategoryIds, List<int> SpecializationIds)
         {
             ApplicationDbContext db = new ApplicationDbContext();
             ExecutorOrderService repository = new ExecutorOrderService(db);
             var model = repository.GetItemList(CategoryIds, SpecializationIds);
             return model;
         }
+        /// <summary>
+        /// передайте (api/AddBookMark/{userId,orderId})  сохраняет bookMark
+        /// </summary>
+        /// <param name="userId">Принимает параметр userId.</param>
+        /// <param name="orderId">Принимает параметр orderId.</param>
+        // GET: api/AddBookMark/{userId,orderId}
+        [System.Web.Http.Route("api/AddBookMark")]
+        public void AddBookMark(string userId, int orderId)
+        {
+            ApplicationDbContext db = new ApplicationDbContext();
+            ExecutorOrderService repository = new ExecutorOrderService(db);
+            repository.AddBookmark(userId, orderId);
+        }
 
+        /// <summary>
+        /// передайте (api/DeleteBookMark/{userId,orderId})  сохраняет bookMark
+        /// </summary>
+        /// <param name="userId">Принимает параметр userId.</param>
+        /// <param name="orderId">Принимает параметр orderId.</param>
+        // GET: api/DeleteBookMark/{userId,orderId}
+        [System.Web.Http.Route("api/DeleteBookMark")]
+        public void Delete(string userId, int orderId)
+        {
+            ApplicationDbContext db = new ApplicationDbContext();
+            ExecutorOrderService repository = new ExecutorOrderService(db);
+            repository.RemoveBookmark(userId, orderId);
+        }
 
     }
 }
