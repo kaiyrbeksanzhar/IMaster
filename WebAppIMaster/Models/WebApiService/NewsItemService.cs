@@ -17,10 +17,7 @@ namespace WebAppIMaster.Models.WebApiService
         {
             string langcode = LanguageController.CurrentCultureCode;
             var model = db.NewsLangs.Where(nl => nl.NewsId == id).Where(nl=>nl.Langcode == langcode).FirstOrDefault();
-            byte[] byteData = System.IO.File.ReadAllBytes(model.News.PhotoUrl1);
-            //Convert byte arry to base64string   
-            //string imreBase64Data = Convert.ToBase64String(byteData);
-            //string imgDataURL = string.Format("data:image/png;base64,{0}", imreBase64Data);
+            byte[] byteData = System.IO.File.ReadAllBytes(HttpContext.Current.Server.MapPath("~") + model.News.PhotoUrl1);
             return new NewsItemMdl
             {
                 Id = model.Id,
@@ -28,8 +25,9 @@ namespace WebAppIMaster.Models.WebApiService
                 Description = model.Description,
                 PhotoFile = byteData,
                 Title = model.Title,
-                ViewCount = model.News.ViewsNumber
-            };
+                ViewCount = model.News.ViewsNumber,
+                PhotoFileType = model.News.PhotoUrl1.Substring(model.News.PhotoUrl1.LastIndexOf(".") + 1),
+        };
         }
 
         public List<NewsItemMdl> GetList()

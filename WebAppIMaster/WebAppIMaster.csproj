@@ -336,6 +336,10 @@
     <Compile Include="Migrations\201906140628240_GetDBEditors.Designer.cs">
       <DependentUpon>201906140628240_GetDBEditors.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201906150408468_dbEditors.cs" />
+    <Compile Include="Migrations\201906150408468_dbEditors.Designer.cs">
+      <DependentUpon>201906150408468_dbEditors.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -727,6 +731,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201906140628240_GetDBEditors.resx">
       <DependentUpon>201906140628240_GetDBEditors.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906150408468_dbEditors.resx">
+      <DependentUpon>201906150408468_dbEditors.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Resource.kk-KZ.resx" />
     <EmbeddedResource Include="Resources\Resource.resx" />
