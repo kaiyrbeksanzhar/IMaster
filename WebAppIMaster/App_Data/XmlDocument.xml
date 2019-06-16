@@ -605,9 +605,15 @@
         </member>
         <member name="M:WebAppIMaster.Controllers.WebApi.ClientProfileController.Get(System.String)">
             <summary>
-            передайте id(api/ClientProfile/5) возращает один элемент
+            передайте phoneNumber(api/ClientProfile/{+77001611796}) возращает один элемент
             </summary>
-            <param name="string">Принимает параметр string.(GetUserId)</param>
+            <param name="phoneNumber">Принимает параметр string.(phoneNumber)</param>
+        </member>
+        <member name="M:WebAppIMaster.Controllers.WebApi.ClientProfileController.GetClientIdClientProfileView(System.String)">
+            <summary>
+            передайте id(api/GetClientProfile/5) возращает один элемент
+            </summary>
+            <param name="customerId">Принимает параметр string.(customerId)</param>
         </member>
         <member name="M:WebAppIMaster.Controllers.WebApi.ClientProfileController.Post(WebAppIMaster.Models.WebApiModel.ClientProfileMdl.ClientProfileEdit)">
             <summary>
@@ -836,6 +842,28 @@
             передайте id(api/RegionService/5) возращает один элемент
             </summary>
             <param name="id">Принимает параметр id.</param>
+        </member>
+        <member name="T:WebAppIMaster.Controllers.WebApi.SpecializationServiceController">
+            <summary>
+             SpecializationService Api (Специализация)
+            </summary>
+        </member>
+        <member name="M:WebAppIMaster.Controllers.WebApi.SpecializationServiceController.Get(System.Int32)">
+            <summary>
+            передайте id(api/SpecializationService/5) возращает один элемент
+            </summary>
+            <param name="id">Принимает параметр (Id специализаций).(id)</param>
+        </member>
+        <member name="M:WebAppIMaster.Controllers.WebApi.SpecializationServiceController.GetList">
+            <summary>
+             (api/GetSpecializationList/) возвращает лист элементов 
+            </summary>
+        </member>
+        <member name="M:WebAppIMaster.Controllers.WebApi.SpecializationServiceController.GetSpecializationForCategoryList(System.Int32)">
+            <summary>
+             (api/GetSpecializationForCategoryList/) возвращает специализацию лист элементов(фильтр категория)
+            <param name="categoryId">Принимает параметр categoryId.</param>
+            </summary>
         </member>
         <member name="T:WebAppIMaster.Controllers.WebApi.VerifyPhoneController">
             <summary>

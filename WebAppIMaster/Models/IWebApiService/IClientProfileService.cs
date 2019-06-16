@@ -10,7 +10,8 @@ namespace WebAppIMaster.Models.IWebApiService
 {
     public interface IClientProfileService
     {
-        ClientProfileView GetCurrentClientProfileView(string id);
+        ClientProfileView GetCurrentClientProfileView(string phoneNumber );
+        ClientProfileView GetCurrentCustomerClientProfileView( string customerId );
         void EditCurrentClientProfile(Controller controller, ClientProfileEdit item );
         Task<string> Register( ClientProfileRegister item );
     }

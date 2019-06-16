@@ -34,8 +34,11 @@ namespace WebAppIMaster.Providers
         {
             var userManager = context.OwinContext.GetUserManager<ApplicationUserManager>();
 
-            string phoneNumber = System.Text.RegularExpressions.Regex.Replace(context.UserName, @"\s+", "");
-            string phonenumber = phoneNumber.Substring(phoneNumber.Length - 10, 10);
+            string Phonenumber = context.UserName.Replace(" ", "");
+            Phonenumber = context.UserName.Replace("+7", "8");
+
+            Phonenumber = System.Text.RegularExpressions.Regex.Replace(context.UserName, @"\s+", "");
+
             string checkingCode = context.Password;
 
 
@@ -45,7 +48,7 @@ namespace WebAppIMaster.Providers
             {
                 DateTime now = DateTime.Now;
                 bool any = (from phcc in db.phoneCheckingCodes
-                            where phcc.PhoneNumber.Contains(phonenumber)
+                            where phcc.PhoneNumber.Contains(Phonenumber)
                             where phcc.CheckingCode == checkingCode
                             where DbFunctions.DiffMinutes(phcc.DateTime, now) <= 5
                             select phcc).Any();
@@ -55,7 +58,7 @@ namespace WebAppIMaster.Providers
                     context.SetError("invalid_grant", "Code  устарело.");
                     return;
                 }
-                user = await db.Users.Where(u => u.PhoneNumber.Contains(phonenumber)).SingleOrDefaultAsync();
+                user = await db.Users.Where(u => u.PhoneNumber.Contains(Phonenumber)).SingleOrDefaultAsync();
             }
             
             if (user == null)

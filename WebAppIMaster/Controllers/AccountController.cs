@@ -177,7 +177,9 @@ namespace WebAppIMaster.Controllers
                             LastName = user.LastName,
                             FirstName = user.FirstName,
                             FatherName = user.FatherName,
-                            PhoneNumber = user.PhoneNumber
+                            PhoneNumber = user.PhoneNumber,
+                            Bonus = null,
+                            Gender = model.GenderId == 1 ? "Male" : "Female",
                         };
                         db.Customers.Add(customer);
                         db.SaveChanges();

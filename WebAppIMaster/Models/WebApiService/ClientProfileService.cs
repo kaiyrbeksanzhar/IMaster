@@ -54,14 +54,17 @@ namespace WebAppIMaster.Models.WebApiService
 
 
 
-        public ClientProfileMdl.ClientProfileView GetCurrentClientProfileView(string Id)
+        public ClientProfileMdl.ClientProfileView GetCurrentClientProfileView(string phoneNumber)
         {
             Image img = null;
             byte[] Imagesbyte = null;
-            string PhotoType = " ";
+            string PhotoType = null;
             string langcode = LanguageController.CurrentCultureCode;
-            var item = db.Customers.Where(u => u.Id == Id).Select(model => new
+            string PhoneNumber = System.Text.RegularExpressions.Regex.Replace(phoneNumber, @"\s+", "");
+            string phonenumber = PhoneNumber.Substring(PhoneNumber.Length - 10, 10);
+            var item = db.Customers.Where(u => u.PhoneNumber.Contains(phonenumber)).Select(model => new
             {
+                Id = model.Id,
                 Firstname = model.FirstName,
                 Lastname = model.LastName,
                 AvatarFile = model.AvatarUrl,
@@ -70,6 +73,7 @@ namespace WebAppIMaster.Models.WebApiService
                 Phonenumber = model.ApplicationUser.PhoneNumber,
                 AvatarFileType = "",
                 Bonus = (int?)model.Bonus,
+                GenderName = model.ApplicationUser.GenderId == 1 ? "Male" : "Female",
                 GenderId = model.ApplicationUser.GenderId,
                 CityName = model.InCity.Langs.Where(l => l.Langcode == langcode).Select(l => l.Name).FirstOrDefault(),
 
@@ -82,6 +86,7 @@ namespace WebAppIMaster.Models.WebApiService
             }
             return new ClientProfileMdl.ClientProfileView()
             {
+                CustomerId = item.Id,
                 Firstname = item.Firstname,
                 Lastname = item.Lastname,
                 AvatarFile = Imagesbyte,
@@ -92,6 +97,7 @@ namespace WebAppIMaster.Models.WebApiService
                 Bonus = (int?)item.Bonus,
                 GenderId = item.GenderId,
                 CityName = item.CityName,
+                Gender = item.GenderName
             };
         }
 
@@ -107,7 +113,7 @@ namespace WebAppIMaster.Models.WebApiService
                 FatherName = item.FatherName,
                 GenderId = item.GenderId,
                 PhoneNumber = item.PhoneNumber,
-                UserName = item.PhoneNumber
+                UserName = item.PhoneNumber,
             };
             if (ModelState.IsValid)
             {
@@ -237,6 +243,51 @@ namespace WebAppIMaster.Models.WebApiService
                 return Redirect(returnUrl);
             }
             return RedirectToAction("Index", "Home");
+        }
+
+        public ClientProfileMdl.ClientProfileView GetCurrentCustomerClientProfileView( string customerId )
+        {
+            Image img = null;
+            byte[] Imagesbyte = null;
+            string PhotoType = null;
+            string langcode = LanguageController.CurrentCultureCode;
+            var item = db.Customers.Where(u => u.Id == customerId).Select(model => new
+            {
+                Id = model.Id,
+                Firstname = model.FirstName,
+                Lastname = model.LastName,
+                AvatarFile = model.AvatarUrl,
+                Fathername = model.FatherName,
+                RegionId = 1,
+                Phonenumber = model.ApplicationUser.PhoneNumber,
+                AvatarFileType = "",
+                Bonus = (int?)model.Bonus,
+                GenderName = model.ApplicationUser.GenderId == 1 ? "Male" : "Female",
+                GenderId = model.ApplicationUser.GenderId,
+                CityName = model.InCity.Langs.Where(l => l.Langcode == langcode).Select(l => l.Name).FirstOrDefault(),
+
+            }).SingleOrDefault();
+            if (item.AvatarFile != null)
+            {
+                img = Image.FromFile(item.AvatarFile);
+                PhotoType = item.AvatarFile.Substring(item.AvatarFile.LastIndexOf(".") + 1);
+                Imagesbyte = FileManager.ImageToByteArray(img);
+            }
+            return new ClientProfileMdl.ClientProfileView()
+            {
+                CustomerId = item.Id,
+                Firstname = item.Firstname,
+                Lastname = item.Lastname,
+                AvatarFile = Imagesbyte,
+                Fathername = item.Fathername,
+                RegionId = 1,
+                Phonenumber = item.Phonenumber,
+                AvatarFileType = PhotoType,
+                Bonus = (int?)item.Bonus,
+                GenderId = item.GenderId,
+                CityName = item.CityName,
+                Gender = item.GenderName
+            };
         }
 
         internal class ChallengeResult : HttpUnauthorizedResult

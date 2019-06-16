@@ -15,21 +15,22 @@ namespace WebAppIMaster.Models.WebApiService
 
         public VerifyService( ApplicationDbContext db ) => this.db = db;
 
-        public bool  PhoneVerify(string PhoneNumber)
+        public bool PhoneVerify( string PhoneNumber )
         {
 
-            string Phonenumber = System.Text.RegularExpressions.Regex.Replace(PhoneNumber, @"\s+", "");
-            string phonenumber = PhoneNumber.Substring(Phonenumber.Length - 10, 10);
+            string Phonenumber = PhoneNumber.Replace(" ", "");
+             Phonenumber = PhoneNumber.Replace("+7", "8");
 
-            phonenumber = phonenumber.Replace(" ", "");
-            phonenumber = phonenumber.Replace("+7", "8");
+            Phonenumber = System.Text.RegularExpressions.Regex.Replace(Phonenumber, @"\s+", "");
+            //string phonenumber = PhoneNumber.Substring(Phonenumber.Length - 10, 10);
 
-            var model = db.Users.Where(u => u.PhoneNumber.Contains(phonenumber)).SingleOrDefault();
-            if(model == null)
+
+            var model = db.Users.Where(u => u.PhoneNumber.Contains(Phonenumber)).SingleOrDefault();
+            if (model == null)
             {
                 return false;
             }
-            
+
             ManageController manager = new ManageController();
             AddPhoneNumberViewModel addPhone = new AddPhoneNumberViewModel()
             {
@@ -51,7 +52,7 @@ namespace WebAppIMaster.Models.WebApiService
             //    to: new Twilio.Types.PhoneNumber(Phonenumber)
             //);
             PhoneCheckingCode phoneCheckingCode = null;
-            var phoneCheckingcode = db.phoneCheckingCodes.Where(pcc => pcc.PhoneNumber.Contains(phonenumber)).FirstOrDefault();
+            var phoneCheckingcode = db.phoneCheckingCodes.Where(pcc => pcc.PhoneNumber.Contains(Phonenumber)).FirstOrDefault();
             if (phoneCheckingcode == null)
             {
                 phoneCheckingCode = new PhoneCheckingCode()

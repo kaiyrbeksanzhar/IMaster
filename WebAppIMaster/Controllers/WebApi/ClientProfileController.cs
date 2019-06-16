@@ -19,15 +19,29 @@ namespace WebAppIMaster.Controllers.WebApi
     public class ClientProfileController : ApiController
     {
         /// <summary>
-        /// передайте id(api/ClientProfile/5) возращает один элемент
+        /// передайте phoneNumber(api/ClientProfile/{+77001611796}) возращает один элемент
         /// </summary>
-        /// <param name="string">Принимает параметр string.(GetUserId)</param>
+        /// <param name="phoneNumber">Принимает параметр string.(phoneNumber)</param>
         // GET: api/ClientProfile/5
-        public ClientProfileView Get(string id)
+        public ClientProfileView Get(string phoneNumber)
         {
             ApplicationDbContext db = new ApplicationDbContext();
             ClientProfileService repository = new ClientProfileService(db);
-            var model = repository.GetCurrentClientProfileView(id);
+            var model = repository.GetCurrentClientProfileView(phoneNumber);
+            return model;
+        }
+
+        /// <summary>
+        /// передайте id(api/GetClientProfile/5) возращает один элемент
+        /// </summary>
+        /// <param name="customerId">Принимает параметр string.(customerId)</param>
+        [System.Web.Http.Route("api/GetClientProfile")]
+        // GET: api/GetClientProfile/5
+        public ClientProfileView GetClientIdClientProfileView ( string customerId )
+        {
+            ApplicationDbContext db = new ApplicationDbContext();
+            ClientProfileService repository = new ClientProfileService(db);
+            var model = repository.GetCurrentCustomerClientProfileView(customerId);
             return model;
         }
         /// <summary>
