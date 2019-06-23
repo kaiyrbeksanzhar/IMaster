@@ -8,7 +8,7 @@ namespace WebAppIMaster.Models.Enums
 {
     public enum OrderCostType
     {
-        FixedCost,
+        FixedCost = 1,
         CostTo,
         ByAgreement
     }

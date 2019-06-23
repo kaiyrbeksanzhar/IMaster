@@ -63,7 +63,8 @@ namespace WebAppIMaster.Models.WebApiService
                         {
                             Id = s.Id,
                             CategoryId = s.CategoryId,
-                            Name = sl.Name
+                            Name = sl.Name,
+                            CategoryName = s.Category.Langs.Where(l => l.Langcode == langcode).Select(l => l.Name).FirstOrDefault(),
                         }).ToList();
             return item;
         }

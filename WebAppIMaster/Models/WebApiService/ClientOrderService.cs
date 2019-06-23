@@ -24,19 +24,41 @@ namespace WebAppIMaster.Models.WebApiService
 
         public ClientOrderDetailsView GetClientOrderDetailsView( int id )
         {
-            var model = db.CustomerOrders.Find(id);
             string langcode = LanguageController.CurrentCultureCode;
+            CustomerOrder model = db.CustomerOrders.Where(co => co.Id == id).SingleOrDefault();
+            //var al = model.Address.Langs.Where(l => l.Langcode == langcode & l.AddressId == model.AddressId).FirstOrDefault();
+
+            var adreslang = (from als in db.AddressLangs
+
+                             where als.Langcode == langcode
+                             where als.AddressId == model.AddressId
+
+                             select als).SingleOrDefault();
+
             ClientOrderDetailsView clientOrderDetailsView = new ClientOrderDetailsView();
             Dictionary<byte[], string> photos = new Dictionary<byte[], string>();
-            string PhotoType = model.Photo1Url.Substring(model.Photo1Url.LastIndexOf(".") + 1);
-            photos.Add(System.IO.File.ReadAllBytes(model.Photo1Url), PhotoType);
-            string Photo1Type = model.Photo2Url.Substring(model.Photo2Url.LastIndexOf(".") + 1);
-            photos.Add(System.IO.File.ReadAllBytes(model.Photo2Url), Photo1Type);
-            string Photo2Type = model.Photo3Url.Substring(model.Photo3Url.LastIndexOf(".") + 1);
-            photos.Add(System.IO.File.ReadAllBytes(model.Photo3Url), Photo2Type);
-            string Photo3Type = model.Photo4Url.Substring(model.Photo4Url.LastIndexOf(".") + 1);
-            photos.Add(System.IO.File.ReadAllBytes(model.Photo4Url), Photo3Type);
-            return new ClientOrderDetailsView
+            if (string.IsNullOrWhiteSpace(model.Photo1Url) == false)
+            {
+                string PhotoType = model.Photo1Url.Substring(model.Photo1Url.LastIndexOf(".") + 1);
+                photos.Add(System.IO.File.ReadAllBytes(model.Photo1Url), PhotoType);
+            }
+            if (string.IsNullOrWhiteSpace(model.Photo2Url) == false)
+            {
+                string Photo1Type = model.Photo2Url.Substring(model.Photo2Url.LastIndexOf(".") + 1);
+                photos.Add(System.IO.File.ReadAllBytes(model.Photo2Url), Photo1Type);
+            }
+            if (string.IsNullOrWhiteSpace(model.Photo3Url) == false)
+            {
+                string Photo2Type = model.Photo3Url.Substring(model.Photo3Url.LastIndexOf(".") + 1);
+                photos.Add(System.IO.File.ReadAllBytes(model.Photo3Url), Photo2Type);
+            }
+
+            if (string.IsNullOrWhiteSpace(model.Photo4Url) == false)
+            {
+                string Photo3Type = model.Photo4Url.Substring(model.Photo4Url.LastIndexOf(".") + 1);
+                photos.Add(System.IO.File.ReadAllBytes(model.Photo4Url), Photo3Type);
+            }
+            var item = new ClientOrderDetailsView
             {
                 Id = model.Id,
                 Title = model.Title,
@@ -46,32 +68,48 @@ namespace WebAppIMaster.Models.WebApiService
                 OrderStartDateType = model.StartDateType,
                 CategoryName = model.Category.Langs.Where(l => l.Langcode == langcode).Select(l => l.Name).FirstOrDefault(),
                 CategoryId = model.CategoryId,
-                Address = model.Address.Langs.Where(l => l.Langcode == langcode).Select(l => l.Name).FirstOrDefault(),
+                Address = adreslang.Name,
                 Cost = (int)model.Cost,
                 Description = model.Description,
                 Region = model.InCity.Langs.Where(l => l.Langcode == langcode).Select(l => l.Name).FirstOrDefault(),
-                ExecotorRating = model.Executor.Rating.ToString(),
-                ExecutorId = model.ExecutorId.ToString(),
-                ExecoturBirthday = (DateTime)model.Executor.BirthDay,
-                ExecutorLastname = model.Executor.User.LastName,
-                ExecutorFathername = model.Executor.User.FatherName,
-                ExecutorFirstname = model.Executor.User.FirstName,
-                ExecutorClosedOrdersCount = (int)model.Executor.ExecutorClosedOrdersCount,
                 RegionId = model.InCityId,
                 Photos = photos,
-                ExecutorGenderId = (int)model.Executor.Gender,
-                ExecutorCheck = (bool)model.Executor.ExecutorCheck,
                 PayWithBounce = model.PayWithBounce,
-                ExecutorAvatarFile = System.IO.File.ReadAllBytes(model.Executor.ExecutorPhotoFiles.Where(epf => epf.ExecutorId == model.ExecutorId).Select(epf => epf.PhotoFileUrl).FirstOrDefault()),
-                ExecutorRegisterDate = (DateTime)model.Executor.RegistrationDateTime,
                 ReceiveOnlyResponses = model.ReceiveOnlyResponses,
-                ExecotorOnline = (bool)model.Executor.ExecotorOnline
+                CreatedAt = model.CreatedDateTime,
+                OrderType = model.OrderType,
             };
+            if (model.ExecutorId != null)
+            {
+                item.ExecutorLastname = model.Executor.User.LastName;
+                item.ExecutorFirstname = model.Executor.User.FirstName;
+                item.ExecutorFathername = model.Executor.User.FatherName;
+                if (model.Executor.AvatarUrl == null)
+                {
+                    item.ExecutorAvatarFile = null;
+                    item.ExecotorAvatarFileType = null;
+                }
+                else
+                {
+                    item.ExecutorAvatarFile = System.IO.File.ReadAllBytes(model.Executor.AvatarUrl);
+                    item.ExecotorAvatarFileType = model.Photo1Url.Substring(model.Executor.AvatarUrl.LastIndexOf(".") + 1);
+                }
+                item.ExecotorOnline = (bool)model.Executor.ExecotorOnline;
+                item.ExecotorRating = model.Executor.Rating.ToString();
+                item.ExecoturBirthday = (DateTime)model.Executor.BirthDay;
+                item.ExecutorCheck = (bool)model.Executor.ExecutorCheck;
+                item.ExecutorClosedOrdersCount = (int)model.Executor.ExecutorClosedOrdersCount;
+                item.ExecutorGenderName = model.Executor.Gender.Value.ToString();
+                item.ExecutorRegionId = model.Executor.User.RegionId;
+                item.ExecutorRegisterDate = (DateTime)model.Executor.RegistrationDateTime;
+            }
+
+            return item;
         }
 
         public ClientOrderItemView GetClientOrderItemView( int id )
         {
-            var model = db.CustomerOrders.Find(id);
+            CustomerOrder model = db.CustomerOrders.Find(id);
             return new ClientOrderItemView
             {
                 Id = model.Id,
@@ -79,16 +117,19 @@ namespace WebAppIMaster.Models.WebApiService
                 CategoryName = model.Category.Langs.Where(l => l.Langcode == LanguageController.CurrentCultureCode).FirstOrDefault().Name,
                 Cost = Convert.ToInt32(model.Cost),
                 Title = model.Title,
-                Type = model.OrderState
+                Type = model.OrderType
             };
         }
 
         public List<ClientOrderItemView> GetList()
         {
             List<ClientOrderItemView> clientOrderItemViews = new List<ClientOrderItemView>();
-            var model = db.CustomerOrders.ToList();
+            var header = (from co in db.CustomerOrders
+
+                          select co).ToList();
+            //var model = db.CustomerOrders.ToList();
             string langcode = LanguageController.CurrentCultureCode;
-            foreach (var item in model)
+            foreach (var item in header)
             {
                 clientOrderItemViews.Add(new ClientOrderItemView
                 {
@@ -98,7 +139,7 @@ namespace WebAppIMaster.Models.WebApiService
                     Id = item.Id,
                     NewNotifications = item.NewNotifications,
                     Title = item.Title,
-                    Type = item.OrderState
+                    Type = item.OrderType
                 });
             }
             return clientOrderItemViews;
@@ -122,14 +163,22 @@ namespace WebAppIMaster.Models.WebApiService
                 Description = model.Description,
                 OrderState = Enums.OrderState.Open,
                 StartDateType = model.StartDateType,
-                StartedDate = model.StartedDate,
-                CategoryId = model.CategoryId,
+                StartedDate = (DateTime)model.StartedDate,
+                CategoryId = model.CategoryId == 0 ? 1 : model.CategoryId,
+                CostType = model.CostType,
                 Cost = model.Cost,
                 CreatedDateTime = DateTime.Now,
-                InCityId = model.RegionId,
+                InCityId = model.RegionId == -1 || model.RegionId == 0 ? 1 : model.RegionId,
                 ReceiveOnlyResponses = model.ReceiveOnlyResponses,
                 CustomerId = model.CustomerId,
-                Address = new Enitities.Address
+                EndedDateTime = DateTime.Now,
+                CustomerReviewedDateTime = DateTime.Now,
+                ExecutorCommentedDateTime = DateTime.Now,
+                PayWithBounce = model.PayWithBounce,
+                OrderType = Enitities.Enums.OrderStatus.Published,
+                Bonus = 0,
+                OrderNumber = "N1",
+                Address = new Address
                 {
                     Langs = new List<AddressLang>
                          {
@@ -138,6 +187,12 @@ namespace WebAppIMaster.Models.WebApiService
                              {
                                  Name = model.Address,
                                  Langcode = LanguageController.GetRuCode()
+                             },
+                             new AddressLang
+                             {
+
+                                 Name = model.Address,
+                                 Langcode = LanguageController.GetKzCode()
                              }
                          },
                 },
@@ -155,8 +210,13 @@ namespace WebAppIMaster.Models.WebApiService
         {
             string langcode = LanguageController.CurrentCultureCode;
             List<ClientOrderItemView> clientOrders = new List<ClientOrderItemView>();
-            var model = db.CustomerOrders.Where(co => co.CustomerId == clientId).ToList();
-            foreach (var clientorder in model)
+            var item = (from co in db.CustomerOrders
+
+                        where co.CustomerId == clientId
+
+                        select co).ToList();
+            //var model = db.CustomerOrders.Where(co => co.CustomerId == clientId).ToList();
+            foreach (var clientorder in item)
             {
                 clientOrders.Add(new ClientOrderItemView
                 {
@@ -166,7 +226,7 @@ namespace WebAppIMaster.Models.WebApiService
                     StartingDatetime = clientorder.StartedDate.ToShortDateString() + " " + clientorder.StartedDate.ToShortTimeString(),
                     NewNotifications = clientorder.NewNotifications,
                     Title = clientorder.Title,
-                    Type = clientorder.OrderState
+                    Type = clientorder.OrderType
                 });
             }
             return clientOrders;
@@ -187,7 +247,7 @@ namespace WebAppIMaster.Models.WebApiService
                     StartingDatetime = clientorder.StartedDate.ToShortDateString() + " " + clientorder.StartedDate.ToShortTimeString(),
                     NewNotifications = clientorder.NewNotifications,
                     Title = clientorder.Title,
-                    Type = clientorder.OrderState
+                    Type = clientorder.OrderType
                 });
             }
             return clientOrders;
@@ -204,7 +264,7 @@ namespace WebAppIMaster.Models.WebApiService
                             Id = cd.Id,
                             Description = cd.Description,
                             StartedDate = cd.StartedDate,
-                            CategoryAndSpecializationId = cd.CategoryId,
+                            CateogoryId = cd.CategoryId,
                             Address = cd.Address.Langs.Where(l => l.Langcode == langcode).Select(l => l.Name).FirstOrDefault(),
                             OrderNumber = cd.OrderNumber,
                             Cost = (int)cd.Cost,
@@ -215,43 +275,55 @@ namespace WebAppIMaster.Models.WebApiService
                             RegionId = cd.InCityId,
                             Title = cd.Title,
                             ViewCount = cd.ViewCount,
-                            CategoryAndSpecialization = cd.Category.Langs.Where(l => l.Langcode == langcode).Select(l => l.Name).FirstOrDefault(),
+                            Category = cd.Category.Langs.Where(l => l.Langcode == langcode).Select(l => l.Name).FirstOrDefault(),
                             CreateAt = cd.CreatedDateTime,
                             Photourl1 = cd.Photo1Url,
                             Photourl2 = cd.Photo2Url,
                             Photourl3 = cd.Photo3Url,
                             Photourl4 = cd.Photo4Url,
                         }).SingleOrDefault();
-            List<ClientCommonOrderDetailsView.Photo> photos = new List<ClientCommonOrderDetailsView.Photo>()
+
+            List<ClientCommonOrderDetailsView.Photo> photos = new List<ClientCommonOrderDetailsView.Photo>();
+            if (string.IsNullOrWhiteSpace(item.Photourl1) == false)
             {
-                new ClientCommonOrderDetailsView.Photo
+                photos.Add(new ClientCommonOrderDetailsView.Photo
                 {
                     File = System.IO.File.ReadAllBytes(item.Photourl1),
-                    Type =item.Photourl1.Substring(item.Photourl1.LastIndexOf(".") + 1),
-                },
-                new ClientCommonOrderDetailsView.Photo
+                    Type = item.Photourl1.Substring(item.Photourl1.LastIndexOf(".") + 1),
+                });
+            }
+            if (string.IsNullOrWhiteSpace(item.Photourl2) == false)
+            {
+                photos.Add(new ClientCommonOrderDetailsView.Photo
                 {
-                      File = System.IO.File.ReadAllBytes(item.Photourl2),
-                    Type =item.Photourl2.Substring(item.Photourl2.LastIndexOf(".") + 1),
-                },
-                new ClientCommonOrderDetailsView.Photo
+                    File = System.IO.File.ReadAllBytes(item.Photourl2),
+                    Type = item.Photourl2.Substring(item.Photourl2.LastIndexOf(".") + 1),
+                });
+            }
+            if (string.IsNullOrWhiteSpace(item.Photourl3) == false)
+            {
+                photos.Add(new ClientCommonOrderDetailsView.Photo
                 {
-                      File = System.IO.File.ReadAllBytes(item.Photourl3),
-                    Type =item.Photourl3.Substring(item.Photourl3.LastIndexOf(".") + 1),
-                },
-                new ClientCommonOrderDetailsView.Photo
+                    File = System.IO.File.ReadAllBytes(item.Photourl3),
+                    Type = item.Photourl3.Substring(item.Photourl3.LastIndexOf(".") + 1),
+                });
+            }
+            if (string.IsNullOrWhiteSpace(item.Photourl4) == false)
+            {
+                photos.Add(new ClientCommonOrderDetailsView.Photo
                 {
-                      File = System.IO.File.ReadAllBytes(item.Photourl4),
-                    Type =item.Photourl4.Substring(item.Photourl4.LastIndexOf(".") + 1),
-                },
-            };
+                    File = System.IO.File.ReadAllBytes(item.Photourl4),
+                    Type = item.Photourl4.Substring(item.Photourl4.LastIndexOf(".") + 1),
+                });
+            }
+            
 
             return new ClientCommonOrderDetailsView
             {
                 Id = item.Id,
                 Description = item.Description,
                 StartedDate = item.StartedDate,
-                CategoryAndSpecializationId = item.CategoryAndSpecializationId,
+                CategoryId = item.CateogoryId,
                 Address = item.Address,
                 OrderNumber = item.OrderNumber,
                 Cost = item.Cost,
@@ -262,7 +334,7 @@ namespace WebAppIMaster.Models.WebApiService
                 RegionId = item.RegionId,
                 Title = item.Title,
                 ViewCount = item.ViewCount,
-                CategoryAndSpecialization = item.CategoryAndSpecialization,
+                Category = item.Category,
                 CreateAt = item.CreateAt,
                 Photos = photos
             };

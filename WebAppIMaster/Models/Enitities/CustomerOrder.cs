@@ -27,7 +27,7 @@ namespace WebAppIMaster.Models
         public decimal Cost { get; set; }
         public OrderState OrderState { get; set; }
         public int NewNotifications { get; set; }
-        public OrderType OrderType { get; set; }
+        public OrderStatus OrderType { get; set; }
 
         public int InCityId { get; set; }
         public virtual City InCity { get; set; }

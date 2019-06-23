@@ -8,7 +8,7 @@ namespace WebAppIMaster.Models.Enums
 {
     public enum OrderState
     {
-        Open,
+        Open = 1,
         Canceled,
         InProcess,
         Finished

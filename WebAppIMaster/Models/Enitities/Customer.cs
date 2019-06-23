@@ -25,7 +25,8 @@ namespace WebAppIMaster.Models
         public string FatherName { get; set; }
         public decimal? Bonus { get; set; }
         public string PhoneNumber { get; set; }
-        public string AvatarUrl { get; set; }
+        public byte[] Photo { get; set; }
+        public string AvatarType { get; set; }
         public StatusCustomer? Status { get; set; }
         public string Gender { get; set; }
 

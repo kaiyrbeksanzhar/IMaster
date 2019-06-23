@@ -14,6 +14,8 @@ using WebAppWebAppIMaster;
 using static WebAppWebAppIMaster.SmsService;
 using WebAppIMaster.Models.Enitities;
 using static WebAppIMaster.Models.WebApiModel.ClientProfileMdl;
+using System.Net.Http;
+using System.Net;
 
 namespace WebAppIMaster.Controllers
 {
@@ -151,7 +153,7 @@ namespace WebAppIMaster.Controllers
         // POST: /Account/Register
         [HttpPost]
         [AllowAnonymous]
-        public async Task<ActionResult> Register(RegisterViewModel model)
+        public async Task<HttpResponseMessage> Register(RegisterViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -195,7 +197,7 @@ namespace WebAppIMaster.Controllers
             }
 
             // Появление этого сообщения означает наличие ошибки; повторное отображение формы
-            return View(model);
+            return new HttpResponseMessage(HttpStatusCode.Accepted);
         }
 
 
@@ -213,6 +215,7 @@ namespace WebAppIMaster.Controllers
                     FirstName = item.FirstName,
                     FatherName = item.FatherName,
                     GenderId = item.GenderId,
+                    RegionId = item.RegionId,
                     PhoneNumber = item.PhoneNumber,
                     UserName = item.PhoneNumber,
                 };
@@ -227,6 +230,9 @@ namespace WebAppIMaster.Controllers
                             Id = user.Id,
                             LastName = user.LastName,
                             FirstName = user.FirstName,
+                            InCityId = item.RegionId,
+                            HowDidYouAboutUsId = item.MarketingId,
+                            Gender = item.GenderId == 1 ? "Мужской" : "Женский",
                             FatherName = user.FatherName,
                             PhoneNumber = user.PhoneNumber
                         };

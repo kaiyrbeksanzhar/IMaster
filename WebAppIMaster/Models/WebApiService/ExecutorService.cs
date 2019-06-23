@@ -27,7 +27,29 @@ namespace WebAppIMaster.Models.WebApiService
         public ExecutorServiceMdl.ExecutorProfile GetById( string id )
         {
             string langcode = LanguageController.CurrentCultureCode;
-            var model = db.Executors.Find(id);
+            //var model = db.Executors.Find(id);
+            var model = (from e in db.Executors
+                        where e.Id == id
+
+                        select new
+                        {
+                            Id = e.Id,
+                            LastName = e.User.LastName,
+                            FirstName = e.User.FirstName,
+                            FatherName = e.User.FatherName == null ? " " : e.User.FatherName,
+                            Rating = e.Rating,
+                            PhoneNumber = e.PhoneNumber,
+                            GenderId = e.Gender == Gender.Male ? 1 : 2,
+                            YouTubeUrl = e.YouTubeVideoUrl,
+                            RegionId = e.CityId,
+                            Region = e.City.Langs.Where(l => l.Langcode == langcode).Select(l => l.Name).FirstOrDefault(),
+                            RegisteredAt = e.RegistrationDateTime == null ? DateTime.MinValue : e.RegistrationDateTime,
+                            ClosedOrdersCount = e.ExecutorClosedOrdersCount,
+                            Bonus = (int)e.Orders.Select(o => o.Bonus).FirstOrDefault(),
+                            ExecutorType = e.ExecutorType,
+                            Check = e.ExecutorCheck,
+                            BirthDay = e.BirthDay,
+                        }).SingleOrDefault();
             List<ExecutorServiceMdl.ExecutorProfile.Review> reviews = new List<ExecutorServiceMdl.ExecutorProfile.Review>();
             var reviewies = db.CustomerOrders.Where(co => co.ExecutorId == id).ToList();
             foreach (var reviws in reviewies)
@@ -46,12 +68,19 @@ namespace WebAppIMaster.Models.WebApiService
             Dictionary<byte[], string> photos = new Dictionary<byte[], string>();
             var photosfileurl = db.ExecutorPhotoFiles.Where(epf => epf.ExecutorId == id).ToList();
             Image img;
-            foreach (var pfu in photosfileurl)
+            if(photosfileurl.Count > 0)
             {
-                img = Image.FromFile(pfu.PhotoFileUrl);
-                string PhotoType = pfu.PhotoFileUrl.Substring(pfu.PhotoFileUrl.LastIndexOf(".") + 1);
-                byte[] Imagesbyte = FileManager.ImageToByteArray(img);
-                photos.Add(Imagesbyte, PhotoType);
+                foreach (var pfu in photosfileurl)
+                {
+                    img = Image.FromFile(pfu.PhotoFileUrl);
+                    string PhotoType = pfu.PhotoFileUrl.Substring(pfu.PhotoFileUrl.LastIndexOf(".") + 1);
+                    byte[] Imagesbyte = FileManager.ImageToByteArray(img);
+                    photos.Add(Imagesbyte, PhotoType);
+                }
+            }
+            else
+            {
+                photos = null;
             }
             var specialization = (from e in db.Executors
                                   where e.Id == id
@@ -83,21 +112,21 @@ namespace WebAppIMaster.Models.WebApiService
             return new ExecutorServiceMdl.ExecutorProfile
             {
                 Id = model.Id,
-                LastName = model.User.LastName,
-                FirstName = model.User.FirstName,
-                FatherName = model.User.FatherName == null ? " " : model.User.FatherName,
-                Rating = (int)model.Rating,
+                LastName = model.LastName,
+                FirstName = model.FirstName,
+                FatherName = model.FatherName,
+                Rating = model.Rating,
                 PhoneNumber = model.PhoneNumber,
-                GenderId = (int)model.Gender,
-                YouTubeUrl = model.YouTubeVideoUrl,
-                RegionId = (int)model.CityId,
-                Region = model.City.Langs.Where(l => l.Langcode == langcode).Select(l => l.Name).FirstOrDefault(),
-                RegisteredAt = (DateTime)model.RegistrationDateTime,
-                ClosedOrdersCount = (int)model.ExecutorClosedOrdersCount,
-                Bonus = (int)model.Orders.Select(o => o.Bonus).FirstOrDefault(),
-                BirthDay = (DateTime)model.BirthDay,
-                ExecutorType = (ExecutorType)model.ExecutorType,
-                Check = (bool)model.ExecutorCheck,
+                GenderId = model.GenderId,
+                YouTubeUrl = model.YouTubeUrl,
+                RegionId = model.RegionId,
+                Region = model.Region,
+                RegisteredAt = model.RegisteredAt == null ? DateTime.MinValue : model.RegisteredAt,
+                ClosedOrdersCount = model.ClosedOrdersCount,
+                Bonus = model.Bonus,
+                BirthDay = model.BirthDay,
+                ExecutorType = model.ExecutorType,
+                Check = model.Check,
                 Services = executiveServices,
                 Specializations = specialization,
                 Photos = photos,
@@ -246,25 +275,36 @@ namespace WebAppIMaster.Models.WebApiService
 
             List<ExecutorServiceMdl.ExecutorItem> executorItems = new List<ExecutorServiceMdl.ExecutorItem>();
 
-            var executors = db.CustomerOrders.Where(o => o.Id == orderId).ToList();
-
-            foreach (var item in executors)
+            var executors = (from o in db.CustomerOrders
+                             where o.Id == orderId
+                             from e in db.Executors
+                             where e.Categories.Any(c => c.Id == o.CategoryId)
+                             orderby e.Rating descending
+                             select e).ToList();
+            if (executors != null)
             {
-                executorItems.Add(new ExecutorServiceMdl.ExecutorItem
+                foreach (var item in executors)
                 {
-                    Id = item.ExecutorId,
-                    LastName = item.Executor.User.LastName,
-                    FirstName = item.Executor.User.FirstName,
-                    FatherName = item.Executor.User.FatherName,
-                    AvatarFile = System.IO.File.ReadAllBytes(item.Executor.AvatarUrl),
-                    AvatarFileType = item.Executor.AvatarUrl.Substring(item.Executor.AvatarUrl.LastIndexOf(".") + 1),
-                    ExecutorType = (ExecutorType)item.Executor.ExecutorType,
-                    Check = (bool)item.Executor.ExecutorCheck,
-                    ClosedOrdersCount = (int)item.Executor.ExecutorClosedOrdersCount,
-                    Rating = (int)item.Executor.Rating,
-                    RegisteredAt = (DateTime)item.Executor.RegistrationDateTime,
-                });
+                    executorItems.Add(new ExecutorServiceMdl.ExecutorItem
+                    {
+                        Id = item.Id,
+                        FirstName = item.User.FirstName,
+                        FatherName = item.User.FatherName,
+                        AvatarFile = System.IO.File.ReadAllBytes(item.AvatarUrl),
+                        AvatarFileType = item.AvatarUrl.Substring(item.AvatarUrl.LastIndexOf(".") + 1),
+                        ExecutorType = (ExecutorType)item.ExecutorType,
+                        Check = (bool)item.ExecutorCheck,
+                        ClosedOrdersCount = (int)item.ExecutorClosedOrdersCount,
+                        Rating = (int)item.Rating,
+                        RegisteredAt = (DateTime)item.RegistrationDateTime,
+                    });
+                }
             }
+            else
+            {
+                executorItems = null;
+            }
+
             return executorItems;
         }
 
@@ -282,6 +322,7 @@ namespace WebAppIMaster.Models.WebApiService
                     SpecializationId = item.SpecializationIds[i]
                 });
             }
+            var closedOrder = db.CancelOrders.Where(co => co.ExecutorId == user.Id).Count();
             Executor executor = new Executor()
             {
                 Id = user.Id,
@@ -289,7 +330,16 @@ namespace WebAppIMaster.Models.WebApiService
                 PhoneNumber = item.PhoneNumber,
                 ExecutorSpecializations = executorSpecializations,
                 Gender = (Gender?)item.GenderId,
-                ExecutorType = item.ExecutorType
+                ExecutorType = item.ExecutorType,
+                RegistrationDateTime = DateTime.Now,
+                ExecutorCheck = true,
+                ExecotorOnline = true,
+                Rating = 50,
+                ExecutorClosedOrdersCount = closedOrder,
+                ExecutorStatus =  ExecutorStatus.Newbie,
+                CityId = user.RegionId,
+                BannedDateTime = DateTime.MinValue,
+                Banned = false,
             };
             db.Executors.Add(executor);
             db.SaveChanges();

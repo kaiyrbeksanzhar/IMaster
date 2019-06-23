@@ -70,7 +70,7 @@ namespace WebAppIMaster.Models.WebApiService
 
         public void Response( string executorId, int orderId, string responseComment )
         {
-            WebAppIMaster.Models.Enitities.Response responsies = new Response()
+            WebAppIMaster.Models.Response responsies = new Response()
             {
                 CreatedAt_Date = DateTime.Now,
                 ExecutorId = executorId,

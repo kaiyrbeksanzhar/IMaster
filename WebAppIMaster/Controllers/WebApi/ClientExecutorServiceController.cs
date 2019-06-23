@@ -80,11 +80,12 @@ namespace WebAppIMaster.Controllers.WebApi
         /// </summary>
         /// <param name="executorId">Принимает параметр executorId.</param>
         //[System.Web.Http.Route("api/GetDetails")]
-        public void GetDetails( string executorId )
+        public ClientExecutorServiceMdl.ExecutorDetails GetDetails( string executorId )
         {
             ApplicationDbContext db = new ApplicationDbContext();
             ClientExecutorService repository = new ClientExecutorService(db);
-            repository.GetDetails(executorId);
+            var model = repository.GetDetails(executorId);
+            return model;
         }
 
         /// <summary>

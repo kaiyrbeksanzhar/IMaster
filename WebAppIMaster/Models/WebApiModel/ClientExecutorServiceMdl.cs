@@ -29,24 +29,24 @@ namespace WebAppIMaster.Models.WebApiModel
             public string LastName { get; set; }
             public string FirstName { get; set; }
             public string FatherName { get; set; }
-            public bool Online { get; set; }
+            public bool? Online { get; set; }
             public string Rating { get; set; }
             public byte[] AvatarFile { get; set; }
             public string AvatarFileType { get; set; }
-            public bool Check { get; set; }
-            public DateTime RegisterDate { get; set; }
-            public int ClosedOrdersCount { get; set; }
-            public int RegionId { get; set; }
+            public bool? Check { get; set; }
+            public DateTime? RegisterDate { get; set; }
+            public int? ClosedOrdersCount { get; set; }
+            public int? RegionId { get; set; }
             public string RegionName { get; set; }
             public int GenderId { get; set; }
             public string GenderName { get; set; }
-            public DateTime Birthday { get; set; }
+            public DateTime? Birthday { get; set; }
 
-            public int CategoryId { get; set; }
+            public int? CategoryId { get; set; }
             public string CategoryName { get; set; }
-            public int SpecializationId { get; set; }
+            public int? SpecializationId { get; set; }
             public string SpecializationName { get; set; }
-            public ExecutorType ExecutorType { get; set; }
+            public ExecutorType? ExecutorType { get; set; }
             public string PhoneNumber { get; set; }
             public Dictionary<byte[], string> PhotoFiles { get; set; }
             public Dictionary<string, int> Services { get; set; }

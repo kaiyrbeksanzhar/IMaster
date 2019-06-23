@@ -23,7 +23,7 @@ namespace WebAppIMaster.Models.WebApiService
         public void AddExecutorToOrder( string clientId, int orderId, string executorId )
         {
             string langcode = LanguageController.GetCurrentLanguageCode();
-            WebAppIMaster.Models.Enitities.AddExecutorToOrder addExecutorToOrder = new Enitities.AddExecutorToOrder()
+            WebAppIMaster.Models.AddExecutorToOrder addExecutorToOrder = new AddExecutorToOrder()
             {
                 CustomerId = clientId,
                 ExecutorId = executorId,
@@ -49,36 +49,72 @@ namespace WebAppIMaster.Models.WebApiService
         public ClientExecutorServiceMdl.ExecutorDetails GetDetails( string executorId )
         {
             string langcode = LanguageController.GetCurrentLanguageCode();
-            var model = db.Executors.Find(executorId);
+            //var model = db.Executors.Where(e=>e.Id == executorId).SingleOrDefault();
+            var model = (from e in db.Executors
+
+                         where e.Id == executorId
+
+                         select new
+                         {
+                             LastName = e.User.LastName,
+                             FirstName = e.User.FirstName,
+                             FatherName = e.User.FatherName,
+                             Online = e.ExecotorOnline,
+                             Rating = e.Rating,
+                             Check = e.ExecutorCheck,
+                             RegisterDate = e.RegistrationDateTime,
+                             ClosedOrdersCount = e.ExecutorClosedOrdersCount,
+                             RegionId = e.CityId,
+                             RegionName = e.City.Langs.Where(l=>l.Langcode == langcode).Select(l=>l.Name).FirstOrDefault(),
+                             GenderId = e.User.GenderId,
+                             Birthday = e.BirthDay,
+                             CategoryId = e.Categories.Select(c=>c.Id).FirstOrDefault(),
+                             CategoryName = e.Categories.SelectMany(c=>c.Langs).Where(l=>l.Langcode == langcode).Select(l=>l.Name).FirstOrDefault(),
+                             SpecializationId = e.ExecutorSpecializations.Select(es=>es.SpecializationId).FirstOrDefault(),
+                             SpecializationName = e.ExecutorSpecializations.Select(es=>es.Specialization).SelectMany(s=>s.Langs).Where(l=>l.Langcode == langcode).Select(l=>l.Name).FirstOrDefault(),
+                             ExecutorType = e.ExecutorType,
+                             PhoneNumber = e.PhoneNumber,
+                             PhotoFiles = (from epf in e.ExecutorPhotoFiles
+
+                                           select epf).ToList(),
+                             YouTubeVideoUrl = e.YouTubeVideoUrl,
+                         }).SingleOrDefault();
             Image img;
             Dictionary<byte[], string> photos = new Dictionary<byte[], string>();
-            foreach (var item in model.ExecutorPhotoFiles)
+            if (model.PhotoFiles.Count > 0)
             {
-                img = Image.FromFile(item.PhotoFileUrl);
-                string PhotoType = item.PhotoFileUrl.Substring(item.PhotoFileUrl.LastIndexOf(".") + 1);
-                byte[] Imagesbyte = FileManager.ImageToByteArray(img);
-                photos.Add(Imagesbyte, PhotoType);
+                foreach (var item in model.PhotoFiles)
+                {
+                    img = Image.FromFile(item.PhotoFileUrl);
+                    string PhotoType = item.PhotoFileUrl.Substring(item.PhotoFileUrl.LastIndexOf(".") + 1);
+                    byte[] Imagesbyte = FileManager.ImageToByteArray(img);
+                    photos.Add(Imagesbyte, PhotoType);
+                }
+            }
+            else
+            {
+                photos = null;
             }
 
             return new ClientExecutorServiceMdl.ExecutorDetails()
             {
-                LastName = model.User.LastName,
-                FirstName = model.User.FirstName,
-                FatherName = model.User.FatherName == null ? " " : model.User.FatherName,
-                Online = (bool)model.ExecotorOnline,
+                LastName = model.LastName,
+                FirstName = model.FirstName,
+                FatherName = model.FatherName == null ? " " : model.FatherName,
+                Online = model.Online,
                 Rating = model.Rating.ToString(),
-                Check = (bool)model.ExecutorCheck,
-                RegisterDate = (DateTime)model.RegistrationDateTime,
-                ClosedOrdersCount = (int)model.ExecutorClosedOrdersCount,
-                RegionId = (int)model.CityId,
-                RegionName = model.City.Langs.Where(l => l.Langcode == langcode).Select(l => l.Name).FirstOrDefault(),
-                GenderId = (int)model.Gender,
-                Birthday = (DateTime)model.BirthDay,
-                CategoryId = model.Categories.Select(c => c.Id).FirstOrDefault(),
-                CategoryName = model.Categories.SelectMany(c => c.Langs).Where(l => l.Langcode == langcode).Select(l => l.Name).FirstOrDefault(),
-                SpecializationId = model.specializations.Select(c => c.Id).FirstOrDefault(),
-                SpecializationName = model.specializations.SelectMany(c => c.Langs).Where(l => l.Langcode == langcode).Select(l => l.Name).FirstOrDefault(),
-                ExecutorType = (ExecutorType)model.ExecutorType,
+                Check = model.Check,
+                RegisterDate = model.RegisterDate == null ? DateTime.MinValue : model.RegisterDate,
+                ClosedOrdersCount = model.ClosedOrdersCount,
+                RegionId = model.RegionId,
+                RegionName = model.RegionName,
+                GenderId = model.GenderId,
+                Birthday = model.Birthday,
+                CategoryId = model.CategoryId,
+                CategoryName = model.CategoryName,
+                SpecializationId = model.SpecializationId,
+                SpecializationName = model.SpecializationName,
+                ExecutorType = model.ExecutorType,
                 PhoneNumber = model.PhoneNumber,
                 PhotoFiles = photos,
                 YouTubeVideoUrl = model.YouTubeVideoUrl
@@ -123,7 +159,7 @@ namespace WebAppIMaster.Models.WebApiService
         {
             List<ClientExecutorServiceMdl.ExecutorItem> listitem = new List<ClientExecutorServiceMdl.ExecutorItem>();
             string langcode = LanguageController.CurrentCultureCode;
-            var model = db.Categories.Where(c => c.Id == categoryId).SelectMany(c => c.executorSpecializations).Select(es=>es.Executor).ToList();
+            var model = db.Categories.Where(c => c.Id == categoryId).SelectMany(c => c.executorSpecializations).Select(es => es.Executor).ToList();
             Image img;
             string PhotoType = "";
             foreach (var executor in model)

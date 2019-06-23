@@ -5,7 +5,7 @@ using System.Web;
 
 namespace WebAppIMaster.Models.Enitities.Enums
 {
-    public enum OrderType
+    public enum OrderStatus
     {
         Moderation = 1,
         Published,

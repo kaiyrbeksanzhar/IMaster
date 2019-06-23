@@ -14,6 +14,7 @@ namespace WebAppIMaster.Models.WebApiModel
         public OrderStartDateType StartDateType { get; set; }
         public DateTime StartedDate { get; set; }
         public decimal Cost { get; set; }
+        public OrderCostType CostType { get; set; }
         public int RegionId { get; set; }
         public bool ReceiveOnlyResponses { get; set; }
         public int CategoryId { get; set; }
@@ -27,13 +28,15 @@ namespace WebAppIMaster.Models.WebApiModel
         public int Id { get; set; }
         public string OrderNumber { get; set; }
         public string Title { get; set; }
-        public String Description { get; set; }
+        public string Description { get; set; }
         public OrderStartDateType OrderStartDateType { get; set; }
         public DateTime StartedDate { get; set; }
         public OrderCostType OrderCostType { get; set; }
         public int Cost { get; set; }
         public int RegionId { get; set; }
         public string Region { get; set; }
+        public OrderStatus OrderType { get; set; }
+        public DateTime CreatedAt { get; set; }
         public bool ReceiveOnlyResponses { get; set; }
         public int CategoryId { get; set; }
         public string CategoryName { get; set; }
@@ -66,7 +69,7 @@ namespace WebAppIMaster.Models.WebApiModel
         public string CategoryName { get; set; }
         public string StartingDatetime { get; set; }
         public int Cost { get; set; }
-        public OrderState Type { get; set; }
+        public OrderStatus Type { get; set; }
         public int NewNotifications { get; set; }
 
     }
@@ -84,11 +87,11 @@ namespace WebAppIMaster.Models.WebApiModel
         public int Cost { get; set; }
         public int RegionId { get; set; }
         public string Region { get; set; }
-        public int CategoryAndSpecializationId { get; set; }
-        public string CategoryAndSpecialization { get; set; }
+        public int CategoryId { get; set; }
+        public string Category { get; set; }
         public string Address { get; set; }
         public int ViewCount { get; set; }
-        public OrderType OrderType { get; set; }
+        public OrderStatus OrderType { get; set; }
         public DateTime CreateAt { get; set; }
 
         public class Photo

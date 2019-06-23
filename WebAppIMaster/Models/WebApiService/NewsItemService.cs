@@ -41,7 +41,7 @@ namespace WebAppIMaster.Models.WebApiService
                 byte[] byteData = System.IO.File.ReadAllBytes(HttpContext.Current.Server.MapPath(item.News.PhotoUrl1));
                 news.Add(new NewsItemMdl
                 {
-                    Id = item.Id,
+                    Id = item.NewsId,
                     DateTime = item.News.PublishedDateTime,
                     Description = item.Description,
                     PhotoFile = byteData,

@@ -8,7 +8,7 @@ namespace WebAppIMaster.Models.Enums
 {
     public enum OrderStartDateType
     {
-        Quickly,
+        Quickly = 1,
         SelectDate,
         ByAgreement
     }

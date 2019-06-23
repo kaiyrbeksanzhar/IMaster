@@ -8,7 +8,7 @@ namespace WebAppIMaster.Models.Enums
 {
     public enum ExecutorStatus
     {
-        Newbie,
+        Newbie = 1,
         Amateur,
         Professional
     }

@@ -6,7 +6,7 @@ using System.Linq;
 using System.Web;
 using WebAppIMaster.Models.Enitities.Enums;
 
-namespace WebAppIMaster.Models.Enitities
+namespace WebAppIMaster.Models
 {
     public class CancelOrder
     {

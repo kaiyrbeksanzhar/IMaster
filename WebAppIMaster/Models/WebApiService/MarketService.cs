@@ -30,7 +30,7 @@ namespace WebAppIMaster.Models.WebApiService
 
         public void ExecutorPhone( string executorId, int marketId )
         {
-            Models.Enitities.ExecutorPhone executorPhone = new Models.Enitities.ExecutorPhone()
+            Models.ExecutorPhone executorPhone = new Models.ExecutorPhone()
             {
                 CreatedAt_Date = DateTime.Now,
                 ExecutorId = executorId,

@@ -13,6 +13,7 @@ namespace WebAppIMaster.Models
 
         static string CategoryImagesUrl = "/Images/Category";
         static string ImagesSave = "/Images";
+        static string AvatarPath = "/Images/Avatar";
         public static string DefaulAvatarUrl = "/Images/Default/NoPhoto.png";
         private static bool isFilesPathReady;
 
@@ -53,11 +54,19 @@ namespace WebAppIMaster.Models
             return savedLogoUrl;
         }
 
-        public static string  SavePhoto(Image img )
+        public static string SavePhoto( Image img )
         {
             string savedLogoUrl = "";
             savedLogoUrl = CategoryImagesUrl + "/" + img;
             img.Save(HttpContext.Current.Server.MapPath(savedLogoUrl));
+            return savedLogoUrl;
+        }
+
+        public static string SavePhoto2( string img, string clientId )
+        {
+            string Type = img.Substring(img.LastIndexOf(".") + 1);
+            string savedLogoUrl = CategoryImagesUrl + "/" + clientId + Type;
+            HttpContext.Current.Server.MapPath(savedLogoUrl);
             return savedLogoUrl;
         }
 
@@ -69,6 +78,12 @@ namespace WebAppIMaster.Models
             }
 
             return UrlPhoto;
+        }
+
+        public static bool SaveAvatarPhoto( byte[] file, string fileType, string userId )
+        {
+
+            return true;
         }
 
         public static void SendMessage()

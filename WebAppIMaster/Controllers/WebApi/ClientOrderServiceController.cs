@@ -51,6 +51,7 @@ namespace WebAppIMaster.Controllers.WebApi
         [HttpPost,System.Web.Http.Route("api/ClientOrderService")]
         public HttpResponseMessage Post( [FromBody]ClientOrderCreate model)
         {
+            model.CostType = Models.Enums.OrderCostType.FixedCost;
             ApplicationDbContext db = new ApplicationDbContext();
             ClientOrderService repository = new ClientOrderService(db);
             var result = repository.Create( model);

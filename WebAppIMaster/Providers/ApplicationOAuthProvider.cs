@@ -37,7 +37,7 @@ namespace WebAppIMaster.Providers
             string Phonenumber = context.UserName.Replace(" ", "");
             Phonenumber = context.UserName.Replace("+7", "8");
 
-            Phonenumber = System.Text.RegularExpressions.Regex.Replace(context.UserName, @"\s+", "");
+            //Phonenumber = System.Text.RegularExpressions.Regex.Replace(context.UserName, @"\s+", "");
 
             string checkingCode = context.Password;
 

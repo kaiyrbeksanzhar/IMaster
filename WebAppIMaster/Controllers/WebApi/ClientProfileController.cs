@@ -23,6 +23,7 @@ namespace WebAppIMaster.Controllers.WebApi
         /// </summary>
         /// <param name="phoneNumber">Принимает параметр string.(phoneNumber)</param>
         // GET: api/ClientProfile/5
+        [System.Web.Http.Route("api/GetClientProfileByPhoneNumber")]
         public ClientProfileView Get(string phoneNumber)
         {
             ApplicationDbContext db = new ApplicationDbContext();
@@ -35,7 +36,7 @@ namespace WebAppIMaster.Controllers.WebApi
         /// передайте id(api/GetClientProfile/5) возращает один элемент
         /// </summary>
         /// <param name="customerId">Принимает параметр string.(customerId)</param>
-        [System.Web.Http.Route("api/GetClientProfile")]
+        [System.Web.Http.Route("api/GetClientProfileById")]
         // GET: api/GetClientProfile/5
         public ClientProfileView GetClientIdClientProfileView ( string customerId )
         {

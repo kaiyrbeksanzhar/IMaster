@@ -33,7 +33,7 @@ namespace WebAppIMaster.Models.WebApiModel
             public string Lastname { get; set; }
             public string Fathername { get; set; }
 
-            public byte[] AvatarFile { get; set; }
+            public string AvatarFile { get; set; }
             public string AvatarFileType { get; set; }
 
             public int RegionId { get; set; }

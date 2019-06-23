@@ -21,6 +21,8 @@ namespace WebAppIMaster.Models.Enitities
             return new ApplicationDbContext();
         }
 
+        public DbSet<Address> Addresses { get; set; }
+        public DbSet<AddressLang> AddressLangs { get; set; }
         public DbSet<CustomerOrder> CustomerOrders { get; set; }
         public DbSet<City> Cities { get; set; }
         public DbSet<CityLang> CityLangs { get; set; }
@@ -57,8 +59,6 @@ namespace WebAppIMaster.Models.Enitities
         public DbSet<PriceCategoryAndSpecializationType> categoryAndSpecializationTypes { get; set; }
         public DbSet<SendBonus> SendBonuses { get; set; }
         public DbSet<TransitionExecutorCost> transitionExecutorCosts { get; set; }
-        public DbSet<Address> Addreses { get; set; }
-        public DbSet<AddressLang> AddressLangs { get; set; }
         public DbSet<CancelExecutorResponse>   cancelExecutorResponses { get; set; }
         public DbSet<AddExecutorToOrder> addExecutorToOrders { get; set; }
         public DbSet<CallToClient> CallToClients { get; set; }
@@ -68,13 +68,6 @@ namespace WebAppIMaster.Models.Enitities
         public DbSet<ClientPhone> ClientPhones { get; set; }
         public DbSet<PhoneCheckingCode>  phoneCheckingCodes { get; set; }
         public DbSet<Bookmark> Bookmarks { get; set; }
-        
-
-
-
-
-
-
 
     }
 }

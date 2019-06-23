@@ -36,20 +36,20 @@ namespace WebAppIMaster.Models.WebApiModel
             public string LastName { get; set; }
             public string FirstName { get; set; }
             public string FatherName { get; set; }
-            public DateTime BirthDay { get; set; }
-            public int GenderId { get; set; }
+            public DateTime? BirthDay { get; set; }
+            public int? GenderId { get; set; }
             public string GenderName { get; set; }
-            public int Rating { get; set; }
-            public bool Check { get; set; }
-            public DateTime RegisteredAt { get; set; }
-            public int ClosedOrdersCount { get; set; }
-            public int RegionId { get; set; }
+            public int? Rating { get; set; }
+            public bool? Check { get; set; }
+            public DateTime? RegisteredAt { get; set; }
+            public int? ClosedOrdersCount { get; set; }
+            public int? RegionId { get; set; }
             public string Region { get; set; }
-            public int Bonus { get; set; }
+            public int? Bonus { get; set; }
             public string PhoneNumber { get; set; }
 
             public List<Specialization> Specializations { get; set; }
-            public ExecutorType ExecutorType { get; set; }
+            public ExecutorType? ExecutorType { get; set; }
             public Dictionary<byte[], String> Photos { get; set; }
             public List<ExecutiveService> Services { get; set; }
             public string YouTubeUrl { get; set; }

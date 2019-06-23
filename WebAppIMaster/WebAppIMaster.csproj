@@ -253,97 +253,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201905191642587_UFirstDb.cs" />
-    <Compile Include="Migrations\201905191642587_UFirstDb.Designer.cs">
-      <DependentUpon>201905191642587_UFirstDb.cs</DependentUpon>
+    <Compile Include="Migrations\201906211928420_DbFirst.cs" />
+    <Compile Include="Migrations\201906211928420_DbFirst.Designer.cs">
+      <DependentUpon>201906211928420_DbFirst.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201905192141539_UCityEdit.cs" />
-    <Compile Include="Migrations\201905192141539_UCityEdit.Designer.cs">
-      <DependentUpon>201905192141539_UCityEdit.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201905250625101_U_ClickHouwDidAboutUs.cs" />
-    <Compile Include="Migrations\201905250625101_U_ClickHouwDidAboutUs.Designer.cs">
-      <DependentUpon>201905250625101_U_ClickHouwDidAboutUs.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201905251044210_UPriority.cs" />
-    <Compile Include="Migrations\201905251044210_UPriority.Designer.cs">
-      <DependentUpon>201905251044210_UPriority.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201905251152218_UrlPhoto.cs" />
-    <Compile Include="Migrations\201905251152218_UrlPhoto.Designer.cs">
-      <DependentUpon>201905251152218_UrlPhoto.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201905251946387_PhotoUrlU_DbSpecilization.cs" />
-    <Compile Include="Migrations\201905251946387_PhotoUrlU_DbSpecilization.Designer.cs">
-      <DependentUpon>201905251946387_PhotoUrlU_DbSpecilization.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201905310035110_DbBase.cs" />
-    <Compile Include="Migrations\201905310035110_DbBase.Designer.cs">
-      <DependentUpon>201905310035110_DbBase.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201906021131153_Db.cs" />
-    <Compile Include="Migrations\201906021131153_Db.Designer.cs">
-      <DependentUpon>201906021131153_Db.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201906040322374_DbCommit.cs" />
-    <Compile Include="Migrations\201906040322374_DbCommit.Designer.cs">
-      <DependentUpon>201906040322374_DbCommit.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201906040439172_dbDatetime.cs" />
-    <Compile Include="Migrations\201906040439172_dbDatetime.Designer.cs">
-      <DependentUpon>201906040439172_dbDatetime.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201906040453350_null.cs" />
-    <Compile Include="Migrations\201906040453350_null.Designer.cs">
-      <DependentUpon>201906040453350_null.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201906040710101_Commit12.cs" />
-    <Compile Include="Migrations\201906040710101_Commit12.Designer.cs">
-      <DependentUpon>201906040710101_Commit12.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201906051940026_UserName.cs" />
-    <Compile Include="Migrations\201906051940026_UserName.Designer.cs">
-      <DependentUpon>201906051940026_UserName.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201906052003457_UserName11.cs" />
-    <Compile Include="Migrations\201906052003457_UserName11.Designer.cs">
-      <DependentUpon>201906052003457_UserName11.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201906052045369_PhoneNumberChecking.cs" />
-    <Compile Include="Migrations\201906052045369_PhoneNumberChecking.Designer.cs">
-      <DependentUpon>201906052045369_PhoneNumberChecking.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201906052129533_Specilization.cs" />
-    <Compile Include="Migrations\201906052129533_Specilization.Designer.cs">
-      <DependentUpon>201906052129533_Specilization.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201906052143344_CustomerEdit.cs" />
-    <Compile Include="Migrations\201906052143344_CustomerEdit.Designer.cs">
-      <DependentUpon>201906052143344_CustomerEdit.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201906060037101_PhoneChecking.cs" />
-    <Compile Include="Migrations\201906060037101_PhoneChecking.Designer.cs">
-      <DependentUpon>201906060037101_PhoneChecking.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201906090443095_DbEditor.cs" />
-    <Compile Include="Migrations\201906090443095_DbEditor.Designer.cs">
-      <DependentUpon>201906090443095_DbEditor.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201906111739521_dbEditcurrent.cs" />
-    <Compile Include="Migrations\201906111739521_dbEditcurrent.Designer.cs">
-      <DependentUpon>201906111739521_dbEditcurrent.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201906140628240_GetDBEditors.cs" />
-    <Compile Include="Migrations\201906140628240_GetDBEditors.Designer.cs">
-      <DependentUpon>201906140628240_GetDBEditors.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201906150408468_dbEditors.cs" />
-    <Compile Include="Migrations\201906150408468_dbEditors.Designer.cs">
-      <DependentUpon>201906150408468_dbEditors.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201906160809073_DBEDTIR.cs" />
-    <Compile Include="Migrations\201906160809073_DBEDTIR.Designer.cs">
-      <DependentUpon>201906160809073_DBEDTIR.cs</DependentUpon>
+    <Compile Include="Migrations\201906221103181_CustomerFileType.cs" />
+    <Compile Include="Migrations\201906221103181_CustomerFileType.Designer.cs">
+      <DependentUpon>201906221103181_CustomerFileType.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
@@ -660,6 +576,7 @@
     <Content Include="Views\Account\Register.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Images\Avatar\" />
     <Folder Include="Results\" />
     <Folder Include="Views\Language\" />
   </ItemGroup>
@@ -677,74 +594,11 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201905191642587_UFirstDb.resx">
-      <DependentUpon>201905191642587_UFirstDb.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201906211928420_DbFirst.resx">
+      <DependentUpon>201906211928420_DbFirst.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201905192141539_UCityEdit.resx">
-      <DependentUpon>201905192141539_UCityEdit.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201905250625101_U_ClickHouwDidAboutUs.resx">
-      <DependentUpon>201905250625101_U_ClickHouwDidAboutUs.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201905251044210_UPriority.resx">
-      <DependentUpon>201905251044210_UPriority.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201905251152218_UrlPhoto.resx">
-      <DependentUpon>201905251152218_UrlPhoto.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201905251946387_PhotoUrlU_DbSpecilization.resx">
-      <DependentUpon>201905251946387_PhotoUrlU_DbSpecilization.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201905310035110_DbBase.resx">
-      <DependentUpon>201905310035110_DbBase.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201906021131153_Db.resx">
-      <DependentUpon>201906021131153_Db.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201906040322374_DbCommit.resx">
-      <DependentUpon>201906040322374_DbCommit.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201906040439172_dbDatetime.resx">
-      <DependentUpon>201906040439172_dbDatetime.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201906040453350_null.resx">
-      <DependentUpon>201906040453350_null.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201906040710101_Commit12.resx">
-      <DependentUpon>201906040710101_Commit12.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201906051940026_UserName.resx">
-      <DependentUpon>201906051940026_UserName.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201906052003457_UserName11.resx">
-      <DependentUpon>201906052003457_UserName11.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201906052045369_PhoneNumberChecking.resx">
-      <DependentUpon>201906052045369_PhoneNumberChecking.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201906052129533_Specilization.resx">
-      <DependentUpon>201906052129533_Specilization.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201906052143344_CustomerEdit.resx">
-      <DependentUpon>201906052143344_CustomerEdit.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201906060037101_PhoneChecking.resx">
-      <DependentUpon>201906060037101_PhoneChecking.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201906090443095_DbEditor.resx">
-      <DependentUpon>201906090443095_DbEditor.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201906111739521_dbEditcurrent.resx">
-      <DependentUpon>201906111739521_dbEditcurrent.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201906140628240_GetDBEditors.resx">
-      <DependentUpon>201906140628240_GetDBEditors.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201906150408468_dbEditors.resx">
-      <DependentUpon>201906150408468_dbEditors.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201906160809073_DBEDTIR.resx">
-      <DependentUpon>201906160809073_DBEDTIR.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201906221103181_CustomerFileType.resx">
+      <DependentUpon>201906221103181_CustomerFileType.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Resource.kk-KZ.resx" />
     <EmbeddedResource Include="Resources\Resource.resx" />

@@ -18,6 +18,7 @@ using static WebAppWebAppIMaster.SmsService;
 using WebAppIMaster.Controllers;
 using Microsoft.Owin.Security;
 using System.Threading.Tasks;
+using System.Text;
 
 namespace WebAppIMaster.Models.WebApiService
 {
@@ -26,17 +27,26 @@ namespace WebAppIMaster.Models.WebApiService
         private ApplicationDbContext db = new ApplicationDbContext();
 
 
-        public ClientProfileService(ApplicationDbContext db) => this.db = db;
+        public ClientProfileService( ApplicationDbContext db ) => this.db = db;
 
 
-        public void EditCurrentClientProfile(Controller controller, ClientProfileMdl.ClientProfileEdit item)
+        public void EditCurrentClientProfile( Controller controller, ClientProfileMdl.ClientProfileEdit item )
         {
-            Image img;
+            //Image img;
             string photourl = " ";
-            using (MemoryStream mStream = new MemoryStream(item.AvatarFile))
+            byte[] bytes = null;
+            //using (MemoryStream mStream = new MemoryStream(item.AvatarFile))
+            //{
+            //    img = Image.FromStream(mStream);
+            //    photourl = FileManager.SavePhoto(img);
+            //}
+            if (item.AvatarFile == null)
             {
-                img = Image.FromStream(mStream);
-                photourl = FileManager.SavePhoto(img);
+                photourl = null;
+            }
+            else
+            {
+                bytes = Convert.FromBase64String(item.AvatarFile);
             }
             Customer customer = new Customer();
             string langkz = LanguageController.GetKzCode();
@@ -45,7 +55,8 @@ namespace WebAppIMaster.Models.WebApiService
             customer.LastName = item.Lastname;
             customer.FirstName = item.Firstname;
             customer.FatherName = item.Fathername == null ? " " : item.Fathername;
-            customer.AvatarUrl = photourl;
+            customer.Photo = bytes;
+            customer.AvatarType = item.AvatarFileType;
             customer.InCityId = item.RegionId;
             customer.ApplicationUser.GenderId = item.GenderId;
             db.Entry(customer).State = System.Data.Entity.EntityState.Modified;
@@ -54,35 +65,36 @@ namespace WebAppIMaster.Models.WebApiService
 
 
 
-        public ClientProfileMdl.ClientProfileView GetCurrentClientProfileView(string phoneNumber)
+        public ClientProfileMdl.ClientProfileView GetCurrentClientProfileView( string phoneNumber )
         {
             Image img = null;
             byte[] Imagesbyte = null;
-            string PhotoType = null;
+            string PhotoType = " ";
             string langcode = LanguageController.CurrentCultureCode;
             string PhoneNumber = System.Text.RegularExpressions.Regex.Replace(phoneNumber, @"\s+", "");
             string phonenumber = PhoneNumber.Substring(PhoneNumber.Length - 10, 10);
+
             var item = db.Customers.Where(u => u.PhoneNumber.Contains(phonenumber)).Select(model => new
             {
                 Id = model.Id,
                 Firstname = model.FirstName,
                 Lastname = model.LastName,
-                AvatarFile = model.AvatarUrl,
+                AvatarFile = model.Photo,
                 Fathername = model.FatherName,
                 RegionId = 1,
                 Phonenumber = model.ApplicationUser.PhoneNumber,
-                AvatarFileType = "",
+                AvatarFileType = model.AvatarType,
                 Bonus = (int?)model.Bonus,
                 GenderName = model.ApplicationUser.GenderId == 1 ? "Male" : "Female",
                 GenderId = model.ApplicationUser.GenderId,
                 CityName = model.InCity.Langs.Where(l => l.Langcode == langcode).Select(l => l.Name).FirstOrDefault(),
 
             }).SingleOrDefault();
+
             if (item.AvatarFile != null)
             {
-                img = Image.FromFile(item.AvatarFile);
-                PhotoType = item.AvatarFile.Substring(item.AvatarFile.LastIndexOf(".") + 1);
-                Imagesbyte = FileManager.ImageToByteArray(img);
+                Imagesbyte = item.AvatarFile;
+                PhotoType = item.AvatarFileType;
             }
             return new ClientProfileMdl.ClientProfileView()
             {
@@ -101,7 +113,7 @@ namespace WebAppIMaster.Models.WebApiService
             };
         }
 
-        public async Task<string> Register(ClientProfileMdl.ClientProfileRegister item)
+        public async Task<string> Register( ClientProfileMdl.ClientProfileRegister item )
         {
             string lang_kz = LanguageController.GetKzCode();
             string lang_ru = LanguageController.GetRuCode();
@@ -164,7 +176,7 @@ namespace WebAppIMaster.Models.WebApiService
         private ApplicationUserManager _userManager;
 
 
-        public ClientProfileService(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
+        public ClientProfileService( ApplicationUserManager userManager, ApplicationSignInManager signInManager )
         {
             UserManager = userManager;
             SignInManager = signInManager;
@@ -196,7 +208,7 @@ namespace WebAppIMaster.Models.WebApiService
 
 
 
-        protected override void Dispose(bool disposing)
+        protected override void Dispose( bool disposing )
         {
             if (disposing)
             {
@@ -228,7 +240,7 @@ namespace WebAppIMaster.Models.WebApiService
             }
         }
 
-        private void AddErrors(IdentityResult result)
+        private void AddErrors( IdentityResult result )
         {
             foreach (var error in result.Errors)
             {
@@ -236,7 +248,7 @@ namespace WebAppIMaster.Models.WebApiService
             }
         }
 
-        private ActionResult RedirectToLocal(string returnUrl)
+        private ActionResult RedirectToLocal( string returnUrl )
         {
             if (Url.IsLocalUrl(returnUrl))
             {
@@ -256,11 +268,11 @@ namespace WebAppIMaster.Models.WebApiService
                 Id = model.Id,
                 Firstname = model.FirstName,
                 Lastname = model.LastName,
-                AvatarFile = model.AvatarUrl,
+                AvatarFile = model.Photo,
                 Fathername = model.FatherName,
                 RegionId = 1,
                 Phonenumber = model.ApplicationUser.PhoneNumber,
-                AvatarFileType = "",
+                AvatarFileType = model.AvatarType,
                 Bonus = (int?)model.Bonus,
                 GenderName = model.ApplicationUser.GenderId == 1 ? "Male" : "Female",
                 GenderId = model.ApplicationUser.GenderId,
@@ -269,9 +281,8 @@ namespace WebAppIMaster.Models.WebApiService
             }).SingleOrDefault();
             if (item.AvatarFile != null)
             {
-                img = Image.FromFile(item.AvatarFile);
-                PhotoType = item.AvatarFile.Substring(item.AvatarFile.LastIndexOf(".") + 1);
-                Imagesbyte = FileManager.ImageToByteArray(img);
+                Imagesbyte = item.AvatarFile;
+                PhotoType = item.AvatarFileType;
             }
             return new ClientProfileMdl.ClientProfileView()
             {
@@ -292,12 +303,12 @@ namespace WebAppIMaster.Models.WebApiService
 
         internal class ChallengeResult : HttpUnauthorizedResult
         {
-            public ChallengeResult(string provider, string redirectUri)
+            public ChallengeResult( string provider, string redirectUri )
                 : this(provider, redirectUri, null)
             {
             }
 
-            public ChallengeResult(string provider, string redirectUri, string userId)
+            public ChallengeResult( string provider, string redirectUri, string userId )
             {
                 LoginProvider = provider;
                 RedirectUri = redirectUri;
@@ -308,7 +319,7 @@ namespace WebAppIMaster.Models.WebApiService
             public string RedirectUri { get; set; }
             public string UserId { get; set; }
 
-            public override void ExecuteResult(ControllerContext context)
+            public override void ExecuteResult( ControllerContext context )
             {
                 var properties = new AuthenticationProperties { RedirectUri = RedirectUri };
                 if (UserId != null)

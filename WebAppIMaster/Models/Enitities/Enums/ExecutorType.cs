@@ -8,7 +8,7 @@ namespace WebAppIMaster.Models.Enums
 {
     public enum ExecutorType
     {
-        Individual,
+        Individual = 1,
         Business
     }
 }
