@@ -258,7 +258,7 @@ namespace WebAppIMaster.Models.WebApiService
         }
 
         public ClientProfileMdl.ClientProfileView GetCurrentCustomerClientProfileView( string customerId )
-        {
+       {
             Image img = null;
             byte[] Imagesbyte = null;
             string PhotoType = null;
@@ -279,6 +279,7 @@ namespace WebAppIMaster.Models.WebApiService
                 CityName = model.InCity.Langs.Where(l => l.Langcode == langcode).Select(l => l.Name).FirstOrDefault(),
 
             }).SingleOrDefault();
+            if (item == null) throw new KeyNotFoundException();
             if (item.AvatarFile != null)
             {
                 Imagesbyte = item.AvatarFile;

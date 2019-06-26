@@ -79,8 +79,8 @@ namespace WebAppIMaster.Controllers.WebApi
         /// передайте executorId(api/GetDetails/{executorId}) возвращает один элемент
         /// </summary>
         /// <param name="executorId">Принимает параметр executorId.</param>
-        //[System.Web.Http.Route("api/GetDetails")]
-        public ClientExecutorServiceMdl.ExecutorDetails GetDetails( string executorId )
+        [System.Web.Http.Route("api/GetExecutorDetails")]
+        public ClientExecutorServiceMdl.ExecutorDetails GetExecutorDetails( string executorId )
         {
             ApplicationDbContext db = new ApplicationDbContext();
             ClientExecutorService repository = new ClientExecutorService(db);

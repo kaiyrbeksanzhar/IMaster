@@ -22,7 +22,7 @@ namespace WebAppIMaster.Controllers.WebApi
         /// </summary>
         /// <param name="orderId">Принимает параметр orderId.</param>
         // GET: api/ExecutorOrderService/5
-        public ExecutorOrderMdl.ExecutorOrderDetails Get(int orderId)
+        public ExecutorOrderMdl.ExecutorOrderDetails Get(int orderId, string userId)
         {
             ApplicationDbContext db = new ApplicationDbContext();
             ExecutorOrderService repository = new ExecutorOrderService(db);
@@ -30,7 +30,7 @@ namespace WebAppIMaster.Controllers.WebApi
             {
                 return null;
             }
-            var model = repository.GetDetails(orderId);
+            var model = repository.GetDetails(orderId, userId);
             if (model == null)
             {
                 return null;
@@ -84,14 +84,27 @@ namespace WebAppIMaster.Controllers.WebApi
         /// </summary>
         /// <param name="CategoryIds">Принимает параметр CategoryIds.</param>
         /// <param name="SpecializationIds">Принимает параметр SpecializationIds.</param>
+        /// 
+        //[HttpGet]
+        //[System.Web.Http.Route("api/GetItemList")]
+        //public List<ExecutorOrderMdl.ExecutorOrderItem> GetItemList(int[] CategoryIds = null, int[] SpecializationIds = null)
+        //{
+        //    ApplicationDbContext db = new ApplicationDbContext();
+        //    ExecutorOrderService repository = new ExecutorOrderService(db);
+        //    string userName = User.Identity.Name;
+        //    var model = repository.GetItemList(CategoryIds.ToList(), SpecializationIds.ToList(), userName);
+        //    return model;
+        //}
+        [HttpGet]
         [System.Web.Http.Route("api/GetItemList")]
-        public List<ExecutorOrderMdl.ExecutorOrderItem> GetItemList(List<int> CategoryIds, List<int> SpecializationIds)
+        public List<ExecutorOrderMdl.ExecutorOrderItem> GetItemList(string userId = null)
         {
             ApplicationDbContext db = new ApplicationDbContext();
             ExecutorOrderService repository = new ExecutorOrderService(db);
-            var model = repository.GetItemList(CategoryIds, SpecializationIds);
+            List<ExecutorOrderMdl.ExecutorOrderItem> model = repository.GetItemList(null, null, userId);
             return model;
         }
+
         /// <summary>
         /// передайте (api/AddBookMark/{userId,orderId})  сохраняет bookMark
         /// </summary>

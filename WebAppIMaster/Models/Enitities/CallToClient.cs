@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Web;
 
 namespace WebAppIMaster.Models
 {
@@ -16,8 +13,8 @@ namespace WebAppIMaster.Models
 
         [Key]
         [Column(Order = 1)]
-        public int OrderExecutorId { get; set; }
-        public virtual OrderExecutor OrderExecutor { get; set; }
+        public int OrderId { get; set; }
+        public virtual CustomerOrder Order { get; set; }
 
         public DateTime CreatedAt_Date { get; set; }
     }

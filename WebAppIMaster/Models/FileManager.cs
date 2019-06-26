@@ -12,6 +12,7 @@ namespace WebAppIMaster.Models
     {
 
         static string CategoryImagesUrl = "/Images/Category";
+        static string CustomerOrderUrl = "/Images/CustomerOrder";
         static string ImagesSave = "/Images";
         static string AvatarPath = "/Images/Avatar";
         public static string DefaulAvatarUrl = "/Images/Default/NoPhoto.png";
@@ -46,6 +47,21 @@ namespace WebAppIMaster.Models
             {
                 savedLogoUrl = CategoryImagesUrl + "/" + postedFile.FileName.Split('\\').Last();
                 postedFile.SaveAs(controller.Server.MapPath(savedLogoUrl));
+            }
+            else
+            {
+                savedLogoUrl = DefaulAvatarUrl;
+            }
+            return savedLogoUrl;
+        }
+
+        public static string SaveCustomerOrder( HttpPostedFileBase postedFile )
+        {
+            string savedLogoUrl = "";
+            if (postedFile != null)
+            {
+                savedLogoUrl = CustomerOrderUrl + "/" + postedFile.FileName.Split('\\').Last();
+                postedFile.SaveAs(HttpContext.Current.Server.MapPath(savedLogoUrl));
             }
             else
             {

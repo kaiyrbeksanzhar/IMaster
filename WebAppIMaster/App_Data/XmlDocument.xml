@@ -529,7 +529,7 @@
             <param name="orderId">Принимает параметр orderId.</param>
             <param name="executorId">Принимает параметр orderId.</param>
         </member>
-        <member name="M:WebAppIMaster.Controllers.WebApi.ClientExecutorServiceController.GetDetails(System.String)">
+        <member name="M:WebAppIMaster.Controllers.WebApi.ClientExecutorServiceController.GetExecutorDetails(System.String)">
             <summary>
             передайте executorId(api/GetDetails/{executorId}) возвращает один элемент
             </summary>
@@ -580,6 +580,12 @@
             ClientOrderItemView лист возвращает
             </summary>
         </member>
+        <member name="M:WebAppIMaster.Controllers.WebApi.ClientOrderServiceController.SendPhotoToOrder">
+            <summary>
+            SendPhotoToOrder лист возвращает
+            </summary>
+            <param name="files">Принимает параметр files.</param>
+        </member>
         <member name="M:WebAppIMaster.Controllers.WebApi.ClientOrderServiceController.GetListForClient(System.String)">
             <summary>
             передайте api/GetListForClient/5 возращает лист элементов
@@ -625,7 +631,7 @@
               ExecutorOrderService
             </summary>
         </member>
-        <member name="M:WebAppIMaster.Controllers.WebApi.ExecutorOrderServiceController.Get(System.Int32)">
+        <member name="M:WebAppIMaster.Controllers.WebApi.ExecutorOrderServiceController.Get(System.Int32,System.String)">
             <summary>
             передайте id(api/ExecutorOrderService/5)  один элемент от ExecutorOrder
             </summary>
@@ -654,12 +660,13 @@
             <param name="executorId">Принимает параметр executorId.</param>
             <param name="orderId">Принимает параметр orderId.</param>
         </member>
-        <member name="M:WebAppIMaster.Controllers.WebApi.ExecutorOrderServiceController.GetItemList(System.Collections.Generic.List{System.Int32},System.Collections.Generic.List{System.Int32})">
+        <member name="M:WebAppIMaster.Controllers.WebApi.ExecutorOrderServiceController.GetItemList(System.String)">
             <summary>
             передайте (api/GetItemList/{CategoryIds,SpecializationIds}) добавляет CallToClient
             </summary>
             <param name="CategoryIds">Принимает параметр CategoryIds.</param>
             <param name="SpecializationIds">Принимает параметр SpecializationIds.</param>
+            
         </member>
         <member name="M:WebAppIMaster.Controllers.WebApi.ExecutorOrderServiceController.AddBookMark(System.String,System.Int32)">
             <summary>

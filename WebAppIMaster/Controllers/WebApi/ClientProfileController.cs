@@ -42,8 +42,16 @@ namespace WebAppIMaster.Controllers.WebApi
         {
             ApplicationDbContext db = new ApplicationDbContext();
             ClientProfileService repository = new ClientProfileService(db);
-            var model = repository.GetCurrentCustomerClientProfileView(customerId);
-            return model;
+            try
+            {
+                var model = repository.GetCurrentCustomerClientProfileView(customerId);
+                return model;
+            }
+            catch (KeyNotFoundException e)
+            {
+
+                return null;
+            }
         }
         /// <summary>
         /// Post запрос  ClientProfileEdit изменить данные

@@ -12,7 +12,6 @@ namespace WebAppIMaster.Models
         {
             Langs = new HashSet<CategoryLang>();
             executorSpecializations = new HashSet<ExecutorSpecialization>();
-            CustomerOrders = new HashSet<CustomerOrder>();
             Specializations = new HashSet<Specialization>();
         }
 
@@ -23,8 +22,5 @@ namespace WebAppIMaster.Models
         public ICollection<Specialization> Specializations { get; set; }
         public ICollection<CategoryLang> Langs { get; set; }
         public ICollection<ExecutorSpecialization>  executorSpecializations { get; set; }
-        public ICollection<CustomerOrder> CustomerOrders { get; set; }
-
-
     }
 }

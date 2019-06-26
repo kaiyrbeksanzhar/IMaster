@@ -16,6 +16,8 @@ namespace WebAppIMaster.Models
         public ApplicationUser()
         {
             Documents = new HashSet<UserDocument>();
+            BookmarkOrders = new HashSet<BookmarkOrder>();
+            BookmarkExecutors = new HashSet<BookmarkExecutor>();
         }
 
         public string LastName { get; set; }
@@ -29,6 +31,8 @@ namespace WebAppIMaster.Models
         public virtual Customer Customer { get; set; }
 
         public ICollection<UserDocument> Documents { get; set; }
+        public ICollection<BookmarkOrder> BookmarkOrders { get; set; }
+        public ICollection<BookmarkExecutor> BookmarkExecutors { get; set; }
 
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync( UserManager<ApplicationUser> manager )

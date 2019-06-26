@@ -14,10 +14,10 @@ namespace WebAppIMaster.Models.WebApiModel
             public string Lastname { get; set; }
             public string Firstname { get; set; }
             public string Fathername { get; set; }
+            public string PhoneNumber { get; set; }
             public bool Online { get; set; }
             public string Rating { get; set; }
-            public byte[] AvatarFile { get; set; }
-            public string AvatarFileType { get; set; }
+            public string AvatarUri { get; set; }
             public bool Check { get; set; }
             public DateTime RegisterDate { get; set; }
             public int ClosedOrdersCount { get; set; }
@@ -31,8 +31,7 @@ namespace WebAppIMaster.Models.WebApiModel
             public string FatherName { get; set; }
             public bool? Online { get; set; }
             public string Rating { get; set; }
-            public byte[] AvatarFile { get; set; }
-            public string AvatarFileType { get; set; }
+            public string AvatarUri { get; set; }
             public bool? Check { get; set; }
             public DateTime? RegisterDate { get; set; }
             public int? ClosedOrdersCount { get; set; }
@@ -48,7 +47,7 @@ namespace WebAppIMaster.Models.WebApiModel
             public string SpecializationName { get; set; }
             public ExecutorType? ExecutorType { get; set; }
             public string PhoneNumber { get; set; }
-            public Dictionary<byte[], string> PhotoFiles { get; set; }
+            public IEnumerable<string> PhotoUris { get; set; }
             public Dictionary<string, int> Services { get; set; }
             public List<ExecutorReview> Reviews { get; set; }
             public string YouTubeVideoUrl { get; set; }
@@ -56,8 +55,7 @@ namespace WebAppIMaster.Models.WebApiModel
 
         public class ExecutorReview
         {
-            public byte[] ClientAvatarFile { get; set; }
-            public string ClientAvatarFileType { get; set; }
+            public string ClientAvatarUri { get; set; }
             public int StartCountOf5 { get; set; }
             public DateTime ReviewedAt { get; set; }
             public string ReviewText { get; set; }
@@ -65,14 +63,14 @@ namespace WebAppIMaster.Models.WebApiModel
 
         public class ExecutorResponse
         {
-            public string Id { get; set; }
+            public string ExecutorId { get; set; }
             public string Lastname { get; set; }
             public string Firstname { get; set; }
             public string Fathername { get; set; }
+            public string PhoneNumber { get; set; }
             public bool Online { get; set; }
             public string Rating { get; set; }
-            public byte[] AvatarFile { get; set; }
-            public string AvatarFileType { get; set; }
+            public string AvatarUri { get; set; }
             public bool Check { get; set; }
             public DateTime RegisterDate { get; set; }
             public int ClosedOrdersCount { get; set; }

@@ -261,16 +261,51 @@
     <Compile Include="Migrations\201906221103181_CustomerFileType.Designer.cs">
       <DependentUpon>201906221103181_CustomerFileType.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201906241355087_SpecilizationId.cs" />
+    <Compile Include="Migrations\201906241355087_SpecilizationId.Designer.cs">
+      <DependentUpon>201906241355087_SpecilizationId.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201906260619499_Update.cs" />
+    <Compile Include="Migrations\201906260619499_Update.Designer.cs">
+      <DependentUpon>201906260619499_Update.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201906261006261_Update_Response.cs" />
+    <Compile Include="Migrations\201906261006261_Update_Response.Designer.cs">
+      <DependentUpon>201906261006261_Update_Response.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201906261014237_Update_CallToOrder.cs" />
+    <Compile Include="Migrations\201906261014237_Update_CallToOrder.Designer.cs">
+      <DependentUpon>201906261014237_Update_CallToOrder.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201906261026055_Update_BookmarkOrders.cs" />
+    <Compile Include="Migrations\201906261026055_Update_BookmarkOrders.Designer.cs">
+      <DependentUpon>201906261026055_Update_BookmarkOrders.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201906261029480_Update_BookmarkExecutors.cs" />
+    <Compile Include="Migrations\201906261029480_Update_BookmarkExecutors.Designer.cs">
+      <DependentUpon>201906261029480_Update_BookmarkExecutors.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201906261048498_Update_Response1.cs" />
+    <Compile Include="Migrations\201906261048498_Update_Response1.Designer.cs">
+      <DependentUpon>201906261048498_Update_Response1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201906261343523_Update1.cs" />
+    <Compile Include="Migrations\201906261343523_Update1.Designer.cs">
+      <DependentUpon>201906261343523_Update1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201906261446508_Update2.cs" />
+    <Compile Include="Migrations\201906261446508_Update2.Designer.cs">
+      <DependentUpon>201906261446508_Update2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\Enitities\AddExecutorToOrder.cs" />
     <Compile Include="Models\Enitities\Address.cs" />
     <Compile Include="Models\Enitities\AddressLang.cs" />
     <Compile Include="Models\Enitities\ApplicationUser.cs" />
-    <Compile Include="Models\Enitities\Bookmark.cs" />
+    <Compile Include="Models\Enitities\BookmarkExecutor.cs" />
+    <Compile Include="Models\Enitities\BookmarkOrder.cs" />
     <Compile Include="Models\Enitities\CallToClient.cs" />
-    <Compile Include="Models\Enitities\CancelExecutorResponse.cs" />
     <Compile Include="Models\Enitities\CancelOrder.cs" />
     <Compile Include="Models\Enitities\Category.cs" />
     <Compile Include="Models\Enitities\CategoryLang.cs" />
@@ -394,6 +429,42 @@
     <Content Include="App_Data\XmlDocument.xml" />
     <Content Include="Areas\HelpPage\HelpPage.css" />
     <Content Include="Areas\HelpPage\TestClient.css" />
+    <Content Include="Content\assets\css\bootstrap.min.css" />
+    <Content Include="Content\assets\css\demo.css" />
+    <Content Include="Content\assets\css\light-bootstrap-dashboard.css" />
+    <Content Include="Content\assets\fonts\nucleo-icons.svg" />
+    <Content Include="Content\assets\img\apple-icon.png" />
+    <Content Include="Content\assets\img\default-avatar.png" />
+    <Content Include="Content\assets\img\faces\face-0.jpg" />
+    <Content Include="Content\assets\img\faces\face-1.jpg" />
+    <Content Include="Content\assets\img\faces\face-2.jpg" />
+    <Content Include="Content\assets\img\faces\face-3.jpg" />
+    <Content Include="Content\assets\img\faces\face-4.jpg" />
+    <Content Include="Content\assets\img\faces\face-5.jpg" />
+    <Content Include="Content\assets\img\faces\face-6.jpg" />
+    <Content Include="Content\assets\img\faces\face-7.jpg" />
+    <Content Include="Content\assets\img\faces\tim_vector.jpe" />
+    <Content Include="Content\assets\img\favicon.ico" />
+    <Content Include="Content\assets\img\full-screen-image-3.jpg" />
+    <Content Include="Content\assets\img\loading-bubbles.svg" />
+    <Content Include="Content\assets\img\mask.png" />
+    <Content Include="Content\assets\img\new_logo.png" />
+    <Content Include="Content\assets\img\sidebar-1.jpg" />
+    <Content Include="Content\assets\img\sidebar-2.jpg" />
+    <Content Include="Content\assets\img\sidebar-3.jpg" />
+    <Content Include="Content\assets\img\sidebar-4.jpg" />
+    <Content Include="Content\assets\img\sidebar-5.jpg" />
+    <Content Include="Content\assets\img\tim_80x80.png" />
+    <Content Include="Content\assets\js\core\bootstrap.min.js" />
+    <Content Include="Content\assets\js\core\jquery.3.2.1.min.js" />
+    <Content Include="Content\assets\js\core\popper.min.js" />
+    <Content Include="Content\assets\js\demo.js" />
+    <Content Include="Content\assets\js\light-bootstrap-dashboard.js" />
+    <Content Include="Content\assets\js\plugins\bootstrap-datepicker.js" />
+    <Content Include="Content\assets\js\plugins\bootstrap-notify.js" />
+    <Content Include="Content\assets\js\plugins\bootstrap-switch.js" />
+    <Content Include="Content\assets\js\plugins\chartist.min.js" />
+    <Content Include="Content\assets\js\plugins\nouislider.min.js" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -507,6 +578,43 @@
     <Content Include="Areas\HelpPage\Views\Help\Api.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\TestClientReferences.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\TestClientDialogs.cshtml" />
+    <Content Include="Content\assets\fonts\nucleo-icons.eot" />
+    <Content Include="Content\assets\fonts\nucleo-icons.ttf" />
+    <Content Include="Content\assets\fonts\nucleo-icons.woff" />
+    <Content Include="Content\assets\fonts\nucleo-icons.woff2" />
+    <Content Include="Content\assets\sass\lbd\mixins\_buttons.scss" />
+    <Content Include="Content\assets\sass\lbd\mixins\_cards.scss" />
+    <Content Include="Content\assets\sass\lbd\mixins\_chartist.scss" />
+    <Content Include="Content\assets\sass\lbd\mixins\_icons.scss" />
+    <Content Include="Content\assets\sass\lbd\mixins\_inputs.scss" />
+    <Content Include="Content\assets\sass\lbd\mixins\_labels.scss" />
+    <Content Include="Content\assets\sass\lbd\mixins\_morphing-buttons.scss" />
+    <Content Include="Content\assets\sass\lbd\mixins\_navbars.scss" />
+    <Content Include="Content\assets\sass\lbd\mixins\_social-buttons.scss" />
+    <Content Include="Content\assets\sass\lbd\mixins\_tabs.scss" />
+    <Content Include="Content\assets\sass\lbd\mixins\_transparency.scss" />
+    <Content Include="Content\assets\sass\lbd\mixins\_vendor-prefixes.scss" />
+    <Content Include="Content\assets\sass\lbd\plugins\_animate.scss" />
+    <Content Include="Content\assets\sass\lbd\plugins\_datetime-picker.scss" />
+    <Content Include="Content\assets\sass\lbd\_alerts.scss" />
+    <Content Include="Content\assets\sass\lbd\_bootstrap-switch.scss" />
+    <Content Include="Content\assets\sass\lbd\_buttons.scss" />
+    <Content Include="Content\assets\sass\lbd\_cards.scss" />
+    <Content Include="Content\assets\sass\lbd\_chartist.scss" />
+    <Content Include="Content\assets\sass\lbd\_checkbox-radio-switch.scss" />
+    <Content Include="Content\assets\sass\lbd\_dropdown.scss" />
+    <Content Include="Content\assets\sass\lbd\_footers.scss" />
+    <Content Include="Content\assets\sass\lbd\_inputs.scss" />
+    <Content Include="Content\assets\sass\lbd\_misc.scss" />
+    <Content Include="Content\assets\sass\lbd\_mixins.scss" />
+    <Content Include="Content\assets\sass\lbd\_navbars.scss" />
+    <Content Include="Content\assets\sass\lbd\_partial-nucleo-icons.scss" />
+    <Content Include="Content\assets\sass\lbd\_responsive.scss" />
+    <Content Include="Content\assets\sass\lbd\_sidebar-and-main-panel.scss" />
+    <Content Include="Content\assets\sass\lbd\_tables.scss" />
+    <Content Include="Content\assets\sass\lbd\_typography.scss" />
+    <Content Include="Content\assets\sass\lbd\_variables.scss" />
+    <Content Include="Content\assets\sass\light-bootstrap-dashboard.scss" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
@@ -577,6 +685,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Images\Avatar\" />
+    <Folder Include="Images\CustomerOrder\" />
     <Folder Include="Results\" />
     <Folder Include="Views\Language\" />
   </ItemGroup>
@@ -599,6 +708,33 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201906221103181_CustomerFileType.resx">
       <DependentUpon>201906221103181_CustomerFileType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906241355087_SpecilizationId.resx">
+      <DependentUpon>201906241355087_SpecilizationId.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906260619499_Update.resx">
+      <DependentUpon>201906260619499_Update.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906261006261_Update_Response.resx">
+      <DependentUpon>201906261006261_Update_Response.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906261014237_Update_CallToOrder.resx">
+      <DependentUpon>201906261014237_Update_CallToOrder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906261026055_Update_BookmarkOrders.resx">
+      <DependentUpon>201906261026055_Update_BookmarkOrders.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906261029480_Update_BookmarkExecutors.resx">
+      <DependentUpon>201906261029480_Update_BookmarkExecutors.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906261048498_Update_Response1.resx">
+      <DependentUpon>201906261048498_Update_Response1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906261343523_Update1.resx">
+      <DependentUpon>201906261343523_Update1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906261446508_Update2.resx">
+      <DependentUpon>201906261446508_Update2.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Resource.kk-KZ.resx" />
     <EmbeddedResource Include="Resources\Resource.resx" />

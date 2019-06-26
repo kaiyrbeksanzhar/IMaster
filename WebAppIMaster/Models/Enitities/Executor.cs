@@ -18,6 +18,9 @@ namespace WebAppIMaster.Models
             ExecutorPhotoFiles = new HashSet<ExecutorPhotoFiles>();
             ExecutorPasswordFiles = new HashSet<ExecutorPassportFiles>();
             specializations = new HashSet<Specialization>();
+            Responses = new HashSet<Response>();
+            CallToClients = new HashSet<CallToClient>();
+            BookmarkExecutors = new HashSet<BookmarkExecutor>();
         }
 
         [Key]
@@ -53,5 +56,8 @@ namespace WebAppIMaster.Models
         public ICollection<Category> Categories { get; set; }
         public ICollection<Specialization> specializations { get; set; }
         public ICollection<ExecutorSpecialization>  ExecutorSpecializations { get; set; }
+        public ICollection<Response> Responses { get; set; }
+        public ICollection<CallToClient> CallToClients { get; set; }
+        public ICollection<BookmarkExecutor> BookmarkExecutors { get; set; }
     }
 }

@@ -183,6 +183,16 @@ namespace WebAppIMaster.Controllers.WebApi
             repository.UpdateType(item, executorId);
         }
 
+        [Route("api/GetExecutorAvatar")]
+        public HttpResponseMessage GetExecutorAvatar(string executorId)
+        {
+            return null;
+        }
+        [Route("api/GetExecutorPhoto")]
+        public HttpResponseMessage GetExecutorPhoto( string photoPath )
+        {
+            return null;
+        }
 
     }
 }

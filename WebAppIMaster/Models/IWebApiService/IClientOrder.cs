@@ -18,5 +18,6 @@ namespace WebAppIMaster.Models.IWebApiService
         List<ClientOrderItemView> GetListForClient( string clientId );
         List<ClientOrderItemView> GetListForExecutor( string executorId );
         ClientCommonOrderDetailsView GetClientCommonOrderDetailsView(int orderId);
+        void SendPhotoToOrder( string url ,int orderId);
     }
 }

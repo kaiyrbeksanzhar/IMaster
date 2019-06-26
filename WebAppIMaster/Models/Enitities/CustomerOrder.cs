@@ -1,17 +1,19 @@
 ﻿using WebAppIMaster.Models.Enums;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using WebAppIMaster.Models.Enitities;
 using WebAppIMaster.Models.Enitities.Enums;
 
 namespace WebAppIMaster.Models
 {
     public class CustomerOrder
     {
+        public CustomerOrder()
+        {
+            BookmarkOrders = new HashSet<BookmarkOrder>();
+            CallToClients = new HashSet<CallToClient>();
+            Responses = new HashSet<Response>();
+        }
+
         public int Id { get; set; }
         public string Title { get; set; }
 
@@ -39,17 +41,15 @@ namespace WebAppIMaster.Models
 
         public bool PayWithBounce { get; set; }
 
-        public int CategoryId { get; set; }
-        public virtual Category Category{ get; set; }
+        public int SpecializationId { get; set; }
+        public virtual Specialization Specialization { get; set; }
 
         public string CustomerId { get; set; }
         public virtual Customer Customer { get; set; }
 
 
-
         public string ExecutorId { get; set; }
         public virtual Executor Executor { get; set; }
-
 
         public DateTime EndedDateTime { get; set; }
         public DateTime CreatedDateTime { get; set; }
@@ -60,5 +60,9 @@ namespace WebAppIMaster.Models
         public string ExecutorComment { get; set; }
         public DateTime ExecutorCommentedDateTime { get; set; }
         public EvaluationPerformerWork EvaluationPerformerWork { get; set; }
+
+        public ICollection<BookmarkOrder> BookmarkOrders { get; set; }
+        public ICollection<CallToClient> CallToClients { get; set; }
+        public ICollection<Response> Responses { get; set; }
     }
 }

@@ -59,15 +59,13 @@ namespace WebAppIMaster.Models.Enitities
         public DbSet<PriceCategoryAndSpecializationType> categoryAndSpecializationTypes { get; set; }
         public DbSet<SendBonus> SendBonuses { get; set; }
         public DbSet<TransitionExecutorCost> transitionExecutorCosts { get; set; }
-        public DbSet<CancelExecutorResponse>   cancelExecutorResponses { get; set; }
-        public DbSet<AddExecutorToOrder> addExecutorToOrders { get; set; }
         public DbSet<CallToClient> CallToClients { get; set; }
         public DbSet<CancelOrder> CancelOrders { get; set; }
         public DbSet<Response> Responses { get; set; }
         public DbSet<ExecutorPhone> ExecutorPhonies { get; set; }
         public DbSet<ClientPhone> ClientPhones { get; set; }
         public DbSet<PhoneCheckingCode>  phoneCheckingCodes { get; set; }
-        public DbSet<Bookmark> Bookmarks { get; set; }
-
+        public DbSet<BookmarkOrder> BookmarkOrders { get; set; }
+        public DbSet<BookmarkExecutor> BookmarkExecutors { get; set; }
     }
 }

@@ -22,28 +22,19 @@ namespace WebAppIMaster.Models.WebApiService
 
         public void AddExecutorToOrder( string clientId, int orderId, string executorId )
         {
-            string langcode = LanguageController.GetCurrentLanguageCode();
-            WebAppIMaster.Models.AddExecutorToOrder addExecutorToOrder = new AddExecutorToOrder()
-            {
-                CustomerId = clientId,
-                ExecutorId = executorId,
-                OrderId = orderId
-            };
-            db.addExecutorToOrders.Add(addExecutorToOrder);
+            CustomerOrder customerOrder = db.CustomerOrders.Find(orderId);
+
+            customerOrder.OrderState = OrderState.InProcess;
+            customerOrder.OrderType = Enitities.Enums.OrderStatus.Processing;
+
+            customerOrder.ExecutorId = executorId;
+            db.Entry(customerOrder).State = System.Data.Entity.EntityState.Modified;
             db.SaveChanges();
         }
 
         public void CancelExecutorResponse( string clientId, int orderId, string executorId )
         {
-            string langcode = LanguageController.GetCurrentLanguageCode();
-            CancelExecutorResponse cancelExecutorResponse = new CancelExecutorResponse()
-            {
-                CustomerId = clientId,
-                OrderId = orderId,
-                ExecutorId = executorId
-            };
-            db.cancelExecutorResponses.Add(cancelExecutorResponse);
-            db.SaveChanges();
+            throw new NotImplementedException();
         }
 
         public ClientExecutorServiceMdl.ExecutorDetails GetDetails( string executorId )
@@ -74,26 +65,20 @@ namespace WebAppIMaster.Models.WebApiService
                              SpecializationName = e.ExecutorSpecializations.Select(es=>es.Specialization).SelectMany(s=>s.Langs).Where(l=>l.Langcode == langcode).Select(l=>l.Name).FirstOrDefault(),
                              ExecutorType = e.ExecutorType,
                              PhoneNumber = e.PhoneNumber,
+                             AvatarUri = e.AvatarUrl == null ? null : "http://i-master.kz/api/GetExecutorAvatar?executorId=" + e.AvatarUrl,
                              PhotoFiles = (from epf in e.ExecutorPhotoFiles
 
                                            select epf).ToList(),
                              YouTubeVideoUrl = e.YouTubeVideoUrl,
                          }).SingleOrDefault();
             Image img;
-            Dictionary<byte[], string> photos = new Dictionary<byte[], string>();
+            List<string> photoUri = new List<string>();
             if (model.PhotoFiles.Count > 0)
             {
                 foreach (var item in model.PhotoFiles)
                 {
-                    img = Image.FromFile(item.PhotoFileUrl);
-                    string PhotoType = item.PhotoFileUrl.Substring(item.PhotoFileUrl.LastIndexOf(".") + 1);
-                    byte[] Imagesbyte = FileManager.ImageToByteArray(img);
-                    photos.Add(Imagesbyte, PhotoType);
+                    photoUri.Add("http://i-master.kz/api/GetExecutorPhoto?photoPath=" + item.PhotoFileUrl);
                 }
-            }
-            else
-            {
-                photos = null;
             }
 
             return new ClientExecutorServiceMdl.ExecutorDetails()
@@ -116,180 +101,93 @@ namespace WebAppIMaster.Models.WebApiService
                 SpecializationName = model.SpecializationName,
                 ExecutorType = model.ExecutorType,
                 PhoneNumber = model.PhoneNumber,
-                PhotoFiles = photos,
+                PhotoUris = photoUri,
+                AvatarUri = model.AvatarUri, 
                 YouTubeVideoUrl = model.YouTubeVideoUrl
             };
         }
 
         public List<ClientExecutorServiceMdl.ExecutorItem> GetItemList()
         {
-            List<ClientExecutorServiceMdl.ExecutorItem> result = new List<ClientExecutorServiceMdl.ExecutorItem>();
-            Dictionary<byte[], string> photos = new Dictionary<byte[], string>();
-            string langcode = LanguageController.GetCurrentLanguageCode();
-            var model = db.Executors.ToList();
-            Image img;
-            string PhotoType = "";
-            foreach (var executor in model)
+            string langcode = LanguageController.CurrentCultureCode;
+            List<ClientExecutorServiceMdl.ExecutorItem> list = db.Executors.Select(u => new ClientExecutorServiceMdl.ExecutorItem
             {
-                img = Image.FromFile(executor.AvatarUrl);
-                PhotoType = executor.AvatarUrl.Substring(executor.AvatarUrl.LastIndexOf(".") + 1);
-                byte[] Imagesbyte = FileManager.ImageToByteArray(img);
-                photos.Add(Imagesbyte, PhotoType);
-                Status check = executor.ExecutorPasswordFiles.Select(epf => epf.Status).FirstOrDefault();
-                result.Add(new ClientExecutorServiceMdl.ExecutorItem
-                {
-                    Id = executor.Id,
-                    AvatarFile = Imagesbyte,
-                    AvatarFileType = PhotoType,
-                    Lastname = executor.User.LastName,
-                    Firstname = executor.User.FirstName,
-                    Fathername = executor.User.FatherName,
-                    RegisterDate = (DateTime)executor.RegistrationDateTime,
-                    ClosedOrdersCount = (int)executor.ExecutorClosedOrdersCount,
-                    Rating = executor.Rating.ToString(),
-                    Check = check == Status.Active ? true : false,
-                    Online = true
+                Id = u.Id,
+                Lastname = u.User.LastName,
+                Firstname = u.User.FirstName,
+                PhoneNumber = u.PhoneNumber,
+                AvatarUri = "http://i-master.kz/api/GetExecutorAvatar?executorId=" + u.AvatarUrl,
+                Check = u.ExecutorCheck == true ? true : false,
+                ClosedOrdersCount = u.Orders.Where(o => o.OrderState == OrderState.Finished).Count(),
+                Online = true,
+                Rating = u.Rating + "",
+                RegisterDate = (DateTime)u.RegistrationDateTime,
+            }).ToList();
 
-                });
-            }
-            return result;
+            return list;
         }
 
         public List<ClientExecutorServiceMdl.ExecutorItem> GetItemListForCategory( int categoryId )
         {
-            List<ClientExecutorServiceMdl.ExecutorItem> listitem = new List<ClientExecutorServiceMdl.ExecutorItem>();
             string langcode = LanguageController.CurrentCultureCode;
-            var model = db.Categories.Where(c => c.Id == categoryId).SelectMany(c => c.executorSpecializations).Select(es => es.Executor).ToList();
-            Image img;
-            string PhotoType = "";
-            foreach (var executor in model)
+            List<ClientExecutorServiceMdl.ExecutorItem> list = db.Executors.Where(u => u.specializations.Any(s => s.CategoryId == categoryId)).Select(u => new ClientExecutorServiceMdl.ExecutorItem
             {
-                img = Image.FromFile(executor.AvatarUrl);
-                PhotoType = executor.AvatarUrl.Substring(executor.AvatarUrl.LastIndexOf(".") + 1);
-                byte[] Imagesbyte = FileManager.ImageToByteArray(img);
-                Status check = executor.ExecutorPasswordFiles.Select(epf => epf.Status).FirstOrDefault();
-                int statuscheck = 0;
-                switch (check)
-                {
-                    case Status.Active:
-                        statuscheck = (int)Status.Active;
-                        break;
-                    case Status.Archived:
-                        statuscheck = (int)Status.Archived;
-                        break;
-                    case Status.Deleted:
-                        statuscheck = (int)Status.Deleted;
-                        break;
-                }
-                listitem.Add(new ClientExecutorServiceMdl.ExecutorItem
-                {
-                    Id = executor.Id,
-                    Firstname = executor.User.FatherName,
-                    Lastname = executor.User.LastName,
-                    Fathername = executor.User.FatherName,
-                    AvatarFile = Imagesbyte,
-                    AvatarFileType = PhotoType,
-                    Rating = executor.Rating.ToString(),
-                    RegisterDate = (DateTime)executor.RegistrationDateTime,
-                    Check = statuscheck == 1 ? true : false,
-                    ClosedOrdersCount = (int)executor.ExecutorClosedOrdersCount,
-                    Online = true,
+                Id = u.Id,
+                Lastname = u.User.LastName,
+                Firstname = u.User.FirstName,
+                PhoneNumber = u.PhoneNumber,
+                AvatarUri = "http://i-master.kz/api/GetExecutorAvatar?executorId=" + u.AvatarUrl,
+                Check = u.ExecutorCheck == true ? true : false,
+                ClosedOrdersCount = u.Orders.Where(o => o.OrderState == OrderState.Finished).Count(),
+                Online = true,
+                Rating = u.Rating + "",
+                RegisterDate = (DateTime)u.RegistrationDateTime,
+            }).ToList();
 
-                });
-            }
-            return listitem;
+            return list;
         }
 
         public List<ClientExecutorServiceMdl.ExecutorItem> GetItemListForSpecialty( int specialtyId )
         {
-            List<ClientExecutorServiceMdl.ExecutorItem> listitem = new List<ClientExecutorServiceMdl.ExecutorItem>();
             string langcode = LanguageController.CurrentCultureCode;
-            var model = db.ExecutorSpecializations.Where(es => es.SpecializationId == specialtyId).Select(es => es.Executor).ToList();
-            Image img;
-            string PhotoType = "";
-            foreach (var specialty in model)
+            List<ClientExecutorServiceMdl.ExecutorItem> list = db.Executors.Where(u => u.specializations.Any(s => s.Id == specialtyId)).Select(u => new ClientExecutorServiceMdl.ExecutorItem
             {
-                img = Image.FromFile(specialty.AvatarUrl);
-                PhotoType = specialty.AvatarUrl.Substring(specialty.AvatarUrl.LastIndexOf(".") + 1);
-                byte[] Imagesbyte = FileManager.ImageToByteArray(img);
-                Status check = specialty.ExecutorPasswordFiles.Select(epf => epf.Status).FirstOrDefault();
-                int statuscheck = 0;
-                switch (check)
-                {
-                    case Status.Active:
-                        statuscheck = (int)Status.Active;
-                        break;
-                    case Status.Archived:
-                        statuscheck = (int)Status.Archived;
-                        break;
-                    case Status.Deleted:
-                        statuscheck = (int)Status.Deleted;
-                        break;
-                }
-                listitem.Add(new ClientExecutorServiceMdl.ExecutorItem
-                {
-                    Id = specialty.Id,
-                    Firstname = specialty.User.FatherName,
-                    Lastname = specialty.User.LastName,
-                    Fathername = specialty.User.FatherName,
-                    AvatarFile = Imagesbyte,
-                    AvatarFileType = PhotoType,
-                    Rating = specialty.Rating.ToString(),
-                    RegisterDate = (DateTime)specialty.RegistrationDateTime,
-                    Check = statuscheck == 1 ? true : false,
-                    ClosedOrdersCount = (int)specialty.ExecutorClosedOrdersCount,
-                    Online = true,
+                Id = u.Id,
+                Lastname = u.User.LastName,
+                Firstname = u.User.FirstName,
+                PhoneNumber = u.PhoneNumber,
+                AvatarUri = "http://i-master.kz/api/GetExecutorAvatar?executorId=" + u.AvatarUrl,
+                Check = u.ExecutorCheck == true ? true : false,
+                ClosedOrdersCount = u.Orders.Where(o => o.OrderState == OrderState.Finished).Count(),
+                Online = true,
+                Rating = u.Rating + "",
+                RegisterDate = (DateTime)u.RegistrationDateTime,
+            }).ToList();
 
-                });
-            }
-            return listitem;
+            return list;
         }
 
         public List<ClientExecutorServiceMdl.ExecutorResponse> GetResponseList( string clientId )
         {
-            List<ClientExecutorServiceMdl.ExecutorResponse> executorResponses = new List<ClientExecutorServiceMdl.ExecutorResponse>();
             string langcode = LanguageController.CurrentCultureCode;
-            var model = db.Executors.Where(e => e.Id == clientId).ToList();
-            Image img;
-            string PhotoType = "";
-            foreach (var executor in model)
+            List<ClientExecutorServiceMdl.ExecutorResponse> list = db.Responses.Where(u => u.Order.CustomerId == clientId).Select(u => new ClientExecutorServiceMdl.ExecutorResponse
             {
-                img = Image.FromFile(executor.AvatarUrl);
-                PhotoType = executor.AvatarUrl.Substring(executor.AvatarUrl.LastIndexOf(".") + 1);
-                byte[] Imagesbyte = FileManager.ImageToByteArray(img);
-                Status check = executor.ExecutorPasswordFiles.Select(epf => epf.Status).FirstOrDefault();
-                int statuscheck = 0;
-                switch (check)
-                {
-                    case Status.Active:
-                        statuscheck = (int)Status.Active;
-                        break;
-                    case Status.Archived:
-                        statuscheck = (int)Status.Archived;
-                        break;
-                    case Status.Deleted:
-                        statuscheck = (int)Status.Deleted;
-                        break;
-                }
-                executorResponses.Add(new ClientExecutorServiceMdl.ExecutorResponse
-                {
-                    Id = executor.Id,
-                    Lastname = executor.User.LastName,
-                    Firstname = executor.User.FirstName,
-                    Fathername = executor.User.FatherName,
-                    AvatarFile = Imagesbyte,
-                    AvatarFileType = PhotoType,
-                    Check = statuscheck == 1 ? true : false,
-                    ClosedOrdersCount = (int)executor.ExecutorClosedOrdersCount,
-                    CreateAt = executor.Orders.Select(o => o.CreatedDateTime).FirstOrDefault(),
-                    ExecutorMessage = executor.Orders.Select(o => o.ExecutorComment).FirstOrDefault(),
-                    Online = true,
-                    OrderId = executor.Orders.Select(o => o.Id).FirstOrDefault(),
-                    Rating = executor.Rating.ToString(),
-                    RegisterDate = (DateTime)executor.RegistrationDateTime,
-                });
-            }
-            return executorResponses;
+                ExecutorId = u.ExecutorId,
+                Lastname = u.Executor.User.LastName,
+                Firstname = u.Executor.User.FirstName,
+                PhoneNumber = u.Executor.PhoneNumber,
+                AvatarUri = "http://i-master.kz/api/GetExecutorAvatar?executorId=" + u.Executor.AvatarUrl,
+                Check = u.Executor.ExecutorCheck == true ? true : false,
+                ClosedOrdersCount = u.Executor.Orders.Where(o => o.OrderState == OrderState.Finished).Count(),
+                CreateAt = u.CreatedAt_Date,
+                ExecutorMessage = u.ResponseComment,
+                Online = true,
+                OrderId = u.OrderId,
+                Rating = u.Executor.Rating + "",
+                RegisterDate = (DateTime)u.Executor.RegistrationDateTime,
+            }).ToList();
+
+            return list;
         }
     }
 }

@@ -25,84 +25,82 @@ namespace WebAppIMaster.Models.WebApiService
         public ClientOrderDetailsView GetClientOrderDetailsView( int id )
         {
             string langcode = LanguageController.CurrentCultureCode;
-            CustomerOrder model = db.CustomerOrders.Where(co => co.Id == id).SingleOrDefault();
-            //var al = model.Address.Langs.Where(l => l.Langcode == langcode & l.AddressId == model.AddressId).FirstOrDefault();
 
-            var adreslang = (from als in db.AddressLangs
-
-                             where als.Langcode == langcode
-                             where als.AddressId == model.AddressId
-
-                             select als).SingleOrDefault();
-
-            ClientOrderDetailsView clientOrderDetailsView = new ClientOrderDetailsView();
-            Dictionary<byte[], string> photos = new Dictionary<byte[], string>();
-            if (string.IsNullOrWhiteSpace(model.Photo1Url) == false)
+            var item = db.CustomerOrders.Where(u => u.Id == id).Select(u => new
             {
-                string PhotoType = model.Photo1Url.Substring(model.Photo1Url.LastIndexOf(".") + 1);
-                photos.Add(System.IO.File.ReadAllBytes(model.Photo1Url), PhotoType);
-            }
-            if (string.IsNullOrWhiteSpace(model.Photo2Url) == false)
-            {
-                string Photo1Type = model.Photo2Url.Substring(model.Photo2Url.LastIndexOf(".") + 1);
-                photos.Add(System.IO.File.ReadAllBytes(model.Photo2Url), Photo1Type);
-            }
-            if (string.IsNullOrWhiteSpace(model.Photo3Url) == false)
-            {
-                string Photo2Type = model.Photo3Url.Substring(model.Photo3Url.LastIndexOf(".") + 1);
-                photos.Add(System.IO.File.ReadAllBytes(model.Photo3Url), Photo2Type);
-            }
-
-            if (string.IsNullOrWhiteSpace(model.Photo4Url) == false)
-            {
-                string Photo3Type = model.Photo4Url.Substring(model.Photo4Url.LastIndexOf(".") + 1);
-                photos.Add(System.IO.File.ReadAllBytes(model.Photo4Url), Photo3Type);
-            }
-            var item = new ClientOrderDetailsView
-            {
-                Id = model.Id,
-                Title = model.Title,
-                OrderNumber = model.OrderNumber,
-                OrderCostType = model.CostType,
-                StartedDate = model.StartedDate,
-                OrderStartDateType = model.StartDateType,
-                CategoryName = model.Category.Langs.Where(l => l.Langcode == langcode).Select(l => l.Name).FirstOrDefault(),
-                CategoryId = model.CategoryId,
-                Address = adreslang.Name,
-                Cost = (int)model.Cost,
-                Description = model.Description,
-                Region = model.InCity.Langs.Where(l => l.Langcode == langcode).Select(l => l.Name).FirstOrDefault(),
-                RegionId = model.InCityId,
-                Photos = photos,
-                PayWithBounce = model.PayWithBounce,
-                ReceiveOnlyResponses = model.ReceiveOnlyResponses,
-                CreatedAt = model.CreatedDateTime,
-                OrderType = model.OrderType,
-            };
-            if (model.ExecutorId != null)
-            {
-                item.ExecutorLastname = model.Executor.User.LastName;
-                item.ExecutorFirstname = model.Executor.User.FirstName;
-                item.ExecutorFathername = model.Executor.User.FatherName;
-                if (model.Executor.AvatarUrl == null)
+                Id = u.Id,
+                Title = u.Title,
+                OrderNumber = u.OrderNumber,
+                OrderCostType = u.CostType,
+                StartedDate = u.StartedDate,
+                OrderStartDateType = u.StartDateType,
+                SpecializationName = u.Specialization.Langs.Where(l => l.Langcode == langcode).Select(l => l.Name).FirstOrDefault(),
+                SpecializationId = u.SpecializationId,
+                Address = u.Address.Langs.Where(a => a.Langcode == langcode).Select(a => a.Name).FirstOrDefault(),
+                Cost = (int)u.Cost,
+                Description = u.Description,
+                Region = u.InCity.Langs.Where(l => l.Langcode == langcode).Select(l => l.Name).FirstOrDefault(),
+                RegionId = u.InCityId,
+                PhotoUris = new List<string>
                 {
-                    item.ExecutorAvatarFile = null;
-                    item.ExecotorAvatarFileType = null;
-                }
-                else
+                    u.Photo1Url == null ? null : "http://i-master.kz/api/GetOrderPhoto?url=" + u.Photo1Url,
+                    u.Photo2Url == null ? null : "http://i-master.kz/api/GetOrderPhoto?url=" + u.Photo2Url,
+                    u.Photo3Url == null ? null : "http://i-master.kz/api/GetOrderPhoto?url=" + u.Photo3Url,
+                    u.Photo4Url == null ? null : "http://i-master.kz/api/GetOrderPhoto?url=" + u.Photo4Url,
+                },
+                PayWithBounce = u.PayWithBounce,
+                ReceiveOnlyResponses = u.ReceiveOnlyResponses,
+                CreatedAt = u.CreatedDateTime,
+                OrderType = u.OrderType,
+
+                Executor = u.ExecutorId == null ? null : new
                 {
-                    item.ExecutorAvatarFile = System.IO.File.ReadAllBytes(model.Executor.AvatarUrl);
-                    item.ExecotorAvatarFileType = model.Photo1Url.Substring(model.Executor.AvatarUrl.LastIndexOf(".") + 1);
-                }
-                item.ExecotorOnline = (bool)model.Executor.ExecotorOnline;
-                item.ExecotorRating = model.Executor.Rating.ToString();
-                item.ExecoturBirthday = (DateTime)model.Executor.BirthDay;
-                item.ExecutorCheck = (bool)model.Executor.ExecutorCheck;
-                item.ExecutorClosedOrdersCount = (int)model.Executor.ExecutorClosedOrdersCount;
-                item.ExecutorGenderName = model.Executor.Gender.Value.ToString();
-                item.ExecutorRegionId = model.Executor.User.RegionId;
-                item.ExecutorRegisterDate = (DateTime)model.Executor.RegistrationDateTime;
-            }
+                    ExecutorLastname = u.Executor.User.LastName,
+                    ExecutorFirstname = u.Executor.User.FirstName,
+                    ExecutorUri = u.Executor.AvatarUrl == null ? null : "http://i-master.kz/api/GetOrderPhoto?url=" + u.Executor.AvatarUrl,
+                    ExecotorOnline = (bool)u.Executor.ExecotorOnline,
+                    ExecotorRating = u.Executor.Rating == null ? "0" : u.Executor.Rating.ToString(),
+                    ExecoturBirthday = (DateTime)u.Executor.BirthDay,
+                    ExecutorCheck = (bool)u.Executor.ExecutorCheck,
+                    ExecutorClosedOrdersCount = u.Executor.Orders.Where(o => o.OrderState == OrderState.Finished).Count(),
+                    ExecutorGenderName = u.Executor.Gender.Value.ToString(),
+                    ExecutorRegionId = u.Executor.User.RegionId,
+                    ExecutorRegisterDate = (DateTime)u.Executor.RegistrationDateTime,
+                },
+            }).ToList().Select(u => new ClientOrderDetailsView
+            {
+                Id = u.Id,
+                Title = u.Title,
+                OrderNumber = u.OrderNumber,
+                OrderCostType = u.OrderCostType,
+                StartedDate = u.StartedDate,
+                OrderStartDateType = u.OrderStartDateType,
+                SpecializationName = u.SpecializationName,
+                SpecializationId = u.SpecializationId,
+                Address = u.Address,
+                Cost = u.Cost,
+                Description = u.Description,
+                Region = u.Region,
+                RegionId = u.RegionId,
+                PhotoUris = u.PhotoUris,
+                PayWithBounce = u.PayWithBounce,
+                ReceiveOnlyResponses = u.ReceiveOnlyResponses,
+                CreatedAt = u.CreatedAt,
+                OrderType = u.OrderType,
+
+                ExecutorLastname = u.Executor?.ExecutorLastname,
+                ExecutorFirstname = u.Executor?.ExecutorFirstname,
+                ExecotorAvatarUri = u.Executor?.ExecutorUri,
+                ExecotorOnline = u.Executor?.ExecotorOnline ?? false,
+                ExecotorRating = u.Executor?.ExecotorRating,
+                ExecoturBirthday = u.Executor?.ExecoturBirthday ?? DateTime.Now,
+                ExecutorCheck = u.Executor?.ExecutorCheck ?? false,
+                ExecutorClosedOrdersCount = u.Executor?.ExecutorClosedOrdersCount??0,
+                ExecutorGenderName = u.Executor?.ExecutorGenderName,
+                ExecutorRegionId = u.Executor?.ExecutorRegionId??0,
+                ExecutorRegisterDate = u.Executor?.ExecutorRegisterDate??DateTime.Now,
+            }).SingleOrDefault();
+            item.PhotoUris = item.PhotoUris.Where(u => u != null);
 
             return item;
         }
@@ -114,7 +112,7 @@ namespace WebAppIMaster.Models.WebApiService
             {
                 Id = model.Id,
                 StartingDatetime = model.StartedDate.ToShortDateString(),
-                CategoryName = model.Category.Langs.Where(l => l.Langcode == LanguageController.CurrentCultureCode).FirstOrDefault().Name,
+                SpecializationName = model.Specialization.Langs.Where(l => l.Langcode == LanguageController.CurrentCultureCode).FirstOrDefault().Name,
                 Cost = Convert.ToInt32(model.Cost),
                 Title = model.Title,
                 Type = model.OrderType
@@ -133,7 +131,7 @@ namespace WebAppIMaster.Models.WebApiService
             {
                 clientOrderItemViews.Add(new ClientOrderItemView
                 {
-                    CategoryName = item.Category.Langs.Where(l => l.Langcode == langcode).Select(l => l.Name).FirstOrDefault(),
+                    SpecializationName = item.Specialization.Langs.Where(l => l.Langcode == langcode).Select(l => l.Name).FirstOrDefault(),
                     Cost = (int)item.Cost,
                     StartingDatetime = item.StartedDate.ToShortDateString(),
                     Id = item.Id,
@@ -149,13 +147,16 @@ namespace WebAppIMaster.Models.WebApiService
         {
             Dictionary<int, string> photos = new Dictionary<int, string>();
             int i = 1;
-            foreach (var item in model.Photos)
+            if (model.Photos != null)
             {
-                MemoryStream ms = new MemoryStream(item.Key);
-                Image img = Image.FromStream(ms);
-                string url = FileManager.SavePhoto(img);
-                photos.Add(i, url);
-                i++;
+                foreach (var item in model.Photos)
+                {
+                    MemoryStream ms = new MemoryStream(item.Key);
+                    Image img = Image.FromStream(ms);
+                    string url = FileManager.SavePhoto(img);
+                    photos.Add(i, url);
+                    i++;
+                }
             }
             CustomerOrder customerOrder = new CustomerOrder()
             {
@@ -163,8 +164,8 @@ namespace WebAppIMaster.Models.WebApiService
                 Description = model.Description,
                 OrderState = Enums.OrderState.Open,
                 StartDateType = model.StartDateType,
-                StartedDate = (DateTime)model.StartedDate,
-                CategoryId = model.CategoryId == 0 ? 1 : model.CategoryId,
+                StartedDate = (DateTime)model.StartedDate == DateTime.MinValue ? DateTime.Now : (DateTime)model.StartedDate,
+                SpecializationId = model.SpecializationId == 0 ? 1 : model.SpecializationId,
                 CostType = model.CostType,
                 Cost = model.Cost,
                 CreatedDateTime = DateTime.Now,
@@ -222,7 +223,7 @@ namespace WebAppIMaster.Models.WebApiService
                 {
                     Id = clientorder.Id,
                     Cost = (int)clientorder.Cost,
-                    CategoryName = clientorder.Category.Langs.Where(l => l.Langcode == langcode).Select(l => l.Name).FirstOrDefault(),
+                    SpecializationName = clientorder.Specialization.Langs.Where(l => l.Langcode == langcode).Select(l => l.Name).FirstOrDefault(),
                     StartingDatetime = clientorder.StartedDate.ToShortDateString() + " " + clientorder.StartedDate.ToShortTimeString(),
                     NewNotifications = clientorder.NewNotifications,
                     Title = clientorder.Title,
@@ -243,7 +244,7 @@ namespace WebAppIMaster.Models.WebApiService
                 {
                     Id = clientorder.Id,
                     Cost = (int)clientorder.Cost,
-                    CategoryName = clientorder.Category.Langs.Where(l => l.Langcode == langcode).Select(l => l.Name).FirstOrDefault(),
+                    SpecializationName = clientorder.Specialization.Langs.Where(l => l.Langcode == langcode).Select(l => l.Name).FirstOrDefault(),
                     StartingDatetime = clientorder.StartedDate.ToShortDateString() + " " + clientorder.StartedDate.ToShortTimeString(),
                     NewNotifications = clientorder.NewNotifications,
                     Title = clientorder.Title,
@@ -259,12 +260,13 @@ namespace WebAppIMaster.Models.WebApiService
 
             var item = (from cd in db.CustomerOrders
                         where cd.Id == orderId
+                        let specialization = cd.Specialization.Langs.Where(l => l.Langcode == langcode).Select(l => new { Specialization = l.Name, l.SpecializationId, l.Specialization.CategoryId, CategoryName = l.Specialization.Category.Langs.Where(cl => cl.Langcode == langcode).Select(cl => cl.Name).FirstOrDefault() }).FirstOrDefault()
                         select new
                         {
                             Id = cd.Id,
                             Description = cd.Description,
                             StartedDate = cd.StartedDate,
-                            CateogoryId = cd.CategoryId,
+                            SpecializationId = cd.SpecializationId,
                             Address = cd.Address.Langs.Where(l => l.Langcode == langcode).Select(l => l.Name).FirstOrDefault(),
                             OrderNumber = cd.OrderNumber,
                             Cost = (int)cd.Cost,
@@ -275,7 +277,7 @@ namespace WebAppIMaster.Models.WebApiService
                             RegionId = cd.InCityId,
                             Title = cd.Title,
                             ViewCount = cd.ViewCount,
-                            Category = cd.Category.Langs.Where(l => l.Langcode == langcode).Select(l => l.Name).FirstOrDefault(),
+                            specialization,
                             CreateAt = cd.CreatedDateTime,
                             Photourl1 = cd.Photo1Url,
                             Photourl2 = cd.Photo2Url,
@@ -288,42 +290,38 @@ namespace WebAppIMaster.Models.WebApiService
             {
                 photos.Add(new ClientCommonOrderDetailsView.Photo
                 {
-                    File = System.IO.File.ReadAllBytes(item.Photourl1),
-                    Type = item.Photourl1.Substring(item.Photourl1.LastIndexOf(".") + 1),
+                    Uri = "http://i-master.kz/api/GetOrderPhoto?url=" + item.Photourl1,
                 });
             }
             if (string.IsNullOrWhiteSpace(item.Photourl2) == false)
             {
                 photos.Add(new ClientCommonOrderDetailsView.Photo
                 {
-                    File = System.IO.File.ReadAllBytes(item.Photourl2),
-                    Type = item.Photourl2.Substring(item.Photourl2.LastIndexOf(".") + 1),
+                    Uri = "http://i-master.kz/api/GetOrderPhoto?url=" + item.Photourl2,
                 });
             }
             if (string.IsNullOrWhiteSpace(item.Photourl3) == false)
             {
                 photos.Add(new ClientCommonOrderDetailsView.Photo
                 {
-                    File = System.IO.File.ReadAllBytes(item.Photourl3),
-                    Type = item.Photourl3.Substring(item.Photourl3.LastIndexOf(".") + 1),
+                    Uri = "http://i-master.kz/api/GetOrderPhoto?url=" + item.Photourl3,
                 });
             }
             if (string.IsNullOrWhiteSpace(item.Photourl4) == false)
             {
                 photos.Add(new ClientCommonOrderDetailsView.Photo
                 {
-                    File = System.IO.File.ReadAllBytes(item.Photourl4),
-                    Type = item.Photourl4.Substring(item.Photourl4.LastIndexOf(".") + 1),
+                    Uri = "http://i-master.kz/api/GetOrderPhoto?url=" + item.Photourl4,
                 });
             }
-            
+
 
             return new ClientCommonOrderDetailsView
             {
                 Id = item.Id,
                 Description = item.Description,
                 StartedDate = item.StartedDate,
-                CategoryId = item.CateogoryId,
+                SpecializationId = item.SpecializationId,
                 Address = item.Address,
                 OrderNumber = item.OrderNumber,
                 Cost = item.Cost,
@@ -334,10 +332,37 @@ namespace WebAppIMaster.Models.WebApiService
                 RegionId = item.RegionId,
                 Title = item.Title,
                 ViewCount = item.ViewCount,
-                Category = item.Category,
+                CategoryId = item.specialization.CategoryId,
+                CategoryName = item.specialization.CategoryName,
+                SpecializationName = item.specialization.Specialization,
                 CreateAt = item.CreateAt,
                 Photos = photos
             };
+        }
+
+        public void SendPhotoToOrder( string url, int orderId )
+        {
+            var CustomerOrder = db.CustomerOrders.Where(co => co.Id == orderId).FirstOrDefault();
+            if (CustomerOrder != null)
+            {
+                if (CustomerOrder.Photo1Url == null)
+                {
+                    CustomerOrder.Photo1Url = url;
+                }
+                else if (CustomerOrder.Photo2Url == null)
+                {
+                    CustomerOrder.Photo2Url = url;
+                }
+                else if (CustomerOrder.Photo3Url == null)
+                {
+                    CustomerOrder.Photo3Url = url;
+                }
+                else if (CustomerOrder.Photo4Url == null)
+                {
+                    CustomerOrder.Photo4Url = url;
+                }
+            }
+            db.SaveChanges();
         }
     }
 }

@@ -17,7 +17,7 @@ namespace WebAppIMaster.Models.WebApiModel
         public OrderCostType CostType { get; set; }
         public int RegionId { get; set; }
         public bool ReceiveOnlyResponses { get; set; }
-        public int CategoryId { get; set; }
+        public int SpecializationId { get; set; }
         public bool PayWithBounce { get; set; }
         public string Address { get; set; }
         public string CustomerId { get; set; }
@@ -38,11 +38,17 @@ namespace WebAppIMaster.Models.WebApiModel
         public OrderStatus OrderType { get; set; }
         public DateTime CreatedAt { get; set; }
         public bool ReceiveOnlyResponses { get; set; }
-        public int CategoryId { get; set; }
-        public string CategoryName { get; set; }
+        public int SpecializationId { get; set; }
+        public string SpecializationName { get; set; }
         public bool PayWithBounce { get; set; }
         public string Address { get; set; }
         public Dictionary<byte[], string> Photos { get; set; }
+        public IEnumerable<string> PhotoUris { get; set; }
+
+        public string PhotoUrl1 { get; set; }
+        public string PhotoUrl2 { get; set; }
+        public string PhotoUrl3 { get; set; }
+        public string PhotoUrl4 { get; set; }
 
         /* Executor */
         public string ExecutorId { get; set; }
@@ -51,8 +57,7 @@ namespace WebAppIMaster.Models.WebApiModel
         public string ExecutorFathername { get; set; }
         public bool ExecotorOnline { get; set; }
         public string ExecotorRating { get; set; }
-        public byte[] ExecutorAvatarFile { get; set; }
-        public string ExecotorAvatarFileType { get; set; }
+        public string ExecotorAvatarUri { get; set; }
         public bool ExecutorCheck { get; set; }
         public DateTime ExecutorRegisterDate { get; set; }
         public int ExecutorClosedOrdersCount { get; set; }
@@ -66,7 +71,7 @@ namespace WebAppIMaster.Models.WebApiModel
     {
         public int Id { get; set; }
         public string Title { get; set; }
-        public string CategoryName { get; set; }
+        public string SpecializationName { get; set; }
         public string StartingDatetime { get; set; }
         public int Cost { get; set; }
         public OrderStatus Type { get; set; }
@@ -88,16 +93,24 @@ namespace WebAppIMaster.Models.WebApiModel
         public int RegionId { get; set; }
         public string Region { get; set; }
         public int CategoryId { get; set; }
-        public string Category { get; set; }
+        public string CategoryName { get; set; }
+        public int SpecializationId { get; set; }
+        public string SpecializationName { get; set; }
         public string Address { get; set; }
         public int ViewCount { get; set; }
         public OrderStatus OrderType { get; set; }
         public DateTime CreateAt { get; set; }
 
+        public string PhotoUrl1 { get; set; }
+        public string PhotoUrl2 { get; set; }
+        public string PhotoUrl3 { get; set; }
+        public string PhotoUrl4 { get; set; }
+
         public class Photo
         {
             public byte[] File { get; set; }
             public string Type { get; set; }
+            public string Uri { get; set; }
         }
     }
 }

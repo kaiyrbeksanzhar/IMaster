@@ -1,9 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
+using System.Web;
 using System.Web.Http;
+using System.Web.Mvc;
+using WebAppIMaster.Models;
 using WebAppIMaster.Models.Enitities;
 using WebAppIMaster.Models.WebApiModel;
 using WebAppIMaster.Models.WebApiService;
@@ -38,25 +44,23 @@ namespace WebAppIMaster.Controllers.WebApi
         [System.Web.Http.Route("api/GetClientOrderDetailsView")]
         public ClientOrderDetailsView GetClientOrderDetailsView( int id )
         {
-
             ApplicationDbContext db = new ApplicationDbContext();
             ClientOrderService repository = new ClientOrderService(db);
-            var model = repository.GetClientOrderDetailsView(id);
+            ClientOrderDetailsView model = repository.GetClientOrderDetailsView(id);
             return model;
         }
         /// <summary>
         /// ClientOrderCreate чтоб передать данные
         /// </summary>
         // POST: api/ClientOrderService
-        [HttpPost,System.Web.Http.Route("api/ClientOrderService")]
-        public HttpResponseMessage Post( [FromBody]ClientOrderCreate model)
+        [System.Web.Http.HttpPost, System.Web.Http.Route("api/ClientOrderService")]
+        public int Post( [FromBody]ClientOrderCreate model )
         {
-            model.CostType = Models.Enums.OrderCostType.FixedCost;
             ApplicationDbContext db = new ApplicationDbContext();
             ClientOrderService repository = new ClientOrderService(db);
-            var result = repository.Create( model);
+            int id = repository.Create(model);
 
-            return new HttpResponseMessage(HttpStatusCode.Created);
+            return id;
         }
         /// <summary>
         /// ClientOrderItemView лист возвращает
@@ -69,6 +73,45 @@ namespace WebAppIMaster.Controllers.WebApi
             ClientOrderService repository = new ClientOrderService(db);
             var model = repository.GetList();
             return model;
+        }
+        /// <summary>
+        /// SendPhotoToOrder лист возвращает
+        /// </summary>
+        /// <param name="files">Принимает параметр files.</param>
+        // GET: api/SendPhotoToOrder
+        [System.Web.Http.HttpPost]
+        [System.Web.Http.Route("api/SendPhotoToOrder")]
+        public async void SendPhotoToOrder()
+        {
+            ApplicationDbContext db = new ApplicationDbContext();
+            var request = HttpContext.Current.Request;
+            var postedFile = request.Files;
+            int orderId = Convert.ToInt32(request.Form["orderId"]);
+            string url = "~/Images/CustomerOrder/" + DateTime.Now.ToString("yyyy.MM.dd.hh.mm.ss.ffff") + ".png";
+            if (postedFile != null)
+            {
+                postedFile[0].SaveAs(HttpContext.Current.Server.MapPath(url));
+                ClientOrderService repository = new ClientOrderService(db);
+                repository.SendPhotoToOrder(url,orderId);
+            }
+        }
+
+        [System.Web.Http.HttpGet]
+        [System.Web.Http.Route("api/GetOrderPhoto")]
+        public HttpResponseMessage GetOrderPhoto(string url)
+        {
+            if(url == "")
+            {
+                return null;
+            }
+            byte[] content = File.ReadAllBytes(HttpContext.Current.Server.MapPath(url));
+            MemoryStream ms = new MemoryStream(content);
+
+            HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.OK);
+            response.Content = new StreamContent(ms);
+            response.Content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("image/png");
+
+            return response;
         }
 
         /// <summary>
