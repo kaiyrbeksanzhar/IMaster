@@ -376,6 +376,7 @@
     <Compile Include="Models\IWebApiService\IExecutorOrderService.cs" />
     <Compile Include="Models\IWebApiService\IExecutorService.cs" />
     <Compile Include="Models\IWebApiService\IGenderService.cs" />
+    <Compile Include="Models\IWebApiService\IMessageService.cs" />
     <Compile Include="Models\IWebApiService\IMarketingService.cs" />
     <Compile Include="Models\IWebApiService\IMarketService.cs" />
     <Compile Include="Models\IWebApiService\INewsItemService.cs" />
@@ -401,6 +402,7 @@
     <Compile Include="Models\WebApiModel\GenderServiceMdl.cs" />
     <Compile Include="Models\WebApiModel\MarketingService.cs" />
     <Compile Include="Models\WebApiModel\MarketServiceMdl.cs" />
+    <Compile Include="Models\WebApiModel\messages.cs" />
     <Compile Include="Models\WebApiModel\NewsItemMdl.cs" />
     <Compile Include="Models\WebApiModel\NotificationItemViewMdl.cs" />
     <Compile Include="Models\WebApiModel\RegionNameView.cs" />
@@ -412,6 +414,7 @@
     <Compile Include="Models\WebApiService\ExecutorOrderService.cs" />
     <Compile Include="Models\WebApiService\ExecutorService.cs" />
     <Compile Include="Models\WebApiService\GenderService.cs" />
+    <Compile Include="Models\WebApiService\KcellService.cs" />
     <Compile Include="Models\WebApiService\MarketingService.cs" />
     <Compile Include="Models\WebApiService\MarketService.cs" />
     <Compile Include="Models\WebApiService\NewsItemService.cs" />
