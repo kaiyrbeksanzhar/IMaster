@@ -151,5 +151,17 @@ namespace WebAppIMaster.Controllers.WebApi
             }
             return model;
         }
+        [Route("api/GetResponseListForOrder")]
+        public List<ClientExecutorServiceMdl.ExecutorResponse> GetResponseListForOrder(int orderId)
+        {
+            ApplicationDbContext db = new ApplicationDbContext();
+            ClientExecutorService repository = new ClientExecutorService(db);
+            var model = repository.GetResponseListForOrder(orderId);
+            if (model == null)
+            {
+                return null;
+            }
+            return model;
+        }
     }
 }

@@ -616,6 +616,7 @@
     <Content Include="Content\assets\sass\lbd\_variables.scss" />
     <Content Include="Content\assets\sass\light-bootstrap-dashboard.scss" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
+    <None Include="Properties\PublishProfiles\FolderProfile1.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />

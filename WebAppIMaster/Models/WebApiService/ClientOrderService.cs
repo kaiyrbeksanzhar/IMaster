@@ -55,6 +55,7 @@ namespace WebAppIMaster.Models.WebApiService
 
                 Executor = u.ExecutorId == null ? null : new
                 {
+                    ExecutorId = u.ExecutorId,
                     ExecutorLastname = u.Executor.User.LastName,
                     ExecutorFirstname = u.Executor.User.FirstName,
                     ExecutorUri = u.Executor.AvatarUrl == null ? null : "http://i-master.kz/api/GetOrderPhoto?url=" + u.Executor.AvatarUrl,
@@ -64,7 +65,8 @@ namespace WebAppIMaster.Models.WebApiService
                     ExecutorCheck = (bool)u.Executor.ExecutorCheck,
                     ExecutorClosedOrdersCount = u.Executor.Orders.Where(o => o.OrderState == OrderState.Finished).Count(),
                     ExecutorGenderName = u.Executor.Gender.Value.ToString(),
-                    ExecutorRegionId = u.Executor.User.RegionId,
+                    ExecutorRegionId = u.Executor.CityId,
+                    ExecutorRegionName = u.Executor.City.Langs.Where(cl => cl.Langcode == langcode).Select(cl => cl.Name).FirstOrDefault(),
                     ExecutorRegisterDate = (DateTime)u.Executor.RegistrationDateTime,
                 },
             }).ToList().Select(u => new ClientOrderDetailsView
@@ -88,6 +90,7 @@ namespace WebAppIMaster.Models.WebApiService
                 CreatedAt = u.CreatedAt,
                 OrderType = u.OrderType,
 
+                ExecutorId = u.Executor?.ExecutorId,                
                 ExecutorLastname = u.Executor?.ExecutorLastname,
                 ExecutorFirstname = u.Executor?.ExecutorFirstname,
                 ExecotorAvatarUri = u.Executor?.ExecutorUri,
@@ -98,6 +101,7 @@ namespace WebAppIMaster.Models.WebApiService
                 ExecutorClosedOrdersCount = u.Executor?.ExecutorClosedOrdersCount??0,
                 ExecutorGenderName = u.Executor?.ExecutorGenderName,
                 ExecutorRegionId = u.Executor?.ExecutorRegionId??0,
+                ExecutorRegionName = u.Executor?.ExecutorRegionName,
                 ExecutorRegisterDate = u.Executor?.ExecutorRegisterDate??DateTime.Now,
             }).SingleOrDefault();
             item.PhotoUris = item.PhotoUris.Where(u => u != null);
@@ -123,7 +127,9 @@ namespace WebAppIMaster.Models.WebApiService
         {
             List<ClientOrderItemView> clientOrderItemViews = new List<ClientOrderItemView>();
             var header = (from co in db.CustomerOrders
-
+                          where co.OrderState == OrderState.Open
+                          where co.OrderType == Enitities.Enums.OrderStatus.Published
+                          orderby co.CreatedDateTime descending
                           select co).ToList();
             //var model = db.CustomerOrders.ToList();
             string langcode = LanguageController.CurrentCultureCode;
@@ -214,7 +220,7 @@ namespace WebAppIMaster.Models.WebApiService
             var item = (from co in db.CustomerOrders
 
                         where co.CustomerId == clientId
-
+                        orderby co.CreatedDateTime descending
                         select co).ToList();
             //var model = db.CustomerOrders.Where(co => co.CustomerId == clientId).ToList();
             foreach (var clientorder in item)
@@ -237,7 +243,7 @@ namespace WebAppIMaster.Models.WebApiService
         {
             string langcode = LanguageController.CurrentCultureCode;
             List<ClientOrderItemView> clientOrders = new List<ClientOrderItemView>();
-            var model = db.CustomerOrders.Where(co => co.ExecutorId == executorId).ToList();
+            var model = db.CustomerOrders.Where(co => co.ExecutorId == executorId).OrderByDescending(co => co.CreatedDateTime).ToList();
             foreach (var clientorder in model)
             {
                 clientOrders.Add(new ClientOrderItemView
@@ -363,6 +369,46 @@ namespace WebAppIMaster.Models.WebApiService
                 }
             }
             db.SaveChanges();
+        }
+
+        public bool ClientMyOrderFinish(ClientMyOrderFinish item)
+        {
+            try
+            {
+                CustomerOrder order = db.CustomerOrders.Find(item.OrderId);
+                order.OrderState = OrderState.Finished;
+                order.OrderType = Enitities.Enums.OrderStatus.Closed;
+                order.CustomerReviewedDateTime = item.ReviewedAt;
+                order.CustomerReview = item.ReviewText;
+                order.EndedDateTime = DateTime.Now;
+
+                // TODO:FinishReason
+                order.EvaluationPerformerWork = (EvaluationPerformerWork)item.StarsCountOf5;
+                db.Entry(order).State = System.Data.Entity.EntityState.Modified;
+                db.SaveChanges();
+                return true;
+            } catch
+            {
+                return false;
+            }
+        }
+
+        public bool CancelClientMyOrder(int orderId, CancelReason cancelReason)
+        {
+            try
+            {
+                CustomerOrder order = db.CustomerOrders.Find(orderId);
+                order.OrderState = OrderState.Canceled;
+                order.OrderType = Enitities.Enums.OrderStatus.Closed;
+                order.EndedDateTime = DateTime.Now;
+                db.Entry(order).State = System.Data.Entity.EntityState.Modified;
+                db.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
     }
 }

@@ -50,6 +50,7 @@ namespace WebAppIMaster.Models.WebApiService
                             Check = e.ExecutorCheck,
                             BirthDay = e.BirthDay,
                         }).SingleOrDefault();
+            if (model == null) return null;
             List<ExecutorServiceMdl.ExecutorProfile.Review> reviews = new List<ExecutorServiceMdl.ExecutorProfile.Review>();
             var reviewies = db.CustomerOrders.Where(co => co.ExecutorId == id).ToList();
             foreach (var reviws in reviewies)
