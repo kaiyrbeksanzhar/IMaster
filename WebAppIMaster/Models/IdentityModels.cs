@@ -28,7 +28,7 @@ namespace WebAppIMaster.Models.Enitities
         public DbSet<CityLang> CityLangs { get; set; }
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Executor> Executors { get; set; }
-        public DbSet<ExecutorSpecialization>  ExecutorSpecializations { get; set; }
+        public DbSet<ExecutorSpecialization> ExecutorSpecializations { get; set; }
         public DbSet<ExecutorService> ExecutorServices { get; set; }
         public DbSet<News> News { get; set; }
         public DbSet<NewsLang> NewsLangs { get; set; }
@@ -64,8 +64,12 @@ namespace WebAppIMaster.Models.Enitities
         public DbSet<Response> Responses { get; set; }
         public DbSet<ExecutorPhone> ExecutorPhonies { get; set; }
         public DbSet<ClientPhone> ClientPhones { get; set; }
-        public DbSet<PhoneCheckingCode>  phoneCheckingCodes { get; set; }
+        public DbSet<PhoneCheckingCode> phoneCheckingCodes { get; set; }
         public DbSet<BookmarkOrder> BookmarkOrders { get; set; }
         public DbSet<BookmarkExecutor> BookmarkExecutors { get; set; }
+        public DbSet<PopulationCategory> populationCategories { get; set; }
+        public DbSet<PopulationCategoryLangs> populationCategoryLangs { get; set; }
+        public DbSet<PopulationQuestion> populationQuestions { get; set; }
+        public DbSet<PopulationQuestionLangs> PopulationQuestionLangs { get; set; }
     }
 }

@@ -7,47 +7,64 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<h2>Откуда вы о нас узнали?</h2>
-<p>
-    @Html.ActionLink(@Resource.Create, "Create")
-</p>
-<p>
-    @Html.ActionLink("Просмотреть статистику", "Index")
-</p>
-<form action="/HowDidYouAboutUs/IndexMain" method="post" style="float: left;margin-right: 2px;">
-    <input type="text" name="sourceName" value="" />
-    <input type="submit" name="name" value="Найти" />
-</form>
-<form action="/HowDidYouAboutUs/Index" method="post">
-    <input type="submit" name="name" value="Очистить" />
-</form>
-<table class="table">
-    <tr>
-        <th>
-            Значение источника
-        </th>
-        <th>
-            Дата и время добавление
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.SourceName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DateTime)
-            </td>
-            <td>
-                @Html.ActionLink(Resource.Edit, "Edit", new { id = item.Id }) |
-                @Html.ActionLink(Resource.Delete, "Delete", new { id = item.Id })
-            </td>
-        </tr>
+<style>
+    #example_wrapper {
+        padding: 5px;
     }
-    @Html.PagedListPager(Model, pageNumber => Url.Action("IndexMain", new { pageNumber }))
+</style>
 
-</table>
+<div class="card strpied-tabled-with-hover">
+    <div class="card-header ">
+        <h4 class="card-title">Откуда вы о нас узнали?</h4>
+        <p class="card-category">Откуда вы о нас узнали?</p>
+    </div>
+    <div class="card-body table-full-width table-responsive">
+        <p>
+            <a href="/HowDidYouAboutUs/Create" class="btn btn-info btn-fill pull-left">Добавить</a>
+        </p>
+        <p>
+            @Html.ActionLink("Просмотреть статистику", "Index")
+        </p>
+        <table id="example" class="display" style="width:100%">
+            <thead>
+                <tr>
+                    <th>
+                        Значение источника
+                    </th>
+                    <th>
+                        Дата и время добавление
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.SourceName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DateTime)
+                        </td>
+                        <td>
+                            @Html.ActionLink(Resource.Edit, "Edit", new { id = item.Id }) |
+                            @Html.ActionLink(Resource.Delete, "Delete", new { id = item.Id })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th>
+                        Значение источника
+                    </th>
+                    <th>
+                        Дата и время добавление
+                    </th>
+                    <th></th>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>

@@ -8,82 +8,97 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Cтатистика источников пользователей</h2>
-<p><a href="/HowDidYouAboutUs/IndexMain">@Resource.BacktoList</a></p>
-
-
-
-
-<form action="/HowDidYouAboutUs/Index" method="post" style="float: left;margin-right: 2px;">
-    <input type="text" name="sourceName" value="" />
-    <input type="submit" name="name" value="Найти" />
-</form>
-<form action="/HowDidYouAboutUs/Index" method="post">
-    <input type="submit" name="name" value="Очистить" />
-</form>
-<table class="table">
-    <tr>
-        <th>
-            Значение источника
-        </th>
-        <th>
-            Дата и время добавление
-        </th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.SourceName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DateTime)
-            </td>
-        </tr>
-    }
-    @Html.PagedListPager(Model, pageNumber => Url.Action("Index", new { pageNumber }))
-
-</table>
 
 
 <style>
-    .styleajax {
-        float: left;
-        margin-right: 2px;
+    #example_wrapper {
+        padding: 5px;
     }
 </style>
 
-<h2>Популярные</h2>
-@*@using (Ajax.BeginForm("Population", new AjaxOptions
-    {
-        UpdateTargetId = "results",
-        LoadingElementId = "loading",
-        LoadingElementDuration = 1000
-    }))
-    {
-        <input type="text" name="sourceName1" />
-        <input type="submit" value="Поиск" />
-    }*@
-@using (Ajax.BeginForm("Population", "HowDidYouAboutUs", new AjaxOptions { UpdateTargetId = "results" }, new { @class = "styleajax" }))
-{
-    <input type="text" name="sourceName1" placeholder="Найти" />
-    <input type="submit" value="Найти" />
-}
-@using (Ajax.BeginForm("Population", new AjaxOptions
-{
-    UpdateTargetId = "results",
-    LoadingElementId = "loading",
-    LoadingElementDuration = 1000
-}))
-{
-    <input type="submit" value="Очистить" />
-}
+<div class="card strpied-tabled-with-hover">
+    <div class="card-header ">
+        <h4 class="card-title">Откуда вы о нас узнали?</h4>
+        <p class="card-category">Откуда вы о нас узнали?</p>
+    </div>
+    <div class="card-body table-full-width table-responsive">
+        <h2>Cтатистика источников пользователей</h2>
+        <p><a href="/HowDidYouAboutUs/IndexMain">@Resource.BacktoList</a></p>
 
-<div id="loading" style="display:none; color:Red; font-weight:bold;">
-    <p>Идет загрузка...</p>
-</div>
-<div id="results">
-    @Html.Action("Population")
-</div>
 
+
+
+        <form action="/HowDidYouAboutUs/Index" method="post" style="float: left;margin-right: 2px;">
+            <input type="text" name="sourceName" value="" />
+            <input type="submit" name="name" value="Найти" />
+        </form>
+        <form action="/HowDidYouAboutUs/Index" method="post">
+            <input type="submit" name="name" value="Очистить" />
+        </form>
+        <table class="table">
+            <tr>
+                <th>
+                    Значение источника
+                </th>
+                <th>
+                    Дата и время добавление
+                </th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SourceName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DateTime)
+                    </td>
+                </tr>
+            }
+            @Html.PagedListPager(Model, pageNumber => Url.Action("Index", new { pageNumber }))
+
+        </table>
+
+
+        <style>
+            .styleajax {
+                float: left;
+                margin-right: 2px;
+            }
+        </style>
+
+        <h2>Популярные</h2>
+        @*@using (Ajax.BeginForm("Population", new AjaxOptions
+            {
+                UpdateTargetId = "results",
+                LoadingElementId = "loading",
+                LoadingElementDuration = 1000
+            }))
+            {
+                <input type="text" name="sourceName1" />
+                <input type="submit" value="Поиск" />
+            }*@
+        @using (Ajax.BeginForm("Population", "HowDidYouAboutUs", new AjaxOptions { UpdateTargetId = "results" }, new { @class = "styleajax" }))
+        {
+            <input type="text" name="sourceName1" placeholder="Найти" />
+            <input type="submit" value="Найти" />
+        }
+        @using (Ajax.BeginForm("Population", new AjaxOptions
+        {
+            UpdateTargetId = "results",
+            LoadingElementId = "loading",
+            LoadingElementDuration = 1000
+        }))
+        {
+            <input type="submit" value="Очистить" />
+        }
+
+        <div id="loading" style="display:none; color:Red; font-weight:bold;">
+            <p>Идет загрузка...</p>
+        </div>
+        <div id="results">
+            @Html.Action("Population")
+        </div>
+    </div>
+</div>

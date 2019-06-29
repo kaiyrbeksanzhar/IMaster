@@ -5,34 +5,61 @@
 }
 @using WebAppIMaster.Resources
 
-<p class="text-right" style="margin-top:20px;">
-    @Html.ActionLink(Resource.CityCreate, "Create")
-</p>
-<table class="table">
-    <caption>Страница городов</caption>
-    <thead>
-        <tr>
-            <th scope="col">@Resource.NameCity</th>
-            <th scope="col">@Resource.Latitude</th>
-            <th scope="col">@Resource.Longitude</th>
-            <th scope="col">@Resource.Priority</th>
-            <th scope="col"></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>@item.Name</td>
-                <td>@item.Latitude</td>
-                <td>@item.Longitudey</td>
-                <td>@item.Priroty</td>
-                <td>
-                    @Html.ActionLink(Resource.Edit, "Edit", new { id = item.Id }) |
-                    @Html.ActionLink(Resource.Delete, "Delete", new { id = item.Id })
-                </td>
-            </tr>
-        }
 
-    </tbody>
-</table>
+<style>
+    #example_wrapper {
+        padding: 5px;
+    }
+</style>
+
+<div class="card strpied-tabled-with-hover">
+    <div class="card-header ">
+        <h4 class="card-title">Город</h4>
+        <p class="card-category">Страница городов</p>
+    </div>
+    <div class="card-body table-full-width table-responsive">
+        <p>
+            <a href="/City/Create" class="btn btn-info btn-fill pull-left">Добавить</a>
+        </p>
+
+        <table id="example" class="display" style="width:100%">
+            <thead>
+                <tr>
+                    <th>@Resource.NameCity</th>
+                    <th>@Resource.Latitude</th>
+                    <th>@Resource.Longitude</th>
+                    <th>@Resource.Priority</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                <tr>
+                    <td>@item.Name</td>
+                    <td>@item.Latitude</td>
+                    <td>@item.Longitudey</td>
+                    <td>@item.Priroty</td>
+                    <td>
+                        @Html.ActionLink(Resource.Edit, "Edit", new { id = item.Id }) |
+                        @Html.ActionLink(Resource.Delete, "Delete", new { id = item.Id })
+                    </td>
+                </tr>
+                }
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th>@Resource.NameCity</th>
+                    <th>@Resource.Latitude</th>
+                    <th>@Resource.Longitude</th>
+                    <th>@Resource.Priority</th>
+                    <th></th>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>
+
+
+
+

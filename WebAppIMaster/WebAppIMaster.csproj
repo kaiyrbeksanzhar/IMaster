@@ -233,6 +233,7 @@
     <Compile Include="Controllers\AppController\CategoryController.cs" />
     <Compile Include="Controllers\AppController\CityController.cs" />
     <Compile Include="Controllers\AppController\HowDidYouAboutUsController.cs" />
+    <Compile Include="Controllers\AppController\NewsController.cs" />
     <Compile Include="Controllers\AppController\SpecilizationController.cs" />
     <Compile Include="Controllers\Base\LanguageController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -297,6 +298,14 @@
     <Compile Include="Migrations\201906261446508_Update2.Designer.cs">
       <DependentUpon>201906261446508_Update2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201906291112532_QuestionPopulation.cs" />
+    <Compile Include="Migrations\201906291112532_QuestionPopulation.Designer.cs">
+      <DependentUpon>201906291112532_QuestionPopulation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201906291120300_PopulationQuesstionId.cs" />
+    <Compile Include="Migrations\201906291120300_PopulationQuesstionId.Designer.cs">
+      <DependentUpon>201906291120300_PopulationQuesstionId.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -353,6 +362,10 @@
     <Compile Include="Models\Enitities\OrganizationPromotionAndDiscount.cs" />
     <Compile Include="Models\Enitities\Payment.cs" />
     <Compile Include="Models\Enitities\PhoneCheckingCode.cs" />
+    <Compile Include="Models\Enitities\PopulationCategory.cs" />
+    <Compile Include="Models\Enitities\PopulationCategoryLangs.cs" />
+    <Compile Include="Models\Enitities\PopulationQuestion.cs" />
+    <Compile Include="Models\Enitities\PopulationQuestionLangs.cs" />
     <Compile Include="Models\Enitities\PriceCategoryAndSpecialization.cs" />
     <Compile Include="Models\Enitities\PriceCategoryAndSpecializationType.cs" />
     <Compile Include="Models\Enitities\Response.cs" />
@@ -386,12 +399,16 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\NewManagerManage\CategoryManagerModels.cs" />
     <Compile Include="Models\NewManagerManage\HowDidYouAboutUsModel.cs" />
+    <Compile Include="Models\NewManagerManage\NewsManager.cs" />
     <Compile Include="Models\NewManagerManage\SpecilizationManager.cs" />
     <Compile Include="Models\NewManagerModels\CategoryModels.cs" />
     <Compile Include="Models\NewManagerModels\CityEditMdl.cs" />
     <Compile Include="Models\NewManagerModels\CityInsMdl.cs" />
     <Compile Include="Models\NewManagerModels\CityVmMdl.cs" />
     <Compile Include="Models\NewManagerModels\HowDidYouAboutUs.cs" />
+    <Compile Include="Models\NewManagerModels\MarketingMdl.cs" />
+    <Compile Include="Models\NewManagerModels\NewsMdl.cs" />
+    <Compile Include="Models\NewManagerModels\PopulationQuestion.cs" />
     <Compile Include="Models\NewManagerModels\SpecilizationModels.cs" />
     <Compile Include="Models\WebApiModel\CategoryServiceMdl.cs" />
     <Compile Include="Models\WebApiModel\ClientExecutorServiceMdl.cs" />
@@ -685,10 +702,13 @@
     <Content Include="Views\Specilization\Create.cshtml" />
     <Content Include="Views\Specilization\Index.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Views\News\Index.cshtml" />
+    <Content Include="Views\News\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Images\Avatar\" />
     <Folder Include="Images\CustomerOrder\" />
+    <Folder Include="Images\News\" />
     <Folder Include="Results\" />
     <Folder Include="Views\Language\" />
   </ItemGroup>
@@ -738,6 +758,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201906261446508_Update2.resx">
       <DependentUpon>201906261446508_Update2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906291112532_QuestionPopulation.resx">
+      <DependentUpon>201906291112532_QuestionPopulation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906291120300_PopulationQuesstionId.resx">
+      <DependentUpon>201906291120300_PopulationQuesstionId.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Resource.kk-KZ.resx" />
     <EmbeddedResource Include="Resources\Resource.resx" />

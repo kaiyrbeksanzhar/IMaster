@@ -56,7 +56,7 @@ namespace WebAppIMaster.Models.NewManagerManage
                 SourceName = q.SourceName,
                 Id = q.HowDidYouAboutUs.Id,
                 Order = (int)q.HowDidYouAboutUs.Order,
-            }).OrderByDescending(hl => hl.Clickcount).ToList().ToPagedList(pageNumber ?? 1, 10);
+            }).ToList().ToPagedList(pageNumber ?? 1, 10);
             return sortedQuery;
         }
 
