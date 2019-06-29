@@ -156,7 +156,7 @@ namespace WebAppIMaster.Controllers.WebApi
         {
             ApplicationDbContext db = new ApplicationDbContext();
             ClientExecutorService repository = new ClientExecutorService(db);
-            var model = repository.GetResponseListForOrder(orderId);
+            List<ClientExecutorServiceMdl.ExecutorResponse> model = repository.GetResponseListForOrder(orderId);
             if (model == null)
             {
                 return null;

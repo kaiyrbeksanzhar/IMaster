@@ -230,9 +230,8 @@ namespace WebAppIMaster.Models.WebApiService
                     Check = (bool)item.ExecutorCheck,
                     RegisteredAt = (DateTime)item.RegistrationDateTime,
                     ClosedOrdersCount = (int)item.ExecutorClosedOrdersCount,
-                    AvatarFile = System.IO.File.ReadAllBytes(item.AvatarUrl),
                     ExecutorType = (ExecutorType)item.ExecutorType,
-                    AvatarFileType = item.AvatarUrl?.Substring(item.AvatarUrl.LastIndexOf(".") + 1),
+                    AvatarUri = item.AvatarUrl==null?null: "http://i-master.kz/api/GetExecutorPhoto?photoPath=" + item.AvatarUrl,
                 });
             }
 
@@ -254,8 +253,7 @@ namespace WebAppIMaster.Models.WebApiService
                     LastName = item.Executor.User.LastName,
                     FirstName = item.Executor.User.FirstName,
                     FatherName = item.Executor.User.FatherName,
-                    AvatarFile = System.IO.File.ReadAllBytes(item.Executor.AvatarUrl),
-                    AvatarFileType = item.Executor.AvatarUrl.Substring(item.Executor.AvatarUrl.LastIndexOf(".") + 1),
+                    AvatarUri = item.Executor.AvatarUrl == null ? null : "http://i-master.kz/api/GetExecutorPhoto?photoPath=" + item.Executor.AvatarUrl,
                     ExecutorType = (ExecutorType)item.Executor.ExecutorType,
                     Check = (bool)item.Executor.ExecutorCheck,
                     ClosedOrdersCount = (int)item.Executor.ExecutorClosedOrdersCount,
@@ -287,8 +285,7 @@ namespace WebAppIMaster.Models.WebApiService
                         Id = item.Id,
                         FirstName = item.User.FirstName,
                         FatherName = item.User.FatherName,
-                        AvatarFile = System.IO.File.ReadAllBytes(item.AvatarUrl),
-                        AvatarFileType = item.AvatarUrl.Substring(item.AvatarUrl.LastIndexOf(".") + 1),
+                        AvatarUri = item.AvatarUrl == null ? null : "http://i-master.kz/api/GetExecutorPhoto?photoPath=" + item.AvatarUrl,
                         ExecutorType = (ExecutorType)item.ExecutorType,
                         Check = (bool)item.ExecutorCheck,
                         ClosedOrdersCount = (int)item.ExecutorClosedOrdersCount,

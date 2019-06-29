@@ -77,6 +77,7 @@ namespace WebAppIMaster.Models.WebApiModel
             public int OrderId { get; set; }
             public DateTime CreateAt { get; set; }
             public string ExecutorMessage { get; set; }
+            public ExecutorType ExecutorType { get; set; }
         }
     }
 }

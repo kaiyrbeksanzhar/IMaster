@@ -100,8 +100,7 @@ namespace WebAppIMaster.Models.WebApiModel
             public bool Check { get; set; }
             public DateTime RegisteredAt { get; set; }
             public int ClosedOrdersCount { get; set; }
-            public byte[] AvatarFile { get; set; }
-            public string AvatarFileType { get; set; }
+            public string AvatarUri { get; set; }
 
             public ExecutorType ExecutorType { get; set; }
         }
