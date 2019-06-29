@@ -167,16 +167,63 @@ namespace WebAppIMaster.Models.WebApiService
             return list;
         }
 
-        public List<ClientExecutorServiceMdl.ExecutorResponse> GetResponseList( string clientId )
+        public List<ClientExecutorServiceMdl.ExecutorResponse> GetResponseList( string clientId, int lastResponseId = -1 )
         {
             string langcode = LanguageController.CurrentCultureCode;
-            List<ClientExecutorServiceMdl.ExecutorResponse> list = db.Responses.Where(u => u.Order.CustomerId == clientId).Select(u => new ClientExecutorServiceMdl.ExecutorResponse
+            List<ClientExecutorServiceMdl.ExecutorResponse> list =
+                (from u in db.Responses
+                 let lastResponse = lastResponseId == -1 ? null : (from r in db.Responses
+                                                                   where r.OrderId == lastResponseId
+                                                                   select r).FirstOrDefault()
+                 where lastResponse == null ? true : lastResponse.CreatedAt_Date < u.CreatedAt_Date
+                 where u.Order.CustomerId == clientId
+                 select new
+                 {
+                     ExecutorId = u.ExecutorId,
+                     Lastname = u.Executor.User.LastName,
+                     Firstname = u.Executor.User.FirstName,
+                     PhoneNumber = u.Executor.PhoneNumber,
+                     AvatarUri = u.Executor.AvatarUrl == null ? null : "http://i-master.kz/api/GetExecutorAvatar?executorId=" + u.Executor.AvatarUrl,
+                     Check = u.Executor.ExecutorCheck == true ? true : false,
+                     ClosedOrdersCount = u.Executor.Orders.Where(o => o.OrderState == OrderState.Finished).Count(),
+                     CreateAt = u.CreatedAt_Date,
+                     ExecutorMessage = u.ResponseComment,
+                     Online = true,
+                     OrderId = u.OrderId,
+                     Rating = u.Executor.Rating + "",
+                     RegisterDate = (DateTime)u.Executor.RegistrationDateTime,
+                     ExecutorType = u.Executor.ExecutorType,
+                 }).ToList().Select(u => new ClientExecutorServiceMdl.ExecutorResponse
+                 {
+                     ExecutorId = u.ExecutorId,
+                     Lastname = u.Lastname,
+                     Firstname = u.Firstname,
+                     PhoneNumber = u.PhoneNumber,
+                     AvatarUri = u.AvatarUri,
+                     Check = u.Check,
+                     ClosedOrdersCount = u.ClosedOrdersCount,
+                     CreateAt = u.CreateAt,
+                     ExecutorMessage = u.ExecutorMessage,
+                     Online = u.Online,
+                     OrderId = u.OrderId,
+                     Rating = u.Rating,
+                     RegisterDate = u.RegisterDate,
+                     ExecutorType = u.ExecutorType ?? ExecutorType.Individual,
+                 }).ToList();
+
+            return list;
+        }
+
+        public List<ClientExecutorServiceMdl.ExecutorResponse> GetResponseListForOrder(int orderId)
+        {
+            string langcode = LanguageController.CurrentCultureCode;
+            List<ClientExecutorServiceMdl.ExecutorResponse> list = db.Responses.Where(u => u.OrderId == orderId).Select(u => new
             {
                 ExecutorId = u.ExecutorId,
                 Lastname = u.Executor.User.LastName,
                 Firstname = u.Executor.User.FirstName,
                 PhoneNumber = u.Executor.PhoneNumber,
-                AvatarUri = "http://i-master.kz/api/GetExecutorAvatar?executorId=" + u.Executor.AvatarUrl,
+                AvatarUri = u.Executor.AvatarUrl == null ? null : "http://i-master.kz/api/GetExecutorAvatar?executorId=" + u.Executor.AvatarUrl,
                 Check = u.Executor.ExecutorCheck == true ? true : false,
                 ClosedOrdersCount = u.Executor.Orders.Where(o => o.OrderState == OrderState.Finished).Count(),
                 CreateAt = u.CreatedAt_Date,
@@ -185,6 +232,23 @@ namespace WebAppIMaster.Models.WebApiService
                 OrderId = u.OrderId,
                 Rating = u.Executor.Rating + "",
                 RegisterDate = (DateTime)u.Executor.RegistrationDateTime,
+                ExecutorType = u.Executor.ExecutorType,
+            }).ToList().Select(u => new ClientExecutorServiceMdl.ExecutorResponse
+            {
+                ExecutorId = u.ExecutorId,
+                Lastname = u.Lastname,
+                Firstname = u.Firstname,
+                PhoneNumber = u.PhoneNumber,
+                AvatarUri = u.AvatarUri,
+                Check = u.Check,
+                ClosedOrdersCount = u.ClosedOrdersCount,
+                CreateAt = u.CreateAt,
+                ExecutorMessage = u.ExecutorMessage,
+                Online = u.Online,
+                OrderId = u.OrderId,
+                Rating = u.Rating,
+                RegisterDate = u.RegisterDate,
+                ExecutorType = u.ExecutorType??ExecutorType.Individual,
             }).ToList();
 
             return list;

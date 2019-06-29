@@ -50,7 +50,7 @@ namespace WebAppIMaster.Controllers.WebApi
         {
             ApplicationDbContext db = new ApplicationDbContext();
             ExecutorService repository = new ExecutorService(db);
-            var model = repository.GetItemList();
+            List<ExecutorItem> model = repository.GetItemList();
             return model;
         }
 

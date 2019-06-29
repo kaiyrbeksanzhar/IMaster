@@ -12,8 +12,9 @@ namespace WebAppIMaster.Models.IWebApiService
         List<ExecutorItem> GetItemListForCategory( int categoryId );
         List<ExecutorItem> GetItemListForSpecialty( int specialtyId );
         ExecutorDetails GetDetails( string executorId );
-        List<ExecutorResponse> GetResponseList( string clientId );
+        List<ExecutorResponse> GetResponseList( string clientId, int lastResponseId = -1);
         void AddExecutorToOrder( string clientId, int orderId, string executorId );
         void CancelExecutorResponse( string clientId, int orderId, string executorId );
+        List<ExecutorResponse> GetResponseListForOrder(int orderId);
     }
 }

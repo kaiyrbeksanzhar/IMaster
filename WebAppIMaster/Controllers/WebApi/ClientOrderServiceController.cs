@@ -11,6 +11,7 @@ using System.Web.Http;
 using System.Web.Mvc;
 using WebAppIMaster.Models;
 using WebAppIMaster.Models.Enitities;
+using WebAppIMaster.Models.IWebApiService;
 using WebAppIMaster.Models.WebApiModel;
 using WebAppIMaster.Models.WebApiService;
 
@@ -137,7 +138,6 @@ namespace WebAppIMaster.Controllers.WebApi
         [System.Web.Http.Route("api/GetListForExecutor")]
         public List<ClientOrderItemView> GetListForExecutor( string executorId )
         {
-
             ApplicationDbContext db = new ApplicationDbContext();
             ClientOrderService repository = new ClientOrderService(db);
             var model = repository.GetListForExecutor(executorId);
@@ -156,6 +156,26 @@ namespace WebAppIMaster.Controllers.WebApi
             ClientOrderService repository = new ClientOrderService(db);
             var model = repository.GetClientCommonOrderDetailsView(orderId);
             return model;
+        }
+
+        [System.Web.Http.HttpPost]
+        [System.Web.Http.Route("api/FinishClientMyOrder")]
+        public bool FinishClientMyOrder(ClientMyOrderFinish item)
+        {
+            ApplicationDbContext db = new ApplicationDbContext();
+            ClientOrderService repository = new ClientOrderService(db);
+            bool res = repository.ClientMyOrderFinish(item);
+            return res;
+        }
+
+        [System.Web.Http.HttpGet]
+        [System.Web.Http.Route("api/CancelClientMyOrder")]
+        public bool CancelClientMyOrder(int orderId, CancelReason cancelReason)
+        {
+            ApplicationDbContext db = new ApplicationDbContext();
+            ClientOrderService repository = new ClientOrderService(db);
+            bool res = repository.CancelClientMyOrder(orderId, cancelReason);
+            return res;
         }
     }
 }
