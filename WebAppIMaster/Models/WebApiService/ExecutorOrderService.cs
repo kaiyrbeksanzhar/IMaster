@@ -105,7 +105,7 @@ namespace WebAppIMaster.Models.WebApiService
 
         public List<ExecutorOrderMdl.ExecutorOrderItem> GetItemList( List<int> CategoryIds, List<int> SpecializationIds, string userId)
         {
-            IQueryable<CustomerOrder> query = db.CustomerOrders;
+            IQueryable<CustomerOrder> query = db.CustomerOrders.Where(u => u.OrderType == OrderStatus.Published);
             if (CategoryIds != null && 0 < CategoryIds.Count)
             {
                 int[] ids = CategoryIds.ToArray();
