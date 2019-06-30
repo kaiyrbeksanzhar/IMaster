@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using WebAppIMaster.Models.Enums;
 
 namespace WebAppIMaster.Models.WebApiModel
@@ -16,6 +14,7 @@ namespace WebAppIMaster.Models.WebApiModel
             public string ClientLastName { get; set; }
             public string ClientFirstName { get; set; }
             public string ClientFatherName { get; set; }
+            public string ClientAvatarUri { get; set; }
             public bool Bookmark { get; set; }
             public bool Responded { get; set; }
             public OrderStartDateType StartDateType { get; set; }
@@ -33,6 +32,7 @@ namespace WebAppIMaster.Models.WebApiModel
             public string ClientLastName { get; set; }
             public string ClientFirstName { get; set; }
             public string ClientFatherName { get; set; }
+            public string ClientAvatarUri { get; set; }
             public string ClientPhoneNumber { get; set; }
             public bool Bookmark { get; set; }
             public bool Responded { get; set; }

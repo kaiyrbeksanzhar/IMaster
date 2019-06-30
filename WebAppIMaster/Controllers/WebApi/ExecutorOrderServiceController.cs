@@ -58,12 +58,12 @@ namespace WebAppIMaster.Controllers.WebApi
         /// <param name="executorId">Принимает параметр executorId.</param>
         /// <param name="orderId">Принимает параметр orderId.</param>
         /// <param name="cancelType">Принимает параметр cancelType.</param>
-        [System.Web.Http.Route("api/CancelOrder")]
-        public void CancelOrder(string executorId, int orderId, OrderCancelType cancelType)
+        [System.Web.Http.Route("api/ExecutorCancelOrder")]
+        public void CancelOrder(string executorId, int orderId, String cancelReason)
         {
             ApplicationDbContext db = new ApplicationDbContext();
             ExecutorOrderService repository = new ExecutorOrderService(db);
-            repository.CancelOrder(executorId, orderId, cancelType);
+            repository.CancelOrder(executorId, orderId, cancelReason);
         }
 
         /// <summary>

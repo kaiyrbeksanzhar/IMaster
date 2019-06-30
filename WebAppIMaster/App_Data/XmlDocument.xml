@@ -645,7 +645,7 @@
             <param name="orderId">Принимает параметр orderId.</param>
             <param name="responseComment">Принимает параметр responseComment.</param>
         </member>
-        <member name="M:WebAppIMaster.Controllers.WebApi.ExecutorOrderServiceController.CancelOrder(System.String,System.Int32,WebAppIMaster.Models.Enitities.Enums.OrderCancelType)">
+        <member name="M:WebAppIMaster.Controllers.WebApi.ExecutorOrderServiceController.CancelOrder(System.String,System.Int32,System.String)">
             <summary>
             передайте (api/CancelOrder/{executorId,orderId,responseComment}) добавляет CancelOrder
             </summary>
