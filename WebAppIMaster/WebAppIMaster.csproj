@@ -235,9 +235,12 @@
     <Compile Include="Controllers\AppController\HowDidYouAboutUsController.cs" />
     <Compile Include="Controllers\AppController\NewsController.cs" />
     <Compile Include="Controllers\AppController\SpecilizationController.cs" />
+    <Compile Include="Controllers\AppController\SupportController.cs" />
+    <Compile Include="Controllers\AppController\UserAgreementController.cs" />
     <Compile Include="Controllers\Base\LanguageController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\AppController\PopulationQuestionController.cs" />
     <Compile Include="Controllers\WebApi\CategoryServiceController.cs" />
     <Compile Include="Controllers\WebApi\ClientExecutorServiceController.cs" />
     <Compile Include="Controllers\WebApi\ClientOrderServiceController.cs" />
@@ -248,8 +251,11 @@
     <Compile Include="Controllers\WebApi\MarketingServiceController.cs" />
     <Compile Include="Controllers\WebApi\MarketSerivecController.cs" />
     <Compile Include="Controllers\WebApi\NewsItemServiceController.cs" />
+    <Compile Include="Controllers\WebApi\PopulationQuestionController.cs" />
     <Compile Include="Controllers\WebApi\RegionServiceController.cs" />
     <Compile Include="Controllers\WebApi\SpecializationServiceController.cs" />
+    <Compile Include="Controllers\WebApi\SupportController.cs" />
+    <Compile Include="Controllers\WebApi\UserAgreementServiceController.cs" />
     <Compile Include="Controllers\WebApi\VerifyPhoneController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -306,6 +312,18 @@
     <Compile Include="Migrations\201906291120300_PopulationQuesstionId.Designer.cs">
       <DependentUpon>201906291120300_PopulationQuesstionId.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201906291240404_PopulationQuesstionIdtwo.cs" />
+    <Compile Include="Migrations\201906291240404_PopulationQuesstionIdtwo.Designer.cs">
+      <DependentUpon>201906291240404_PopulationQuesstionIdtwo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201906300800147_Support.cs" />
+    <Compile Include="Migrations\201906300800147_Support.Designer.cs">
+      <DependentUpon>201906300800147_Support.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201906300920106_UserAgreement.cs" />
+    <Compile Include="Migrations\201906300920106_UserAgreement.Designer.cs">
+      <DependentUpon>201906300920106_UserAgreement.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -339,6 +357,7 @@
     <Compile Include="Models\Enitities\Enums\Status.cs" />
     <Compile Include="Models\Enitities\Enums\StatusCustomer.cs" />
     <Compile Include="Models\Enitities\Enums\Tarif.cs" />
+    <Compile Include="Models\Enitities\Enums\TypeMessage.cs" />
     <Compile Include="Models\Enitities\Enums\TypePrice.cs" />
     <Compile Include="Models\Enitities\Enums\TypePriceOrganization.cs" />
     <Compile Include="Models\Enitities\Executor.cs" />
@@ -375,6 +394,7 @@
     <Compile Include="Models\Enitities\Shift.cs" />
     <Compile Include="Models\Enitities\Specialization.cs" />
     <Compile Include="Models\Enitities\SpecializationLang.cs" />
+    <Compile Include="Models\Enitities\Support.cs" />
     <Compile Include="Models\Enitities\TransitionExecutorCost.cs" />
     <Compile Include="Models\Enitities\UnitMeasurement.cs" />
     <Compile Include="Models\Enitities\UnitMeasurementLang.cs" />
@@ -394,13 +414,18 @@
     <Compile Include="Models\IWebApiService\IMarketService.cs" />
     <Compile Include="Models\IWebApiService\INewsItemService.cs" />
     <Compile Include="Models\IWebApiService\INotificationService.cs" />
+    <Compile Include="Models\IWebApiService\IPopulationQuestionService.cs" />
     <Compile Include="Models\IWebApiService\IRegionService.cs" />
     <Compile Include="Models\IWebApiService\ISpecializationService.cs" />
+    <Compile Include="Models\IWebApiService\ISupportService.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\NewManagerManage\CategoryManagerModels.cs" />
     <Compile Include="Models\NewManagerManage\HowDidYouAboutUsModel.cs" />
     <Compile Include="Models\NewManagerManage\NewsManager.cs" />
+    <Compile Include="Models\NewManagerManage\PopulationQuestion.cs" />
     <Compile Include="Models\NewManagerManage\SpecilizationManager.cs" />
+    <Compile Include="Models\NewManagerManage\SupportManager.cs" />
+    <Compile Include="Models\NewManagerManage\UserAgreementService.cs" />
     <Compile Include="Models\NewManagerModels\CategoryModels.cs" />
     <Compile Include="Models\NewManagerModels\CityEditMdl.cs" />
     <Compile Include="Models\NewManagerModels\CityInsMdl.cs" />
@@ -408,8 +433,13 @@
     <Compile Include="Models\NewManagerModels\HowDidYouAboutUs.cs" />
     <Compile Include="Models\NewManagerModels\MarketingMdl.cs" />
     <Compile Include="Models\NewManagerModels\NewsMdl.cs" />
+    <Compile Include="Models\NewManagerModels\PopulationCategoryMdl.cs" />
+    <Compile Include="Models\NewManagerModels\PopulationDetailsVmMdl.cs" />
     <Compile Include="Models\NewManagerModels\PopulationQuestion.cs" />
+    <Compile Include="Models\NewManagerModels\PopulationCreateMdl.cs" />
     <Compile Include="Models\NewManagerModels\SpecilizationModels.cs" />
+    <Compile Include="Models\NewManagerModels\SupportVmMdl.cs" />
+    <Compile Include="Models\UserAgreement.cs" />
     <Compile Include="Models\WebApiModel\CategoryServiceMdl.cs" />
     <Compile Include="Models\WebApiModel\ClientExecutorServiceMdl.cs" />
     <Compile Include="Models\WebApiModel\ClientOrderMdl.cs" />
@@ -422,8 +452,12 @@
     <Compile Include="Models\WebApiModel\messages.cs" />
     <Compile Include="Models\WebApiModel\NewsItemMdl.cs" />
     <Compile Include="Models\WebApiModel\NotificationItemViewMdl.cs" />
+    <Compile Include="Models\WebApiModel\PopulationQuestionServiceMdl.cs" />
     <Compile Include="Models\WebApiModel\RegionNameView.cs" />
     <Compile Include="Models\WebApiModel\SpecializationServiceMdl.cs" />
+    <Compile Include="Models\WebApiModel\SupportServiceMdl.cs" />
+    <Compile Include="Models\NewManagerModels\UserAgreementGeneral.cs" />
+    <Compile Include="Models\WebApiModel\UserAgreement.cs" />
     <Compile Include="Models\WebApiService\CategoryService.cs" />
     <Compile Include="Models\WebApiService\ClientExecutorService.cs" />
     <Compile Include="Models\WebApiService\ClientOrderService.cs" />
@@ -435,8 +469,11 @@
     <Compile Include="Models\WebApiService\MarketingService.cs" />
     <Compile Include="Models\WebApiService\MarketService.cs" />
     <Compile Include="Models\WebApiService\NewsItemService.cs" />
+    <Compile Include="Models\WebApiService\PopulationQuestionService.cs" />
     <Compile Include="Models\WebApiService\RegionService.cs" />
     <Compile Include="Models\WebApiService\SpecializationService.cs" />
+    <Compile Include="Models\WebApiService\SupportSerivce.cs" />
+    <Compile Include="Models\WebApiService\UserAgreementService.cs" />
     <Compile Include="Models\WebApiService\VerifyService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
@@ -705,6 +742,14 @@
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\News\Index.cshtml" />
     <Content Include="Views\News\Create.cshtml" />
+    <Content Include="Views\PopulationQuestion\Index.cshtml" />
+    <Content Include="Views\PopulationQuestion\Create.cshtml" />
+    <Content Include="Views\PopulationQuestion\CreatePCategory.cshtml" />
+    <Content Include="Views\PopulationQuestion\Details.cshtml" />
+    <Content Include="Views\Support\Index.cshtml" />
+    <Content Include="Views\Support\Details.cshtml" />
+    <Content Include="Views\UserAgreement\Index.cshtml" />
+    <Content Include="Views\UserAgreement\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Images\Avatar\" />
@@ -765,6 +810,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201906291120300_PopulationQuesstionId.resx">
       <DependentUpon>201906291120300_PopulationQuesstionId.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906291240404_PopulationQuesstionIdtwo.resx">
+      <DependentUpon>201906291240404_PopulationQuesstionIdtwo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906300800147_Support.resx">
+      <DependentUpon>201906300800147_Support.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906300920106_UserAgreement.resx">
+      <DependentUpon>201906300920106_UserAgreement.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Resource.kk-KZ.resx" />
     <EmbeddedResource Include="Resources\Resource.resx" />

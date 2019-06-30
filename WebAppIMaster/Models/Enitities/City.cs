@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WebAppIMaster.Models.Enitities;
 
 namespace WebAppIMaster.Models
 {
@@ -16,6 +17,7 @@ namespace WebAppIMaster.Models
             Organizations = new HashSet<Organization>();
             Customers = new HashSet<Customer>();
             Executors = new HashSet<Executor>();
+            Supports = new HashSet<Support>();
         }
 
         public int Id { get; set; }
@@ -30,5 +32,6 @@ namespace WebAppIMaster.Models
         public ICollection<Organization> Organizations { get; set; }
         public ICollection<Customer>  Customers { get; set; }
         public ICollection<Executor> Executors { get; set; }
+        public ICollection<Support> Supports { get; set; }
     }
 }

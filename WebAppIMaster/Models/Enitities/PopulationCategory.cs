@@ -10,12 +10,12 @@ namespace WebAppIMaster.Models.Enitities
         public PopulationCategory()
         {
             Langs = new HashSet<PopulationCategoryLangs>();
-            populationCategories = new HashSet<PopulationCategory>();
+            populationQuestions = new HashSet<PopulationQuestion>();
         }
         public int Id { get; set; }
         public int Property { get; set; }
 
         public ICollection<PopulationCategoryLangs> Langs { get; set; }
-        public ICollection<PopulationCategory>   populationCategories { get; set; }
+        public ICollection<PopulationQuestion> populationQuestions { get; set; }
     }
 }

@@ -1,0 +1,51 @@
+﻿@model IEnumerable<WebAppIMaster.Models.NewManagerModels.UserAgreementGeneralVmMdl>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    #example_wrapper {
+        padding: 5px;
+    }
+</style>
+
+<div class="card strpied-tabled-with-hover">
+    <div class="card-header ">
+        <h4 class="card-title">Пользовательское соглашение</h4>
+        <p class="card-category">Пользовательское соглашение</p>
+    </div>
+    <div class="card-body table-full-width table-responsive">
+        <p>
+            <a href="/UserAgreement/Create" class="btn btn-info btn-fill pull-left">Добавить</a>
+        </p>
+        <table id="example" class="display" style="width:100%">
+            <thead>
+                <tr>
+                    <th>
+                        Описание
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @item.Description
+                        </td>
+                    </tr>
+                }
+            <tbody>
+
+            <tfoot>
+                <tr>
+                    <th>
+                        Описание
+                    </th>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>

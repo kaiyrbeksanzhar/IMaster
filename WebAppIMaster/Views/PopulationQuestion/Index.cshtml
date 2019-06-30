@@ -1,0 +1,41 @@
+﻿@model IEnumerable<WebAppIMaster.Models.NewManagerModels.PopulationQuestion.PopulationSelectVmMdl>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="card strpied-tabled-with-hover">
+    <div class="card-header ">
+        <h4 class="card-title">Популярные вопросы</h4>
+        <p class="card-category">Популярные вопросы</p>
+    </div>
+    <div class="card-body table-full-width table-responsive">
+        <p>
+            <a href="/PopulationQuestion/CreatePCategory" class="btn btn-info btn-fill pull-left" style="background-color:#E0E0E0 !important;border-color:#E0E0E0 !important;color:#000000;">Добавить категорию</a>
+        </p>
+        @{ 
+            int i = 1;
+        }
+        <div class="container row">
+            @foreach (var item in Model)
+            {
+                <div class="col-md-12">
+                    <p>
+                       @(i++): @item.PopulationCategoryName
+                    </p>
+                </div>
+                <a class="btn btn-info btn-fill" href="/PopulationQuestion/Create?PcategoryId=@item.PopulationCategoryId" style="margin-left:17px;background-color:#E0E0E0 !important;border-color:#E0E0E0 !important;color:#000000;">Добавить вопрос</a>
+                foreach (var item1 in item.populationQuestionList)
+                {
+                    <div class="col-md-12">
+                        <p>
+                            <a href="/PopulationQuestion/Details?id=@item1.Id">@item1.Name</a>
+                        </p>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</div>

@@ -15,7 +15,7 @@ namespace WebAppIMaster.Models.Enitities
 
         public int PopulationCategoryId { get; set; }
         public virtual PopulationCategory PopulationCategory { get; set; }
-
+        
         public ICollection<PopulationQuestionLangs> Langs { get; set; }
     }
 }

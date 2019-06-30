@@ -834,6 +834,22 @@
             </summary>
             <param name="SearchText">принимает string{Казахстан}  возвращает вам один элемент</param>
         </member>
+        <member name="T:WebAppIMaster.Controllers.WebApi.PopulationQuestionController">
+            <summary>
+             Как это работает
+            </summary>
+        </member>
+        <member name="M:WebAppIMaster.Controllers.WebApi.PopulationQuestionController.GetPopulationList">
+            <summary>
+            (api/GetPopulationList) возращает лист элементов
+            </summary>
+        </member>
+        <member name="M:WebAppIMaster.Controllers.WebApi.PopulationQuestionController.GetPopulationQuestion(System.Int32)">
+            <summary>
+            передайте populationCategoryId(api/Support/5) возращает один элемент
+            </summary>
+            <param name="populationCategoryId">Принимает параметр (populationCategoryId).(populationCategoryId)</param>
+        </member>
         <member name="T:WebAppIMaster.Controllers.WebApi.RegionServiceController">
             <summary>
             Клиент RegionService Api
@@ -870,6 +886,37 @@
             <summary>
              (api/GetSpecializationForCategoryList/) возвращает специализацию лист элементов(фильтр категория)
             <param name="categoryId">Принимает параметр categoryId.</param>
+            </summary>
+        </member>
+        <member name="T:WebAppIMaster.Controllers.WebApi.SupportController">
+            <summary>
+             Служба поддержки Api (Специализация)
+            </summary>
+        </member>
+        <member name="M:WebAppIMaster.Controllers.WebApi.SupportController.Get(System.Int32)">
+            <summary>
+            передайте supportId(api/Support/5) возращает один элемент
+            </summary>
+            <param name="supportId">Принимает параметр (supportId suppoert).(id)</param>
+        </member>
+        <member name="M:WebAppIMaster.Controllers.WebApi.SupportController.GetSupportList">
+            <summary>
+            передайте (api/GetSupportList) возращает лист элементов
+            </summary>
+        </member>
+        <member name="M:WebAppIMaster.Controllers.WebApi.SupportController.SupportInsert(WebAppIMaster.Models.WebApiModel.SupportServiceMdl.SupportInsertMdl)">
+            <summary>
+            передайте SupportInsertMdl model Save to DataBase
+            </summary>
+        </member>
+        <member name="T:WebAppIMaster.Controllers.WebApi.UserAgreementServiceController">
+            <summary>
+             Пользовательское соглашение
+            </summary>
+        </member>
+        <member name="M:WebAppIMaster.Controllers.WebApi.UserAgreementServiceController.GetListUserAgreement">
+            <summary>
+            (api/GetListUserAgreement) возращает лист элементов
             </summary>
         </member>
         <member name="T:WebAppIMaster.Controllers.WebApi.VerifyPhoneController">
