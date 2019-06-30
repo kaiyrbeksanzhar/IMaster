@@ -10,7 +10,7 @@ namespace WebAppIMaster.Models.IWebApiService
         ExecutorOrderDetails GetDetails( int orderId, string userId );
         void Response( string executorId, int orderId, string responseComment );
         void CallToClient( string executorId, int orderId );
-        void CancelOrder( string executorId, int orderId, OrderCancelType cancelType );
+        void CancelOrder( string executorId, int orderId, string cancelReason);
         void AddBookmark(string userId, int orderId );
         void RemoveBookmark(string  userId, int orderId );
 

@@ -68,5 +68,11 @@ namespace WebAppIMaster.Controllers.WebApi
             return new HttpResponseMessage(HttpStatusCode.Accepted);
         }
 
+        [System.Web.Http.Route("api/GetClientAvatar")]
+        public HttpResponseMessage GetClientAvatar(string clientId)
+        {
+            return null;
+        }
+
     }
 }

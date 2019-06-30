@@ -29,13 +29,13 @@ namespace WebAppIMaster.Models.WebApiService
             db.SaveChanges();
         }
 
-        public void CancelOrder( string executorId, int orderId, OrderCancelType cancelType )
+        public void CancelOrder( string executorId, int orderId, string cancelReason)
         {
 
             CancelOrder cancelOrder = new CancelOrder()
             {
                 ExecutorId = executorId,
-                cancelType = cancelType,
+                cancelType = OrderCancelType.Other,
                 OrderExecutorId = orderId,
                 CanceledDateTime = DateTime.Now
             };
@@ -54,6 +54,7 @@ namespace WebAppIMaster.Models.WebApiService
                 ClientId = u.CustomerId,
                 ClientFirstName = u.Customer.FirstName,
                 ClientPhoneNumber = u.Customer.ApplicationUser.PhoneNumber,
+                ClientAvatarUri = u.Customer.AvatarType == null ? null : "http://i-master.kz/api/GetClientAvatar?clientId=" + u.Customer.Id,
                 Bookmark = u.BookmarkOrders.Any(b => b.UserId == userId),
                 Responded = u.Responses.Any(r => r.ExecutorId == userId),
                 StartDateType = u.StartDateType,
@@ -78,6 +79,7 @@ namespace WebAppIMaster.Models.WebApiService
                 ClientId = u.ClientId,
                 ClientFirstName = u.ClientFirstName,
                 ClientPhoneNumber = u.ClientPhoneNumber,
+                ClientAvatarUri = u.ClientAvatarUri,
                 Bookmark = u.Bookmark,
                 StartDateType = u.StartDateType,
                 StartDate = u.StartDate,
@@ -105,7 +107,7 @@ namespace WebAppIMaster.Models.WebApiService
 
         public List<ExecutorOrderMdl.ExecutorOrderItem> GetItemList( List<int> CategoryIds, List<int> SpecializationIds, string userId)
         {
-            IQueryable<CustomerOrder> query = db.CustomerOrders;
+            IQueryable<CustomerOrder> query = db.CustomerOrders.Where(u => u.OrderType == OrderStatus.Published);
             if (CategoryIds != null && 0 < CategoryIds.Count)
             {
                 int[] ids = CategoryIds.ToArray();
@@ -123,6 +125,7 @@ namespace WebAppIMaster.Models.WebApiService
                 OrderTitle = u.Title,
                 ClientId = u.CustomerId,
                 ClientFirstName = u.Customer.ApplicationUser.FirstName,
+                ClientAvatarUri = u.Customer.AvatarType == null ? null : "http://i-master.kz/api/GetClientAvatar?clientId=" + u.Customer.Id,
                 Bookmark = db.BookmarkOrders.Any(b => b.OrderId == u.Id && b.UserId == userId),
                 Responded = u.Responses.Any(r => r.ExecutorId == userId), 
                 StartDateType = u.StartDateType,
