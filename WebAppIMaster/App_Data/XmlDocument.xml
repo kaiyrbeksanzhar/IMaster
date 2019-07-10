@@ -834,6 +834,18 @@
             </summary>
             <param name="SearchText">принимает string{Казахстан}  возвращает вам один элемент</param>
         </member>
+        <member name="M:WebAppIMaster.Controllers.WebApi.NewsItemServiceController.SendPhotoToNews">
+            <summary>
+            api/SendPhotoToOrder лист возвращает Request.Form["newsId"] и url
+            </summary>
+            <param name="files">Принимает параметр files.</param>
+        </member>
+        <member name="M:WebAppIMaster.Controllers.WebApi.NewsItemServiceController.GetNewsPhoto(System.String)">
+            <summary>
+            api/GetNewsPhoto/{url} возвращает фото
+            </summary>
+            <param name="files">Принимает параметр files.</param>
+        </member>
         <member name="T:WebAppIMaster.Controllers.WebApi.PopulationQuestionController">
             <summary>
              Как это работает

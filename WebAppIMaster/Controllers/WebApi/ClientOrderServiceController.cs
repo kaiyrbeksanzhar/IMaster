@@ -87,6 +87,7 @@ namespace WebAppIMaster.Controllers.WebApi
             ApplicationDbContext db = new ApplicationDbContext();
             var request = HttpContext.Current.Request;
             var postedFile = request.Files;
+
             int orderId = Convert.ToInt32(request.Form["orderId"]);
             string url = "~/Images/CustomerOrder/" + DateTime.Now.ToString("yyyy.MM.dd.hh.mm.ss.ffff") + ".png";
             if (postedFile != null)

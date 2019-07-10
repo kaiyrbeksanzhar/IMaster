@@ -368,6 +368,7 @@ namespace WebAppIMaster.Models.WebApiService
                     CustomerOrder.Photo4Url = url;
                 }
             }
+            db.Entry(CustomerOrder).State = System.Data.Entity.EntityState.Modified;
             db.SaveChanges();
         }
 

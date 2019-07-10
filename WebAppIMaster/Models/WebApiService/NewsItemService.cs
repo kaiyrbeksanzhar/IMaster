@@ -73,5 +73,23 @@ namespace WebAppIMaster.Models.WebApiService
             }
             return news;
         }
+
+        public void SendPhotoToNews( string url, int newsId )
+        {
+            var News = db.News.Where(n => n.Id == newsId).FirstOrDefault();
+            if (News != null)
+            {
+                if (News.PhotoUrl1 == null)
+                {
+                    News.PhotoUrl1 = url;
+                }
+                else if (News.PhotoUrl2Kazakh == null)
+                {
+                    News.PhotoUrl2Kazakh = url;
+                }
+            }
+            db.Entry(News).State = System.Data.Entity.EntityState.Modified;
+            db.SaveChanges();
+        }
     }
 }

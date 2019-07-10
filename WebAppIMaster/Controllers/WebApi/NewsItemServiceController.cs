@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Web;
 using System.Web.Http;
 using WebAppIMaster.Models.Enitities;
 using WebAppIMaster.Models.WebApiModel;
@@ -51,6 +53,52 @@ namespace WebAppIMaster.Controllers.WebApi
             var model = repository.GetSearch(SearchText);
             return model;
         }
+
+        /// <summary>
+        /// api/SendPhotoToOrder лист возвращает Request.Form["newsId"] и url
+        /// </summary>
+        /// <param name="files">Принимает параметр files.</param>
+        // GET: api/SendPhotoToOrder
+        [System.Web.Http.HttpPost]
+        [System.Web.Http.Route("api/SendPhotoToNews")]
+        public async void SendPhotoToNews()
+        {
+            ApplicationDbContext db = new ApplicationDbContext();
+            var request = HttpContext.Current.Request;
+            var postedFile = request.Files;
+
+            int newsId = Convert.ToInt32(request.Form["newsId"]);
+            string url = "~/Images/News/" + DateTime.Now.ToString("yyyy.MM.dd.hh.mm.ss.ffff") + ".png";
+            if (postedFile != null)
+            {
+                postedFile[0].SaveAs(HttpContext.Current.Server.MapPath(url));
+                NewsItemService repository = new NewsItemService(db);
+                repository.SendPhotoToNews(url, newsId);
+            }
+        }
+
+        /// <summary>
+        /// api/GetNewsPhoto/{url} возвращает фото
+        /// </summary>
+        /// <param name="files">Принимает параметр files.</param>
+        [System.Web.Http.HttpGet]
+        [System.Web.Http.Route("api/GetNewsPhoto")]
+        public HttpResponseMessage GetNewsPhoto( string url )
+        {
+            if (url == "")
+            {
+                return null;
+            }
+            byte[] content = File.ReadAllBytes(HttpContext.Current.Server.MapPath(url));
+            MemoryStream ms = new MemoryStream(content);
+
+            HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.OK);
+            response.Content = new StreamContent(ms);
+            response.Content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("image/png");
+
+            return response;
+        }
+
 
     }
 }
