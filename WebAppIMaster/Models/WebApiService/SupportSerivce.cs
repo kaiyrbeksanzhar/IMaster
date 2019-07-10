@@ -66,5 +66,20 @@ namespace WebAppIMaster.Models.WebApiService
 
             return model;
         }
+
+        public void SendPhotoToSupport(string url, int supportId)
+        {
+            ApplicationDbContext db = new ApplicationDbContext();
+            var Support = db.Supports.Where(s => s.Id == supportId).FirstOrDefault();
+            if (Support != null)
+            {
+                if (Support.FileUrl == null)
+                {
+                    Support.FileUrl = url;
+                }
+            }
+            db.Entry(Support).State = System.Data.Entity.EntityState.Modified;
+            db.SaveChanges();
+        }
     }
 }

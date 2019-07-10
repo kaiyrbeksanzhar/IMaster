@@ -76,7 +76,9 @@ namespace WebAppIMaster.Models.WebApiService
                     img = Image.FromFile(pfu.PhotoFileUrl);
                     string PhotoType = pfu.PhotoFileUrl.Substring(pfu.PhotoFileUrl.LastIndexOf(".") + 1);
                     byte[] Imagesbyte = FileManager.ImageToByteArray(img);
-                    photos.Add(Imagesbyte, PhotoType);
+                    string ImagesUrl = "http://i-master.kz/api/GetExecutorAvatar?url=" + pfu.PhotoFileUrl;
+                    //photos.Add(Imagesbyte, PhotoType);
+                    photos.Add(Imagesbyte, ImagesUrl);
                 }
             }
             else
@@ -231,7 +233,7 @@ namespace WebAppIMaster.Models.WebApiService
                     RegisteredAt = (DateTime)item.RegistrationDateTime,
                     ClosedOrdersCount = (int)item.ExecutorClosedOrdersCount,
                     ExecutorType = (ExecutorType)item.ExecutorType,
-                    AvatarUri = item.AvatarUrl==null?null: "http://i-master.kz/api/GetExecutorPhoto?photoPath=" + item.AvatarUrl,
+                    AvatarUri = item.AvatarUrl==null?null: "http://i-master.kz/api/GetExecutorAvatar?url=" + item.AvatarUrl,
                 });
             }
 
@@ -253,7 +255,7 @@ namespace WebAppIMaster.Models.WebApiService
                     LastName = item.Executor.User.LastName,
                     FirstName = item.Executor.User.FirstName,
                     FatherName = item.Executor.User.FatherName,
-                    AvatarUri = item.Executor.AvatarUrl == null ? null : "http://i-master.kz/api/GetExecutorPhoto?photoPath=" + item.Executor.AvatarUrl,
+                    AvatarUri = item.Executor.AvatarUrl == null ? null : "http://i-master.kz/api/GetExecutorAvatar?url=" + item.Executor.AvatarUrl,
                     ExecutorType = (ExecutorType)item.Executor.ExecutorType,
                     Check = (bool)item.Executor.ExecutorCheck,
                     ClosedOrdersCount = (int)item.Executor.ExecutorClosedOrdersCount,
@@ -285,7 +287,7 @@ namespace WebAppIMaster.Models.WebApiService
                         Id = item.Id,
                         FirstName = item.User.FirstName,
                         FatherName = item.User.FatherName,
-                        AvatarUri = item.AvatarUrl == null ? null : "http://i-master.kz/api/GetExecutorPhoto?photoPath=" + item.AvatarUrl,
+                        AvatarUri = item.AvatarUrl == null ? null : "http://i-master.kz/api/GetExecutorAvatar?url=" + item.AvatarUrl,
                         ExecutorType = (ExecutorType)item.ExecutorType,
                         Check = (bool)item.ExecutorCheck,
                         ClosedOrdersCount = (int)item.ExecutorClosedOrdersCount,
@@ -441,6 +443,8 @@ namespace WebAppIMaster.Models.WebApiService
             db.SaveChanges();
         }
 
+
+
         public void UpdateProfile( ExecutorServiceMdl.ExecutorProfileEdit item )
         {
             string langcode = LanguageController.CurrentCultureCode;
@@ -516,6 +520,34 @@ namespace WebAppIMaster.Models.WebApiService
                 });
             }
             db.Entry(executor).State = System.Data.Entity.EntityState.Modified;
+            db.SaveChanges();
+        }
+
+        public void SendExecutorAvatar(string url, string executorId)
+        {
+            var Executor = db.Executors.Where(n => n.Id == executorId).FirstOrDefault();
+            if (Executor != null)
+            {
+                if (Executor.AvatarUrl == null)
+                {
+                    Executor.AvatarUrl = url;
+                }
+            }
+            db.Entry(Executor).State = System.Data.Entity.EntityState.Modified;
+            db.SaveChanges();
+        }
+
+        public void SendExecutorPhotos(string url, string executorId)
+        {
+            var Executor = db.Executors.Where(n => n.Id == executorId).FirstOrDefault();
+            if (Executor != null)
+            {
+                if (Executor.AvatarUrl == null)
+                {
+                    Executor.AvatarUrl = url;
+                }
+            }
+            db.Entry(Executor).State = System.Data.Entity.EntityState.Modified;
             db.SaveChanges();
         }
     }

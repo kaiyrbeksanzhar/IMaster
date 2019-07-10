@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
 using WebAppIMaster.Models.Enitities;
@@ -68,10 +70,53 @@ namespace WebAppIMaster.Controllers.WebApi
             return new HttpResponseMessage(HttpStatusCode.Accepted);
         }
 
-        [System.Web.Http.Route("api/GetClientAvatar")]
-        public HttpResponseMessage GetClientAvatar(string clientId)
+
+
+        /// <summary>
+        /// api/SendPhotoToClientProfile [clientProfileId]  сохраняет аватар файла
+        /// </summary>
+        /// <param name="files">Принимает параметр files.</param>
+        // GET: api/SendPhotoToOrder
+        [System.Web.Http.HttpPost]
+        [System.Web.Http.Route("api/SendPhotoToClientProfile")]
+        public async void SendPhotoToOrder()
         {
-            return null;
+            ApplicationDbContext db = new ApplicationDbContext();
+            var request = HttpContext.Current.Request;
+            var postedFile = request.Files;
+
+            string clientProfileId = request.Form["clientProfileId"];
+            string type = HttpContext.Current.Request.ApplicationPath.TrimEnd('/');
+            string typeFile = Path.GetFileName(request.Files[0].FileName);
+            string url = "~/Images/Customer/" + DateTime.Now.ToString("yyyy.MM.dd.hh.mm.ss.ffff") + ".png";
+            if (postedFile != null)
+            {
+                postedFile[0].SaveAs(HttpContext.Current.Server.MapPath(url));
+                ClientProfileService repository = new ClientProfileService(db);
+                repository.SendPhotoToClientProfule(url, clientProfileId);
+            }
+        }
+
+        /// <summary>
+        /// api/GetClientProfilePhoto/{url} возвращает фото файла
+        /// </summary>
+        /// <param name="files">Принимает параметр files.</param>
+        [System.Web.Http.HttpGet]
+        [System.Web.Http.Route("api/GetClientProfilePhoto")]
+        public HttpResponseMessage GetSupportPhoto(string url)
+        {
+            if (url == "")
+            {
+                return null;
+            }
+            byte[] content = File.ReadAllBytes(HttpContext.Current.Server.MapPath(url));
+            MemoryStream ms = new MemoryStream(content);
+
+            HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.OK);
+            response.Content = new StreamContent(ms);
+            response.Content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("image/png");
+
+            return response;
         }
 
     }

@@ -68,6 +68,8 @@ namespace WebAppIMaster.Controllers.WebApi
             var postedFile = request.Files;
 
             int newsId = Convert.ToInt32(request.Form["newsId"]);
+            string type = HttpContext.Current.Request.ApplicationPath.TrimEnd('/');
+            string typeFile = Path.GetFileName(request.Files[0].FileName);
             string url = "~/Images/News/" + DateTime.Now.ToString("yyyy.MM.dd.hh.mm.ss.ffff") + ".png";
             if (postedFile != null)
             {

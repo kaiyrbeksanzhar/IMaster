@@ -752,8 +752,12 @@
     <Content Include="Views\UserAgreement\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Files\SupportFiles\" />
     <Folder Include="Images\Avatar\" />
     <Folder Include="Images\CustomerOrder\" />
+    <Folder Include="Images\Customer\" />
+    <Folder Include="Images\ExecutorFiles\" />
+    <Folder Include="Images\Executor\" />
     <Folder Include="Images\News\" />
     <Folder Include="Results\" />
     <Folder Include="Views\Language\" />

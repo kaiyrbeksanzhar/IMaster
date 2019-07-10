@@ -24,6 +24,7 @@ namespace WebAppIMaster.Models.WebApiModel
 
             public byte[] AvatarFile { get; set; }
             public string AvatarFileType { get; set; }
+            public string AvatarUrl { get; set; }
         }
 
         public class ClientProfileEdit

@@ -921,6 +921,18 @@
             передайте SupportInsertMdl model Save to DataBase
             </summary>
         </member>
+        <member name="M:WebAppIMaster.Controllers.WebApi.SupportController.SendPhotoToSupport">
+            <summary>
+            api/SendPhotoToSupport  возвращает Request.Form["supportId"] и url
+            </summary>
+            <param name="files">Принимает параметр files.</param>
+        </member>
+        <member name="M:WebAppIMaster.Controllers.WebApi.SupportController.GetSupportPhoto(System.String)">
+            <summary>
+            api/GetSupportPhoto/{url} возвращает file
+            </summary>
+            <param name="files">Принимает параметр files.</param>
+        </member>
         <member name="T:WebAppIMaster.Controllers.WebApi.UserAgreementServiceController">
             <summary>
              Пользовательское соглашение

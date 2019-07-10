@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Web;
 using System.Web.Http;
 using WebAppIMaster.Models.Enitities;
 using WebAppIMaster.Models.WebApiModel;
@@ -183,16 +185,79 @@ namespace WebAppIMaster.Controllers.WebApi
             repository.UpdateType(item, executorId);
         }
 
-        [Route("api/GetExecutorAvatar")]
-        public HttpResponseMessage GetExecutorAvatar(string executorId)
+        /// <summary>
+        /// api/GetExecutorAvatar/{url} возвращает фото
+        /// </summary>
+        /// <param name="files">Принимает параметр files.</param>
+        [System.Web.Http.HttpGet]
+        [System.Web.Http.Route("api/GetExecutorAvatar")]
+        public HttpResponseMessage GetExecutorAvatar(string url)
         {
-            return null;
+            if (url == "")
+            {
+                return null;
+            }
+            byte[] content = File.ReadAllBytes(HttpContext.Current.Server.MapPath(url));
+            MemoryStream ms = new MemoryStream(content);
+
+            HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.OK);
+            response.Content = new StreamContent(ms);
+            response.Content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("image/png");
+
+            return response;
         }
-        [Route("api/GetExecutorPhoto")]
-        public HttpResponseMessage GetExecutorPhoto( string photoPath )
+
+        /// <summary>
+        /// api/SendExecutorAvatar  сохраняет фото  Request.Form["executorId"] и url
+        /// </summary>
+        /// <param name="files">Принимает параметр files.</param>
+        // GET: api/SendPhotoToOrder
+        [System.Web.Http.HttpPost]
+        [System.Web.Http.Route("api/SendExecutorAvatar")]
+        public async void SendExecutorAvatar()
         {
-            return null;
+            ApplicationDbContext db = new ApplicationDbContext();
+            var request = HttpContext.Current.Request;
+            var postedFile = request.Files;
+
+            string executorId = request.Form["executorId"];
+            string type = HttpContext.Current.Request.ApplicationPath.TrimEnd('/');
+            string typeFile = Path.GetFileName(request.Files[0].FileName);
+            string url = "~/Images/Executor/" + DateTime.Now.ToString("yyyy.MM.dd.hh.mm.ss.ffff") + ".png";
+            if (postedFile != null)
+            {
+                postedFile[0].SaveAs(HttpContext.Current.Server.MapPath(url));
+                ExecutorService repository = new ExecutorService(db);
+                repository.SendExecutorAvatar(url, executorId);
+            }
         }
+
+        /// <summary>
+        /// api/SendExecutorPhoto  сохраняет фото ExecutorFile  Request.Form["executorId"] и url
+        /// </summary>
+        /// <param name="files">Принимает параметр files.</param>
+        // GET: api/SendExecutorPhoto
+        [System.Web.Http.HttpPost]
+        [System.Web.Http.Route("api/SendExecutorAvatar")]
+        public async void SendExecutorPhoto()
+        {
+            ApplicationDbContext db = new ApplicationDbContext();
+            var request = HttpContext.Current.Request;
+            var postedFile = request.Files;
+
+            string executorId = request.Form["executorId"];
+            string type = HttpContext.Current.Request.ApplicationPath.TrimEnd('/');
+            string typeFile = Path.GetFileName(request.Files[0].FileName);
+            string url = "~/Images/ExecutorFiles/" + DateTime.Now.ToString("yyyy.MM.dd.hh.mm.ss.ffff") + ".png";
+            if (postedFile != null)
+            {
+                postedFile[0].SaveAs(HttpContext.Current.Server.MapPath(url));
+                ExecutorService repository = new ExecutorService(db);
+                repository.SendExecutorPhotos(url, executorId);
+            }
+        }
+
+
 
     }
 }

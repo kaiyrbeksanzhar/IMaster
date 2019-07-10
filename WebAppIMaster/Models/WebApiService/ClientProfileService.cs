@@ -19,6 +19,7 @@ using WebAppIMaster.Controllers;
 using Microsoft.Owin.Security;
 using System.Threading.Tasks;
 using System.Text;
+using System.Net.Http;
 
 namespace WebAppIMaster.Models.WebApiService
 {
@@ -109,7 +110,7 @@ namespace WebAppIMaster.Models.WebApiService
                 Bonus = (int?)item.Bonus,
                 GenderId = item.GenderId,
                 CityName = item.CityName,
-                Gender = item.GenderName
+                Gender = item.GenderName,
             };
         }
 
@@ -172,6 +173,23 @@ namespace WebAppIMaster.Models.WebApiService
             }
             return user.Id;
         }
+
+        public void SendPhotoToClientProfule(string url, string clientProfileId)
+        {
+            var Customer = db.Customers.Where(co => co.Id == clientProfileId).FirstOrDefault();
+            if (Customer != null)
+            {
+                if (Customer.AvatarUrl == null)
+                {
+                    Customer.AvatarUrl = url;
+                }
+            }
+            db.Entry(Customer).State = System.Data.Entity.EntityState.Modified;
+            db.SaveChanges();
+        }
+
+
+
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 

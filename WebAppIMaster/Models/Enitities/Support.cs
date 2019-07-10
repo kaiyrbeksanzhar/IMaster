@@ -14,12 +14,12 @@ namespace WebAppIMaster.Models.Enitities
         public string FirstName { get; set; }
 
         public TypeMessage  TypeMessage { get; set; }
-
         public string PhoneNumber { get; set; }
 
         public int? CityId { get; set; }
         public virtual City City { get; set; }
 
         public string Description { get; set; }
+        public string FileUrl { get; set; }
     }
 }
