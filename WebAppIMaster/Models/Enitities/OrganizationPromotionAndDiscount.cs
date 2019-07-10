@@ -13,6 +13,7 @@ namespace WebAppIMaster.Models
         public int ViewCount { get; set; }
         public int ClickCount { get; set; }
         public int CallCount { get; set; }
+        public int Priority { get; set; }
 
         public int OrganizationCardId { get; set; }
         public virtual Organization OrganizationCard { get; set; }

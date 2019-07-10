@@ -324,6 +324,14 @@
     <Compile Include="Migrations\201906300920106_UserAgreement.Designer.cs">
       <DependentUpon>201906300920106_UserAgreement.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201907101011240_OrganizationIP.cs" />
+    <Compile Include="Migrations\201907101011240_OrganizationIP.Designer.cs">
+      <DependentUpon>201907101011240_OrganizationIP.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201907101026149_OrganizationIP1.cs" />
+    <Compile Include="Migrations\201907101026149_OrganizationIP1.Designer.cs">
+      <DependentUpon>201907101026149_OrganizationIP1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -336,6 +344,8 @@
     <Compile Include="Models\Enitities\CancelOrder.cs" />
     <Compile Include="Models\Enitities\Category.cs" />
     <Compile Include="Models\Enitities\CategoryLang.cs" />
+    <Compile Include="Models\Enitities\CategoryMarket.cs" />
+    <Compile Include="Models\Enitities\CategoryMarketLang.cs" />
     <Compile Include="Models\Enitities\City.cs" />
     <Compile Include="Models\Enitities\CityLang.cs" />
     <Compile Include="Models\Enitities\ClientPhone.cs" />
@@ -433,6 +443,7 @@
     <Compile Include="Models\NewManagerModels\HowDidYouAboutUs.cs" />
     <Compile Include="Models\NewManagerModels\MarketingMdl.cs" />
     <Compile Include="Models\NewManagerModels\NewsMdl.cs" />
+    <Compile Include="Models\NewManagerModels\OrganizationCreateMdl.cs" />
     <Compile Include="Models\NewManagerModels\PopulationCategoryMdl.cs" />
     <Compile Include="Models\NewManagerModels\PopulationDetailsVmMdl.cs" />
     <Compile Include="Models\NewManagerModels\PopulationQuestion.cs" />
@@ -823,6 +834,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201906300920106_UserAgreement.resx">
       <DependentUpon>201906300920106_UserAgreement.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201907101011240_OrganizationIP.resx">
+      <DependentUpon>201907101011240_OrganizationIP.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201907101026149_OrganizationIP1.resx">
+      <DependentUpon>201907101026149_OrganizationIP1.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Resource.kk-KZ.resx" />
     <EmbeddedResource Include="Resources\Resource.resx" />

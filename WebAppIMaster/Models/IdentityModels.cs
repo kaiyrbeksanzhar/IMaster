@@ -73,5 +73,7 @@ namespace WebAppIMaster.Models.Enitities
         public DbSet<PopulationQuestionLangs> PopulationQuestionLangs { get; set; }
         public DbSet<Support> Supports { get; set; }
         public DbSet<UserAgreement> userAgreements { get; set; }
+        public DbSet<CategoryMarket> CategoryMarkets { get; set; }
+        public DbSet<CategoryMarketLang> categoryMarketLangs { get; set; }
     }
 }

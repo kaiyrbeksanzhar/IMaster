@@ -626,6 +626,18 @@
             Post запрос  ClientProfileEdit изменить данные
             </summary>
         </member>
+        <member name="M:WebAppIMaster.Controllers.WebApi.ClientProfileController.SendPhotoToOrder">
+            <summary>
+            api/SendPhotoToClientProfile [clientProfileId]  сохраняет аватар файла
+            </summary>
+            <param name="files">Принимает параметр files.</param>
+        </member>
+        <member name="M:WebAppIMaster.Controllers.WebApi.ClientProfileController.GetSupportPhoto(System.String)">
+            <summary>
+            api/GetClientProfilePhoto/{url} возвращает фото файла
+            </summary>
+            <param name="files">Принимает параметр files.</param>
+        </member>
         <member name="T:WebAppIMaster.Controllers.WebApi.ExecutorOrderServiceController">
             <summary>
               ExecutorOrderService
@@ -760,6 +772,24 @@
             </summary>
             <param name="item">Принимает параметр ExecutorTypeEdit-item.</param>
             <param name="executorId">Принимает параметр (executorId).</param>
+        </member>
+        <member name="M:WebAppIMaster.Controllers.WebApi.ExecutorServiceController.GetExecutorAvatar(System.String)">
+            <summary>
+            api/GetExecutorAvatar/{url} возвращает фото
+            </summary>
+            <param name="files">Принимает параметр files.</param>
+        </member>
+        <member name="M:WebAppIMaster.Controllers.WebApi.ExecutorServiceController.SendExecutorAvatar">
+            <summary>
+            api/SendExecutorAvatar  сохраняет фото  Request.Form["executorId"] и url
+            </summary>
+            <param name="files">Принимает параметр files.</param>
+        </member>
+        <member name="M:WebAppIMaster.Controllers.WebApi.ExecutorServiceController.SendExecutorPhoto">
+            <summary>
+            api/SendExecutorPhoto  сохраняет фото ExecutorFile  Request.Form["executorId"] и url
+            </summary>
+            <param name="files">Принимает параметр files.</param>
         </member>
         <member name="T:WebAppIMaster.Controllers.WebApi.GenderServiceController">
             <summary>
