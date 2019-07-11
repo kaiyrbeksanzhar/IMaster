@@ -234,6 +234,7 @@
     <Compile Include="Controllers\AppController\CityController.cs" />
     <Compile Include="Controllers\AppController\HowDidYouAboutUsController.cs" />
     <Compile Include="Controllers\AppController\NewsController.cs" />
+    <Compile Include="Controllers\AppController\OrganizationController.cs" />
     <Compile Include="Controllers\AppController\SpecilizationController.cs" />
     <Compile Include="Controllers\AppController\SupportController.cs" />
     <Compile Include="Controllers\AppController\UserAgreementController.cs" />
@@ -331,6 +332,10 @@
     <Compile Include="Migrations\201907101026149_OrganizationIP1.cs" />
     <Compile Include="Migrations\201907101026149_OrganizationIP1.Designer.cs">
       <DependentUpon>201907101026149_OrganizationIP1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201907101259592_DbEditto125.cs" />
+    <Compile Include="Migrations\201907101259592_DbEditto125.Designer.cs">
+      <DependentUpon>201907101259592_DbEditto125.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
@@ -432,7 +437,9 @@
     <Compile Include="Models\NewManagerManage\CategoryManagerModels.cs" />
     <Compile Include="Models\NewManagerManage\HowDidYouAboutUsModel.cs" />
     <Compile Include="Models\NewManagerManage\NewsManager.cs" />
+    <Compile Include="Models\NewManagerManage\OrganizationManagersModel.cs" />
     <Compile Include="Models\NewManagerManage\PopulationQuestion.cs" />
+    <Compile Include="Models\NewManagerManage\SelectListManager.cs" />
     <Compile Include="Models\NewManagerManage\SpecilizationManager.cs" />
     <Compile Include="Models\NewManagerManage\SupportManager.cs" />
     <Compile Include="Models\NewManagerManage\UserAgreementService.cs" />
@@ -761,6 +768,7 @@
     <Content Include="Views\Support\Details.cshtml" />
     <Content Include="Views\UserAgreement\Index.cshtml" />
     <Content Include="Views\UserAgreement\Create.cshtml" />
+    <Content Include="Views\Organization\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Files\SupportFiles\" />
@@ -840,6 +848,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201907101026149_OrganizationIP1.resx">
       <DependentUpon>201907101026149_OrganizationIP1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201907101259592_DbEditto125.resx">
+      <DependentUpon>201907101259592_DbEditto125.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Resource.kk-KZ.resx" />
     <EmbeddedResource Include="Resources\Resource.resx" />

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WebAppIMaster.Models.Enitities;
+using WebAppIMaster.Models.Enums;
 
 namespace WebAppIMaster.Models
 {
@@ -30,6 +31,7 @@ namespace WebAppIMaster.Models
         public string Email { get; set; }
         public string Longitude { get; set; }
         public string latitude { get; set; }
+        public Tarif TarifType { get; set; }
         public ICollection<CategoryMarket> Markets { get; set; }
         public string Address { get; set; }
         public int CityId { get; set; }

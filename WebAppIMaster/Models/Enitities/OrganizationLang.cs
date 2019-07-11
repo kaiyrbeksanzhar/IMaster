@@ -12,7 +12,6 @@ namespace WebAppIMaster.Models
         public string Langcode { get; set; }
         public string Name { get; set; }
         public string ShortDescription { get; set; }
-        public string BannerUrl { get; set; }
         public int OrganizationId { get; set; }
         public virtual Organization Organization { get; set; }
     }
