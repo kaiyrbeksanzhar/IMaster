@@ -27,6 +27,7 @@ namespace WebAppIMaster.Controllers.AppController
         public ActionResult Create()
         {
             ViewBag.City = CitySelectList.SelectListForSelectList();
+            ViewBag.CategoryMarket = CategoryMarketSelectList.SelectListForSelectList();
             return View(new OrganizationCreateMdl());
         }
 
@@ -35,6 +36,7 @@ namespace WebAppIMaster.Controllers.AppController
         public ActionResult Create( OrganizationCreateMdl model )
         {
             ViewBag.City = CitySelectList.SelectListForSelectList();
+            ViewBag.CategoryMarket = CategoryMarketSelectList.SelectListForSelectList();
             ApplicationDbContext db = new ApplicationDbContext();
             try
             {

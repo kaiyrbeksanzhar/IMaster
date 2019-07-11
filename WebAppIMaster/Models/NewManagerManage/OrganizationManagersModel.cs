@@ -24,8 +24,10 @@ namespace WebAppIMaster.Models.NewManagerManage
             db.Configuration.LazyLoadingEnabled = false;
             string lang_kz = LanguageController.GetKzCode();
             string lang_ru = LanguageController.GetRuCode();
+
             try
             {
+                string logoUrl = FileManager.SaveOrganizationLogo(model.LogoType);
                 Organization organization = new Organization()
                 {
                     Address = model.Address,
@@ -38,7 +40,7 @@ namespace WebAppIMaster.Models.NewManagerManage
                     Longitude = model.Longitude,
                     YouTubeVideoUrl = model.VideoUrl,
                     YouTubeVideoUrlkz = model.VideoUrl_kz,
-                    LogotypeUrl = model.LogoTypeUrl,
+                    LogotypeUrl = logoUrl,
                     TarifType = model.TarifType,
                     Langs = new List<OrganizationLang>
                 {

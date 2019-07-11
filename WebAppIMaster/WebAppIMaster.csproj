@@ -771,6 +771,7 @@
     <Content Include="Views\Organization\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Files\Organization\" />
     <Folder Include="Files\SupportFiles\" />
     <Folder Include="Images\Avatar\" />
     <Folder Include="Images\CustomerOrder\" />
