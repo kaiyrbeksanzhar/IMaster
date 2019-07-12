@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WebAppIMaster.Models.Enitities;
 
 namespace WebAppIMaster.Models
 {
@@ -13,6 +14,7 @@ namespace WebAppIMaster.Models
             Langs = new HashSet<CategoryLang>();
             executorSpecializations = new HashSet<ExecutorSpecialization>();
             Specializations = new HashSet<Specialization>();
+            organizationCategoryMarketInCategories = new HashSet<OrganizationCategoryMarketInCategory>();
         }
 
         public int Id { get; set; }
@@ -21,6 +23,7 @@ namespace WebAppIMaster.Models
 
         public ICollection<Specialization> Specializations { get; set; }
         public ICollection<CategoryLang> Langs { get; set; }
+        public ICollection<OrganizationCategoryMarketInCategory> organizationCategoryMarketInCategories { get; set; }
         public ICollection<ExecutorSpecialization>  executorSpecializations { get; set; }
     }
 }

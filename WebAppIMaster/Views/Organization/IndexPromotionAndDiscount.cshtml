@@ -1,0 +1,43 @@
+﻿@model IEnumerable<WebAppIMaster.Models.NewManagerModels.PromotionAndDiscountVmMdl>
+
+@{
+    ViewBag.Title = "IndexPromotionAndDiscount";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>IndexPromotionAndDiscount</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.OrganizationName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CreatedAt)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CanceledDateTime)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.OrganizationName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CreatedAt)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CanceledDateTime)
+        </td>
+        <td>
+        </td>
+    </tr>
+}
+
+</table>

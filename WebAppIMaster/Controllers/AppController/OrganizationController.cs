@@ -18,7 +18,7 @@ namespace WebAppIMaster.Controllers.AppController
         }
 
         // GET: Organization/Details/5
-        public ActionResult Details( int id )
+        public ActionResult Details(int id)
         {
             return View();
         }
@@ -33,7 +33,7 @@ namespace WebAppIMaster.Controllers.AppController
 
         // POST: Organization/Create
         [HttpPost]
-        public ActionResult Create( OrganizationCreateMdl model )
+        public ActionResult Create(OrganizationCreateMdl model)
         {
             ViewBag.City = CitySelectList.SelectListForSelectList();
             ViewBag.CategoryMarket = CategoryMarketSelectList.SelectListForSelectList();
@@ -55,14 +55,14 @@ namespace WebAppIMaster.Controllers.AppController
         }
 
         // GET: Organization/Edit/5
-        public ActionResult Edit( int id )
+        public ActionResult Edit(int id)
         {
             return View();
         }
 
         // POST: Organization/Edit/5
         [HttpPost]
-        public ActionResult Edit( int id, FormCollection collection )
+        public ActionResult Edit(int id, FormCollection collection)
         {
             try
             {
@@ -76,15 +76,102 @@ namespace WebAppIMaster.Controllers.AppController
             }
         }
 
+        public ActionResult IndexCategoryMarket()
+        {
+            ApplicationDbContext db = new ApplicationDbContext();
+            OrganizationManagersModel repository = new OrganizationManagersModel(db);
+            List<CategoryMarketVmMdl> result = repository.SelectListCategoryMarket();
+            if (result != null)
+            {
+                return View(result);
+            }
+            return View(new List<CategoryMarketVmMdl>()
+            {
+                new CategoryMarketVmMdl
+                {
+                    CategoryMarketName = "нет данных",
+                    Id = 1,
+                    CatgoryNames = new List<CategoryMarketVmMdl.CatgoryName>()
+                    {
+                        new CategoryMarketVmMdl.CatgoryName
+                        {
+                            Id =  1,
+                            Name = "нет данных",
+                        }
+                    },
+                }
+            });
+        }
+        // GET: Organization/Create
+        public ActionResult CreateCategoryMarket()
+        {
+            ViewBag.Category = CategorySelectList.SelectListForSelectList();
+            return View(new CategoryMarketInsert());
+        }
+
+        // POST: Organization/Create
+        [HttpPost]
+        public ActionResult CreateCategoryMarket(CategoryMarketInsert model)
+        {
+            ViewBag.Category = CategorySelectList.SelectListForSelectList();
+            ApplicationDbContext db = new ApplicationDbContext();
+            try
+            {
+                OrganizationManagersModel repository = new OrganizationManagersModel(db);
+                repository.OrganizationCategoryInsert(model);
+                return RedirectToAction("IndexCategoryMarket");
+            }
+            catch
+            {
+                return View(model);
+            }
+        }
+
+        public ActionResult IndexPromotionAndDiscount()
+        {
+            ApplicationDbContext db = new ApplicationDbContext();
+            OrganizationManagersModel repository = new OrganizationManagersModel(db);
+            List<PromotionAndDiscountVmMdl> result = repository.SelectListPromotionAndDiscount();
+            return View(result);
+        }
+
+        public ActionResult CreatePromotionAndDiscount(int organizationId)
+        {
+            return View(new PromotionAndDiscountCreate()
+            {
+                OrganizationId = organizationId,
+            });
+        }
+
+        // POST: Organization/Create
+        [HttpPost]
+        public ActionResult CreatePromotionAndDiscount(PromotionAndDiscountCreate model)
+        {
+            ViewBag.Category = CategorySelectList.SelectListForSelectList();
+            ApplicationDbContext db = new ApplicationDbContext();
+            try
+            {
+                model.CreatedAt = DateTime.Now;
+                OrganizationManagersModel repository = new OrganizationManagersModel(db);
+                repository.CreatePromotionAndDiscount(model);
+                return RedirectToAction("IndexPromotionAndDiscount");
+            }
+            catch
+            {
+                return View(model);
+            }
+        }
+
+
         // GET: Organization/Delete/5
-        public ActionResult Delete( int id )
+        public ActionResult Delete(int id)
         {
             return View();
         }
 
         // POST: Organization/Delete/5
         [HttpPost]
-        public ActionResult Delete( int id, FormCollection collection )
+        public ActionResult Delete(int id, FormCollection collection)
         {
             try
             {

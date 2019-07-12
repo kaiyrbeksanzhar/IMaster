@@ -56,4 +56,28 @@ namespace WebAppIMaster.Models.NewManagerManage
             return new SelectList(model, "Id", "Name");
         }
     }
+
+    public class CategorySelectList
+    {
+        public static SelectList SelectListForSelectList()
+        {
+            ApplicationDbContext db = new ApplicationDbContext();
+            db.Configuration.AutoDetectChangesEnabled = false;
+            db.Configuration.LazyLoadingEnabled = false;
+
+            string langcode = LanguageController.CurrentCultureCode;
+
+            var model = (from c in db.Categories
+                         from cl in c.Langs
+
+                         where cl.Langcode == langcode
+
+                         select new
+                         {
+                             Id = c.Id,
+                             Name = cl.Name,
+                         });
+            return new SelectList(model, "Id", "Name");
+        }
+    }
 }

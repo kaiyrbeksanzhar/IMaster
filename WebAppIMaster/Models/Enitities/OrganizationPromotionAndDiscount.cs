@@ -14,6 +14,8 @@ namespace WebAppIMaster.Models
         public int ClickCount { get; set; }
         public int CallCount { get; set; }
         public int Priority { get; set; }
+        public DateTime DateTimeCanceled { get; set; }
+        public DateTime CreatedAt { get; set; }
 
         public int OrganizationCardId { get; set; }
         public virtual Organization OrganizationCard { get; set; }

@@ -36,4 +36,49 @@ namespace WebAppIMaster.Models.NewManagerModels
         public int CityId { get; set; }
 
     }
+
+    public class CategoryMarketInsert
+    {
+        public string CategoryName_kz { get; set; }
+        public string CategoryName_ru { get; set; }
+        public List<CategoryMarketInCategory>  categoryMarketInCategories { get; set; }
+        public class CategoryMarketInCategory
+        {
+            public int CategoryMarketInCategoryId { get; set; }
+        }
+    }
+
+    public class CategoryMarketVmMdl
+    {
+        public int Id { get; set; }
+        public string CategoryMarketName { get; set; }
+        public List<CatgoryName> CatgoryNames { get; set; }
+
+        public class CatgoryName
+        {
+            public int Id { get; set; }
+            public string  Name { get; set; }
+        }
+    }
+
+    public class PromotionAndDiscountCreate
+    {
+        public int OrganizationId { get; set; }
+        [NotMapped]
+        public int UrlPhoto { get; set; }
+        public HttpPostedFileBase UrlPhotoType { get; set; }
+        public DateTime DateCanceled { get; set; }
+        public int Priority { get; set; }
+        public int ViewCount { get; set; }
+        public int ClickCount { get; set; }
+        public int CallCount { get; set; }
+        public DateTime CreatedAt { get; set; }
+    }
+
+    public class PromotionAndDiscountVmMdl
+    {
+        public string OrganizationName { get; set; }
+        public DateTime CreatedAt { get; set; }
+        public DateTime CanceledDateTime { get; set; }  
+    }
 }

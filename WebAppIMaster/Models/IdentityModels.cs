@@ -75,5 +75,6 @@ namespace WebAppIMaster.Models.Enitities
         public DbSet<UserAgreement> userAgreements { get; set; }
         public DbSet<CategoryMarket> CategoryMarkets { get; set; }
         public DbSet<CategoryMarketLang> categoryMarketLangs { get; set; }
+        public DbSet<OrganizationCategoryMarketInCategory> organizationCategoryMarketInCategories { get; set; }
     }
 }

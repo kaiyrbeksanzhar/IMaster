@@ -184,8 +184,8 @@
                 var html2Add = "<div class='form-group'>" +
                     "<label class='col-md-12 control-label'>Выберите категорий </label>" +
                     "<div class='col-md-10'>" +
-                   "Html.DropDownListFor(model => model.categoryOrganizations[" + i + "].CategoryOrganizationId, ViewBag.CategoryMarket as SelectList)" +
-                    '@Html.ValidationMessageFor(model => model.CityId, "", new { @class = "text-danger" })' +
+                    "Html.DropDownListFor(model => model.categoryOrganizations[" + i + "].CategoryOrganizationId, ViewBag.CategoryMarket as SelectList)" +
+                    "@Html.ValidationMessageFor(model => model.CityId, "", new { @class = "text-danger" })" +
                     "</div>" +
                     "</div>";
                 $('#CertitficatBlock').append(html2Add);

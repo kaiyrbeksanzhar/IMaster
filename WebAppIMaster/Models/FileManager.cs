@@ -16,6 +16,7 @@ namespace WebAppIMaster.Models
         static string NewsUrl = "/Images/News";
         static string ImagesSave = "/Images";
         static string AvatarPath = "/Images/Avatar";
+        static string PromotionDiscountUrl = "/Images/PromotionAndDiscount";
         public static string DefaulAvatarUrl = "/Images/Default/NoPhoto.png";
         static string OrganizationUrl = "/Files/Organization";
         private static bool isFilesPathReady;
@@ -94,6 +95,21 @@ namespace WebAppIMaster.Models
             if (postedFile != null)
             {
                 savedLogoUrl = OrganizationUrl + "/" + postedFile.FileName.Split('\\').Last();
+                postedFile.SaveAs(HttpContext.Current.Server.MapPath(savedLogoUrl));
+            }
+            else
+            {
+                savedLogoUrl = DefaulAvatarUrl;
+            }
+            return savedLogoUrl;
+        }
+
+        public static string SavePromotionAndDiscountPhoto(HttpPostedFileBase postedFile)
+        {
+            string savedLogoUrl = "";
+            if (postedFile != null)
+            {
+                savedLogoUrl = PromotionDiscountUrl + "/" + postedFile.FileName.Split('\\').Last();
                 postedFile.SaveAs(HttpContext.Current.Server.MapPath(savedLogoUrl));
             }
             else

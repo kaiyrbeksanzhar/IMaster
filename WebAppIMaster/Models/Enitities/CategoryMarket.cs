@@ -10,8 +10,12 @@ namespace WebAppIMaster.Models.Enitities
         public CategoryMarket()
         {
             Langs = new HashSet<CategoryMarketLang>();
+            organizationCategoryMarketInCategories = new HashSet<OrganizationCategoryMarketInCategory>();
         }
         public int Id { get; set; }
+
         public ICollection<CategoryMarketLang> Langs { get; set; }
+
+        public ICollection<OrganizationCategoryMarketInCategory> organizationCategoryMarketInCategories { get; set; }
     }
 }
