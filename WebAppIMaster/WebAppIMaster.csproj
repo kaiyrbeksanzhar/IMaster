@@ -353,6 +353,14 @@
     <Compile Include="Migrations\201907120645571_CreatedAtAdd.Designer.cs">
       <DependentUpon>201907120645571_CreatedAtAdd.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201907130747499_OrganizationCategories.cs" />
+    <Compile Include="Migrations\201907130747499_OrganizationCategories.Designer.cs">
+      <DependentUpon>201907130747499_OrganizationCategories.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201907130857210_CategoryMarket.cs" />
+    <Compile Include="Migrations\201907130857210_CategoryMarket.Designer.cs">
+      <DependentUpon>201907130857210_CategoryMarket.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -388,6 +396,7 @@
     <Compile Include="Models\Enitities\Enums\Status.cs" />
     <Compile Include="Models\Enitities\Enums\StatusCustomer.cs" />
     <Compile Include="Models\Enitities\Enums\Tarif.cs" />
+    <Compile Include="Models\Enitities\Enums\TarifOrganizationMarket.cs" />
     <Compile Include="Models\Enitities\Enums\TypeMessage.cs" />
     <Compile Include="Models\Enitities\Enums\TypePrice.cs" />
     <Compile Include="Models\Enitities\Enums\TypePriceOrganization.cs" />
@@ -408,6 +417,7 @@
     <Compile Include="Models\Enitities\NewsLang.cs" />
     <Compile Include="Models\Enitities\OrderExecutor.cs" />
     <Compile Include="Models\Enitities\Organization.cs" />
+    <Compile Include="Models\Enitities\OrganizationCategory.cs" />
     <Compile Include="Models\Enitities\OrganizationCategoryMarketInCategory.cs" />
     <Compile Include="Models\Enitities\OrganizationLang.cs" />
     <Compile Include="Models\Enitities\OrganizationPromotionAndDiscount.cs" />
@@ -790,6 +800,8 @@
     <Content Include="Views\Organization\IndexCategoryMarket.cshtml" />
     <Content Include="Views\Organization\CreatePromotionAndDiscount.cshtml" />
     <Content Include="Views\Organization\IndexPromotionAndDiscount.cshtml" />
+    <Content Include="Views\Organization\Details.cshtml" />
+    <Content Include="Views\Organization\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Files\Organization\" />
@@ -800,6 +812,7 @@
     <Folder Include="Images\ExecutorFiles\" />
     <Folder Include="Images\Executor\" />
     <Folder Include="Images\News\" />
+    <Folder Include="Images\OrganizationPhotos\" />
     <Folder Include="Images\PromotionAndDiscount\" />
     <Folder Include="Results\" />
     <Folder Include="Views\Language\" />
@@ -886,6 +899,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201907120645571_CreatedAtAdd.resx">
       <DependentUpon>201907120645571_CreatedAtAdd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201907130747499_OrganizationCategories.resx">
+      <DependentUpon>201907130747499_OrganizationCategories.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201907130857210_CategoryMarket.resx">
+      <DependentUpon>201907130857210_CategoryMarket.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Resource.kk-KZ.resx" />
     <EmbeddedResource Include="Resources\Resource.resx" />

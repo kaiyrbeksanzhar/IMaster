@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WebAppIMaster.Models.Enitities;
+using WebAppIMaster.Models.Enitities.Enums;
 using WebAppIMaster.Models.Enums;
 
 namespace WebAppIMaster.Models
@@ -18,6 +19,7 @@ namespace WebAppIMaster.Models
             IPPhotosFiles = new HashSet<IPPhotosFiles>();
             iPOrganizationPrices = new HashSet<IPOrganizationPrice>();
             Markets = new HashSet<CategoryMarket>();
+            organizationCategories = new HashSet<OrganizationCategory>();
         }
 
         public int Id { get; set; }
@@ -31,7 +33,7 @@ namespace WebAppIMaster.Models
         public string Email { get; set; }
         public string Longitude { get; set; }
         public string latitude { get; set; }
-        public Tarif TarifType { get; set; }
+        public TarifOrganizationMarket TarifType { get; set; }
         public ICollection<CategoryMarket> Markets { get; set; }
         public string Address { get; set; }
         public int CityId { get; set; }
@@ -44,5 +46,7 @@ namespace WebAppIMaster.Models
         public ICollection<IPOrganizationPrice>  iPOrganizationPrices { get; set; }
 
         public IPOrganizationSalesAndDiscount IPOrganizationSalesAndDiscount { get; set; }
+
+        public ICollection<OrganizationCategory> organizationCategories { get; set; }
     }
 }

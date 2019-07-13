@@ -76,5 +76,6 @@ namespace WebAppIMaster.Models.Enitities
         public DbSet<CategoryMarket> CategoryMarkets { get; set; }
         public DbSet<CategoryMarketLang> categoryMarketLangs { get; set; }
         public DbSet<OrganizationCategoryMarketInCategory> organizationCategoryMarketInCategories { get; set; }
+        public DbSet<OrganizationCategory> organizationCategories { get; set; }
     }
 }

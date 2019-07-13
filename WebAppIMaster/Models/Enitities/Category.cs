@@ -25,5 +25,6 @@ namespace WebAppIMaster.Models
         public ICollection<CategoryLang> Langs { get; set; }
         public ICollection<OrganizationCategoryMarketInCategory> organizationCategoryMarketInCategories { get; set; }
         public ICollection<ExecutorSpecialization>  executorSpecializations { get; set; }
+
     }
 }

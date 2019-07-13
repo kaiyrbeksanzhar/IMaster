@@ -1,0 +1,121 @@
+﻿@model WebAppIMaster.Models.NewManagerModels.OrganizationVmMdl
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>OrganizationVmMdl</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.PhotoUrl)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PhotoUrl)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OrganizationName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OrganizationName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CategoryName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CategoryName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ShortDescription)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ShortDescription)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.VidoeUrl)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.VidoeUrl)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.VideoUrlkz)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.VideoUrlkz)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PhoneNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PhoneNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ExtraPhoneNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ExtraPhoneNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SiteUrl)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SiteUrl)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Address)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Address)
+        </dd>
+
+        <dt>
+            Акция и скидки
+        </dt>
+        <dd>
+
+            @if (String.IsNullOrEmpty(Model.PhotoPromotionAndDiscountUrl))
+            {
+                <a href="/Organization/CreatePromotionAndDiscount?organizationId=@Model.Id">Добавить Акция и скидки</a>
+            }
+            else
+            {
+                <img src="@Url.Content(Model.PhotoPromotionAndDiscountUrl)" alt="Alternate Text" style="width:150px;">
+            }
+
+        </dd>
+        
+
+    </dl>
+</div>
+

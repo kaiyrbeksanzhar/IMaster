@@ -12,12 +12,12 @@ namespace WebAppIMaster.Models.NewManagerManage
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        public OrganizationManagersModel(ApplicationDbContext db)
+        public OrganizationManagersModel( ApplicationDbContext db )
         {
             this.db = db;
         }
 
-        public bool OrganizationInsert(OrganizationCreateMdl model)
+        public bool OrganizationInsert( OrganizationCreateMdl model )
         {
             ApplicationDbContext db = new ApplicationDbContext();
             db.Configuration.AutoDetectChangesEnabled = false;
@@ -43,22 +43,34 @@ namespace WebAppIMaster.Models.NewManagerManage
                     LogotypeUrl = logoUrl,
                     TarifType = model.TarifType,
                     Langs = new List<OrganizationLang>
-                {
-                    new OrganizationLang
                     {
-                     Langcode = lang_kz,
-                     Name = model.Name_kz,
-                     ShortDescription = model.ShortDescription_kz,
-                    },
-                    new OrganizationLang
-                    {
-                     Langcode = lang_ru,
-                     Name = model.Name_ru,
-                     ShortDescription = model.ShortDescription_ru,
+                        new OrganizationLang
+                        {
+                         Langcode = lang_kz,
+                         Name = model.Name_kz,
+                         ShortDescription = model.ShortDescription_kz,
+                        },
+                        new OrganizationLang
+                        {
+                         Langcode = lang_ru,
+                         Name = model.Name_ru,
+                         ShortDescription = model.ShortDescription_ru,
+                        }
                     }
-                }
                 };
                 db.Organizations.Add(organization);
+                db.SaveChanges();
+
+                List<OrganizationCategory> organizationCategories = new List<OrganizationCategory>();
+                foreach (var item in model.categoryOrganizations)
+                {
+                    organizationCategories.Add(new OrganizationCategory
+                    {
+                        OrganizationId = organization.Id,
+                        CategoryMarketId = item.CategoryOrganizationId,
+                    });
+                }
+                db.organizationCategories.AddRange(organizationCategories);
                 db.SaveChanges();
                 return true;
             }
@@ -68,7 +80,110 @@ namespace WebAppIMaster.Models.NewManagerManage
             }
         }
 
-        public void OrganizationCategoryInsert(CategoryMarketInsert model)
+        public void InsertPhotoOrganization( PhotoCreateOrganizationMdl model)
+        {
+            ApplicationDbContext db = new ApplicationDbContext();
+            db.Configuration.AutoDetectChangesEnabled = false;
+            db.Configuration.LazyLoadingEnabled = false;
+
+            List<IPPhotosFiles> iPPhotosFiles = new List<IPPhotosFiles>()
+            {
+                new IPPhotosFiles
+                {
+                    OrganizationId = model.OrganizationId,
+                    PhotoUrl = FileManager.SaveOrganizationPhoto(model.PhotoUrl1Type),
+                },
+                new IPPhotosFiles
+                {
+                    OrganizationId = model.OrganizationId,
+                    PhotoUrl = FileManager.SaveOrganizationPhoto(model.PhotoUrl2Type),
+                },
+                new IPPhotosFiles
+                {
+                    OrganizationId = model.OrganizationId,
+                    PhotoUrl = FileManager.SaveOrganizationPhoto(model.PhotoUrl3Type),
+                },
+                new IPPhotosFiles
+                {
+                    OrganizationId = model.OrganizationId,
+                    PhotoUrl = FileManager.SaveOrganizationPhoto(model.PhotoUrl4Type),
+                }
+            };
+            db.IPPhotosFilies.AddRange(iPPhotosFiles);
+            db.SaveChanges();
+        }
+
+        public List<OrganizationListVMMdl> SelectList()
+        {
+
+            ApplicationDbContext db = new ApplicationDbContext();
+            db.Configuration.AutoDetectChangesEnabled = false;
+            db.Configuration.LazyLoadingEnabled = false;
+
+            string langcode = LanguageController.CurrentCultureCode;
+
+            var item = (from o in db.Organizations
+                        from ol in o.Langs
+
+                        where ol.Langcode == langcode
+
+                        select new OrganizationListVMMdl
+                        {
+                            Id = o.Id,
+                            Name = ol.Name,
+                            City = o.City.Langs.Where(l => l.Langcode == langcode).Select(l => l.Name).FirstOrDefault(),
+                            Category = (from cm in o.organizationCategories
+
+                                        select new OrganizationListVMMdl.Categories
+                                        {
+                                            CategoryNameMarket = cm.CategoryMarket.Langs.Where(l => l.Langcode == langcode).Select(l => l.CategoryName).FirstOrDefault(),
+                                        }).ToList(),
+                        }).ToList();
+
+            return item;
+        }
+
+        public OrganizationVmMdl SelectOrganization( int Id )
+        {
+            ApplicationDbContext db = new ApplicationDbContext();
+            db.Configuration.AutoDetectChangesEnabled = false;
+            db.Configuration.LazyLoadingEnabled = false;
+
+            string langcode = LanguageController.CurrentCultureCode;
+
+            var item = (from o in db.Organizations
+                        from ol in o.Langs
+
+                        where o.Id == Id
+                        where ol.Langcode == langcode
+
+                        select new OrganizationVmMdl
+                        {
+                            Id = o.Id,
+                            OrganizationName = ol.Name,
+                            PhoneNumber = o.PhoneNumber,
+                            ExtraPhoneNumber = o.ExtraPhoneNumber,
+                            Email = o.Email,
+                            ShortDescription = ol.ShortDescription,
+                            SiteUrl = o.SiteUrl,
+                            Address = o.Address,
+                            CategoryName = o.Markets.SelectMany(m => m.Langs).Where(l => l.Langcode == langcode).Select(l => l.CategoryName).FirstOrDefault(),
+                            PhotoPromotionAndDiscountId = o.PromotionAndDiscounts.Select(p => p.Id).FirstOrDefault(),
+                            PhotoPromotionAndDiscountUrl = o.PromotionAndDiscounts.Select(p => p.BannerUrl).FirstOrDefault(),
+                            PhotoUrl = o.LogotypeUrl,
+                            VidoeUrl = o.YouTubeVideoUrl,
+                            VideoUrlkz = o.YouTubeVideoUrlkz,
+                            photos = (from p in o.IPPhotosFiles
+
+                                      select new OrganizationVmMdl.Photos
+                                      {
+                                          PhotoUrl = p.PhotoUrl,
+                                      }).ToList(),
+                        }).SingleOrDefault();
+            return item;
+        }
+
+        public void OrganizationCategoryInsert( CategoryMarketInsert model )
         {
             ApplicationDbContext db = new ApplicationDbContext();
             db.Configuration.AutoDetectChangesEnabled = false;
@@ -136,7 +251,7 @@ namespace WebAppIMaster.Models.NewManagerManage
             return item;
         }
 
-        public void CreatePromotionAndDiscount(PromotionAndDiscountCreate model)
+        public void CreatePromotionAndDiscount( PromotionAndDiscountCreate model )
         {
             ApplicationDbContext db = new ApplicationDbContext();
             db.Configuration.AutoDetectChangesEnabled = false;

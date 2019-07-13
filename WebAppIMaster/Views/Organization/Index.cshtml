@@ -1,0 +1,42 @@
+﻿@model IEnumerable<WebAppIMaster.Models.NewManagerModels.OrganizationListVMMdl>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Добавить", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            Категория
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                <a href="/Organization/Details?id=@item.Id">
+                    @Html.DisplayFor(modelItem => item.Name)
+                </a>
+            </td>
+            <td>
+                @foreach (var categoryMarket in item.Category)
+                {
+                    @categoryMarket.CategoryNameMarket
+                }
+            </td>
+            <td></td>
+        </tr>
+    }
+
+</table>

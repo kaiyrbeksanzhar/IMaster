@@ -14,13 +14,43 @@ namespace WebAppIMaster.Controllers.AppController
         // GET: Organization
         public ActionResult Index()
         {
-            return View();
+            ApplicationDbContext db = new ApplicationDbContext();
+            OrganizationManagersModel repository = new OrganizationManagersModel(db);
+            List<OrganizationListVMMdl> model = repository.SelectList();
+            return View(model);
         }
 
         // GET: Organization/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Details( int id )
         {
-            return View();
+            ApplicationDbContext db = new ApplicationDbContext();
+            OrganizationManagersModel repository = new OrganizationManagersModel(db);
+            OrganizationVmMdl model = repository.SelectOrganization(id);
+            return View(model);
+        }
+
+        // GET: Organization/Create
+        public ActionResult CreatePhotoOrganization()
+        {
+            return View(new PhotoCreateOrganizationMdl());
+        }
+
+        // POST: Organization/Create
+        [HttpPost]
+        public ActionResult CreatePhotoOrganization( PhotoCreateOrganizationMdl model )
+        {
+            ApplicationDbContext db = new ApplicationDbContext();
+            try
+            {
+                OrganizationManagersModel repository = new OrganizationManagersModel(db);
+                repository.InsertPhotoOrganization(model);
+                return RedirectToAction("Details");
+            }
+            catch
+            {
+                return View(model);
+            }
+            return View(model);
         }
 
         // GET: Organization/Create
@@ -33,7 +63,7 @@ namespace WebAppIMaster.Controllers.AppController
 
         // POST: Organization/Create
         [HttpPost]
-        public ActionResult Create(OrganizationCreateMdl model)
+        public ActionResult Create( OrganizationCreateMdl model )
         {
             ViewBag.City = CitySelectList.SelectListForSelectList();
             ViewBag.CategoryMarket = CategoryMarketSelectList.SelectListForSelectList();
@@ -55,14 +85,14 @@ namespace WebAppIMaster.Controllers.AppController
         }
 
         // GET: Organization/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit( int id )
         {
             return View();
         }
 
         // POST: Organization/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit( int id, FormCollection collection )
         {
             try
             {
@@ -94,6 +124,8 @@ namespace WebAppIMaster.Controllers.AppController
                     CatgoryNames = new List<CategoryMarketVmMdl.CatgoryName>()
                     {
                         new CategoryMarketVmMdl.CatgoryName
+
+                         
                         {
                             Id =  1,
                             Name = "нет данных",
@@ -111,7 +143,7 @@ namespace WebAppIMaster.Controllers.AppController
 
         // POST: Organization/Create
         [HttpPost]
-        public ActionResult CreateCategoryMarket(CategoryMarketInsert model)
+        public ActionResult CreateCategoryMarket( CategoryMarketInsert model )
         {
             ViewBag.Category = CategorySelectList.SelectListForSelectList();
             ApplicationDbContext db = new ApplicationDbContext();
@@ -135,7 +167,7 @@ namespace WebAppIMaster.Controllers.AppController
             return View(result);
         }
 
-        public ActionResult CreatePromotionAndDiscount(int organizationId)
+        public ActionResult CreatePromotionAndDiscount( int organizationId )
         {
             return View(new PromotionAndDiscountCreate()
             {
@@ -145,7 +177,7 @@ namespace WebAppIMaster.Controllers.AppController
 
         // POST: Organization/Create
         [HttpPost]
-        public ActionResult CreatePromotionAndDiscount(PromotionAndDiscountCreate model)
+        public ActionResult CreatePromotionAndDiscount( PromotionAndDiscountCreate model )
         {
             ViewBag.Category = CategorySelectList.SelectListForSelectList();
             ApplicationDbContext db = new ApplicationDbContext();
@@ -164,14 +196,14 @@ namespace WebAppIMaster.Controllers.AppController
 
 
         // GET: Organization/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete( int id )
         {
             return View();
         }
 
         // POST: Organization/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Delete( int id, FormCollection collection )
         {
             try
             {
