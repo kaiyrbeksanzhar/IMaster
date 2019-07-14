@@ -5,50 +5,54 @@
 
 <h2>APITest</h2>
 
+<div class="container">
+    <div class="row">
+        <div class="registerForm form-group col-sm-6" style="display: block;">
+            <label class="my-4">Введиту Username</label>
+            <input class="form-control" type="text" name="username" id="username" value="" />
+            <label class="my-4">Введиту Email</label>
+            <input class="form-control" type="email" name="email" id="email" value="" />
+            <label class="my-4">Введите пароль</label>
+            <input class="form-control" type="password" name="password" id="password" value="" />
+            <label class="my-4">Подтвердите пароль</label>
+            <input class="form-control" type="password" name="confirmPassword" id="confirmPassword" value="" />
 
-<div class="registerForm" style="display: block;">
-    <label>Введиту Username</label>
-    <input type="text" name="username" id="username" value="" />
-    <label>Введиту Email</label>
-    <input type="email" name="email" id="email" value="" />
-    <label>Введите пароль</label>
-    <input type="password" name="password" id="password" value="" />
-    <label>Подтвердите пароль</label>
-    <input type="password" name="confirmPassword" id="confirmPassword" value="" />
+            <label class="my-4">Введиту имя</label>
+            <input class="form-control" type="text" name="name" id="name" value="" />
+            <label class="my-4">Введиту фамилию</label>
+            <input class="form-control" type="text" name="surname" id="surname" value="" />
+            <label class="my-4">Введиту отчество</label>
+            <input class="form-control" type="text" name="fatherName" id="fatherName" value="" />
+            <label class="my-4">Введиту ИИН</label>
+            <input class="form-control" type="text" name="iin" id="iin" value="" />
 
-    <label>Введиту имя</label>
-    <input type="text" name="name" id="name" value="" />
-    <label>Введиту фамилию</label>
-    <input type="text" name="surname" id="surname" value="" />
-    <label>Введиту отчество</label>
-    <input type="text" name="fatherName" id="fatherName" value="" />
-    <label>Введиту ИИН</label>
-    <input type="text" name="iin" id="iin" value="" />
+            <label class="my-4">Введиту стаж</label>
+            <input class="form-control" type="number" name="ageExp" id="ageExp" value="" />
+            <label class="my-4">Введиту тип машины</label>
+            <input class="form-control" type="number" name="typeVech" id="typeVech" value="" />
+            <input class="btn btn-outline-primary my-4" type="submit" name="submit" id="submit" value="Регистрация" />
+        </div>
 
-    <label>Введиту стаж</label>
-    <input type="number" name="ageExp" id="ageExp" value="" />
-    <label>Введиту тип машины</label>
-    <input type="number" name="typeVech" id="typeVech" value="" />
-    <input type="submit" name="submit" id="submit" value="Регистрация" />
-</div>
-<div class="userInfo" style="display: none;">
-    <p>
-        Вы вошли как
-        <span class="userName"></span>
-    </p>
-    <input type="button" value="Выйти" id="logOut" />
-</div>
-<div class="loginForm">
-    <h3>Вход на сайт</h3>
-    <label>Введите Email</label>
-    <br />
-    <input type="email" value="" id="emailLogin" />
-    <br /> <br />
-    <label>Введите пароль</label>
-    <br />
-    <input type="password" value="" id="passwordLogin" />
-    <br /><br />
-    <input type="submit" id="submitLogin" value="Догин" />
+        <div class="loginForm form-group col-sm-6">
+            <h3>Вход на сайт</h3>
+            <label>Введите Email</label>
+            <br />
+            <input class="form-control" type="email" value="" id="emailLogin" />
+            <br /> <br />
+            <label>Введите пароль</label>
+            <br />
+            <input class="form-control" type="password" value="" id="passwordLogin" />
+            <br /><br />
+            <input class="btn btn-outline-primary" type="submit" id="submitLogin" value="Логин" />
+        </div>
+        <div class="userInfo" style="display: none;">
+            <p>
+                Вы вошли как
+                <span class="userName"></span>
+            </p>
+            <input type="button" value="Выйти" id="logOut" />
+        </div>
+    </div>
 </div>
 @section scripts {
     <script type="text/javascript">
