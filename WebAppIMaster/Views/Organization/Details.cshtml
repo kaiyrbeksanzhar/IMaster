@@ -5,20 +5,41 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Details</h2>
 
 <div>
-    <h4>OrganizationVmMdl</h4>
+    <h4>Подробнее об организаций: "@Model.OrganizationName"</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.PhotoUrl)
+            Фото органицазций
         </dt>
-
         <dd>
-            @Html.DisplayFor(model => model.PhotoUrl)
+            @if (Model.photos.Count() == 0)
+            {
+                <a href="/Organization/CreatePhotoOrganization?organizationId=@Model.Id">Добавление фото для организаций</a>
+            }
+            else
+            {
+                foreach (var item in Model.photos)
+                {
+                    <img src="@Url.Content(item.PhotoUrl)" alt="Alternate Text" style="width:150px;">
+                }
+            }
+            @if (Model.photos.Count() > 0)
+            {
+                @*<a href="/Organization/EditPhotoOrganization?organizationId=@Model.Id">Редактировать фото для организаций</a>*@
+            }
+            else
+            {
+                <span> </span>
+            }
         </dd>
-
+        <dt>
+            Логотип организации
+        </dt>
+        <dd>
+            <img src="@Url.Content(Model.PhotoUrl)" alt="Alternate Text" style="width:150px;">
+        </dd>
         <dt>
             @Html.DisplayNameFor(model => model.OrganizationName)
         </dt>
@@ -28,11 +49,14 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.CategoryName)
+            Категория маркет
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.CategoryName)
+            @foreach(var category in Model.catgoriesMarkets)
+            {
+                @category.Name
+            }
         </dd>
 
         <dt>
@@ -113,8 +137,21 @@
                 <img src="@Url.Content(Model.PhotoPromotionAndDiscountUrl)" alt="Alternate Text" style="width:150px;">
             }
 
+            @if (!String.IsNullOrEmpty(Model.PhotoPromotionAndDiscountUrl))
+            {
+                <a href="/Organization/DeletePromotionAndDiscount?id=@Model.Id">Удалить</a>
+            }
         </dd>
-        
+        <dt>
+            Цены
+        </dt>
+        <dd>
+            @foreach (var ipp in Model.iPOrganizationPrices)
+            {
+                <span>@ipp.ProductName     @ipp.To  - @ipp.From @ipp.TypeTarif</span>
+            }
+            <a href="/Organization/CreateOrganizationPrice?organizationId=@Model.Id">Добавить цены</a>
+        </dd>
 
     </dl>
 </div>

@@ -1,0 +1,104 @@
+﻿@model WebAppIMaster.Models.NewManagerModels.CreateOrganizationPrice
+
+@{
+    ViewBag.Title = "CreateOrganizationPrice";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Страница добавление Цены</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.OrganizationId)
+<div class="form-horizontal">
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+    <div class="form-group">
+        <label class="control-label col-md-2">
+            Название продукта
+        </label>
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.ProductName, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.ProductName, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-2" style="padding-top:0px;">
+            Фикцированная цена
+        </label>
+        <div class="col-md-10">
+            <input type="checkbox" name="Type" value="1" />
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.FromPrice, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.FromPrice, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.FromPrice, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-2" style="padding-top:0px;">
+            Фикцированная цена
+        </label>
+        <div class="col-md-10">
+            <input type="checkbox" name="Type" value="1" />
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.FromPrice, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.FromPrice, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.FromPrice, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.ToPrice, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.ToPrice, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.ToPrice, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <style>
+        select.form-control:not([size]):not([multiple]){
+            height:100% !important;
+        }
+    </style>
+    <div class="form-group">
+        <label class="control-label col-md-2" >
+            За
+        </label>
+        <div class="col-md-10">
+            @Html.EnumDropDownListFor(
+        x => x.TarifType,
+        "Выберите",
+        new { @class = "form-control" })
+        </div>
+    </div>
+
+
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Добавить" class="btn btn-default" />
+        </div>
+    </div>
+</div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

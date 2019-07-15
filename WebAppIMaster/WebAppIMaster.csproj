@@ -233,6 +233,7 @@
     <Compile Include="Controllers\AppController\CategoryController.cs" />
     <Compile Include="Controllers\AppController\CityController.cs" />
     <Compile Include="Controllers\AppController\HowDidYouAboutUsController.cs" />
+    <Compile Include="Controllers\AppController\LandingPageController.cs" />
     <Compile Include="Controllers\AppController\NewsController.cs" />
     <Compile Include="Controllers\AppController\OrganizationController.cs" />
     <Compile Include="Controllers\AppController\SpecilizationController.cs" />
@@ -574,6 +575,49 @@
     <Content Include="Content\jquery.dataTables.css" />
     <Content Include="Content\jquery.dataTables.js" />
     <Content Include="Content\jquery.dataTables.min.js" />
+    <Content Include="Content\LangindPage\.idea\misc.xml" />
+    <Content Include="Content\LangindPage\.idea\modules.xml" />
+    <Content Include="Content\LangindPage\.idea\workspace.xml" />
+    <Content Include="Content\LangindPage\css\animate.css" />
+    <Content Include="Content\LangindPage\css\bootstrap.css" />
+    <Content Include="Content\LangindPage\css\font-awesome.min.css" />
+    <Content Include="Content\LangindPage\css\responsive.css" />
+    <Content Include="Content\LangindPage\css\slick-theme.css" />
+    <Content Include="Content\LangindPage\css\slick.css" />
+    <Content Include="Content\LangindPage\css\style.css" />
+    <Content Include="Content\LangindPage\image\200px-Plus_symbol.svg.png" />
+    <Content Include="Content\LangindPage\image\banner-image-1.png" />
+    <Content Include="Content\LangindPage\image\banner.png" />
+    <Content Include="Content\LangindPage\image\check.png" />
+    <Content Include="Content\LangindPage\image\control.png" />
+    <Content Include="Content\LangindPage\image\dann-hover.png" />
+    <Content Include="Content\LangindPage\image\danny.png" />
+    <Content Include="Content\LangindPage\image\Download_on_the_App_Store_Badge_RU_RGB_blk_100317.svg" />
+    <Content Include="Content\LangindPage\image\favicon.png" />
+    <Content Include="Content\LangindPage\image\footer-bottom.png" />
+    <Content Include="Content\LangindPage\image\footer-image-gray.png" />
+    <Content Include="Content\LangindPage\image\footer-image.png" />
+    <Content Include="Content\LangindPage\image\for-workers\1.png" />
+    <Content Include="Content\LangindPage\image\for-workers\2.png" />
+    <Content Include="Content\LangindPage\image\for-workers\3.png" />
+    <Content Include="Content\LangindPage\image\for-workers\4.png" />
+    <Content Include="Content\LangindPage\image\google-play-badge.png" />
+    <Content Include="Content\LangindPage\image\hand-hover.png" />
+    <Content Include="Content\LangindPage\image\header-top.png" />
+    <Content Include="Content\LangindPage\image\logo.png" />
+    <Content Include="Content\LangindPage\image\newsletter.jpg" />
+    <Content Include="Content\LangindPage\image\phone-image.png" />
+    <Content Include="Content\LangindPage\image\play.png" />
+    <Content Include="Content\LangindPage\image\search.png" />
+    <Content Include="Content\LangindPage\image\workers\1.jpg" />
+    <Content Include="Content\LangindPage\image\workers\2.jpg" />
+    <Content Include="Content\LangindPage\image\workers\3.jpg" />
+    <Content Include="Content\LangindPage\image\workers\4.jpg" />
+    <Content Include="Content\LangindPage\js\bootstrap.js" />
+    <Content Include="Content\LangindPage\js\custom.js" />
+    <Content Include="Content\LangindPage\js\jquery.js" />
+    <Content Include="Content\LangindPage\js\slick.js" />
+    <Content Include="Content\LangindPage\js\wow.js" />
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
@@ -717,6 +761,13 @@
     <Content Include="Content\assets\sass\lbd\_typography.scss" />
     <Content Include="Content\assets\sass\lbd\_variables.scss" />
     <Content Include="Content\assets\sass\light-bootstrap-dashboard.scss" />
+    <Content Include="Content\LangindPage\.idea\sooper.iml" />
+    <Content Include="Content\LangindPage\fonts\fontawesome-webfont.eot-" />
+    <Content Include="Content\LangindPage\fonts\fontawesome-webfont.eot-v=4.7.0" />
+    <Content Include="Content\LangindPage\fonts\fontawesome-webfont.svg-v=4.7.0" />
+    <Content Include="Content\LangindPage\fonts\fontawesome-webfont.ttf-v=4.7.0" />
+    <Content Include="Content\LangindPage\fonts\fontawesome-webfont.woff-v=4.7.0" />
+    <Content Include="Content\LangindPage\fonts\fontawesome-webfont.woff2-v=4.7.0" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile1.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
@@ -802,6 +853,10 @@
     <Content Include="Views\Organization\IndexPromotionAndDiscount.cshtml" />
     <Content Include="Views\Organization\Details.cshtml" />
     <Content Include="Views\Organization\Index.cshtml" />
+    <Content Include="Views\Organization\CreatePhotoOrganization.cshtml" />
+    <Content Include="Views\Organization\IndexOrganizationPrice.cshtml" />
+    <Content Include="Views\Organization\CreateOrganizationPrice.cshtml" />
+    <Content Include="Views\LandingPage\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Files\Organization\" />
