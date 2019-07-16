@@ -828,6 +828,17 @@
             MarketService
             </summary>
         </member>
+        <member name="M:WebAppIMaster.Controllers.WebApi.MarketSerivecController.GetDetailsMarket(System.Int32)">
+            <summary>
+            api/GetDetailsMarket/{marketId} возвращает Market
+            </summary>
+            <param name="Id">Принимает параметр Id(marketId).</param>
+        </member>
+        <member name="M:WebAppIMaster.Controllers.WebApi.MarketSerivecController.GetListMarket">
+            <summary>
+            api/GetListMarket возвращает Market List
+            </summary>
+        </member>
         <member name="M:WebAppIMaster.Controllers.WebApi.MarketSerivecController.PostClient(System.String,System.Int32)">
             <summary>
             передайте clientId,marketId(api/MarketSerivece/) сохранять в базу
@@ -841,6 +852,30 @@
             </summary>
             <param name="executorId">Принимает параметр executorId.</param>
             <param name="marketId">Принимает параметр marketId.</param>
+        </member>
+        <member name="M:WebAppIMaster.Controllers.WebApi.MarketSerivecController.MarketPhotosUrls(System.Int32)">
+            <summary>
+            api/MarketPhotosUrls/{marketId} возвращает List urls photo
+            </summary>
+            <param name="marketId">Принимает параметр marketId.</param>
+        </member>
+        <member name="M:WebAppIMaster.Controllers.WebApi.MarketSerivecController.GetPromotionAndDiscountPhotoForMarket(System.Int32)">
+            <summary>
+            api/GetPromotionAndDiscountPhotoForMarket/{marketId} возвращает Акция и скидки  url photo
+            </summary>
+            <param name="marketId">Принимает параметр marketId.</param>
+        </member>
+        <member name="M:WebAppIMaster.Controllers.WebApi.MarketSerivecController.GetLogoTypeMarket(System.Int32)">
+            <summary>
+            api/GetLogoTypeMarket/{marketId} возвращает Логотип маркет  url photo
+            </summary>
+            <param name="marketId">Принимает параметр marketId.</param>
+        </member>
+        <member name="M:WebAppIMaster.Controllers.WebApi.MarketSerivecController.GetPhoto(System.String)">
+            <summary>
+            api/GetPhoto/{url} возвращает фото
+            </summary>
+            <param name="url">Принимает параметр url.</param>
         </member>
         <member name="T:WebAppIMaster.Controllers.WebApi.NewsItemServiceController">
             <summary>

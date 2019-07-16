@@ -8,7 +8,7 @@ namespace WebAppIMaster.Models.Enums
 {
     public enum TypePriceOrganization
     {
-        fixedPrice,//Фиксированная цена
+        fixedPrice = 1,//Фиксированная цена
         intervalPrice //интервал цен 
     }
 }

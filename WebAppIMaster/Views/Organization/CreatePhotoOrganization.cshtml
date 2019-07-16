@@ -1,0 +1,72 @@
+﻿@model WebAppIMaster.Models.NewManagerModels.PhotoCreateOrganizationMdl
+
+@{
+    ViewBag.Title = "CreatePhotoOrganization";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>CreatePhotoOrganization</h2>
+
+
+@using (Html.BeginForm("CreatePhotoOrganization", "Organization", FormMethod.Post,
+                                            new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.OrganizationId)
+
+    <div class="form-horizontal">
+        <h4>Добавление фото для организаций</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        <label class="col-md-2 control-label">
+            Первое фото
+        </label>
+        <div class="col-md-10">
+            <input type="file" name="PhotoUrl1Type" value="" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-md-2 control-label">
+            Второе фото
+        </label>
+        <div class="col-md-10">
+            <input type="file" name="PhotoUrl2Type" value="" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-md-2 control-label">
+            Третяя фото
+        </label>
+        <div class="col-md-10">
+            <input type="file" name="PhotoUrl3Type" value="" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-md-2 control-label">
+            Четвертая фото
+        </label>
+        <div class="col-md-10">
+            <input type="file" name="PhotoUrl4Type" value="" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Create" class="btn btn-default" />
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

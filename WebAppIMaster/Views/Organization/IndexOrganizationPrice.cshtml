@@ -1,0 +1,49 @@
+﻿@model IEnumerable<WebAppIMaster.Models.NewManagerModels.IndexOrganizationPrice>
+
+@{
+    ViewBag.Title = "IndexOrganizationPrice";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>IndexOrganizationPrice</h2>
+
+<p>
+    @Html.ActionLink("Добавить", "CreateOrganizationPrice")
+
+    <a href="/Organization/CreateOrganizationPrice?organizationId=@Model.Select(m=>m.OrganizationId)">Добавить</a>
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.OrganizationName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FromPrice)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ToPrice)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductName)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.OrganizationName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FromPrice)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ToPrice)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProductName)
+        </td>
+    </tr>
+}
+
+</table>

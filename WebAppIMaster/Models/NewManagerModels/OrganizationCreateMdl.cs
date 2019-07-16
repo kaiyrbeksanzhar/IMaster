@@ -24,7 +24,7 @@ namespace WebAppIMaster.Models.NewManagerModels
         {
             public int CategoryOrganizationId { get; set; }
         }
-        
+
         public string VideoUrl { get; set; }
         public string VideoUrl_kz { get; set; }
         public string PhoneNumber { get; set; }
@@ -42,7 +42,7 @@ namespace WebAppIMaster.Models.NewManagerModels
     {
         public string CategoryName_kz { get; set; }
         public string CategoryName_ru { get; set; }
-        public List<CategoryMarketInCategory>  categoryMarketInCategories { get; set; }
+        public List<CategoryMarketInCategory> categoryMarketInCategories { get; set; }
         public class CategoryMarketInCategory
         {
             public int CategoryMarketInCategoryId { get; set; }
@@ -58,7 +58,7 @@ namespace WebAppIMaster.Models.NewManagerModels
         public class CatgoryName
         {
             public int Id { get; set; }
-            public string  Name { get; set; }
+            public string Name { get; set; }
         }
     }
 
@@ -80,7 +80,7 @@ namespace WebAppIMaster.Models.NewManagerModels
     {
         public string OrganizationName { get; set; }
         public DateTime CreatedAt { get; set; }
-        public DateTime CanceledDateTime { get; set; }  
+        public DateTime CanceledDateTime { get; set; }
     }
 
     public class OrganizationVmMdl
@@ -88,7 +88,6 @@ namespace WebAppIMaster.Models.NewManagerModels
         public int Id { get; set; }
         public string PhotoUrl { get; set; }
         public string OrganizationName { get; set; }
-        public string CategoryName { get; set; }
         public string ShortDescription { get; set; }
         public string VidoeUrl { get; set; }
         public string VideoUrlkz { get; set; }
@@ -104,7 +103,20 @@ namespace WebAppIMaster.Models.NewManagerModels
         {
             public string PhotoUrl { get; set; }
         }
+        public List<CatgoriesMarket> catgoriesMarkets { get; set; }
+        public class CatgoriesMarket
+        {
+            public string Name { get; set; }
+        }
 
+        public List<IPOrganizationPrices>  iPOrganizationPrices { get; set; }
+        public class IPOrganizationPrices
+        {
+            public string ProductName { get; set; }
+            public string From { get; set; }
+            public string To { get; set; }
+            public OrganizationIpTarif TypeTarif { get; set; }
+        }
         public string PhotoPromotionAndDiscountUrl { get; set; }
         public int PhotoPromotionAndDiscountId { get; set; }
     }
@@ -137,7 +149,41 @@ namespace WebAppIMaster.Models.NewManagerModels
         [NotMapped]
         public string PhotoUrl4 { get; set; }
         public HttpPostedFileBase PhotoUrl4Type { get; set; }
+    }
+    public class EditPhotoOrganizationMdl
+    {
+        public int OrganizationId { get; set; }
+        [NotMapped]
+        public string PhotoUrl1 { get; set; }
+        public HttpPostedFileBase PhotoUrl1Type { get; set; }
+        [NotMapped]
+        public string PhotoUrl2 { get; set; }
+        public HttpPostedFileBase PhotoUrl2Type { get; set; }
+        [NotMapped]
+        public string PhotoUrl3 { get; set; }
+        public HttpPostedFileBase PhotoUrl3Type { get; set; }
+        [NotMapped]
+        public string PhotoUrl4 { get; set; }
+        public HttpPostedFileBase PhotoUrl4Type { get; set; }
+    }
+    public class IndexOrganizationPrice
+    {
+        public int OrganizationId { get; set; }
+        public string OrganizationName { get; set; }
+        public string FromPrice { get; set; }
+        public string ToPrice { get; set; }
+        public OrganizationIpTarif TarifType { get; set; }
+        public string ProductName { get; set; }
+    }
 
+    public class CreateOrganizationPrice
+    {
+        public int OrganizationId { get; set; }
+        public string FromPrice { get; set; }
+        public string ToPrice { get; set; }
+        public OrganizationIpTarif TarifType { get; set; }
+        public TypePriceOrganization Type { get; set; }
+        public string ProductName { get; set; }
     }
 }
 

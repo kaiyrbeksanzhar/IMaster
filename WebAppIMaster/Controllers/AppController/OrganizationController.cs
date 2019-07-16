@@ -29,10 +29,49 @@ namespace WebAppIMaster.Controllers.AppController
             return View(model);
         }
 
-        // GET: Organization/Create
-        public ActionResult CreatePhotoOrganization()
+        public ActionResult IndexOrganizationPrice( int id )
         {
-            return View(new PhotoCreateOrganizationMdl());
+            ApplicationDbContext db = new ApplicationDbContext();
+            OrganizationManagersModel repository = new OrganizationManagersModel(db);
+            List<IndexOrganizationPrice> model = repository.SelectOrganizationPrice(id);
+            return View(model);
+        }
+
+
+        public ActionResult CreateOrganizationPrice( int organizationId )
+        {
+            return View(new CreateOrganizationPrice()
+            {
+                OrganizationId = organizationId,
+            });
+        }
+
+        // POST: Organization/Create
+        [HttpPost]
+        public ActionResult CreateOrganizationPrice( CreateOrganizationPrice model )
+        {
+            ApplicationDbContext db = new ApplicationDbContext();
+            try
+            {
+                OrganizationManagersModel repository = new OrganizationManagersModel(db);
+                repository.InsertOrganizationPrice(model);
+                return RedirectToAction("IndexOrganizationPrice", new { id = model.OrganizationId });
+            }
+            catch
+            {
+                return View(model);
+            }
+            return View(model);
+        }
+
+
+        // GET: Organization/Create
+        public ActionResult CreatePhotoOrganization( int organizationId )
+        {
+            return View(new PhotoCreateOrganizationMdl()
+            {
+                OrganizationId = organizationId,
+            });
         }
 
         // POST: Organization/Create
@@ -44,7 +83,7 @@ namespace WebAppIMaster.Controllers.AppController
             {
                 OrganizationManagersModel repository = new OrganizationManagersModel(db);
                 repository.InsertPhotoOrganization(model);
-                return RedirectToAction("Details");
+                return RedirectToAction("Details", new { id = model.OrganizationId });
             }
             catch
             {
@@ -125,7 +164,7 @@ namespace WebAppIMaster.Controllers.AppController
                     {
                         new CategoryMarketVmMdl.CatgoryName
 
-                         
+
                         {
                             Id =  1,
                             Name = "нет данных",
@@ -215,6 +254,15 @@ namespace WebAppIMaster.Controllers.AppController
             {
                 return View();
             }
+        }
+
+        public ActionResult DeletePromotionAndDiscount( int id )
+        {
+            ApplicationDbContext db = new ApplicationDbContext();
+            var model = db.OrganizationPromotionAndDiscounts.Where(op => op.OrganizationCardId == id).SingleOrDefault();
+            db.OrganizationPromotionAndDiscounts.Remove(model);
+            db.SaveChanges();
+            return RedirectToAction("IndexPromotionAndDiscount");
         }
     }
 }

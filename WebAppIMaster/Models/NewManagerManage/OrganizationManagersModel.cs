@@ -80,7 +80,7 @@ namespace WebAppIMaster.Models.NewManagerManage
             }
         }
 
-        public void InsertPhotoOrganization( PhotoCreateOrganizationMdl model)
+        public void InsertPhotoOrganization( PhotoCreateOrganizationMdl model )
         {
             ApplicationDbContext db = new ApplicationDbContext();
             db.Configuration.AutoDetectChangesEnabled = false;
@@ -167,7 +167,6 @@ namespace WebAppIMaster.Models.NewManagerManage
                             ShortDescription = ol.ShortDescription,
                             SiteUrl = o.SiteUrl,
                             Address = o.Address,
-                            CategoryName = o.Markets.SelectMany(m => m.Langs).Where(l => l.Langcode == langcode).Select(l => l.CategoryName).FirstOrDefault(),
                             PhotoPromotionAndDiscountId = o.PromotionAndDiscounts.Select(p => p.Id).FirstOrDefault(),
                             PhotoPromotionAndDiscountUrl = o.PromotionAndDiscounts.Select(p => p.BannerUrl).FirstOrDefault(),
                             PhotoUrl = o.LogotypeUrl,
@@ -179,8 +178,65 @@ namespace WebAppIMaster.Models.NewManagerManage
                                       {
                                           PhotoUrl = p.PhotoUrl,
                                       }).ToList(),
+                            catgoriesMarkets = (from oc in o.organizationCategories
+
+                                                select new OrganizationVmMdl.CatgoriesMarket
+                                                {
+                                                    Name = oc.CategoryMarket.Langs.Where(l => l.Langcode == langcode).Select(l => l.CategoryName).FirstOrDefault(),
+                                                }).ToList(),
+                           iPOrganizationPrices = (from ipo in o.iPOrganizationPrices
+
+                                                   select new OrganizationVmMdl.IPOrganizationPrices
+                                                   {
+                                                       ProductName = ipo.ProductName,
+                                                       From = ipo.FromPrice,
+                                                       To = ipo.ToPrice,
+                                                       TypeTarif = ipo.TarifType,
+                                                   }).ToList(),
                         }).SingleOrDefault();
             return item;
+        }
+
+        public List<IndexOrganizationPrice> SelectOrganizationPrice(int id)
+        {
+            ApplicationDbContext db = new ApplicationDbContext();
+            db.Configuration.AutoDetectChangesEnabled = false;
+            db.Configuration.LazyLoadingEnabled = false;
+
+            string langcode = LanguageController.CurrentCultureCode;
+
+            var item = (from ip in db.iPOrganizationPrices
+                        where ip.OrganizationId == id
+                        select new IndexOrganizationPrice
+                        {
+                            OrganizationName = ip.Organization.Langs.Where(l=>l.Langcode == langcode).Select(l=>l.Name).FirstOrDefault(),
+                            OrganizationId = ip.OrganizationId,
+                            FromPrice = ip.FromPrice,
+                            ProductName = ip.ProductName,
+                            TarifType = ip.TarifType,
+                            ToPrice = ip.ToPrice,
+                        }).ToList();
+
+            return item;
+        }
+
+        public void InsertOrganizationPrice( CreateOrganizationPrice model )
+        {
+            ApplicationDbContext db = new ApplicationDbContext();
+            db.Configuration.AutoDetectChangesEnabled = false;
+            db.Configuration.LazyLoadingEnabled = false;
+
+            IPOrganizationPrice iPOrganizationPrice = new IPOrganizationPrice()
+            {
+                OrganizationId = model.OrganizationId,
+                ProductName = model.ProductName,
+                FromPrice = model.FromPrice,
+                TarifType = model.TarifType,
+                ToPrice = model.ToPrice,
+                Type = model.Type
+            };
+            db.iPOrganizationPrices.Add(iPOrganizationPrice);
+            db.SaveChanges();
         }
 
         public void OrganizationCategoryInsert( CategoryMarketInsert model )

@@ -1,0 +1,588 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>I-Master — биржа Казахстанских специалистов!</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- favicon-->
+    <link rel="icon" type="image/png" sizes="32x32" href="image/favicon.png">
+    <link rel="stylesheet" href="~/Content/LangindPage/css/bootstrap.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="~/Content/LangindPage/css/style.css" rel="stylesheet">
+    <link href="~/Content/LangindPage/css/responsive.css" rel="stylesheet">
+    <link href="~/Content/LangindPage/css/animate.css" rel="stylesheet">
+    <link rel="stylesheet" href="~/Content/LangindPage/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Rubik:400,500,700&display=swap&subset=cyrillic" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="~/Content/LangindPage/css/slick.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/LangindPage/css/slick-theme.css">
+</head>
+<body>
+    <!--header-->
+    <header class="navigation">
+
+        <nav class="navbar navbar-custom navbar-fixed-top">
+            <div class="container text-center">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="/">
+                        <img src="~/Content/LangindPage/image/logo.png" style="max-height: 40px;" alt="logo">
+                    </a>
+                </div>
+                <div class="collapse navbar-collapse" id="myNavbar">
+                    <ul class="nav navbar-nav menu-left">
+                        <li><a style="color: #fff" href="">+7 778 001 01 01</a></li>
+                        <li><a style="color: #fff" href="">+7 7171 51 21 02</a></li>
+                        <li><a style="color: #fff" href="mailto:info@i-master.kz">info@i-master.kz</a></li>
+                        <li><a href="/Category/Index" target="_blank">Вход в бэкофис</a></li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right button-right">
+                        <li><a href="#download">Скачать приложение</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <!-- end header-->
+    <!--banner-->
+    <section class="mobile-app-banner">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6 col-md-6">
+                    <div class="mobile-app-banner-content  wow animated fadeInLeft">
+                        <h1>Наймите лучших специалистов!</h1>
+                        <p>I-Master – биржа специалистов Казахстана!</p>
+                        <div class="buttons text-center-xs">
+                            <a href="#download" class="btn btn-pink">Найти специалиста</a>
+                            <a href="#download" class="btn btn-blue">Я специалист</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-6">
+                    <div class="mobile-app-banner-image  wow animated zoomIn">
+                        <img src="~/Content/LangindPage/image/phone-image.png" alt="phone">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--end banner-->
+    <!--feature-->
+    <section class="feature">
+        <div class="container">
+            <div class="row">
+                <br>
+                <br>
+                <br>
+                <div class="col-md-12">
+                    <div class="heading text-center wow animated slideInUp">
+                        <h3>Найдите нужного человека онлайн!</h3>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3 col-sm-3 team-border">
+                        <div class="team-member  text-center ">
+                            <img src="~/Content/LangindPage/image/workers/1.jpg" class="img-responsive img-circle" alt="team">
+                            <h4></h4>
+                            <p style="font-weight: 400; padding: 0 20px;"><b>Поломался кран?</b> Нужен свободный сантехник в вашем районе?</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-3 team-border">
+                        <div class="team-member  text-center ">
+                            <img src="~/Content/LangindPage/image/workers/2.jpg" class="img-responsive img-circle" alt="team">
+                            <h4></h4>
+                            <p style="font-weight: 400; padding: 0 20px;">Нужен <b>повар на выезд</b> для большой компании?</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-3 team-border">
+                        <div class="team-member  text-center ">
+                            <img src="~/Content/LangindPage/image/workers/3.jpg" class="img-responsive img-circle" alt="team">
+                            <h4></h4>
+                            <p style="font-weight: 400; padding: 0 20px;">Ищете надежного и опытного <b>детского массажиста?</b></p>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-3">
+                        <div class="team-member text-center ">
+                            <img src="~/Content/LangindPage/image/workers/4.jpg" class="img-responsive img-circle" alt="team">
+                            <h4></h4>
+                            <p style="font-weight: 400; padding: 0 20px;">Хотите сделать вакцину или груминг своему питомцу?</p>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!--<div class="col-md-3 col-sm-6">
+                   <div class="feature-text text-center  wow animated slideInLeft">
+                      <div class="img-hover1"></div>
+                      <h4></h4>
+                      <p>Поломался кран? Нужен свободный сантехник в вашем районе?</p>
+                   </div>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                   <div class="feature-text text-center wow animated slideInLeft">
+                      <div class="img-hover2"></div>
+                      <h4></h4>
+                      <p>Нужен хороший повар на пикнике для большой компании?</p>
+                   </div>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                   <div class="feature-text text-center wow animated slideInRight">
+                      <div class="img-hover3"></div>
+                      <h4></h4>
+                      <p>Ищете надежного и опытного детского массажиста?</p>
+                   </div>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                   <div class="feature-text text-center wow animated slideInRight">
+                      <div class="img-hover4"></div>
+                      <h4></h4>
+                      <p>Хотите сделать вакцину или груминг своему питомцу?</p>
+                   </div>
+                </div>-->
+            </div>
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <div class="buttons margin-top-0-xs">
+                        <a href="#download" class="btn btn-pink">Нужен специалист!</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--end feature-->
+    <!--video-->
+    <section id="download" class="work">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="heading text-center wow animated slideInUp">
+                        <h3>Скачайте мобильное приложение I-Master</h3>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <p>
+                        Нажмите, чтобы перейти к скачиванию
+                    </p>
+                    <p style="margin-top: 35px;" class="download-mobile-links">
+                        <a href="/">
+                            <img src="~/Content/LangindPage/image/google-play-badge.png" style="height: 60px; margin-right: 20px;" alt="">
+                        </a>
+                        <a href="/">
+                            <img src="~/Content/LangindPage/image/Download_on_the_App_Store_Badge_RU_RGB_blk_100317.svg" style="height: 60px;" alt="">
+                        </a>
+                    </p>
+                </div>
+                <div class="col-md-6">
+                    <p>Либо введите свой номер телефона, мы отправим ссылку на скачивание по SMS</p>
+                    <form action="/sendSMS" method="post" name="phone">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="contact-input">
+                                    <div class="mc-field-group">
+                                        <input type="text" value="" placeholder="+7 (___) ___ __ __" name="FNAME" class="form-control input-box" id="mce-FNAME">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="contact-input">
+                                    <div class="mc-field-group">
+                                        <input type="submit" value="Получить ссылку" class="btn send-message">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--end video-->
+    <!--question-->
+    <section class="question">
+        <div class="container">
+            <div class="row text-center">
+                <div class="col-md-12 ">
+                    <div class="heading text-center wow animated slideInUp">
+                        <h3>Как пользоваться приложением I-Master?</h3>
+                        <!--<h3>Всего 3 шага</h3>-->
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="quest-text wow animated slideInLeft">
+                        <i class="material-icons steps-icon">
+                            description
+                        </i>
+                        <h4 style="line-height: 1.5">1) Опубликуйте свой заказ <br> <br></h4>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="quest-text wow animated slideInUp">
+                        <i class="material-icons steps-icon">
+                            phone
+                        </i>
+                        <h4 style="line-height: 1.5">2) Специалисты будут звонить и откликаться на ваш заказ</h4>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="quest-text wow animated slideInRight">
+                        <i class="material-icons steps-icon">
+                            check
+                        </i>
+                        <h4 style="line-height: 1.5">3) Выберите понравившегося кандидата</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <div class="buttons wow animated slideInUp">
+                        <a href="#download" class="btn btn-pink">Начать использование</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--end question-->
+    <section class="feature new-feature">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="heading text-center wow animated slideInUp">
+                        <h3>6 причин доверить поиск специалистов нам</h3>
+                    </div>
+                    <div class="col-md-4 col-sm-6">
+                        <div class="feature-text feature-first-line feature-sm-first text-center wow animated slideInLeft">
+                            <i class="material-icons reasons-icon">
+                                access_time
+                            </i>
+                            <h4 style="line-height: 1.5;">1) Экономия средств и времени</h4>
+                            <p>
+                                Будьте в курсе актуальных цен за услуги на рынке.
+                                <br>Экономьте время на поиски лучших специалистов.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-6">
+                        <div class="feature-text feature-first-line feature-sm-first text-center wow animated slideInUp">
+                            <i class="material-icons reasons-icon">
+                                people
+                            </i>
+                            <h4>2) Актуальная база</h4>
+                            <p>Знайте лучших специалистов с вами по соседству в лицо</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-6">
+                        <div class="feature-text feature-first-line feature-sm-second text-center wow animated slideInRight ">
+                            <i class="material-icons reasons-icon">
+                                store
+                            </i>
+                            <h4>3) Маркет</h4>
+                            <p>У нас есть база магазинов, в которой вы можете найти нужные вещи для работы</p>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 col-sm-6">
+                        <div class="feature-text feature-second-line feature-sm-second text-center wow animated slideInLeft">
+                            <i class="material-icons reasons-icon">
+                                phone_callback
+                            </i>
+                            <h4>4) Обратная связь</h4>
+                            <p>
+                                Обращайтесь по любым интересующим вас вопросам!
+                                <br>
+                                Наши менеджеры с радостью поговорят с вами и решат ваш вопрос.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-6">
+                        <div class="feature-text feature-second-line feature-sm-third text-center wow animated slideInUp">
+                            <i class="material-icons reasons-icon">
+                                rate_review
+                            </i>
+                            <h4>5) Система оценок</h4>
+                            <p>
+                                Вы увидите самых лучших специалистов первыми в списке.
+                                <br>
+                                Кроме этого, недобросовестные исполнители будут забанены системой автоматический.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-6">
+                        <div class="feature-text feature-second-line feature-sm-third text-center wow animated slideInRight">
+                            <i class="material-icons feature-heart reasons-icon">
+                                favorite
+                            </i>
+                            <h4 style="line-height: 1.5;">6) Мы любим и ценим своих пользователей!</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--work-->
+    <section class="work">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 ">
+                    <div class="heading text-center wow animated slideInUp">
+                        <h3>Специалистам</h3>
+                    </div>
+                </div>
+                <div class="col-md-6 worker-cards">
+                    <div class="work-text wow animated slideInLeft">
+                        <img src="~/Content/LangindPage/image/for-workers/1.png" class="img-responsive" alt="work">
+                        <h4>Переход в режим Исполнителя</h4>
+                        <p>Переходите с режима Заказчика в режим Исполнителя в один клик!</p>
+                    </div>
+                </div>
+                <div class="col-md-6 worker-cards">
+                    <div class="work-text wow animated slideInRight">
+                        <img src="~/Content/LangindPage/image/for-workers/2.png" class="img-responsive" alt="work">
+                        <h4>Получайте заказы онлайн</h4>
+                    </div>
+                </div>
+                <div class="clear-fix"></div>
+                <div class="col-md-6 worker-cards">
+                    <div class="work-text wow animated slideInLeft">
+                        <img src="~/Content/LangindPage/image/for-workers/3.png" class="img-responsive" alt="work">
+                        <h4>Зарабатывайте</h4>
+                        <p>Заработайте на том, что умеете делать лучше всего!</p>
+                    </div>
+                </div>
+                <div class="col-md-6 worker-cards">
+                    <div class="work-text wow animated slideInRight">
+                        <img src="~/Content/LangindPage/image/for-workers/4.png" class="img-responsive" alt="work">
+                        <h4>Market</h4>
+                        <p>Вы всегда можете взглянуть в каталог поставщиков и найти необходимые вещи.</p>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="buttons text-center wow animated bounce">
+                        <a href="#download" class="btn btn-blue">Начать использование!</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--end work-->
+    <!--testimonial-->
+    <!--<section class="testimonial">
+       <div class="container">
+          <div class="row">
+             <div class="col-md-12 ">
+                <div class="heading text-center">
+                   <h3>Отзывы пользователей</h3>
+                </div>
+             </div>
+          </div>
+          <div class="row">
+             <div class="col-md-12 no-padding">
+                <div class="responsive3">
+                   <div class="quest-text1 wow ">
+                      <div class="img-hover9"></div>
+                      <p class="line">There are many variations of passages of available but the majority have suffer alteration in some form by inject humour or random words which don't look even slightly believe youare going middle of text.</p>
+                      <hr class="border-hr">
+                      <img src="image/testimonial.png" tppabs="http://layerdrops.com/sooper/image/testimonial.png" class="img-circle" alt="testimonial">
+                      <h5><a href="#">John Albert</a></h5>
+                   </div>
+                   <div class="quest-text1 ">
+                      <div class="img-hover9"></div>
+                      <p class="line">There are many variations of passages of available but the majority have suffer alteration in some form by inject humour or random words which don't look even slightly believe youare going middle of text.</p>
+                      <hr class="border-hr">
+                      <img src="image/testimonial2.png" tppabs="http://layerdrops.com/sooper/image/testimonial2.png" class="img-circle" alt="testimonial">
+                      <h5><a href="#">John Albert</a></h5>
+                   </div>
+                   <div class="quest-text1">
+                      <div class="img-hover9"></div>
+                      <p class="line">There are many variations of passages of available but the majority have suffer alteration in some form by inject humour or random words which don't look even slightly believe youare going middle of text.</p>
+                      <hr class="border-hr">
+                      <img src="image/testimonial3.png" tppabs="http://layerdrops.com/sooper/image/testimonial3.png" class="img-circle" alt="testimonial">
+                      <h5><a href="#">John Albert</a></h5>
+                   </div>
+                   <div class="quest-text1 ">
+                      <div class="img-hover9"></div>
+                      <p class="line">There are many variations of passages of available but the majority have suffer alteration in some form by inject humour or random words which don't look even slightly believe youare going middle of text.</p>
+                      <hr class="border-hr">
+                      <img src="image/testimonial.png" tppabs="http://layerdrops.com/sooper/image/testimonial.png" class="img-circle" alt="testimonial">
+                      <h5><a href="#">John Albert</a></h5>
+                   </div>
+                   <div class="quest-text1 ">
+                      <div class="img-hover9"></div>
+                      <p class="line">There are many variations of passages of available but the majority have suffer alteration in some form by inject humour or random words which don't look even slightly believe youare going middle of text.</p>
+                      <hr class="border-hr">
+                      <img src="image/testimonial2.png" tppabs="http://layerdrops.com/sooper/image/testimonial2.png" class="img-circle" alt="testimonial">
+                      <h5><a href="#">John Albert</a></h5>
+                   </div>
+                   <div class="quest-text1 ">
+                      <div class="img-hover9"></div>
+                      <p class="line">There are many variations of passages of available but the majority have suffer alteration in some form by inject humour or random words which don't look even slightly believe youare going middle of text.</p>
+                      <hr class="border-hr">
+                      <img src="image/testimonial3.png" tppabs="http://layerdrops.com/sooper/image/testimonial3.png" class="img-circle" alt="testimonial">
+                      <h5><a href="#">John Albert</a></h5>
+                   </div>
+                </div>
+             </div>
+          </div>
+       </div>
+    </section>-->
+    <!--end testimonial-->
+    <!--trust-->
+    <!--<section class="trust">
+       <div class="container">
+          <div class="row">
+             <div class="col-md-12 ">
+                <div class="heading text-center wow animated slideInUp ">
+                   <h3>Наши партнеры</h3>
+                </div>
+                <div class="responsive2">
+                   <div> <img src="image/logo-icon1.png" tppabs="http://layerdrops.com/sooper/image/logo-icon1.png" alt="logo-icon"></div>
+                   <div> <img src="image/logo-icon2.png" tppabs="http://layerdrops.com/sooper/image/logo-icon2.png" alt="logo-icon"></div>
+                   <div> <img src="image/logo-icon3.png" tppabs="http://layerdrops.com/sooper/image/logo-icon3.png" alt="logo-icon"></div>
+                   <div> <img src="image/logo-icon4.png" tppabs="http://layerdrops.com/sooper/image/logo-icon4.png" alt="logo-icon"></div>
+                   <div> <img src="image/logo-icon5.png" tppabs="http://layerdrops.com/sooper/image/logo-icon5.png" alt="logo-icon"></div>
+                   <div> <img src="image/logo-icon6.png" tppabs="http://layerdrops.com/sooper/image/logo-icon6.png" alt="logo-icon"></div>
+                   <div> <img src="image/logo-icon1.png" tppabs="http://layerdrops.com/sooper/image/logo-icon1.png" alt="logo-icon"></div>
+                   <div> <img src="image/logo-icon2.png" tppabs="http://layerdrops.com/sooper/image/logo-icon2.png" alt="logo-icon"></div>
+                   <div> <img src="image/logo-icon3.png" tppabs="http://layerdrops.com/sooper/image/logo-icon3.png" alt="logo-icon"></div>
+                   <div> <img src="image/logo-icon4.png" tppabs="http://layerdrops.com/sooper/image/logo-icon4.png" alt="logo-icon"></div>
+                   <div> <img src="image/logo-icon5.png" tppabs="http://layerdrops.com/sooper/image/logo-icon5.png" alt="logo-icon"></div>
+                   <div> <img src="image/logo-icon6.png" tppabs="http://layerdrops.com/sooper/image/logo-icon6.png" alt="logo-icon"></div>
+                   <div> <img src="image/logo-icon1.png" tppabs="http://layerdrops.com/sooper/image/logo-icon1.png" alt="logo-icon"></div>
+                   <div> <img src="image/logo-icon2.png" tppabs="http://layerdrops.com/sooper/image/logo-icon2.png" alt="logo-icon"></div>
+                   <div> <img src="image/logo-icon3.png" tppabs="http://layerdrops.com/sooper/image/logo-icon3.png" alt="logo-icon"></div>
+                   <div> <img src="image/logo-icon4.png" tppabs="http://layerdrops.com/sooper/image/logo-icon4.png" alt="logo-icon"></div>
+                   <div> <img src="image/logo-icon5.png" tppabs="http://layerdrops.com/sooper/image/logo-icon5.png" alt="logo-icon"></div>
+                   <div> <img src="image/logo-icon6.png" tppabs="http://layerdrops.com/sooper/image/logo-icon6.png" alt="logo-icon"></div>
+                </div>
+             </div>
+          </div>
+       </div>
+    </section>-->
+    <!--end trust-->
+    <!--footer-->
+    <section class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 ">
+                    <div class="heading text-center wow animated slideInUp ">
+                        <h3>Следите за нами в социальных сетях</h3>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="social facebook text-center wow animated slideInLeft">
+                        <h4>Facebook</h4>
+                        <p class="color-p">254,466 подписчиков</p>
+                        <p class="fb">
+                            <a href=""><span><i class="fa fa-facebook-f"></i></span> Facebook</a>
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="social youtube text-center wow animated bounce">
+                        <h4>Instagram</h4>
+                        <p class="color-p">258,466 подписчиков</p>
+                        <p class="ytb">
+                            <a href=""><span><i class="fa fa-instagram"></i></span> Instagram</a>
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="social twitter text-center wow animated slideInRight">
+                        <h4>LinkedIn</h4>
+                        <p class="color-p">258,466 подписчиков</p>
+                        <p class="twitt">
+                            <a href=""><span><i class="fa fa-linkedin"></i></span> LinkedIn</a>
+                        </p>
+                    </div>
+                </div>
+                <div class="clear-fix"></div>
+                <div class="col-md-12" style="margin-top: 80px;">
+                    <h4 class="text-center">Введите свой Email, чтобы узнавать о наших новостях первым</h4>
+                </div>
+                <div class="col-md-12" style="margin-top: 30px;">
+                    <form action="/subscribe" method="post" name="phone">
+                        <div class="row">
+                            <div class="col-md-3 col-sm-6 col-md-offset-3">
+                                <div class="contact-input">
+                                    <div class="mc-field-group">
+                                        <input type="text" value="" placeholder="Ваш Email" name="FNAME" class="form-control input-box" id="mce-FNAME">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-sm-6">
+                                <div class="contact-input">
+                                    <div class="mc-field-group">
+                                        <input type="submit" value="Подписаться" class="btn btn-block send-message">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-md-12">
+                    <hr class="hrline">
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--end footer-->
+    <!--copyright-->
+    <footer class="footer-copyright">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="playstore wow animated slideInUp">
+                        <h2><b>Скачайте I-Master сейчас</b></h2>
+
+                        <p style="margin-top: 40px;">
+                            <a href="#" class=""><img src="~/Content/LangindPage/image/google-play-badge.png" style="height: 80px; margin-right: 10px;" alt=""></a>
+                            <a href="#" class=""><img src="~/Content/LangindPage/image/Download_on_the_App_Store_Badge_RU_RGB_blk_100317.svg" style="height: 80px;" alt=""></a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-section-back">
+                <div class="row">
+                    <div class="col-md-6 col-sm-6 col-xs-5">
+                        <div class="footer-logo wow animated slideInLeft">
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-7">
+                        <div class="footer-text wow animated text-right slideInRight">
+                            <p class="text-right">
+                                <a>
+                                    ©
+                                    <script>document.write(new Date().getFullYear())</script> I-Master.
+                                </a>
+                                Design by Layerdrops
+
+                                <img src="~/Content/LangindPage/image/logo.png" class="footer-logo-hydra" style="margin-left: 50px; max-height: 40px;" alt="footer-logo">
+
+
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!--end copyright-->
+    <!--jQuery-->
+    <script src="~/Content/LangindPage/js/jquery.js"></script>
+    <!--Bootstrap-->
+    <script src="~/Content/LangindPage/js/bootstrap.js"></script>
+    <!--wow js-->
+    <script src="~/Content/LangindPage/js/wow.js"></script>
+    <!--Slick-->
+    <script src="~/Content/LangindPage/js/slick.js"></script>
+    <!--Custom js-->
+    <script src="~/Content/LangindPage/js/custom.js"></script>
+</body>
+</html>
