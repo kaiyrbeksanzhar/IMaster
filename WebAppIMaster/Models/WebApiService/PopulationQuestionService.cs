@@ -35,6 +35,45 @@ namespace WebAppIMaster.Models.WebApiService
             return item;
         }
 
+        public List<PopulationSelectVmMdl> SelectPopulationQuestionListForPagination(int? CurrentPage = null, int? PageSize = null)
+        {
+            ApplicationDbContext db = new ApplicationDbContext();
+            db.Configuration.AutoDetectChangesEnabled = false;
+            db.Configuration.LazyLoadingEnabled = false;
+            if (PageSize == null)
+            {
+                PageSize = 5;
+            }
+            List<PopulationSelectVmMdl> news = new List<PopulationSelectVmMdl>();
+            string langcode = LanguageController.CurrentCultureCode;
+            var query = db.populationQuestions;
+
+            int allPageCount = (int)Math.Ceiling(query.Count() / (double)PageSize);
+            if (allPageCount < CurrentPage) CurrentPage = 1;
+
+            var sortedQuery = query.Select(u => new
+            {
+                PopulationCategoryId = u.PopulationCategoryId,
+                PopulationCategoryName = u.PopulationCategory.Langs.Where(l => l.LangCode == langcode).Select(l => l.Name).FirstOrDefault(),
+                populationQuestionList = new List<PopulationSelectVmMdl.PopulationQuestionList>()
+                            {
+                                new PopulationSelectVmMdl.PopulationQuestionList
+                                {
+                                    Id = u.Id,
+                                    Description = u.Langs.Where(l=>l.LangCode== langcode).Select(l=>l.Description).FirstOrDefault(),
+                                    Name = u.Langs.Where(l=>l.LangCode == langcode).Select(l=>l.Title).FirstOrDefault()
+                                }
+                            }
+            }).Select(m => new PopulationSelectVmMdl
+            {
+                PopulationCategoryId = m.PopulationCategoryId,
+                PopulationCategoryName = m.PopulationCategoryName,
+                populationQuestionList = m.populationQuestionList,
+            }).OrderByDescending(u => u.PopulationCategoryName).Skip(((int)CurrentPage - 1) * (int)PageSize).Take((int)PageSize).ToList();
+
+            return sortedQuery;
+        }
+
         public PopulationSelect Select( int populationCategoryId )
         {
             List<PopulationSelect.PopulationList> result = new List<PopulationSelect.PopulationList>();

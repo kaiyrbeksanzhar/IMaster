@@ -18,9 +18,9 @@ namespace WebAppIMaster.Models.WebApiService
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        public ClientExecutorService( ApplicationDbContext db ) => this.db = db;
+        public ClientExecutorService(ApplicationDbContext db) => this.db = db;
 
-        public void AddExecutorToOrder( string clientId, int orderId, string executorId )
+        public void AddExecutorToOrder(string clientId, int orderId, string executorId)
         {
             CustomerOrder customerOrder = db.CustomerOrders.Find(orderId);
 
@@ -32,12 +32,12 @@ namespace WebAppIMaster.Models.WebApiService
             db.SaveChanges();
         }
 
-        public void CancelExecutorResponse( string clientId, int orderId, string executorId )
+        public void CancelExecutorResponse(string clientId, int orderId, string executorId)
         {
             throw new NotImplementedException();
         }
 
-        public ClientExecutorServiceMdl.ExecutorDetails GetDetails( string executorId )
+        public ClientExecutorServiceMdl.ExecutorDetails GetDetails(string executorId)
         {
             string langcode = LanguageController.GetCurrentLanguageCode();
             //var model = db.Executors.Where(e=>e.Id == executorId).SingleOrDefault();
@@ -56,13 +56,13 @@ namespace WebAppIMaster.Models.WebApiService
                              RegisterDate = e.RegistrationDateTime,
                              ClosedOrdersCount = e.ExecutorClosedOrdersCount,
                              RegionId = e.CityId,
-                             RegionName = e.City.Langs.Where(l=>l.Langcode == langcode).Select(l=>l.Name).FirstOrDefault(),
+                             RegionName = e.City.Langs.Where(l => l.Langcode == langcode).Select(l => l.Name).FirstOrDefault(),
                              GenderId = e.User.GenderId,
                              Birthday = e.BirthDay,
-                             CategoryId = e.Categories.Select(c=>c.Id).FirstOrDefault(),
-                             CategoryName = e.Categories.SelectMany(c=>c.Langs).Where(l=>l.Langcode == langcode).Select(l=>l.Name).FirstOrDefault(),
-                             SpecializationId = e.ExecutorSpecializations.Select(es=>es.SpecializationId).FirstOrDefault(),
-                             SpecializationName = e.ExecutorSpecializations.Select(es=>es.Specialization).SelectMany(s=>s.Langs).Where(l=>l.Langcode == langcode).Select(l=>l.Name).FirstOrDefault(),
+                             CategoryId = e.Categories.Select(c => c.Id).FirstOrDefault(),
+                             CategoryName = e.Categories.SelectMany(c => c.Langs).Where(l => l.Langcode == langcode).Select(l => l.Name).FirstOrDefault(),
+                             SpecializationId = e.ExecutorSpecializations.Select(es => es.SpecializationId).FirstOrDefault(),
+                             SpecializationName = e.ExecutorSpecializations.Select(es => es.Specialization).SelectMany(s => s.Langs).Where(l => l.Langcode == langcode).Select(l => l.Name).FirstOrDefault(),
                              ExecutorType = e.ExecutorType,
                              PhoneNumber = e.PhoneNumber,
                              AvatarUri = e.AvatarUrl == null ? null : "http://i-master.kz/api/GetExecutorAvatar?executorId=" + e.AvatarUrl,
@@ -102,7 +102,7 @@ namespace WebAppIMaster.Models.WebApiService
                 ExecutorType = model.ExecutorType,
                 PhoneNumber = model.PhoneNumber,
                 PhotoUris = photoUri,
-                AvatarUri = model.AvatarUri, 
+                AvatarUri = model.AvatarUri,
                 YouTubeVideoUrl = model.YouTubeVideoUrl
             };
         }
@@ -116,7 +116,7 @@ namespace WebAppIMaster.Models.WebApiService
                 Lastname = u.User.LastName,
                 Firstname = u.User.FirstName,
                 PhoneNumber = u.PhoneNumber,
-                AvatarUri = "http://i-master.kz/api/GetExecutorAvatar?executorId=" + u.AvatarUrl,
+                AvatarUri = u.AvatarUrl == null ? null : "http://i-master.kz/api/GetClientExecutorPhoto?url=" + u.AvatarUrl,
                 Check = u.ExecutorCheck == true ? true : false,
                 ClosedOrdersCount = u.Orders.Where(o => o.OrderState == OrderState.Finished).Count(),
                 Online = true,
@@ -127,7 +127,7 @@ namespace WebAppIMaster.Models.WebApiService
             return list;
         }
 
-        public List<ClientExecutorServiceMdl.ExecutorItem> GetItemListForCategory( int categoryId )
+        public List<ClientExecutorServiceMdl.ExecutorItem> GetItemListForCategory(int categoryId)
         {
             string langcode = LanguageController.CurrentCultureCode;
             List<ClientExecutorServiceMdl.ExecutorItem> list = db.Executors.Where(u => u.specializations.Any(s => s.CategoryId == categoryId)).Select(u => new ClientExecutorServiceMdl.ExecutorItem
@@ -136,7 +136,7 @@ namespace WebAppIMaster.Models.WebApiService
                 Lastname = u.User.LastName,
                 Firstname = u.User.FirstName,
                 PhoneNumber = u.PhoneNumber,
-                AvatarUri = "http://i-master.kz/api/GetExecutorAvatar?executorId=" + u.AvatarUrl,
+                AvatarUri = u.AvatarUrl == null ? null : "http://i-master.kz/api/GetClientExecutorPhoto?url=" + u.AvatarUrl,
                 Check = u.ExecutorCheck == true ? true : false,
                 ClosedOrdersCount = u.Orders.Where(o => o.OrderState == OrderState.Finished).Count(),
                 Online = true,
@@ -147,7 +147,7 @@ namespace WebAppIMaster.Models.WebApiService
             return list;
         }
 
-        public List<ClientExecutorServiceMdl.ExecutorItem> GetItemListForSpecialty( int specialtyId )
+        public List<ClientExecutorServiceMdl.ExecutorItem> GetItemListForSpecialty(int specialtyId)
         {
             string langcode = LanguageController.CurrentCultureCode;
             List<ClientExecutorServiceMdl.ExecutorItem> list = db.Executors.Where(u => u.specializations.Any(s => s.Id == specialtyId)).Select(u => new ClientExecutorServiceMdl.ExecutorItem
@@ -156,7 +156,7 @@ namespace WebAppIMaster.Models.WebApiService
                 Lastname = u.User.LastName,
                 Firstname = u.User.FirstName,
                 PhoneNumber = u.PhoneNumber,
-                AvatarUri = "http://i-master.kz/api/GetExecutorAvatar?executorId=" + u.AvatarUrl,
+                AvatarUri = u.AvatarUrl == null ? null : "http://i-master.kz/api/GetClientExecutorPhoto?url=" + u.AvatarUrl,
                 Check = u.ExecutorCheck == true ? true : false,
                 ClosedOrdersCount = u.Orders.Where(o => o.OrderState == OrderState.Finished).Count(),
                 Online = true,
@@ -167,7 +167,7 @@ namespace WebAppIMaster.Models.WebApiService
             return list;
         }
 
-        public List<ClientExecutorServiceMdl.ExecutorResponse> GetResponseList( string clientId, int lastResponseId = -1 )
+        public List<ClientExecutorServiceMdl.ExecutorResponse> GetResponseList(string clientId, int lastResponseId = -1)
         {
             string langcode = LanguageController.CurrentCultureCode;
             List<ClientExecutorServiceMdl.ExecutorResponse> list =
@@ -183,7 +183,7 @@ namespace WebAppIMaster.Models.WebApiService
                      Lastname = u.Executor.User.LastName,
                      Firstname = u.Executor.User.FirstName,
                      PhoneNumber = u.Executor.PhoneNumber,
-                     AvatarUri = u.Executor.AvatarUrl == null ? null : "http://i-master.kz/api/GetExecutorAvatar?executorId=" + u.Executor.AvatarUrl,
+                     AvatarUri = u.Executor.AvatarUrl == null ? null : "http://i-master.kz/api/GetClientExecutorPhoto?url=" + u.Executor.AvatarUrl,
                      Check = u.Executor.ExecutorCheck == true ? true : false,
                      ClosedOrdersCount = u.Executor.Orders.Where(o => o.OrderState == OrderState.Finished).Count(),
                      CreateAt = u.CreatedAt_Date,
@@ -223,7 +223,7 @@ namespace WebAppIMaster.Models.WebApiService
                 Lastname = u.Executor.User.LastName,
                 Firstname = u.Executor.User.FirstName,
                 PhoneNumber = u.Executor.PhoneNumber,
-                AvatarUri = u.Executor.AvatarUrl == null ? null : "http://i-master.kz/api/GetExecutorAvatar?executorId=" + u.Executor.AvatarUrl,
+                AvatarUri = u.Executor.AvatarUrl == null ? null : "http://i-master.kz/api/GetClientExecutorPhoto?url=" + u.Executor.AvatarUrl,
                 Check = u.Executor.ExecutorCheck == true ? true : false,
                 ClosedOrdersCount = u.Executor.Orders.Where(o => o.OrderState == OrderState.Finished).Count(),
                 CreateAt = u.CreatedAt_Date,
@@ -248,7 +248,7 @@ namespace WebAppIMaster.Models.WebApiService
                 OrderId = u.OrderId,
                 Rating = u.Rating,
                 RegisterDate = u.RegisterDate,
-                ExecutorType = u.ExecutorType??ExecutorType.Individual,
+                ExecutorType = u.ExecutorType ?? ExecutorType.Individual,
             }).ToList();
 
             return list;

@@ -29,6 +29,31 @@ namespace WebAppIMaster.Controllers.WebApi
             return model;
         }
         /// <summary>
+        /// api/GetListForOtherNews/{} возвращает 5 рандомных новостей
+        /// </summary>
+        [System.Web.Http.Route("api/GetListForOtherNews")]
+        public List<PaginationNewsItemMdl> GetListForOtherNews()
+        {
+            ApplicationDbContext db = new ApplicationDbContext();
+            NewsItemService repository = new NewsItemService(db);
+            var model = repository.GetListFotOtherNews();
+            return model;
+        }
+
+        /// <summary>
+        /// api/GetListForPagination/{currentPage,pageSize} возвращает News по pageSize
+        /// </summary>
+        /// <param name="currentPage">Принимает параметр currentPage(int).</param>
+        /// <param name="pageSize">Принимает параметр pageSize(int).</param>
+        [System.Web.Http.Route("api/GetListForPagination")]
+        public List<PaginationNewsItemMdl> GetListForPagination(int? currentPage = null, int? pageSize = null)
+        {
+            ApplicationDbContext db = new ApplicationDbContext();
+            NewsItemService repository = new NewsItemService(db);
+            var model = repository.GetPaginationList(currentPage,pageSize);
+            return model;
+        }
+        /// <summary>
         /// передайте id(api/NewsItemService/5) возращает один элемент
         /// </summary>
         /// <param name="id">Принимает параметр id</param>
@@ -40,6 +65,7 @@ namespace WebAppIMaster.Controllers.WebApi
             var model = repository.Get(id);
             return model;
         }
+
 
         /// <summary>
         /// передайте id(api/NewsItemService/Казахстан) возращает один элемент

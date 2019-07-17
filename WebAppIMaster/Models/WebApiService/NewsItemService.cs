@@ -23,7 +23,7 @@ namespace WebAppIMaster.Models.WebApiService
                 Id = model.Id,
                 DateTime = model.News.PublishedDateTime,
                 Description = model.Description,
-                PhotoFile = byteData,
+                PhotoFile = model.News.PhotoUrl1 == null ? null : "http://i-master.kz/api/GetNewsPhoto?url=" + model.News.PhotoUrl1,
                 Title = model.Title,
                 ViewCount = model.News.ViewsNumber,
                 PhotoFileType = model.News.PhotoUrl1.Substring(model.News.PhotoUrl1.LastIndexOf(".") + 1),
@@ -44,13 +44,76 @@ namespace WebAppIMaster.Models.WebApiService
                     Id = item.NewsId,
                     DateTime = item.News.PublishedDateTime,
                     Description = item.Description,
-                    PhotoFile = byteData,
+                    PhotoFile = item.News.PhotoUrl1 == null ? null : "http://i-master.kz/api/GetNewsPhoto?url=" + item.News.PhotoUrl1,
                     PhotoFileType = PhotoType,
                     Title = item.Title,
                     ViewCount = item.News.ViewsNumber
                 });
             }
             return news;
+        }
+
+        public List<PaginationNewsItemMdl> GetListFotOtherNews()
+        {
+            List<NewsItemMdl> news = new List<NewsItemMdl>();
+            string langcode = LanguageController.CurrentCultureCode;
+            var query = db.NewsLangs.Where(l => l.Langcode == langcode);
+
+            var sortedQuery = query.Select(u => new
+            {
+                Id = u.NewsId,
+                DateTime = u.News.PublishedDateTime,
+                Description = u.Description,
+                PhotoFile = u.News.PhotoUrl1 == null ? null : "http://i-master.kz/api/GetNewsPhoto?url=" + u.News.PhotoUrl1,
+                Title = u.Title,
+                ViewCount = u.News.ViewsNumber
+            }).Select(m => new PaginationNewsItemMdl
+            {
+                Id = m.Id,
+                PhotoFile = m.PhotoFile,
+                DateTime = m.DateTime,
+                Description = m.Description,
+                Title = m.Title,
+                ViewCount = m.ViewCount,
+            }).OrderByDescending(u => u.DateTime).ToList();
+            var rand = new Random();
+            var randomQuery = sortedQuery.OrderBy(u => rand.Next()).Take(5).ToList();
+
+            return randomQuery;
+        }
+
+        public List<PaginationNewsItemMdl> GetPaginationList(int? CurrentPage = null, int? PageSize = null)
+        {
+            if(PageSize == null)
+            {
+                PageSize = 5;
+            }
+            List<NewsItemMdl> news = new List<NewsItemMdl>();
+            string langcode = LanguageController.CurrentCultureCode;
+            var query = db.NewsLangs.Where(l => l.Langcode == langcode);
+
+            int allPageCount = (int)Math.Ceiling(query.Count() / (double)PageSize);
+            if (allPageCount < CurrentPage) CurrentPage = 1;
+
+            var sortedQuery = query.Select(u => new
+            {
+                Id = u.NewsId,
+                DateTime = u.News.PublishedDateTime,
+                Description = u.Description,
+                PhotoFile = u.News.PhotoUrl1 == null ? null : "http://i-master.kz/api/GetNewsPhoto?url=" + u.News.PhotoUrl1,
+                Title = u.Title,
+                ViewCount = u.News.ViewsNumber
+            }).Select(m=> new PaginationNewsItemMdl
+            {
+                Id = m.Id,
+                PhotoFile = m.PhotoFile,
+                DateTime = m.DateTime,
+                Description = m.Description,
+                Title = m.Title,
+                ViewCount =m.ViewCount,
+            }).OrderByDescending(u=>u.DateTime).Skip(((int)CurrentPage - 1) * (int)PageSize).Take((int)PageSize).ToList();
+
+            return sortedQuery;
         }
 
         public List<NewsItemMdl> GetSearch(string searchText)
@@ -66,7 +129,7 @@ namespace WebAppIMaster.Models.WebApiService
                     Id = item.Id,
                     DateTime = item.News.PublishedDateTime,
                     Description = item.Description,
-                    PhotoFile = byteData,
+                    PhotoFile = item.News.PhotoUrl1 == null ? null : "http://i-master.kz/api/GetNewsPhoto?url=" + item.News.PhotoUrl1,
                     Title = item.Title,
                     ViewCount = item.News.ViewsNumber
                 });

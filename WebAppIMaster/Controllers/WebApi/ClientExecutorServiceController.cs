@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Web;
 using System.Web.Http;
 using WebAppIMaster.Models.Enitities;
 using WebAppIMaster.Models.WebApiModel;
@@ -162,6 +164,28 @@ namespace WebAppIMaster.Controllers.WebApi
                 return null;
             }
             return model;
+        }
+
+        /// <summary>
+        /// api/GetClientExecutorPhoto/{url} возвращает фото
+        /// </summary>
+        /// <param name="files">Принимает параметр files.</param>
+        [System.Web.Http.HttpGet]
+        [System.Web.Http.Route("api/GetClientExecutorPhoto")]
+        public HttpResponseMessage GetClientExecutorPhoto(string url)
+        {
+            if (url == "")
+            {
+                return null;
+            }
+            byte[] content = File.ReadAllBytes(HttpContext.Current.Server.MapPath(url));
+            MemoryStream ms = new MemoryStream(content);
+
+            HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.OK);
+            response.Content = new StreamContent(ms);
+            response.Content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("image/png");
+
+            return response;
         }
     }
 }

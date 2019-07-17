@@ -29,6 +29,21 @@ namespace WebAppIMaster.Controllers.WebApi
         }
 
         /// <summary>
+        /// api/GetPopulationListForPagination/{currentPage,pageSize} возвращает List - Как это работает по pageSize
+        /// </summary>
+        /// <param name="currentPage">Принимает параметр currentPage(int).</param>
+        /// <param name="pageSize">Принимает параметр pageSize(int).</param>
+        [System.Web.Http.Route("api/GetPopulationListForPagination")]
+        public List<PopulationSelectVmMdl> GetPopulationListForPagination(int? currentPage = null, int? pageSize = null)
+        {
+
+            ApplicationDbContext db = new ApplicationDbContext();
+            PopulationQuestionService repository = new PopulationQuestionService();
+            var model = repository.SelectPopulationQuestionListForPagination(currentPage,pageSize);
+            return model;
+        }
+
+        /// <summary>
         /// передайте populationCategoryId(api/Support/5) возращает один элемент
         /// </summary>
         /// <param name="populationCategoryId">Принимает параметр (populationCategoryId).(populationCategoryId)</param>

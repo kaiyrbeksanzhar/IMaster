@@ -27,6 +27,7 @@ namespace WebAppIMaster.Models.WebApiModel
             public string Description { get; set; }
             public string PhoneNumber { get; set; }
             public TypeMessage Type { get; set; }
+            public string FileUrl { get; set; }
         }
 
         public class Select
@@ -37,6 +38,7 @@ namespace WebAppIMaster.Models.WebApiModel
             public string Description { get; set; }
             public string PhoneNumber { get; set; }
             public TypeMessage Type { get; set; }
+            public string FileUrl { get; set; }
         }
     }
 }

@@ -553,6 +553,12 @@
             </summary>
             <param name="clientId">Принимает параметр clientId.</param>
         </member>
+        <member name="M:WebAppIMaster.Controllers.WebApi.ClientExecutorServiceController.GetClientExecutorPhoto(System.String)">
+            <summary>
+            api/GetClientExecutorPhoto/{url} возвращает фото
+            </summary>
+            <param name="files">Принимает параметр files.</param>
+        </member>
         <member name="T:WebAppIMaster.Controllers.WebApi.ClientOrderServiceController">
             <summary>
             Клиент заказы Service
@@ -817,6 +823,13 @@
             (api/GetClientOrderDetailsView) возращает лист элемент
             </summary>
         </member>
+        <member name="M:WebAppIMaster.Controllers.WebApi.MarketingServiceController.GetListForPagination(System.Nullable{System.Int32},System.Nullable{System.Int32})">
+            <summary>
+            api/GetMarketinListForPagination/{currentPage,pageSize} возвращает News по pageSize
+            </summary>
+            <param name="currentPage">Принимает параметр currentPage(int).</param>
+            <param name="pageSize">Принимает параметр pageSize(int).</param>
+        </member>
         <member name="M:WebAppIMaster.Controllers.WebApi.MarketingServiceController.Get(System.Int32)">
             <summary>
             передайте id(api/MarketingService/5) возращает один элемент
@@ -887,6 +900,18 @@
             (api/NewsItemService) возращает лист элементов
             </summary>
         </member>
+        <member name="M:WebAppIMaster.Controllers.WebApi.NewsItemServiceController.GetListForOtherNews">
+            <summary>
+            api/GetListForOtherNews/{} возвращает 5 рандомных новостей
+            </summary>
+        </member>
+        <member name="M:WebAppIMaster.Controllers.WebApi.NewsItemServiceController.GetListForPagination(System.Nullable{System.Int32},System.Nullable{System.Int32})">
+            <summary>
+            api/GetListForPagination/{currentPage,pageSize} возвращает News по pageSize
+            </summary>
+            <param name="currentPage">Принимает параметр currentPage(int).</param>
+            <param name="pageSize">Принимает параметр pageSize(int).</param>
+        </member>
         <member name="M:WebAppIMaster.Controllers.WebApi.NewsItemServiceController.Get(System.Int32)">
             <summary>
             передайте id(api/NewsItemService/5) возращает один элемент
@@ -920,6 +945,13 @@
             <summary>
             (api/GetPopulationList) возращает лист элементов
             </summary>
+        </member>
+        <member name="M:WebAppIMaster.Controllers.WebApi.PopulationQuestionController.GetPopulationListForPagination(System.Nullable{System.Int32},System.Nullable{System.Int32})">
+            <summary>
+            api/GetPopulationListForPagination/{currentPage,pageSize} возвращает List - Как это работает по pageSize
+            </summary>
+            <param name="currentPage">Принимает параметр currentPage(int).</param>
+            <param name="pageSize">Принимает параметр pageSize(int).</param>
         </member>
         <member name="M:WebAppIMaster.Controllers.WebApi.PopulationQuestionController.GetPopulationQuestion(System.Int32)">
             <summary>
@@ -980,6 +1012,13 @@
             <summary>
             передайте (api/GetSupportList) возращает лист элементов
             </summary>
+        </member>
+        <member name="M:WebAppIMaster.Controllers.WebApi.SupportController.GetSupportListForPagination(System.Nullable{System.Int32},System.Nullable{System.Int32})">
+            <summary>
+            api/GetSupportListForPagination/{currentPage,pageSize} возвращает лист Службка поддержку по pageSize
+            </summary>
+            <param name="currentPage">Принимает параметр currentPage(int).</param>
+            <param name="pageSize">Принимает параметр pageSize(int).</param>
         </member>
         <member name="M:WebAppIMaster.Controllers.WebApi.SupportController.SupportInsert(WebAppIMaster.Models.WebApiModel.SupportServiceMdl.SupportInsertMdl)">
             <summary>
