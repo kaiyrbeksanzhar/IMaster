@@ -1,56 +1,64 @@
 ﻿@model WebAppIMaster.Models.NewManagerModels.CategoryMarketInsert
+@using WebAppIMaster.Resources;
+
 @{
     ViewBag.Title = "CreateCategoryMarket";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>CreateCategoryMarket</h2>
+
+<div class="card strpied-tabled-with-hover">
+    <div class="card-header ">
+        <h4 class="card-title">Добавление категории</h4>
+        <p class="card-category">Страница добавление категорий</p>
+    </div>
+    <div class="card-body table-full-width table-responsive">
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+                <h4>CategoryMarketInsert</h4>
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(model => model.CategoryName_kz, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.CategoryName_kz, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.CategoryName_kz, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.CategoryName_ru, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.CategoryName_ru, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.CategoryName_ru, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="col-md-12" id="CertitficatBlock">
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">Выберите категория </label>
+                        <div class="col-md-10">
+                            @Html.DropDownListFor(model => model.categoryMarketInCategories[0].CategoryMarketInCategoryId, ViewBag.Category as SelectList)
+                        </div>
+                    </div>
+                </div>
 
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-
-    <div class="form-horizontal">
-        <h4>CategoryMarketInsert</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.CategoryName_kz, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.CategoryName_kz, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.CategoryName_kz, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.CategoryName_ru, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.CategoryName_ru, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.CategoryName_ru, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="row" id="CertitficatBlock">
-            <div class="form-group">
-                <label class="col-md-12 control-label">Выберите категория </label>
-                <div class="col-md-10">
-                    @Html.DropDownListFor(model => model.categoryMarketInCategories[0].CategoryMarketInCategoryId, ViewBag.Category as SelectList)
+                <div class="form-group ml-5">
+                    <div class="d-inline">
+                        <a href="/Category/Index" class="btn btn-info btn-fill">Назад</a>
+                    </div>
+                    <div class="d-inline m-3">
+                        <input id="btnSubmit" type="submit" value="@Resource.Create" class="btn btn-info btn-fill" />
+                    </div>
                 </div>
             </div>
-        </div>
-
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
-        </div>
+        }
     </div>
-}
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
 </div>
 
 @section Scripts {

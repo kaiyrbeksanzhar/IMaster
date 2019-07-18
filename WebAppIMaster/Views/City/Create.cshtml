@@ -72,11 +72,11 @@
             <div id="location">(@Model.Latitude, @Model.Longitudey)</div>
             <div id="map" style="width: 100%; height: 400px;"></div>
 
-            <div class="form-group">
-                <div class="d-inline" style="padding-left:15px;">
-                    @Html.ActionLink(Resource.BacktoList, "Index")
+            <div class="form-group ml-5">
+                <div class="d-inline">
+                    <a href="/Category/Index" class="btn btn-info btn-fill">Назад</a>
                 </div>
-                <div class="d-inline m-3" style="margin-top:10px;">
+                <div class="d-inline m-3">
                     <input id="btnSubmit" type="submit" value="@Resource.Create" class="btn btn-info btn-fill" />
                 </div>
             </div>

@@ -1,35 +1,48 @@
 ﻿@model WebAppIMaster.Models.NewManagerModels.PopulationDetailsVmMdl
-
+@using WebAppIMaster.Resources;
 @{
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Details</h2>
 
-<div>
-    <h4>PopulationDetailsVmMdl</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
+<div class="card strpied-tabled-with-hover">
+    <div class="card-header ">
+        <h4 class="card-title">Часто задоваямые вопросы</h4>
+        <p class="card-category">Страница часто задоваямых вопросов</p>
+    </div>
+    <div class="card-body table-full-width table-responsive">
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Name)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Name)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Description)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Description)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Description)
+            </dd>
 
-    </dl>
+        </dl>
+    </div>
+    <div class="form-group ml-5">
+        <div class="d-inline">
+            <a href="/Category/Index" class="btn btn-info btn-fill">Назад</a>
+        </div>
+        <div class="d-inline m-3">
+            <input id="btnSubmit" type="submit" value="@Resource.Edit" class="btn btn-info btn-fill" />
+        </div>
+    </div>
+
+    @*<p>
+        @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ })
+        @Html.ActionLink("Back to List", "Index")
+    </p>*@
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
