@@ -4,13 +4,14 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using WebAppIMaster.Migrations;
 using WebAppIMaster.Models.Enitities;
 using WebAppIMaster.Models.WebApiService;
 using static WebAppIMaster.Models.NewManagerModels.PopulationQuestion;
 using static WebAppIMaster.Models.WebApiModel.PopulationQuestionServiceMdl;
 
 namespace WebAppIMaster.Controllers.WebApi
-{   
+{
     /// <summary>
     ///  Как это работает
     /// </summary>
@@ -39,7 +40,7 @@ namespace WebAppIMaster.Controllers.WebApi
 
             ApplicationDbContext db = new ApplicationDbContext();
             PopulationQuestionService repository = new PopulationQuestionService();
-            var model = repository.SelectPopulationQuestionListForPagination(currentPage,pageSize);
+            var model = repository.SelectPopulationQuestionListForPagination(currentPage, pageSize);
             return model;
         }
 
@@ -48,12 +49,31 @@ namespace WebAppIMaster.Controllers.WebApi
         /// </summary>
         /// <param name="populationCategoryId">Принимает параметр (populationCategoryId).(populationCategoryId)</param>
         [System.Web.Http.Route("api/GetPopulationQuestion")]
-        public PopulationSelect GetPopulationQuestion( int populationCategoryId )
+        public PopulationSelect GetPopulationQuestion(int populationCategoryId)
         {
             ApplicationDbContext db = new ApplicationDbContext();
             PopulationQuestionService repository = new PopulationQuestionService();
             var model = repository.Select(populationCategoryId);
             return model;
+        }
+
+        /// <summary>
+        /// api/SaveRateHowItWork/{userId,populationQuestionId,estimate} сохраняет оценку статьи(как это работает) 
+        /// </summary>
+        /// <param name="userId">Принимает параметр userId(string).</param>
+        /// <param name="populationQuestionId">Принимает параметр populationQuestionId(int).</param>
+        /// <param name="estimate">Принимает параметр estimate(enum).</param>
+        [System.Web.Http.Route("api/SaveRateHowItWork")]
+        public bool SaveRateHowItWork(string userId, int populationQuestionId, Models.Enitities.Enums.Estimate estimate)
+        {
+            ApplicationDbContext db = new ApplicationDbContext();
+            PopulationQuestionService repository = new PopulationQuestionService();
+            bool result = repository.SaveRateHowItWork(userId, populationQuestionId, estimate);
+            if (result)
+            {
+                return true;
+            }
+            return false;
         }
     }
 }

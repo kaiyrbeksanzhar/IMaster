@@ -29,7 +29,7 @@ namespace WebAppIMaster.Controllers.WebApi
             return model;
         }
         /// <summary>
-        /// api/GetListForOtherNews/{} возвращает 5 рандомных новостей
+        /// api/GetListForOtherNews/{} возвращает 5 рандомных новостей(другие новости)
         /// </summary>
         [System.Web.Http.Route("api/GetListForOtherNews")]
         public List<PaginationNewsItemMdl> GetListForOtherNews()

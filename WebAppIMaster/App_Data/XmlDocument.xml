@@ -610,6 +610,12 @@
             </summary>
             <param name="orderId">Принимает параметр orderId.</param>
         </member>
+        <member name="M:WebAppIMaster.Controllers.WebApi.ClientOrderServiceController.GetClientOrderPhoto(System.String)">
+            <summary>
+            api/GetClientOrderPhoto/{url} возвращает фото
+            </summary>
+            <param name="url">Принимает параметр url.</param>
+        </member>
         <member name="T:WebAppIMaster.Controllers.WebApi.ClientProfileController">
             <summary>
             Клиент ClientProfile Api
@@ -638,7 +644,7 @@
             </summary>
             <param name="files">Принимает параметр files.</param>
         </member>
-        <member name="M:WebAppIMaster.Controllers.WebApi.ClientProfileController.GetSupportPhoto(System.String)">
+        <member name="M:WebAppIMaster.Controllers.WebApi.ClientProfileController.GetClientProfilePhoto(System.String)">
             <summary>
             api/GetClientProfilePhoto/{url} возвращает фото файла
             </summary>
@@ -699,6 +705,12 @@
             </summary>
             <param name="userId">Принимает параметр userId.</param>
             <param name="orderId">Принимает параметр orderId.</param>
+        </member>
+        <member name="M:WebAppIMaster.Controllers.WebApi.ExecutorOrderServiceController.GetClientExecutorOrderPhoto(System.String)">
+            <summary>
+            api/GetClientExecutorOrderPhoto/{url} возвращает фото файла
+            </summary>
+            <param name="url">Принимает параметр url.</param>
         </member>
         <member name="T:WebAppIMaster.Controllers.WebApi.ExecutorServiceController">
             <summary>
@@ -797,6 +809,12 @@
             </summary>
             <param name="files">Принимает параметр files.</param>
         </member>
+        <member name="M:WebAppIMaster.Controllers.WebApi.ExecutorServiceController.GetExecutorPhoto(System.String)">
+            <summary>
+            api/GetExecutorPhoto/{url} возвращает фото файла
+            </summary>
+            <param name="url">Принимает параметр url.</param>
+        </member>
         <member name="T:WebAppIMaster.Controllers.WebApi.GenderServiceController">
             <summary>
              GenderService Api
@@ -852,6 +870,13 @@
             api/GetListMarket возвращает Market List
             </summary>
         </member>
+        <member name="M:WebAppIMaster.Controllers.WebApi.MarketSerivecController.GetListMarketForPagination(System.Nullable{System.Int32},System.Nullable{System.Int32})">
+            <summary>
+            api/GetListMarketForPagination/{currentPage,pageSize} возвращает Market List по pageSize
+            </summary>
+            <param name="currentPage">Принимает параметр currentPage(int).</param>
+            <param name="pageSize">Принимает параметр pageSize(int).</param>
+        </member>
         <member name="M:WebAppIMaster.Controllers.WebApi.MarketSerivecController.PostClient(System.String,System.Int32)">
             <summary>
             передайте clientId,marketId(api/MarketSerivece/) сохранять в базу
@@ -902,7 +927,7 @@
         </member>
         <member name="M:WebAppIMaster.Controllers.WebApi.NewsItemServiceController.GetListForOtherNews">
             <summary>
-            api/GetListForOtherNews/{} возвращает 5 рандомных новостей
+            api/GetListForOtherNews/{} возвращает 5 рандомных новостей(другие новости)
             </summary>
         </member>
         <member name="M:WebAppIMaster.Controllers.WebApi.NewsItemServiceController.GetListForPagination(System.Nullable{System.Int32},System.Nullable{System.Int32})">
@@ -958,6 +983,14 @@
             передайте populationCategoryId(api/Support/5) возращает один элемент
             </summary>
             <param name="populationCategoryId">Принимает параметр (populationCategoryId).(populationCategoryId)</param>
+        </member>
+        <member name="M:WebAppIMaster.Controllers.WebApi.PopulationQuestionController.SaveRateHowItWork(System.String,System.Int32,WebAppIMaster.Models.Enitities.Enums.Estimate)">
+            <summary>
+            api/SaveRateHowItWork/{userId,populationQuestionId,estimate} сохраняет оценку статьи(как это работает) 
+            </summary>
+            <param name="userId">Принимает параметр userId(string).</param>
+            <param name="populationQuestionId">Принимает параметр populationQuestionId(int).</param>
+            <param name="estimate">Принимает параметр estimate(enum).</param>
         </member>
         <member name="T:WebAppIMaster.Controllers.WebApi.RegionServiceController">
             <summary>

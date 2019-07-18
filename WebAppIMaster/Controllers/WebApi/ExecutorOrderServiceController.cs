@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Web;
 using System.Web.Http;
 using WebAppIMaster.Models.Enitities;
 using WebAppIMaster.Models.Enitities.Enums;
@@ -131,6 +133,28 @@ namespace WebAppIMaster.Controllers.WebApi
             ApplicationDbContext db = new ApplicationDbContext();
             ExecutorOrderService repository = new ExecutorOrderService(db);
             repository.RemoveBookmark(userId, orderId);
+        }
+
+        /// <summary>
+        /// api/GetClientExecutorOrderPhoto/{url} возвращает фото файла
+        /// </summary>
+        /// <param name="url">Принимает параметр url.</param>
+        [System.Web.Http.HttpGet]
+        [System.Web.Http.Route("api/GetClientExecutorOrderPhoto")]
+        public HttpResponseMessage GetClientExecutorOrderPhoto(string url)
+        {
+            if (url == "")
+            {
+                return null;
+            }
+            byte[] content = File.ReadAllBytes(HttpContext.Current.Server.MapPath(url));
+            MemoryStream ms = new MemoryStream(content);
+
+            HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.OK);
+            response.Content = new StreamContent(ms);
+            response.Content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("image/png");
+
+            return response;
         }
 
     }

@@ -138,6 +138,9 @@
   <data name="Edit" xml:space="preserve">
     <value>Өзгерту</value>
   </data>
+  <data name="Helped" xml:space="preserve">
+    <value>Қанағаттандырды</value>
+  </data>
   <data name="Latitude" xml:space="preserve">
     <value>Ендігі</value>
   </data>
@@ -152,6 +155,9 @@
   </data>
   <data name="Name_ru" xml:space="preserve">
     <value>Атауы(орысша)</value>
+  </data>
+  <data name="NotHelped" xml:space="preserve">
+    <value>Қанағаттандырған жоқ</value>
   </data>
   <data name="Priority" xml:space="preserve">
     <value>Басымдылығы</value>

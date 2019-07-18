@@ -103,7 +103,7 @@ namespace WebAppIMaster.Controllers.WebApi
         /// <param name="files">Принимает параметр files.</param>
         [System.Web.Http.HttpGet]
         [System.Web.Http.Route("api/GetClientProfilePhoto")]
-        public HttpResponseMessage GetSupportPhoto(string url)
+        public HttpResponseMessage GetClientProfilePhoto(string url)
         {
             if (url == "")
             {

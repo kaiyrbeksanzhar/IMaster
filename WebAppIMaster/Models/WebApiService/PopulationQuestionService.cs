@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using WebAppIMaster.Controllers.Base;
+using WebAppIMaster.Migrations;
 using WebAppIMaster.Models.Enitities;
 using static WebAppIMaster.Models.NewManagerModels.PopulationQuestion;
 using static WebAppIMaster.Models.WebApiModel.PopulationQuestionServiceMdl;
@@ -20,7 +21,7 @@ namespace WebAppIMaster.Models.WebApiService
                         select new PopulationSelectVmMdl
                         {
                             PopulationCategoryId = pq.PopulationCategoryId,
-                            PopulationCategoryName = pq.PopulationCategory.Langs.Where(l=>l.LangCode == langcode).Select(l=>l.Name).FirstOrDefault(),
+                            PopulationCategoryName = pq.PopulationCategory.Langs.Where(l => l.LangCode == langcode).Select(l => l.Name).FirstOrDefault(),
                             populationQuestionList = new List<PopulationSelectVmMdl.PopulationQuestionList>()
                             {
                                 new PopulationSelectVmMdl.PopulationQuestionList
@@ -74,7 +75,7 @@ namespace WebAppIMaster.Models.WebApiService
             return sortedQuery;
         }
 
-        public PopulationSelect Select( int populationCategoryId )
+        public PopulationSelect Select(int populationCategoryId)
         {
             List<PopulationSelect.PopulationList> result = new List<PopulationSelect.PopulationList>();
             ApplicationDbContext db = new ApplicationDbContext();
@@ -85,22 +86,47 @@ namespace WebAppIMaster.Models.WebApiService
 
                         select new
                         {
-                            Name = pq.Langs.Where(l=>l.LangCode == langcode).Select(l=>l.Title).FirstOrDefault(),
-                            Description = pq.Langs.Where(l=>l.LangCode==langcode).Select(l=>l.Description).FirstOrDefault(),
+                            Name = pq.Langs.Where(l => l.LangCode == langcode).Select(l => l.Title).FirstOrDefault(),
+                            Description = pq.Langs.Where(l => l.LangCode == langcode).Select(l => l.Description).FirstOrDefault(),
                             Id = pq.Id
                         }).ToList();
 
-            
+
             return new PopulationSelect
             {
-                PopulationCategoryName = db.populationCategoryLangs.Where(l=>l.LangCode == langcode).Where(l=>l.PopulationCategoryId == populationCategoryId).Select(l=>l.Name).FirstOrDefault(),
-                populationQuestionList = item.Select(p=> new PopulationSelect.PopulationList
+                PopulationCategoryName = db.populationCategoryLangs.Where(l => l.LangCode == langcode).Where(l => l.PopulationCategoryId == populationCategoryId).Select(l => l.Name).FirstOrDefault(),
+                populationQuestionList = item.Select(p => new PopulationSelect.PopulationList
                 {
                     Id = p.Id,
                     Name = p.Name,
                     Description = p.Description,
                 }).ToList(),
             };
+        }
+
+        public bool SaveRateHowItWork(string userId, int populationQuestionId, Enitities.Enums.Estimate estimate)
+        {
+            ApplicationDbContext db = new ApplicationDbContext();
+            db.Configuration.AutoDetectChangesEnabled = false;
+
+            try
+            {
+                RateHowItWorks rateHowItWorks = new RateHowItWorks()
+                {
+                    UserId = userId,
+                    PopulationQuestionId = populationQuestionId,
+                    Estimate = estimate,
+                    CreatedAt_Date = DateTime.Now,
+                };
+                db.rateHowItWorks.Add(rateHowItWorks);
+                db.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+
         }
     }
 }

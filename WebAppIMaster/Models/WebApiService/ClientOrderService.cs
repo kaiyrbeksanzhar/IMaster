@@ -43,10 +43,10 @@ namespace WebAppIMaster.Models.WebApiService
                 RegionId = u.InCityId,
                 PhotoUris = new List<string>
                 {
-                    u.Photo1Url == null ? null : "http://i-master.kz/api/GetOrderPhoto?url=" + u.Photo1Url,
-                    u.Photo2Url == null ? null : "http://i-master.kz/api/GetOrderPhoto?url=" + u.Photo2Url,
-                    u.Photo3Url == null ? null : "http://i-master.kz/api/GetOrderPhoto?url=" + u.Photo3Url,
-                    u.Photo4Url == null ? null : "http://i-master.kz/api/GetOrderPhoto?url=" + u.Photo4Url,
+                    u.Photo1Url == null ? null : "http://i-master.kz/api/GetClientOrderPhoto?url=" + u.Photo1Url,
+                    u.Photo2Url == null ? null : "http://i-master.kz/api/GetClientOrderPhoto?url=" + u.Photo2Url,
+                    u.Photo3Url == null ? null : "http://i-master.kz/api/GetClientOrderPhoto?url=" + u.Photo3Url,
+                    u.Photo4Url == null ? null : "http://i-master.kz/api/GetClientOrderPhoto?url=" + u.Photo4Url,
                 },
                 PayWithBounce = u.PayWithBounce,
                 ReceiveOnlyResponses = u.ReceiveOnlyResponses,
@@ -296,28 +296,28 @@ namespace WebAppIMaster.Models.WebApiService
             {
                 photos.Add(new ClientCommonOrderDetailsView.Photo
                 {
-                    Uri = "http://i-master.kz/api/GetOrderPhoto?url=" + item.Photourl1,
+                    Uri = "http://i-master.kz/api/GetClientOrderPhoto?url=" + item.Photourl1,
                 });
             }
             if (string.IsNullOrWhiteSpace(item.Photourl2) == false)
             {
                 photos.Add(new ClientCommonOrderDetailsView.Photo
                 {
-                    Uri = "http://i-master.kz/api/GetOrderPhoto?url=" + item.Photourl2,
+                    Uri = "http://i-master.kz/api/GetClientOrderPhoto?url=" + item.Photourl2,
                 });
             }
             if (string.IsNullOrWhiteSpace(item.Photourl3) == false)
             {
                 photos.Add(new ClientCommonOrderDetailsView.Photo
                 {
-                    Uri = "http://i-master.kz/api/GetOrderPhoto?url=" + item.Photourl3,
+                    Uri = "http://i-master.kz/api/GetClientOrderPhoto?url=" + item.Photourl3,
                 });
             }
             if (string.IsNullOrWhiteSpace(item.Photourl4) == false)
             {
                 photos.Add(new ClientCommonOrderDetailsView.Photo
                 {
-                    Uri = "http://i-master.kz/api/GetOrderPhoto?url=" + item.Photourl4,
+                    Uri = "http://i-master.kz/api/GetClientOrderPhoto?url=" + item.Photourl4,
                 });
             }
 

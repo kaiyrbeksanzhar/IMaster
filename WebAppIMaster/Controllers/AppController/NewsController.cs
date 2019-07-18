@@ -6,13 +6,29 @@ using System.Web.Mvc;
 using WebAppIMaster.Models.Enitities;
 using WebAppIMaster.Models.NewManagerManage;
 using WebAppIMaster.Models.NewManagerModels;
+using FireSharp.Config;
+using FireSharp.Interfaces;
+using FireSharp.Response;
+using FireSharp;
+using System.Threading.Tasks;
+using Newtonsoft.Json;
+using System.IO;
+using System.Text;
+using Newtonsoft.Json.Linq;
 
 namespace WebAppIMaster.Controllers.AppController
 {
     public class NewsController : Controller
     {
+        IFirebaseConfig config = new FirebaseConfig
+        {
+            AuthSecret = "rKTja1mSTCgwIQ0gix83P6v2ocaT67v5Jz4qx7uQ",
+            BasePath = "https://plasma-climber-231012.firebaseio.com/",
+        };
+
+        IFirebaseClient client;
         // GET: News
-        public ActionResult Index(int? pageNumber )
+        public ActionResult Index(int? pageNumber)
         {
             ApplicationDbContext db = new ApplicationDbContext();
             NewsManager repository = new NewsManager(db);
@@ -35,13 +51,22 @@ namespace WebAppIMaster.Controllers.AppController
 
         // POST: News/Create
         [HttpPost]
-        public ActionResult Create( NewsCreateMdl model )
+        public  ActionResult Create(NewsCreateMdl model)
         {
             try
             {
+                client = new FireSharp.FirebaseClient(config);
                 ApplicationDbContext db = new ApplicationDbContext();
                 NewsManager repository = new NewsManager(db);
-                repository.Create(model, this);
+                int newsId = repository.Create(model, this);
+                var data = new Data
+                {
+                    Id = newsId,
+                    Text = "У вас новый новости",
+                    Status = Models.Enums.Status.Active,
+                };
+                SetResponse response =  client.Set("News/"+ data.Id, data);
+                Data result = response.ResultAs<Data>();
                 return RedirectToAction("Index");
             }
             catch
@@ -93,5 +118,21 @@ namespace WebAppIMaster.Controllers.AppController
                 return View();
             }
         }
+        public async Task<ActionResult> PushNotification()
+        {
+
+            ApplicationDbContext db = new ApplicationDbContext();
+            NewsManager repository = new NewsManager(db);
+            //var model = repository.SelectNotification();
+
+            var firebaseClient = new FirebaseClient(config);
+            FirebaseResponse obj1 = await firebaseClient.GetTaskAsync("News/");
+            var myJson = obj1.Body;
+            dynamic data = JsonConvert.DeserializeObject<dynamic>(myJson);
+            var shorter = ((IDictionary<string, JToken>)data).Select(k =>
+    JsonConvert.DeserializeObject<Data>(k.Value.ToString())).ToList();
+            return PartialView(shorter);
+        }
+
     }
 }

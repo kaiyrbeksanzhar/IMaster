@@ -46,6 +46,8 @@ namespace WebAppIMaster.Models.WebApiModel
             public int? RegionId { get; set; }
             public string Region { get; set; }
             public int? Bonus { get; set; }
+
+            public List<string> PhotosUrls { get; set; }
             public string PhoneNumber { get; set; }
 
             public List<Specialization> Specializations { get; set; }

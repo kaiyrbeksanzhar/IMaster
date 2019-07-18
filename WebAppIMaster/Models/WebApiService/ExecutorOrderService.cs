@@ -54,7 +54,7 @@ namespace WebAppIMaster.Models.WebApiService
                 ClientId = u.CustomerId,
                 ClientFirstName = u.Customer.FirstName,
                 ClientPhoneNumber = u.Customer.ApplicationUser.PhoneNumber,
-                ClientAvatarUri = u.Customer.AvatarType == null ? null : "http://i-master.kz/api/GetClientAvatar?clientId=" + u.Customer.Id,
+                ClientAvatarUri = u.Customer.AvatarUrl,
                 Bookmark = u.BookmarkOrders.Any(b => b.UserId == userId),
                 Responded = u.Responses.Any(r => r.ExecutorId == userId),
                 StartDateType = u.StartDateType,
@@ -79,7 +79,7 @@ namespace WebAppIMaster.Models.WebApiService
                 ClientId = u.ClientId,
                 ClientFirstName = u.ClientFirstName,
                 ClientPhoneNumber = u.ClientPhoneNumber,
-                ClientAvatarUri = u.ClientAvatarUri,
+                ClientAvatarUri = u.ClientAvatarUri == null ? null : "http://i-master.kz/api/GetClientExecutorOrderPhoto?url=" + u.ClientAvatarUri,
                 Bookmark = u.Bookmark,
                 StartDateType = u.StartDateType,
                 StartDate = u.StartDate,
@@ -95,10 +95,10 @@ namespace WebAppIMaster.Models.WebApiService
                 Address = u.Address,
                 PhotoUris = new List<string>
                 {
-                    u.Photo1Url == null ? null : "http://i-master.kz/api/GetOrderPhoto?url=" + u.Photo1Url,
-                    u.Photo2Url == null ? null : "http://i-master.kz/api/GetOrderPhoto?url=" + u.Photo2Url,
-                    u.Photo3Url == null ? null : "http://i-master.kz/api/GetOrderPhoto?url=" + u.Photo3Url,
-                    u.Photo4Url == null ? null : "http://i-master.kz/api/GetOrderPhoto?url=" + u.Photo4Url,
+                    u.Photo1Url == null ? null : "http://i-master.kz/api/GetClientExecutorOrderPhoto?url=" + u.Photo1Url,
+                    u.Photo2Url == null ? null : "http://i-master.kz/api/GetClientExecutorOrderPhoto?url=" + u.Photo2Url,
+                    u.Photo3Url == null ? null : "http://i-master.kz/api/GetClientExecutorOrderPhoto?url=" + u.Photo3Url,
+                    u.Photo4Url == null ? null : "http://i-master.kz/api/GetClientExecutorOrderPhoto?url=" + u.Photo4Url,
                 },
             }).SingleOrDefault();
             item.PhotoUris = item.PhotoUris.Where(u => u != null);
@@ -125,7 +125,7 @@ namespace WebAppIMaster.Models.WebApiService
                 OrderTitle = u.Title,
                 ClientId = u.CustomerId,
                 ClientFirstName = u.Customer.ApplicationUser.FirstName,
-                ClientAvatarUri = u.Customer.AvatarType == null ? null : "http://i-master.kz/api/GetClientAvatar?clientId=" + u.Customer.Id,
+                ClientAvatarUri = u.Customer.AvatarUrl == null ? null : "http://i-master.kz/api/GetClientExecutorOrderPhoto?url=" + u.Customer.AvatarUrl,
                 Bookmark = db.BookmarkOrders.Any(b => b.OrderId == u.Id && b.UserId == userId),
                 Responded = u.Responses.Any(r => r.ExecutorId == userId), 
                 StartDateType = u.StartDateType,

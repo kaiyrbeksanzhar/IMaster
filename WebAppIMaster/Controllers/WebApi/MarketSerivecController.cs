@@ -46,6 +46,20 @@ namespace WebAppIMaster.Controllers.WebApi
         }
 
         /// <summary>
+        /// api/GetListMarketForPagination/{currentPage,pageSize} возвращает Market List по pageSize
+        /// </summary>
+        /// <param name="currentPage">Принимает параметр currentPage(int).</param>
+        /// <param name="pageSize">Принимает параметр pageSize(int).</param>
+        [System.Web.Http.Route("api/GetListMarketForPagination")]
+        public List<MarketServiceMdl.MarketItem> GetListMarketForPagination(int? currentPage = null, int? pageSize = null)
+        {
+            ApplicationDbContext db = new ApplicationDbContext();
+            MarketService repository = new MarketService(db);
+            var model = repository.GetListForPagination(currentPage,pageSize);
+            return model;
+        }
+
+        /// <summary>
         /// передайте clientId,marketId(api/MarketSerivece/) сохранять в базу
         /// </summary>
         /// <param name="clientId">Принимает параметр clientId.</param>

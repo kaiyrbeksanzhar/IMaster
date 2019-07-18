@@ -178,5 +178,27 @@ namespace WebAppIMaster.Controllers.WebApi
             bool res = repository.CancelClientMyOrder(orderId, cancelReason);
             return res;
         }
+
+        /// <summary>
+        /// api/GetClientOrderPhoto/{url} возвращает фото
+        /// </summary>
+        /// <param name="url">Принимает параметр url.</param>
+        [System.Web.Http.HttpGet]
+        [System.Web.Http.Route("api/GetClientOrderPhoto")]
+        public HttpResponseMessage GetClientOrderPhoto(string url)
+        {
+            if (url == "")
+            {
+                return null;
+            }
+            byte[] content = File.ReadAllBytes(HttpContext.Current.Server.MapPath(url));
+            MemoryStream ms = new MemoryStream(content);
+
+            HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.OK);
+            response.Content = new StreamContent(ms);
+            response.Content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("image/png");
+
+            return response;
+        }
     }
 }

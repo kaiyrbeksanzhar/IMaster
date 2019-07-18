@@ -138,6 +138,9 @@
   <data name="Edit" xml:space="preserve">
     <value>Изменить</value>
   </data>
+  <data name="Helped" xml:space="preserve">
+    <value>Помогло</value>
+  </data>
   <data name="Latitude" xml:space="preserve">
     <value>Широта</value>
   </data>
@@ -152,6 +155,9 @@
   </data>
   <data name="Name_ru" xml:space="preserve">
     <value>Название(на русском)</value>
+  </data>
+  <data name="NotHelped" xml:space="preserve">
+    <value>Не помогло</value>
   </data>
   <data name="Priority" xml:space="preserve">
     <value>Приоритет</value>

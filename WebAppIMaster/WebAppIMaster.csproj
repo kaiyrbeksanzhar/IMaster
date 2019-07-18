@@ -46,6 +46,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="FireSharp, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\FireSharp.1.1.0\lib\net45\FireSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="FireSharp.Serialization.JsonNet, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\FireSharp.Serialization.JsonNet.1.1.0\lib\net45\FireSharp.Serialization.JsonNet.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.IdentityModel.Logging, Version=1.1.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.IdentityModel.Logging.1.1.2\lib\net451\Microsoft.IdentityModel.Logging.dll</HintPath>
@@ -232,6 +238,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AppController\CategoryController.cs" />
     <Compile Include="Controllers\AppController\CityController.cs" />
+    <Compile Include="Models\NewManagerModels\Data.cs" />
     <Compile Include="Controllers\AppController\HowDidYouAboutUsController.cs" />
     <Compile Include="Controllers\AppController\LandingPageController.cs" />
     <Compile Include="Controllers\AppController\NewsController.cs" />
@@ -362,6 +369,14 @@
     <Compile Include="Migrations\201907130857210_CategoryMarket.Designer.cs">
       <DependentUpon>201907130857210_CategoryMarket.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201907180420311_Estimate.cs" />
+    <Compile Include="Migrations\201907180420311_Estimate.Designer.cs">
+      <DependentUpon>201907180420311_Estimate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201907180427115_EditEstimate.cs" />
+    <Compile Include="Migrations\201907180427115_EditEstimate.Designer.cs">
+      <DependentUpon>201907180427115_EditEstimate.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -381,6 +396,7 @@
     <Compile Include="Models\Enitities\ClientPhone.cs" />
     <Compile Include="Models\Enitities\Customer.cs" />
     <Compile Include="Models\Enitities\CustomerOrder.cs" />
+    <Compile Include="Models\Enitities\Enums\Estimate.cs" />
     <Compile Include="Models\Enitities\Enums\EvaluationPerformerWork.cs" />
     <Compile Include="Models\Enitities\Enums\ExecutorStatus.cs" />
     <Compile Include="Models\Enitities\Enums\ExecutorType.cs" />
@@ -430,6 +446,7 @@
     <Compile Include="Models\Enitities\PopulationQuestionLangs.cs" />
     <Compile Include="Models\Enitities\PriceCategoryAndSpecialization.cs" />
     <Compile Include="Models\Enitities\PriceCategoryAndSpecializationType.cs" />
+    <Compile Include="Models\Enitities\RateHowItWorks.cs" />
     <Compile Include="Models\Enitities\Response.cs" />
     <Compile Include="Models\Enitities\SendBonus.cs" />
     <Compile Include="Models\Enitities\Service.cs" />
@@ -857,6 +874,7 @@
     <Content Include="Views\Organization\IndexOrganizationPrice.cshtml" />
     <Content Include="Views\Organization\CreateOrganizationPrice.cshtml" />
     <Content Include="Views\LandingPage\Index.cshtml" />
+    <Content Include="Views\News\PushNotification.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Files\Organization\" />
@@ -960,6 +978,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201907130857210_CategoryMarket.resx">
       <DependentUpon>201907130857210_CategoryMarket.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201907180420311_Estimate.resx">
+      <DependentUpon>201907180420311_Estimate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201907180427115_EditEstimate.resx">
+      <DependentUpon>201907180427115_EditEstimate.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Resource.kk-KZ.resx" />
     <EmbeddedResource Include="Resources\Resource.resx" />

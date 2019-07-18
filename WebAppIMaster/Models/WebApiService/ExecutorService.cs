@@ -22,34 +22,34 @@ namespace WebAppIMaster.Models.WebApiService
 
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        public ExecutorService( ApplicationDbContext db ) => this.db = db;
+        public ExecutorService(ApplicationDbContext db) => this.db = db;
 
-        public ExecutorServiceMdl.ExecutorProfile GetById( string id )
+        public ExecutorServiceMdl.ExecutorProfile GetById(string id)
         {
             string langcode = LanguageController.CurrentCultureCode;
             //var model = db.Executors.Find(id);
             var model = (from e in db.Executors
-                        where e.Id == id
+                         where e.Id == id
 
-                        select new
-                        {
-                            Id = e.Id,
-                            LastName = e.User.LastName,
-                            FirstName = e.User.FirstName,
-                            FatherName = e.User.FatherName == null ? " " : e.User.FatherName,
-                            Rating = e.Rating,
-                            PhoneNumber = e.PhoneNumber,
-                            GenderId = e.Gender == Gender.Male ? 1 : 2,
-                            YouTubeUrl = e.YouTubeVideoUrl,
-                            RegionId = e.CityId,
-                            Region = e.City.Langs.Where(l => l.Langcode == langcode).Select(l => l.Name).FirstOrDefault(),
-                            RegisteredAt = e.RegistrationDateTime == null ? DateTime.MinValue : e.RegistrationDateTime,
-                            ClosedOrdersCount = e.ExecutorClosedOrdersCount,
-                            Bonus = (int)e.Orders.Select(o => o.Bonus).FirstOrDefault(),
-                            ExecutorType = e.ExecutorType,
-                            Check = e.ExecutorCheck,
-                            BirthDay = e.BirthDay,
-                        }).SingleOrDefault();
+                         select new
+                         {
+                             Id = e.Id,
+                             LastName = e.User.LastName,
+                             FirstName = e.User.FirstName,
+                             FatherName = e.User.FatherName == null ? " " : e.User.FatherName,
+                             Rating = e.Rating,
+                             PhoneNumber = e.PhoneNumber,
+                             GenderId = e.Gender == Gender.Male ? 1 : 2,
+                             YouTubeUrl = e.YouTubeVideoUrl,
+                             RegionId = e.CityId,
+                             Region = e.City.Langs.Where(l => l.Langcode == langcode).Select(l => l.Name).FirstOrDefault(),
+                             RegisteredAt = e.RegistrationDateTime == null ? DateTime.MinValue : e.RegistrationDateTime,
+                             ClosedOrdersCount = e.ExecutorClosedOrdersCount,
+                             Bonus = (int)e.Orders.Select(o => o.Bonus).FirstOrDefault(),
+                             ExecutorType = e.ExecutorType,
+                             Check = e.ExecutorCheck,
+                             BirthDay = e.BirthDay,
+                         }).SingleOrDefault();
             if (model == null) return null;
             List<ExecutorServiceMdl.ExecutorProfile.Review> reviews = new List<ExecutorServiceMdl.ExecutorProfile.Review>();
             var reviewies = db.CustomerOrders.Where(co => co.ExecutorId == id).ToList();
@@ -66,17 +66,19 @@ namespace WebAppIMaster.Models.WebApiService
                     StarCountsOf5 = (int)reviws.EvaluationPerformerWork
                 });
             }
+            List<string> PhotoUrls = new List<string>();
             Dictionary<byte[], string> photos = new Dictionary<byte[], string>();
             var photosfileurl = db.ExecutorPhotoFiles.Where(epf => epf.ExecutorId == id).ToList();
             Image img;
-            if(photosfileurl.Count > 0)
+            if (photosfileurl.Count > 0)
             {
                 foreach (var pfu in photosfileurl)
                 {
                     img = Image.FromFile(pfu.PhotoFileUrl);
                     string PhotoType = pfu.PhotoFileUrl.Substring(pfu.PhotoFileUrl.LastIndexOf(".") + 1);
                     byte[] Imagesbyte = FileManager.ImageToByteArray(img);
-                    string ImagesUrl = "http://i-master.kz/api/GetExecutorAvatar?url=" + pfu.PhotoFileUrl;
+                    string ImagesUrl = "http://i-master.kz/api/GetExecutorPhoto?url=" + pfu.PhotoFileUrl;
+                    PhotoUrls.Add(pfu.PhotoFileUrl == null ? null : "http://i-master.kz/api/GetExecutorPhoto?url=" + pfu.PhotoFileUrl);
                     //photos.Add(Imagesbyte, PhotoType);
                     photos.Add(Imagesbyte, ImagesUrl);
                 }
@@ -92,7 +94,7 @@ namespace WebAppIMaster.Models.WebApiService
                                       CategoryName = es.Specialization.Category.Langs.Where(l => l.Langcode == langcode).Select(l => l.Name).FirstOrDefault(),
                                       CategoryId = es.Specialization.Category.Id,
                                       SpecializationId = es.SpecializationId,
-                                      SpecializationName = es.Specialization.Langs.Where(l=>l.Langcode == langcode).Select(l=>l.Name).FirstOrDefault(),
+                                      SpecializationName = es.Specialization.Langs.Where(l => l.Langcode == langcode).Select(l => l.Name).FirstOrDefault(),
                                   }).ToList();
             List<ExecutorServiceMdl.ExecutiveService> executiveServices = new List<ExecutorServiceMdl.ExecutiveService>();
             var executorservices = db.ExecutorServices.Where(es => es.ExecutorId == id).ToList();
@@ -129,11 +131,12 @@ namespace WebAppIMaster.Models.WebApiService
                 Services = executiveServices,
                 Specializations = specialization,
                 Photos = photos,
-                Reviews = reviews
+                Reviews = reviews,
+                PhotosUrls = PhotoUrls
             };
         }
 
-        public ExecutorServiceMdl.ExecutorProfile GetByPhoneNumber( string phoneNumber )
+        public ExecutorServiceMdl.ExecutorProfile GetByPhoneNumber(string phoneNumber)
         {
             string langcode = LanguageController.CurrentCultureCode;
 
@@ -154,6 +157,7 @@ namespace WebAppIMaster.Models.WebApiService
                 });
             }
             Dictionary<byte[], string> photos = new Dictionary<byte[], string>();
+            List<string> PhotoUris = new List<string>();
             var photosfileurl = db.ExecutorPhotoFiles.Where(epf => epf.ExecutorId == model.User.Id).ToList();
             Image img;
             foreach (var pfu in photosfileurl)
@@ -162,6 +166,7 @@ namespace WebAppIMaster.Models.WebApiService
                 string PhotoType = pfu.PhotoFileUrl.Substring(pfu.PhotoFileUrl.LastIndexOf(".") + 1);
                 byte[] Imagesbyte = FileManager.ImageToByteArray(img);
                 photos.Add(Imagesbyte, PhotoType);
+                PhotoUris.Add(pfu.PhotoFileUrl == null ? null : "http://i-master.kz/api/GetExecutorPhoto?url=" + pfu.PhotoFileUrl);
             }
             var specialization = (from e in db.Executors
                                   where e.Id == model.User.Id
@@ -210,7 +215,8 @@ namespace WebAppIMaster.Models.WebApiService
                 Services = executiveServices,
                 Specializations = specialization,
                 Photos = photos,
-                Reviews = reviews
+                Reviews = reviews,
+                PhotosUrls = PhotoUris,
             };
         }
 
@@ -233,14 +239,14 @@ namespace WebAppIMaster.Models.WebApiService
                     RegisteredAt = (DateTime)item.RegistrationDateTime,
                     ClosedOrdersCount = (int)item.ExecutorClosedOrdersCount,
                     ExecutorType = (ExecutorType)item.ExecutorType,
-                    AvatarUri = item.AvatarUrl==null?null: "http://i-master.kz/api/GetExecutorAvatar?url=" + item.AvatarUrl,
+                    AvatarUri = item.AvatarUrl == null ? null : "http://i-master.kz/api/GetExecutorPhoto?url=" + item.AvatarUrl,
                 });
             }
 
             return executorItems;
         }
 
-        public List<ExecutorServiceMdl.ExecutorItem> GetItemListForSpecialization( int specializationId )
+        public List<ExecutorServiceMdl.ExecutorItem> GetItemListForSpecialization(int specializationId)
         {
             string langcode = LanguageController.CurrentCultureCode;
 
@@ -255,7 +261,7 @@ namespace WebAppIMaster.Models.WebApiService
                     LastName = item.Executor.User.LastName,
                     FirstName = item.Executor.User.FirstName,
                     FatherName = item.Executor.User.FatherName,
-                    AvatarUri = item.Executor.AvatarUrl == null ? null : "http://i-master.kz/api/GetExecutorAvatar?url=" + item.Executor.AvatarUrl,
+                    AvatarUri = item.Executor.AvatarUrl == null ? null : "http://i-master.kz/api/GetExecutorPhoto?url=" + item.Executor.AvatarUrl,
                     ExecutorType = (ExecutorType)item.Executor.ExecutorType,
                     Check = (bool)item.Executor.ExecutorCheck,
                     ClosedOrdersCount = (int)item.Executor.ExecutorClosedOrdersCount,
@@ -266,7 +272,7 @@ namespace WebAppIMaster.Models.WebApiService
             return executorItems;
         }
 
-        public List<ExecutorServiceMdl.ExecutorItem> GetItemListSuitableForOrder( int orderId )
+        public List<ExecutorServiceMdl.ExecutorItem> GetItemListSuitableForOrder(int orderId)
         {
             string langcode = LanguageController.CurrentCultureCode;
 
@@ -287,7 +293,7 @@ namespace WebAppIMaster.Models.WebApiService
                         Id = item.Id,
                         FirstName = item.User.FirstName,
                         FatherName = item.User.FatherName,
-                        AvatarUri = item.AvatarUrl == null ? null : "http://i-master.kz/api/GetExecutorAvatar?url=" + item.AvatarUrl,
+                        AvatarUri = item.AvatarUrl == null ? null : "http://i-master.kz/api/GetExecutorPhoto?url=" + item.AvatarUrl,
                         ExecutorType = (ExecutorType)item.ExecutorType,
                         Check = (bool)item.ExecutorCheck,
                         ClosedOrdersCount = (int)item.ExecutorClosedOrdersCount,
@@ -304,7 +310,7 @@ namespace WebAppIMaster.Models.WebApiService
             return executorItems;
         }
 
-        public string Register( ExecutorServiceMdl.ExecutorRegister item )
+        public string Register(ExecutorServiceMdl.ExecutorRegister item)
         {
             string lang_kz = LanguageController.GetKzCode();
             string lang_ru = LanguageController.GetRuCode();
@@ -336,7 +342,7 @@ namespace WebAppIMaster.Models.WebApiService
                 ExecotorOnline = true,
                 Rating = 50,
                 ExecutorClosedOrdersCount = (int?)closedOrder,
-                ExecutorStatus =  (ExecutorStatus?)ExecutorStatus.Newbie,
+                ExecutorStatus = (ExecutorStatus?)ExecutorStatus.Newbie,
                 CityId = (int?)user.RegionId == 0 ? 1 : user.RegionId,
                 //BannedDateTime = (DateTime?)DateTime.MinValue,
                 Banned = false,
@@ -347,7 +353,7 @@ namespace WebAppIMaster.Models.WebApiService
             return executor.Id;
         }
 
-        public void SendCheckingCodeForUpdatePhoneNumber( string newPhoneNumber )
+        public void SendCheckingCodeForUpdatePhoneNumber(string newPhoneNumber)
         {
             string phonenumber = "+" + newPhoneNumber;
             var model = db.Executors.Where(e => e.User.PhoneNumber == phonenumber).FirstOrDefault();
@@ -380,7 +386,7 @@ namespace WebAppIMaster.Models.WebApiService
             db.SaveChanges();
         }
 
-        public bool UpdatePhoneNumber( string executorId, string newPhoneNumber, string checkingCode )
+        public bool UpdatePhoneNumber(string executorId, string newPhoneNumber, string checkingCode)
         {
             try
             {
@@ -418,7 +424,7 @@ namespace WebAppIMaster.Models.WebApiService
 
         }
 
-        public void UpdatePhotoFiles( string executorId, Dictionary<byte[], string> actualPhotoFiles )
+        public void UpdatePhotoFiles(string executorId, Dictionary<byte[], string> actualPhotoFiles)
         {
 
             List<string> photos = new List<string>();
@@ -445,7 +451,7 @@ namespace WebAppIMaster.Models.WebApiService
 
 
 
-        public void UpdateProfile( ExecutorServiceMdl.ExecutorProfileEdit item )
+        public void UpdateProfile(ExecutorServiceMdl.ExecutorProfileEdit item)
         {
             string langcode = LanguageController.CurrentCultureCode;
 
@@ -472,7 +478,7 @@ namespace WebAppIMaster.Models.WebApiService
             db.SaveChanges();
         }
 
-        public void UpdateServices( List<ExecutorServiceMdl.ExecutiveService> actualServices, string executorId )
+        public void UpdateServices(List<ExecutorServiceMdl.ExecutiveService> actualServices, string executorId)
         {
             List<Models.ExecutorService> executiveServices = new List<Models.ExecutorService>();
             string lang_kz = LanguageController.GetKzCode();
@@ -504,7 +510,7 @@ namespace WebAppIMaster.Models.WebApiService
             db.SaveChanges();
         }
 
-        public void UpdateType( ExecutorServiceMdl.ExecutorTypeEdit item, string executorId )
+        public void UpdateType(ExecutorServiceMdl.ExecutorTypeEdit item, string executorId)
         {
             string lang_kz = LanguageController.GetKzCode();
             string lang_ru = LanguageController.GetRuCode();
