@@ -32,6 +32,20 @@ namespace WebAppIMaster.Controllers.WebApi
         }
 
         /// <summary>
+        /// api/GetMarketinListForPagination/{currentPage,pageSize} возвращает News по pageSize
+        /// </summary>
+        /// <param name="currentPage">Принимает параметр currentPage(int).</param>
+        /// <param name="pageSize">Принимает параметр pageSize(int).</param>
+        [System.Web.Http.Route("api/GetMarketinListForPagination")]
+        public List<MarketingNameView> GetListForPagination(int? currentPage = null, int? pageSize = null)
+        {
+            ApplicationDbContext db = new ApplicationDbContext();
+            MarketingService repository = new MarketingService(db);
+            var model = repository.GetListForPagination(currentPage, pageSize);
+            return model;
+        }
+
+        /// <summary>
         /// передайте id(api/MarketingService/5) возращает один элемент
         /// </summary>
         /// <param name="id">Принимает параметр id.</param>

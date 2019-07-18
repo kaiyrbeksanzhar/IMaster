@@ -11,7 +11,7 @@ namespace WebAppIMaster.Models.WebApiService
 {
     public class SupportSerivce : ISupportService
     {
-        public int Create( SupportServiceMdl.SupportInsertMdl model )
+        public int Create(SupportServiceMdl.SupportInsertMdl model)
         {
             ApplicationDbContext db = new ApplicationDbContext();
             Support support = new Support()
@@ -28,7 +28,7 @@ namespace WebAppIMaster.Models.WebApiService
             return support.Id;
         }
 
-        public SupportServiceMdl.Select Select( int id )
+        public SupportServiceMdl.Select Select(int id)
         {
             ApplicationDbContext db = new ApplicationDbContext();
             string langcode = LanguageController.CurrentCultureCode;
@@ -39,10 +39,11 @@ namespace WebAppIMaster.Models.WebApiService
                          {
                              LastName = s.LastName,
                              FirstName = s.FirstName,
-                             CityName = s.City.Langs.Where(l=>l.Langcode == langcode).Select(l=>l.Name).FirstOrDefault(),
+                             CityName = s.City.Langs.Where(l => l.Langcode == langcode).Select(l => l.Name).FirstOrDefault(),
                              Description = s.Description,
                              PhoneNumber = s.PhoneNumber,
                              Type = s.TypeMessage,
+                             FileUrl = s.FileUrl == null ? null : "http://i-master.kz/api/SendFileToSupport?url=" + s.FileUrl,
                          }).SingleOrDefault();
             return model;
         }
@@ -62,9 +63,50 @@ namespace WebAppIMaster.Models.WebApiService
                              Description = s.Description,
                              PhoneNumber = s.PhoneNumber,
                              Type = s.TypeMessage,
+                             FileUrl = s.FileUrl == null ? null : "http://i-master.kz/api/SendFileToSupport?url=" + s.FileUrl,
                          }).ToList();
 
             return model;
+        }
+
+        public List<SupportServiceMdl.SupportSelectList> SelectSupportListForPagination(int? CurrentPage = null, int? PageSize = null)
+        {
+            ApplicationDbContext db = new ApplicationDbContext();
+            db.Configuration.AutoDetectChangesEnabled = false;
+            db.Configuration.LazyLoadingEnabled = false;
+            if (PageSize == null)
+            {
+                PageSize = 5;
+            }
+            string langcode = LanguageController.CurrentCultureCode;
+            var query = db.Supports;
+
+            int allPageCount = (int)Math.Ceiling(query.Count() / (double)PageSize);
+            if (allPageCount < CurrentPage) CurrentPage = 1;
+
+            var sortedQuery = query.Select(u => new
+            {
+                Id = u.Id,
+                LastName = u.LastName,
+                FirstName = u.FirstName,
+                CityName = u.City.Langs.Where(l => l.Langcode == langcode).Select(l => l.Name).FirstOrDefault(),
+                Description = u.Description,
+                PhoneNumber = u.PhoneNumber,
+                Type = u.TypeMessage,
+                FileUrl = u.FileUrl == null ? null : "http://i-master.kz/api/SendFileToSupport?url=" + u.FileUrl,
+            }).Select(m => new SupportServiceMdl.SupportSelectList
+            {
+                Id = m.Id,
+                LastName = m.LastName,
+                FirstName = m.FirstName,
+                CityName = m.CityName,
+                Description = m.Description,
+                PhoneNumber = m.PhoneNumber,
+                Type = m.Type,
+                FileUrl = m.FileUrl,
+            }).OrderByDescending(u => u.LastName).Skip(((int)CurrentPage - 1) * (int)PageSize).Take((int)PageSize).ToList();
+
+            return sortedQuery;
         }
 
         public void SendPhotoToSupport(string url, int supportId)

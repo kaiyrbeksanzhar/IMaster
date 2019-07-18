@@ -13,12 +13,12 @@ namespace WebAppIMaster.Models.WebApiService
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        public MarketingService( ApplicationDbContext db ) => this.db = db;
+        public MarketingService(ApplicationDbContext db) => this.db = db;
 
         public WebApiModel.MarketingService.MarketingNameView Get(int id)
         {
             string langcode = LanguageController.CurrentCultureCode;
-            var model = db.HowDidYouAboutUsLangs.Where(hl => hl.HowDidYouAboutUsId == id).Where(hl=>hl.Langcode == langcode).FirstOrDefault(); ;
+            var model = db.HowDidYouAboutUsLangs.Where(hl => hl.HowDidYouAboutUsId == id).Where(hl => hl.Langcode == langcode).FirstOrDefault(); ;
             return new WebApiModel.MarketingService.MarketingNameView
             {
                 Id = model.HowDidYouAboutUsId,
@@ -40,6 +40,32 @@ namespace WebAppIMaster.Models.WebApiService
                 });
             }
             return result;
+        }
+
+        public List<WebApiModel.MarketingService.MarketingNameView> GetListForPagination(int? CurrentPage = null, int? PageSize = null)
+        {
+            if (PageSize == null)
+            {
+                PageSize = 5;
+            }
+            string langcode = LanguageController.CurrentCultureCode;
+
+            var query = db.HowDidYouAboutUsLangs.Where(hl => hl.Langcode == langcode);
+
+            int allPageCount = (int)Math.Ceiling(query.Count() / (double)PageSize);
+            if (allPageCount < CurrentPage) CurrentPage = 1;
+
+            var sortedQuery = query.Select(u => new
+            {
+                Id = u.HowDidYouAboutUsId,
+                Name = u.SourceName
+            }).Select(m => new WebApiModel.MarketingService.MarketingNameView
+            {
+                Id = m.Id,
+                Name = m.Name,
+            }).OrderBy(u => u.Name).Skip(((int)CurrentPage - 1) * (int)PageSize).Take((int)PageSize).ToList();
+
+            return sortedQuery;
         }
     }
 }

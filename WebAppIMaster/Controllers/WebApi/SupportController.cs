@@ -40,6 +40,22 @@ namespace WebAppIMaster.Controllers.WebApi
             var model = repository.SelectList();
             return model;
         }
+
+        /// <summary>
+        /// api/GetSupportListForPagination/{currentPage,pageSize} возвращает лист Службка поддержку по pageSize
+        /// </summary>
+        /// <param name="currentPage">Принимает параметр currentPage(int).</param>
+        /// <param name="pageSize">Принимает параметр pageSize(int).</param>
+        [System.Web.Http.Route("api/GetSupportListForPagination")]
+        public List<SupportServiceMdl.SupportSelectList> GetSupportListForPagination(int? currentPage = null, int? pageSize = null)
+        {
+            ApplicationDbContext db = new ApplicationDbContext();
+            SupportSerivce repository = new SupportSerivce();
+            var model = repository.SelectSupportListForPagination(currentPage, pageSize);
+            return model;
+        }
+
+
         /// <summary>
         /// передайте SupportInsertMdl model Save to DataBase
         /// </summary>
@@ -59,7 +75,7 @@ namespace WebAppIMaster.Controllers.WebApi
         /// <param name="files">Принимает параметр files.</param>
         // GET: api/SendPhotoToOrder
         [System.Web.Http.HttpPost]
-        [System.Web.Http.Route("api/SendPhotoToSupport")]
+        [System.Web.Http.Route("api/SendFileToSupport")]
         public async void SendPhotoToSupport()
         {
             ApplicationDbContext db = new ApplicationDbContext();
@@ -83,7 +99,7 @@ namespace WebAppIMaster.Controllers.WebApi
         /// </summary>
         /// <param name="files">Принимает параметр files.</param>
         [System.Web.Http.HttpGet]
-        [System.Web.Http.Route("api/GetSupportPhoto")]
+        [System.Web.Http.Route("api/GetSupportFile")]
         public HttpResponseMessage GetSupportPhoto(string url)
         {
             if (url == "")

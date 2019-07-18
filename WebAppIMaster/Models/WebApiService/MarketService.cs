@@ -70,6 +70,13 @@ namespace WebAppIMaster.Models.WebApiService
                             Longitude = o.Longitude,
                             PhoneNumber = o.PhoneNumber,
                             ExtraPhoneNumber = o.ExtraPhoneNumber,
+                            PhotosMarket = (from ip in o.IPPhotosFiles
+                                            select new
+                                            {
+                                                PhotoUrl = ip.PhotoUrl,
+                                            }).ToList(),
+                            PromotionAndDiscountPhoto = o.PromotionAndDiscounts.Select(pad=>pad.BannerUrl).FirstOrDefault(),
+                            LogoTypeUrl = o.LogotypeUrl,
                         }).SingleOrDefault();
             var model = db.Organizations.Where(o => o.Id == id).SelectMany(o => o.iPOrganizationPrices).ToList();
             Dictionary<string, string> service = new Dictionary<string, string>();
@@ -80,6 +87,11 @@ namespace WebAppIMaster.Models.WebApiService
             List<string> phoneNumbers = new List<string>();
             phoneNumbers.Add(item.PhoneNumber);
             phoneNumbers.Add(item.ExtraPhoneNumber);
+            List<string> photosMarket = new List<string>();
+            foreach (var photoMarket in item.PhotosMarket)
+            {
+                photosMarket.Add(photoMarket.PhotoUrl == null ? null : "http://i-master.kz/api/GetPhoto?url=" + photoMarket.PhotoUrl);
+            }
             return new MarketServiceMdl.MarketDetails
             {
                 Id = item.Id,
@@ -97,6 +109,9 @@ namespace WebAppIMaster.Models.WebApiService
                 AboutCompany = item.AboutCompany,
                 ContactPhoneNumbers = phoneNumbers,
                 Serivces = service,
+                PhotoFiles = photosMarket,
+                LogoFileType = item.LogoTypeUrl == null ? null : "http://i-master.kz/api/GetPhoto?url=" + item.LogoTypeUrl,
+                PromotionAndDiscountsUrl = item.PromotionAndDiscountPhoto == null ? null : "http://i-master.kz/api/GetPhoto?url=" + item.PromotionAndDiscountPhoto
             };
         }
 
@@ -127,6 +142,49 @@ namespace WebAppIMaster.Models.WebApiService
             return item;
         }
 
+
+        public List<MarketServiceMdl.MarketItem> GetListForPagination(int? CurrentPage = null, int? PageSize = null)
+        {
+            if (PageSize == null)
+            {
+                PageSize = 5;
+            }
+            string langcode = LanguageController.CurrentCultureCode;
+
+            var query = db.OrganizationLangs.Where(hl => hl.Langcode == langcode);
+
+            int allPageCount = (int)Math.Ceiling(query.Count() / (double)PageSize);
+            if (allPageCount < CurrentPage) CurrentPage = 1;
+
+            var sortedQuery = query.Select(u => new
+            {
+                Id = u.Id,
+                CategoryName = u.Organization.organizationCategories.Select(o => o.CategoryMarket).SelectMany(cm => cm.Langs).Where(l => l.Langcode == langcode).Select(l => l.CategoryName).FirstOrDefault(),
+                CategoryId = u.Organization.organizationCategories.Select(o => o.CategoryMarket).SelectMany(cm => cm.Langs).Where(l => l.Langcode == langcode).Select(l => l.CategoryMarketId).FirstOrDefault(),
+                RegionName = u.Organization.City.Langs.Where(l => l.Langcode == langcode).Select(l => l.Name).FirstOrDefault(),
+                RegionId = u.Organization.CityId,
+                Address = u.Organization.Address,
+                SpecialtyName = u.Organization.organizationCategories.Select(o => o.CategoryMarket).SelectMany(cm => cm.organizationCategoryMarketInCategories).Select(occ => occ.Category).SelectMany(c => c.Langs).Where(l => l.Langcode == langcode).Select(l => l.Name).FirstOrDefault(),
+                SpecialtyId = u.Organization.organizationCategories.Select(o => o.CategoryMarket).SelectMany(cm => cm.organizationCategoryMarketInCategories).Select(occ => occ.Category).SelectMany(c => c.Langs).Where(l => l.Langcode == langcode).Select(l => l.CategoryId).FirstOrDefault(),
+                Title = u.Name,
+                PhotoFile = u.Organization.LogotypeUrl,
+            }).Select(m => new MarketServiceMdl.MarketItem
+            {
+                Id = m.Id,
+                CategoryName = m.CategoryName,
+                CategoryId = m.CategoryId,
+                RegionName = m.RegionName,
+                RegionId = m.RegionId,
+                Address = m.Address,
+                SpecialtyName = m.SpecialtyName,
+                SpecialtyId = m.SpecialtyId,
+                Title = m.Title,
+                LogotypeFile = m.PhotoFile == null ? null : "http://i-master.kz/api/GetPhoto?url=" + m.PhotoFile,
+            }).OrderBy(u => u.Title).Skip(((int)CurrentPage - 1) * (int)PageSize).Take((int)PageSize).ToList();
+
+            return sortedQuery;
+        }
+
         public List<string> GetPhotosMarket(int marketId)
         {
             List<string> photos = new List<string>();
@@ -137,7 +195,7 @@ namespace WebAppIMaster.Models.WebApiService
             var model = db.Organizations.Where(o => o.Id == marketId).SelectMany(o => o.IPPhotosFiles).ToList();
             foreach (var item in model)
             {
-                photos.Add(item.PhotoUrl);
+                photos.Add(item.PhotoUrl == null ? null : "http://i-master.kz/api/GetPhoto?url=" + item.PhotoUrl);
             }
 
             return photos;
@@ -152,7 +210,7 @@ namespace WebAppIMaster.Models.WebApiService
             var model = db.Organizations.Where(o => o.Id == marketId).SelectMany(o => o.PromotionAndDiscounts).ToList();
             foreach (var item in model)
             {
-                PhotoUrl = item.BannerUrl;
+                PhotoUrl = item.BannerUrl == null ? null : "http://i-master.kz/api/GetPhoto?url=" + item.BannerUrl;
             }
             return PhotoUrl;
         }
