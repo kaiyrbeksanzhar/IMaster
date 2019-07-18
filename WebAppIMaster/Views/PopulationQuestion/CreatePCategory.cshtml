@@ -13,39 +13,44 @@
 
     <div class="container">
         <div class="card">
-            <div class="card-header ">
+            <div class="card-header">
                 <h4>CreatePCategory</h4>
             </div>
-            <div class="card-body">
-                <hr />
+            <div class="card-body ">
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Name_kz, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="form-group pb-2">
+                    <div class="col-md-2">
+                        @Resource.Name_kz
+                    </div>
                     <div class="col-md-10">
                         @Html.EditorFor(model => model.Name_kz, new { htmlAttributes = new { @class = "form-control" } })
                         @Html.ValidationMessageFor(model => model.Name_kz, "", new { @class = "text-danger" })
                     </div>
                 </div>
 
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Name_ru, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="form-group pb-2">
+                    <div class="col-md-2">
+                        @Resource.Name_ru
+                    </div>
                     <div class="col-md-10">
                         @Html.EditorFor(model => model.Name_ru, new { htmlAttributes = new { @class = "form-control" } })
                         @Html.ValidationMessageFor(model => model.Name_ru, "", new { @class = "text-danger" })
                     </div>
                 </div>
 
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Property, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="form-group pb-2">
+                    <div class="col-md-2">
+                        @Resource.Priority
+                    </div>
                     <div class="col-md-10">
                         @Html.EditorFor(model => model.Property, new { htmlAttributes = new { @class = "form-control" } })
                         @Html.ValidationMessageFor(model => model.Property, "", new { @class = "text-danger" })
                     </div>
                 </div>
 
-                <div class="form-group">
-                    <div class="d-inline m-3">
-                        @Html.ActionLink("Назад", "Index")
+                <div class="form-group ml-5">
+                    <div class="d-inline">
+                        <a href="/Category/Index" class="btn btn-info btn-fill">Назад</a>
                     </div>
                     <div class="d-inline m-3">
                         <input id="btnSubmit" type="submit" value="@Resource.Create" class="btn btn-info btn-fill" />

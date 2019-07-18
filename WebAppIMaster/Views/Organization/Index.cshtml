@@ -4,39 +4,45 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+    <div class="card strpied-tabled-with-hover">
+        <div class="card-header ">
+            <h4 class="card-title">Новости</h4>
+            <p class="card-category">Страница новости</p>
+        </div>
+        <div class="card-body table-full-width table-responsive">
 
-<h2>Index</h2>
+            <p>
+                <a href="/News/Create" class="btn btn-info btn-fill pull-left">Добавить</a>
+            </p>
+            <table class="table table-bordered">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Name)
+                    </th>
+                    <th>
+                        Категория
+                    </th>
+                    <th></th>
+                </tr>
 
-<p>
-    @Html.ActionLink("Добавить", "Create")
-</p>
-<table class="table table-bordered">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th>
-            Категория
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                <a href="/Organization/Details?id=@item.Id">
-                    @Html.DisplayFor(modelItem => item.Name)
-                </a>
-            </td>
-            <td>
-                @foreach (var categoryMarket in item.Category)
+                @foreach (var item in Model)
                 {
-                    @categoryMarket.CategoryNameMarket
+                    <tr>
+                        <td>
+                            <a href="/Organization/Details?id=@item.Id">
+                                @Html.DisplayFor(modelItem => item.Name)
+                            </a>
+                        </td>
+                        <td>
+                            @foreach (var categoryMarket in item.Category)
+                            {
+                                @categoryMarket.CategoryNameMarket
+                            }
+                        </td>
+                        <td></td>
+                    </tr>
                 }
-            </td>
-            <td></td>
-        </tr>
-    }
 
-</table>
+            </table>
+            </div>
+</div>
