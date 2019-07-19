@@ -42,52 +42,6 @@ namespace WebAppIMaster.Providers
             string checkingCode = context.Password;
 
 
-
-            ApplicationUser user = null;
-            using (ApplicationDbContext db = new ApplicationDbContext())
-            {
-                DateTime now = DateTime.Now;
-                bool any = (from phcc in db.phoneCheckingCodes
-                            where phcc.PhoneNumber.Contains(Phonenumber)
-                            where phcc.CheckingCode == checkingCode
-                            //where DbFunctions.DiffMinutes(phcc.DateTime, now) <= 5
-                            select phcc).Any();
-                
-                user = await db.Users.Where(u => u.PhoneNumber.Contains(Phonenumber)).SingleOrDefaultAsync();
-                if (any)
-                {
-                    if (user == null)
-                    {
-                        context.SetError("invalid_client", "Надо зарегистрировать пользователя");
-                        return;
-                    }
-                }
-            }
-            
-            ClaimsIdentity oAuthIdentity = await user.GenerateUserIdentityAsync(userManager,
-               OAuthDefaults.AuthenticationType);
-            ClaimsIdentity cookiesIdentity = await user.GenerateUserIdentityAsync(userManager,
-                CookieAuthenticationDefaults.AuthenticationType);
-
-            AuthenticationProperties properties = CreateProperties(user.UserName);
-            AuthenticationTicket ticket = new AuthenticationTicket(oAuthIdentity, properties);
-            context.Validated(ticket);
-            context.Request.Context.Authentication.SignIn(cookiesIdentity);
-        }
-
-        public  async Task GrantResourceOwnerCredentials1( OAuthGrantResourceOwnerCredentialsContext context )
-        {
-            var userManager = context.OwinContext.GetUserManager<ApplicationUserManager>();
-
-            string Phonenumber = context.UserName.Replace(" ", "");
-            Phonenumber = context.UserName.Replace("+7", "8");
-
-            //Phonenumber = System.Text.RegularExpressions.Regex.Replace(context.UserName, @"\s+", "");
-
-            string checkingCode = context.Password;
-
-
-
             ApplicationUser user = null;
             using (ApplicationDbContext db = new ApplicationDbContext())
             {
@@ -110,6 +64,50 @@ namespace WebAppIMaster.Providers
             {
                 return;
             }
+            ClaimsIdentity oAuthIdentity = await user.GenerateUserIdentityAsync(userManager,
+               OAuthDefaults.AuthenticationType);
+            ClaimsIdentity cookiesIdentity = await user.GenerateUserIdentityAsync(userManager,
+                CookieAuthenticationDefaults.AuthenticationType);
+
+            AuthenticationProperties properties = CreateProperties(user.UserName);
+            AuthenticationTicket ticket = new AuthenticationTicket(oAuthIdentity, properties);
+            context.Validated(ticket);
+            context.Request.Context.Authentication.SignIn(cookiesIdentity);
+        }
+
+        public async Task GrantResourceOwnerCredentials1( OAuthGrantResourceOwnerCredentialsContext context )
+        {
+            var userManager = context.OwinContext.GetUserManager<ApplicationUserManager>();
+
+            string Phonenumber = context.UserName.Replace(" ", "");
+            Phonenumber = context.UserName.Replace("+7", "8");
+
+            //Phonenumber = System.Text.RegularExpressions.Regex.Replace(context.UserName, @"\s+", "");
+
+            string checkingCode = context.Password;
+
+
+            ApplicationUser user = null;
+            using (ApplicationDbContext db = new ApplicationDbContext())
+            {
+                DateTime now = DateTime.Now;
+                bool any = (from phcc in db.phoneCheckingCodes
+                            where phcc.PhoneNumber.Contains(Phonenumber)
+                            where phcc.CheckingCode == checkingCode
+                            //where DbFunctions.DiffMinutes(phcc.DateTime, now) <= 5
+                            select phcc).Any();
+
+                user = await db.Users.Where(u => u.PhoneNumber.Contains(Phonenumber)).SingleOrDefaultAsync();
+                if (any)
+                {
+                    if (user == null)
+                    {
+                        context.SetError("invalid_client", "Надо зарегистрировать пользователя");
+                        return;
+                    }
+                }
+            }
+
             ClaimsIdentity oAuthIdentity = await user.GenerateUserIdentityAsync(userManager,
                OAuthDefaults.AuthenticationType);
             ClaimsIdentity cookiesIdentity = await user.GenerateUserIdentityAsync(userManager,

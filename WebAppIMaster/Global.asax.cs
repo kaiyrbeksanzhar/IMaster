@@ -11,6 +11,7 @@ using System.Web.Routing;
 using WebAppIMaster.App_Start;
 using WebAppIMaster.Controllers.Base;
 using WebAppIMaster.Models;
+using WebAppIMaster.Models.WebApiService;
 
 namespace WebAppWebAppIMaster
 {
@@ -24,6 +25,7 @@ namespace WebAppWebAppIMaster
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+            //KcellService.PostKcell("158521", "I-Master", "77788780336", "Text of the message");
 
             GlobalConfiguration.Configuration.Formatters.JsonFormatter.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
             GlobalConfiguration.Configuration.Formatters.Remove(GlobalConfiguration.Configuration.Formatters.XmlFormatter);
