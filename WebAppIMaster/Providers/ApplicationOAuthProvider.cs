@@ -50,21 +50,20 @@ namespace WebAppIMaster.Providers
                 bool any = (from phcc in db.phoneCheckingCodes
                             where phcc.PhoneNumber.Contains(Phonenumber)
                             where phcc.CheckingCode == checkingCode
-                            where DbFunctions.DiffMinutes(phcc.DateTime, now) <= 5
+                            //where DbFunctions.DiffMinutes(phcc.DateTime, now) <= 5
                             select phcc).Any();
                 
-                if (any == false)
-                {
-                    context.SetError("invalid_grant", "Code  устарело.");
-                    return;
-                }
                 user = await db.Users.Where(u => u.PhoneNumber.Contains(Phonenumber)).SingleOrDefaultAsync();
+                if (any)
+                {
+                    if (user == null)
+                    {
+                        context.SetError("invalid_client", "Надо зарегистрировать пользователя");
+                        return;
+                    }
+                }
             }
             
-            if (user == null)
-            {
-                return;
-            }
             ClaimsIdentity oAuthIdentity = await user.GenerateUserIdentityAsync(userManager,
                OAuthDefaults.AuthenticationType);
             ClaimsIdentity cookiesIdentity = await user.GenerateUserIdentityAsync(userManager,

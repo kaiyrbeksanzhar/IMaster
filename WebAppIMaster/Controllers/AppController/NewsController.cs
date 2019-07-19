@@ -58,15 +58,9 @@ namespace WebAppIMaster.Controllers.AppController
                 client = new FireSharp.FirebaseClient(config);
                 ApplicationDbContext db = new ApplicationDbContext();
                 NewsManager repository = new NewsManager(db);
+                PushNotificationManager pushNotificationManager = new PushNotificationManager();
                 int newsId = repository.Create(model, this);
-                var data = new Data
-                {
-                    Id = newsId,
-                    Text = "У вас новый новости",
-                    Status = Models.Enums.Status.Active,
-                };
-                SetResponse response =  client.Set("News/"+ data.Id, data);
-                Data result = response.ResultAs<Data>();
+                var result = pushNotificationManager.SendPushNotification(null, model.Title_ru, model.ShortText_ru, DateTime.Now);
                 return RedirectToAction("Index");
             }
             catch

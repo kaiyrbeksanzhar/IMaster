@@ -238,6 +238,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AppController\CategoryController.cs" />
     <Compile Include="Controllers\AppController\CityController.cs" />
+    <Compile Include="Models\NewManagerManage\PushNotificationManager.cs" />
     <Compile Include="Models\NewManagerModels\Data.cs" />
     <Compile Include="Controllers\AppController\HowDidYouAboutUsController.cs" />
     <Compile Include="Controllers\AppController\LandingPageController.cs" />
@@ -494,6 +495,7 @@
     <Compile Include="Models\NewManagerModels\CityVmMdl.cs" />
     <Compile Include="Models\NewManagerModels\HowDidYouAboutUs.cs" />
     <Compile Include="Models\NewManagerModels\MarketingMdl.cs" />
+    <Compile Include="Models\NewManagerModels\Message.cs" />
     <Compile Include="Models\NewManagerModels\NewsMdl.cs" />
     <Compile Include="Models\NewManagerModels\OrganizationCreateMdl.cs" />
     <Compile Include="Models\NewManagerModels\PopulationCategoryMdl.cs" />
