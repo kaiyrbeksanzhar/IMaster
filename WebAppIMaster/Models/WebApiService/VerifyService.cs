@@ -25,16 +25,16 @@ namespace WebAppIMaster.Models.WebApiService
             //string phonenumber = PhoneNumber.Substring(Phonenumber.Length - 10, 10);
 
 
-            var model = db.Users.Where(u => u.PhoneNumber.Contains(Phonenumber)).SingleOrDefault();
-            if (model == null)
-            {
-                return false;
-            }
+            //var model = db.Users.Where(u => u.PhoneNumber.Contains(Phonenumber)).SingleOrDefault();
+            //if (model == null)
+            //{
+            //    return false;
+            //}
 
             ManageController manager = new ManageController();
             AddPhoneNumberViewModel addPhone = new AddPhoneNumberViewModel()
             {
-                Number = model.PhoneNumber
+                Number = Phonenumber
             };
             //string code = manager.AddPhoneNumber1(addPhone, model.User.Id);
             // Find your Account Sid and Token at twilio.com/console
@@ -57,7 +57,7 @@ namespace WebAppIMaster.Models.WebApiService
             {
                 phoneCheckingCode = new PhoneCheckingCode()
                 {
-                    PhoneNumber = model.PhoneNumber,
+                    PhoneNumber = Phonenumber,
                     CheckingCode = code.ToString(),
                     DateTime = DateTime.Now
                 };
