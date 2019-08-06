@@ -539,14 +539,14 @@ namespace WebAppIMaster.Models.WebApiService
 
             var executor = db.Executors.Where(e => e.Id == executorId).SingleOrDefault();
             executor.ExecutorType = item.ExecutorType;
-            foreach (var executorSpecialty in item.SpecializationIds)
+            List<ExecutorSpecialization> model = db.ExecutorSpecializations.Where(e => e.ExecutorId == executorId).ToList();
+            int itemSpecialtyLenght = item.SpecializationIds.Count();
+            for (int i = 0; i < itemSpecialtyLenght; i++)
             {
-                executor.specializations.Add(new Specialization
-                {
-                    Id = executorSpecialty,
-                });
+                model[i].SpecializationId = item.SpecializationIds[i];
             }
             db.Entry(executor).State = System.Data.Entity.EntityState.Modified;
+            db.Entry(model).State = System.Data.Entity.EntityState.Modified;
             db.SaveChanges();
         }
 
