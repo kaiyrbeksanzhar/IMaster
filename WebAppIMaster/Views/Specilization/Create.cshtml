@@ -54,14 +54,15 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <div class="col-md-12">
+                    <div class="d-inline ml-5">
                         <input type="submit" value="@Resource.Create" class="btn btn-info btn-fill" />
+                    </div>
+                    <div class="d-inline" style="padding-left:15px;">
+                        <a class="btn btn-info btn-fill" href="/Specilization/Index?categoryId=@Model.CategoryId">@Resource.BacktoList</a>
                     </div>
                 </div>
 
-                <div class="col-md-12" style="padding-left:15px;">
-                    <a href="/Specilization/Index?categoryId=@Model.CategoryId">@Resource.BacktoList</a>
-                </div>
+                
 
             </div>
         }

@@ -16,26 +16,25 @@
     }
 </style>
 
-<div class="card strpied-tabled-with-hover">
+<div class="card strpied-tabled-with-hover p-1">
     <div class="card-header ">
-        <h4 class="card-title">Откуда вы о нас узнали?</h4>
-        <p class="card-category">Откуда вы о нас узнали?</p>
+        <h4>Cтатистика источников пользователей</h4>
     </div>
     <div class="card-body table-full-width table-responsive">
-        <h2>Cтатистика источников пользователей</h2>
-        <p><a href="/HowDidYouAboutUs/IndexMain">@Resource.BacktoList</a></p>
+        <div class="row">
+            <div class="col-12">
+                <a href="/HowDidYouAboutUs/IndexMain" class="btn btn-info btn-fill pull-left">@Resource.BacktoList</a>
+            </div>
+            <div class="col-12">
+                <form action="/HowDidYouAboutUs/Index" method="post">
+                    <input class="form-control text-box single-line d-inline" type="text" name="sourceName" value="" />
+                    <input class="btn btn-info btn-fill pull-left d-inline" type="submit" name="name" value="Найти" />
+                    <input class="btn btn-info btn-fill pull-left d-inline" type="submit" name="name" value="Очистить" />
+                </form>
+            </div>
+        </div>
 
-
-
-
-        <form action="/HowDidYouAboutUs/Index" method="post" style="float: left;margin-right: 2px;">
-            <input type="text" name="sourceName" value="" />
-            <input type="submit" name="name" value="Найти" />
-        </form>
-        <form action="/HowDidYouAboutUs/Index" method="post">
-            <input type="submit" name="name" value="Очистить" />
-        </form>
-        <table class="table">
+        <table class="display table-bordered dataTable">
             <tr>
                 <th>
                     Значение источника
@@ -61,44 +60,40 @@
         </table>
 
 
-        <style>
-            .styleajax {
-                float: left;
-                margin-right: 2px;
-            }
-        </style>
 
         <h2>Популярные</h2>
         @*@using (Ajax.BeginForm("Population", new AjaxOptions
-            {
-                UpdateTargetId = "results",
-                LoadingElementId = "loading",
-                LoadingElementDuration = 1000
-            }))
-            {
-                <input type="text" name="sourceName1" />
-                <input type="submit" value="Поиск" />
-            }*@
-        @using (Ajax.BeginForm("Population", "HowDidYouAboutUs", new AjaxOptions { UpdateTargetId = "results" }, new { @class = "styleajax" }))
-        {
-            <input type="text" name="sourceName1" placeholder="Найти" />
-            <input type="submit" value="Найти" />
-        }
-        @using (Ajax.BeginForm("Population", new AjaxOptions
         {
             UpdateTargetId = "results",
             LoadingElementId = "loading",
             LoadingElementDuration = 1000
         }))
         {
-            <input type="submit" value="Очистить" />
-        }
-
-        <div id="loading" style="display:none; color:Red; font-weight:bold;">
-            <p>Идет загрузка...</p>
+            <input type="text" name="sourceName1" />
+            <input type="submit" value="Поиск" />
+        }*@
+        <div class="col-12">
+            @using (Ajax.BeginForm("Population", "HowDidYouAboutUs", new AjaxOptions { UpdateTargetId = "results" }, new { @class = "" }))
+            {
+                <input class="form-control text-box single-line d-inline" type="text" name="sourceName" value="" />
+                <input class="btn btn-info btn-fill pull-left d-inline" type="submit" name="name" value="Найти" />
+            }
+            @using (Ajax.BeginForm("Population", new AjaxOptions
+            {
+                UpdateTargetId = "results",
+                LoadingElementId = "loading",
+                LoadingElementDuration = 1000
+            }))
+            {
+                <input class="btn btn-info btn-fill pull-left d-inline" type="submit" name="name" value="Очистить" />
+            }
         </div>
-        <div id="results">
-            @Html.Action("Population")
+
+            <div id="loading" style="display:none; color:Red; font-weight:bold;">
+                <p>Идет загрузка...</p>
+            </div>
+            <div id="results">
+                @Html.Action("Population")
+            </div>
         </div>
     </div>
-</div>
