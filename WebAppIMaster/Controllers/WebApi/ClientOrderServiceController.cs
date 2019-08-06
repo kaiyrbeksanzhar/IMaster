@@ -37,6 +37,20 @@ namespace WebAppIMaster.Controllers.WebApi
             var model = repository.GetClientOrderItemView(id);
             return model;
         }
+
+        /// <summary>
+        /// передайте Post запрос (api/ClientOrderEdit) возращает true false
+        /// </summary>
+        /// <param name="model">Принимает параметр ClientOrderEdit</param>
+        // GET: api/Get/5
+        [System.Web.Http.Route("api/ClientOrderEdit")]
+        public bool ClientOrderEdit( ClientOrderEdit model)
+        {
+            ApplicationDbContext db = new ApplicationDbContext();
+            ClientOrderService repository = new ClientOrderService(db);
+            var result = repository.ClientOrderEdit(model);
+            return result;
+        }
         /// <summary>
         /// передайте id(api/GetClientOrderDetailsView/5) возращает один элемент
         /// </summary>
@@ -76,7 +90,7 @@ namespace WebAppIMaster.Controllers.WebApi
             return model;
         }
         /// <summary>
-        /// SendPhotoToOrder лист возвращает
+        /// SendPhotoToOrder сохранять фото в базу
         /// </summary>
         /// <param name="files">Принимает параметр files.</param>
         // GET: api/SendPhotoToOrder
@@ -200,5 +214,24 @@ namespace WebAppIMaster.Controllers.WebApi
 
             return response;
         }
+
+        /// <summary>
+        /// api/DeletePhotoClientOrder/{url} удаляет фото возвращает true false
+        /// </summary>
+        /// <param name="url">Принимает параметр url.</param>
+        /// <param name="orderId">Принимает параметр orderId.</param>
+        [System.Web.Http.HttpGet]
+        [System.Web.Http.Route("api/DeletePhotoClientOrder")]
+        public bool DeletePhotoClientOrder( string url , int orderId)
+        {
+            ApplicationDbContext db = new ApplicationDbContext();
+            ClientOrderService repository = new ClientOrderService(db);
+            bool res = repository.DeletePhotoUrlAddress(url, orderId);
+            return res;
+        }
+
+
+
+
     }
 }

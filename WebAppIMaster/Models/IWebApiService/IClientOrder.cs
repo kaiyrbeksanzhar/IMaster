@@ -21,6 +21,7 @@ namespace WebAppIMaster.Models.IWebApiService
         void SendPhotoToOrder(string url, int orderId);
         bool ClientMyOrderFinish(ClientMyOrderFinish item);
         bool CancelClientMyOrder(int orderId, CancelReason cancelReason);
+        bool ClientOrderEdit( ClientOrderEdit model);
     }
 
     public class ClientMyOrderFinish

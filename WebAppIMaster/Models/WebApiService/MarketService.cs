@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using WebAppIMaster.Controllers.Base;
+using WebAppIMaster.Migrations;
 using WebAppIMaster.Models.Enitities;
 using WebAppIMaster.Models.IWebApiService;
 using WebAppIMaster.Models.WebApiModel;
@@ -225,6 +226,44 @@ namespace WebAppIMaster.Models.WebApiService
             string LogotypeUrl = db.Organizations.Where(o => o.Id == marketId).Select(o => o.LogotypeUrl).FirstOrDefault();
 
             return LogotypeUrl;
+        }
+
+        public List<MarketServiceMdl.PromotionAndDiscount> GetListPaginationPromotionAndDiscount(int? currentPage = null, int? pageSize = null )
+        {
+            db.Configuration.AutoDetectChangesEnabled = false;
+            db.Configuration.LazyLoadingEnabled = false;
+            string langcode = LanguageController.CurrentCultureCode;
+
+            if (pageSize == null)
+            {
+                pageSize = 5;
+            }
+
+            var query = db.OrganizationPromotionAndDiscounts.Select(t=>t);
+
+            int allPageCount = (int)Math.Ceiling(query.Count() / (double)pageSize);
+            if (allPageCount < currentPage) currentPage = 1;
+
+            var sortedQuery = query.Select(u => new
+            {
+                id =u.Id,
+                Company = u.OrganizationCard.Langs.Where(l=>l.Langcode == langcode).Select(l=>l.Name).FirstOrDefault(),
+                Address = u.OrganizationCard.Address,
+                SiteUrl = u.OrganizationCard.SiteUrl,
+                RegionName = u.OrganizationCard.City.Langs.Where(l=>l.Langcode == langcode).Select(l=>l.Name).FirstOrDefault(),
+                PhotoUrl = u.BannerUrl == null ? null : "http://i-master.kz/api/GetPhoto?url=" + u.BannerUrl,
+
+        }).Select(m => new MarketServiceMdl.PromotionAndDiscount
+            {
+                Id = m.id,
+                CompanyName = m.Company,
+                Address = m.Address,
+                SiteUrl =m.SiteUrl,
+                PhotoUrl = m.PhotoUrl,
+                RegionName = m.RegionName,
+            }).OrderBy(u => u.CompanyName).Skip(((int)currentPage - 1) * (int)pageSize).Take((int)pageSize).ToList();
+
+            return sortedQuery;
         }
     }
 }

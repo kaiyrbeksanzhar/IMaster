@@ -113,4 +113,20 @@ namespace WebAppIMaster.Models.WebApiModel
             public string Uri { get; set; }
         }
     }
+
+    public class ClientOrderEdit
+    {
+        public int Id { get; set; }
+        public string Title { get; set; }
+        public string Description { get; set; }
+        public OrderStartDateType OrderStartDateType { get; set; }
+        public OrderCostType OrderCostType { get; set; }
+        public int Cost { get; set; }
+        public int RegionId { get; set; }
+        public bool ReceiveOnlyResponses { get; set; }
+        public int CategoryAndSpecializationId { get; set; }
+        public bool PayWithBounce { get; set; }
+        public string Address { get; set; }
+
+    }
 }

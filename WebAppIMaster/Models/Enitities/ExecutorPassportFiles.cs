@@ -12,7 +12,7 @@ namespace WebAppIMaster.Models
         public int Id { get; set; }
         public Status Status { get; set; }
         public string ImageUrl { get; set; }
-        public int ExecutorId { get; set; }
+        public string ExecutorId { get; set; }
         public virtual Executor Executor { get; set; }
     }
 }

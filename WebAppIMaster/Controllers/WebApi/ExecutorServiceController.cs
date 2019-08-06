@@ -280,6 +280,55 @@ namespace WebAppIMaster.Controllers.WebApi
         }
 
 
+        /// <summary>
+        /// api/SendExecutorPhoto  сохраняет фото ExecutprPassportFile  Request.Form["executorId"] и url
+        /// </summary>
+        /// <param name="files">Принимает параметр files.</param>
+        // GET: api/SendExecutorPhoto
+        [System.Web.Http.HttpPost]
+        [System.Web.Http.Route("api/SaveExecutprPassportFile")]
+        public async void SaveExecutprPassportFile()
+        {
+            ApplicationDbContext db = new ApplicationDbContext();
+            var request = HttpContext.Current.Request;
+            var postedFile = request.Files;
+
+            string executorId = request.Form["executorId"];
+            string type = HttpContext.Current.Request.ApplicationPath.TrimEnd('/');
+            string typeFile = Path.GetFileName(request.Files[0].FileName);
+            string url = "~/Images/ExecutorFiles/" + DateTime.Now.ToString("yyyy.MM.dd.hh.mm.ss.ffff") + ".png";
+            if (postedFile != null)
+            {
+                postedFile[0].SaveAs(HttpContext.Current.Server.MapPath(url));
+                ExecutorService repository = new ExecutorService(db);
+                repository.SendExecutroPassportFile(url, executorId);
+            }
+        }
+
+        /// <summary>
+        /// передайте (api/GetExecutorPassportFiles/{executorId}) обновляется  ExecutorService
+        /// </summary>
+        /// <param name="executorId">Принимает параметр (executorId).</param>
+        [System.Web.Http.Route("api/GetExecutorPassportFiles")]
+        public ExecutorPassportFile GetExecutorPassportFiles( string executorId)
+        {
+            ApplicationDbContext db = new ApplicationDbContext();
+            ExecutorService repository = new ExecutorService(db);
+            var result = repository.GetExecutorPassportFile(executorId);
+            return result;
+        }
+
+        /// <summary>
+        /// передайте (api/DeletePassportFiles/{Url}) обновляется  ExecutorService
+        /// </summary>
+        /// <param name="url">Принимает параметр (executorId).</param>
+        [System.Web.Http.Route("api/DeletePassportFiles")]
+        public void DeletePassportFiles(string Url)
+        {
+            ApplicationDbContext db = new ApplicationDbContext();
+            ExecutorService repository = new ExecutorService(db);
+            repository.deletePassportFile(Url);
+        }
 
     }
 }

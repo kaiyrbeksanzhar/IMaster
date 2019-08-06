@@ -47,5 +47,15 @@ namespace WebAppIMaster.Models.WebApiModel
             public string Coordinates { get; set; }
         }
 
+        public class PromotionAndDiscount
+        {
+            public int Id { get; set; }
+            public string CompanyName { get; set; }
+            public string SiteUrl { get; set; }
+            public string Address { get; set; }
+            public string RegionName { get; set; }
+            public string PhotoUrl { get; set; }
+        }
+
     }
 }

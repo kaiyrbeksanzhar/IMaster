@@ -90,7 +90,7 @@ namespace WebAppIMaster.Models.WebApiService
                 CreatedAt = u.CreatedAt,
                 OrderType = u.OrderType,
 
-                ExecutorId = u.Executor?.ExecutorId,                
+                ExecutorId = u.Executor?.ExecutorId,
                 ExecutorLastname = u.Executor?.ExecutorLastname,
                 ExecutorFirstname = u.Executor?.ExecutorFirstname,
                 ExecotorAvatarUri = u.Executor?.ExecutorUri,
@@ -98,11 +98,11 @@ namespace WebAppIMaster.Models.WebApiService
                 ExecotorRating = u.Executor?.ExecotorRating,
                 ExecoturBirthday = u.Executor?.ExecoturBirthday ?? DateTime.Now,
                 ExecutorCheck = u.Executor?.ExecutorCheck ?? false,
-                ExecutorClosedOrdersCount = u.Executor?.ExecutorClosedOrdersCount??0,
+                ExecutorClosedOrdersCount = u.Executor?.ExecutorClosedOrdersCount ?? 0,
                 ExecutorGenderName = u.Executor?.ExecutorGenderName,
-                ExecutorRegionId = u.Executor?.ExecutorRegionId??0,
+                ExecutorRegionId = u.Executor?.ExecutorRegionId ?? 0,
                 ExecutorRegionName = u.Executor?.ExecutorRegionName,
-                ExecutorRegisterDate = u.Executor?.ExecutorRegisterDate??DateTime.Now,
+                ExecutorRegisterDate = u.Executor?.ExecutorRegisterDate ?? DateTime.Now,
             }).SingleOrDefault();
             item.PhotoUris = item.PhotoUris.Where(u => u != null);
 
@@ -148,6 +148,42 @@ namespace WebAppIMaster.Models.WebApiService
             }
             return clientOrderItemViews;
         }
+
+
+        public bool ClientOrderEdit( ClientOrderEdit model )
+        {
+            ApplicationDbContext db = new ApplicationDbContext();
+            db.Configuration.AutoDetectChangesEnabled = false;
+            db.Configuration.LazyLoadingEnabled = false;
+            string langcode = LanguageController.CurrentCultureCode;
+            string lang_kz = LanguageController.GetKzCode();
+            string lang_ru = LanguageController.GetRuCode();
+            try
+            {
+                var clientOrder = db.CustomerOrders.Where(co => co.Id == model.Id).SingleOrDefault();
+                clientOrder.Title = model.Title;
+                clientOrder.Description = model.Description;
+                clientOrder.StartDateType = model.OrderStartDateType;
+                clientOrder.Cost = model.Cost;
+                clientOrder.CostType = model.OrderCostType;
+                clientOrder.InCityId = model.RegionId;
+                clientOrder.ReceiveOnlyResponses = model.ReceiveOnlyResponses;
+                clientOrder.SpecializationId = model.CategoryAndSpecializationId;
+                clientOrder.PayWithBounce = model.PayWithBounce;
+                clientOrder.Address = db.CustomerOrders.Select(co => co.Address).FirstOrDefault();
+                clientOrder.Address.Langs = db.CustomerOrders.SelectMany(co => co.Address.Langs).ToList();
+                clientOrder.Address.Langs.Where(l => l.Langcode == lang_kz).FirstOrDefault().Name = model.Address;
+                clientOrder.Address.Langs.Where(l => l.Langcode == lang_ru).FirstOrDefault().Name = model.Address;
+                db.Entry(clientOrder).State = System.Data.Entity.EntityState.Modified;
+                db.SaveChanges();
+            }
+            catch
+            {
+                return false;
+            }
+            return true;
+        }
+
 
         public int Create( ClientOrderCreate model )
         {
@@ -372,7 +408,7 @@ namespace WebAppIMaster.Models.WebApiService
             db.SaveChanges();
         }
 
-        public bool ClientMyOrderFinish(ClientMyOrderFinish item)
+        public bool ClientMyOrderFinish( ClientMyOrderFinish item )
         {
             try
             {
@@ -388,13 +424,14 @@ namespace WebAppIMaster.Models.WebApiService
                 db.Entry(order).State = System.Data.Entity.EntityState.Modified;
                 db.SaveChanges();
                 return true;
-            } catch
+            }
+            catch
             {
                 return false;
             }
         }
 
-        public bool CancelClientMyOrder(int orderId, CancelReason cancelReason)
+        public bool CancelClientMyOrder( int orderId, CancelReason cancelReason )
         {
             try
             {
@@ -411,5 +448,37 @@ namespace WebAppIMaster.Models.WebApiService
                 return false;
             }
         }
+
+        public bool DeletePhotoUrlAddress( string url, int orderId )
+        {
+            try
+            {
+                var item = db.CustomerOrders.Find(orderId);
+                if (item.Photo1Url == url)
+                {
+                    item.Photo1Url = null;
+                }
+                if (item.Photo2Url == url)
+                {
+                    item.Photo2Url = null;
+                }
+                if (item.Photo3Url == url)
+                {
+                    item.Photo3Url = null;
+                }
+                if (item.Photo4Url == url)
+                {
+                    item.Photo4Url = null;
+                }
+                db.Entry(item).State = System.Data.Entity.EntityState.Modified;
+                db.SaveChanges();
+            }
+            catch
+            {
+                return false;
+            }
+            return true;
+        }
+
     }
 }

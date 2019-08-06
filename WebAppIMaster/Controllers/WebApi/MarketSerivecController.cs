@@ -129,6 +129,21 @@ namespace WebAppIMaster.Controllers.WebApi
         }
 
         /// <summary>
+        /// api/GetListPromotionAndDiscountForPagination/{currentPage,pageSize} возвращает Акция и скидка маркет Лист
+        /// </summary>
+        /// <param name="currentPage">Принимает параметр currentPage.</param>
+        /// <param name="pageSize">Принимает параметр pageSize.</param>
+        [System.Web.Http.HttpGet]
+        [System.Web.Http.Route("api/GetListPromotionAndDiscountForPagination")]
+        public List<MarketServiceMdl.PromotionAndDiscount> GetListPromotionAndDiscountForPagination( int? currentPage = null, int? pageSize = null )
+        {
+            ApplicationDbContext db = new ApplicationDbContext();
+            MarketService repository = new MarketService(db);
+            var result = repository.GetListPaginationPromotionAndDiscount(currentPage, pageSize);
+            return result;
+        }
+
+        /// <summary>
         /// api/GetPhoto/{url} возвращает фото
         /// </summary>
         /// <param name="url">Принимает параметр url.</param>

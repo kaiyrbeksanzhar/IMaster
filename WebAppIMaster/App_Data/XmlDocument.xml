@@ -570,6 +570,12 @@
             </summary>
             <param name="id">Принимает параметр id.</param>
         </member>
+        <member name="M:WebAppIMaster.Controllers.WebApi.ClientOrderServiceController.ClientOrderEdit(WebAppIMaster.Models.WebApiModel.ClientOrderEdit)">
+            <summary>
+            передайте Post запрос (api/ClientOrderEdit) возращает true false
+            </summary>
+            <param name="model">Принимает параметр ClientOrderEdit</param>
+        </member>
         <member name="M:WebAppIMaster.Controllers.WebApi.ClientOrderServiceController.GetClientOrderDetailsView(System.Int32)">
             <summary>
             передайте id(api/GetClientOrderDetailsView/5) возращает один элемент
@@ -588,7 +594,7 @@
         </member>
         <member name="M:WebAppIMaster.Controllers.WebApi.ClientOrderServiceController.SendPhotoToOrder">
             <summary>
-            SendPhotoToOrder лист возвращает
+            SendPhotoToOrder сохранять фото в базу
             </summary>
             <param name="files">Принимает параметр files.</param>
         </member>
@@ -615,6 +621,13 @@
             api/GetClientOrderPhoto/{url} возвращает фото
             </summary>
             <param name="url">Принимает параметр url.</param>
+        </member>
+        <member name="M:WebAppIMaster.Controllers.WebApi.ClientOrderServiceController.DeletePhotoClientOrder(System.String,System.Int32)">
+            <summary>
+            api/DeletePhotoClientOrder/{url} удаляет фото возвращает true false
+            </summary>
+            <param name="url">Принимает параметр url.</param>
+            <param name="orderId">Принимает параметр orderId.</param>
         </member>
         <member name="T:WebAppIMaster.Controllers.WebApi.ClientProfileController">
             <summary>
@@ -815,6 +828,24 @@
             </summary>
             <param name="url">Принимает параметр url.</param>
         </member>
+        <member name="M:WebAppIMaster.Controllers.WebApi.ExecutorServiceController.SaveExecutprPassportFile">
+            <summary>
+            api/SendExecutorPhoto  сохраняет фото ExecutprPassportFile  Request.Form["executorId"] и url
+            </summary>
+            <param name="files">Принимает параметр files.</param>
+        </member>
+        <member name="M:WebAppIMaster.Controllers.WebApi.ExecutorServiceController.GetExecutorPassportFiles(System.String)">
+            <summary>
+            передайте (api/GetExecutorPassportFiles/{executorId}) обновляется  ExecutorService
+            </summary>
+            <param name="executorId">Принимает параметр (executorId).</param>
+        </member>
+        <member name="M:WebAppIMaster.Controllers.WebApi.ExecutorServiceController.DeletePassportFiles(System.String)">
+            <summary>
+            передайте (api/DeletePassportFiles/{Url}) обновляется  ExecutorService
+            </summary>
+            <param name="url">Принимает параметр (executorId).</param>
+        </member>
         <member name="T:WebAppIMaster.Controllers.WebApi.GenderServiceController">
             <summary>
              GenderService Api
@@ -908,6 +939,13 @@
             api/GetLogoTypeMarket/{marketId} возвращает Логотип маркет  url photo
             </summary>
             <param name="marketId">Принимает параметр marketId.</param>
+        </member>
+        <member name="M:WebAppIMaster.Controllers.WebApi.MarketSerivecController.GetListPromotionAndDiscountForPagination(System.Nullable{System.Int32},System.Nullable{System.Int32})">
+            <summary>
+            api/GetListPromotionAndDiscountForPagination/{currentPage,pageSize} возвращает Акция и скидка маркет Лист
+            </summary>
+            <param name="currentPage">Принимает параметр currentPage.</param>
+            <param name="pageSize">Принимает параметр pageSize.</param>
         </member>
         <member name="M:WebAppIMaster.Controllers.WebApi.MarketSerivecController.GetPhoto(System.String)">
             <summary>

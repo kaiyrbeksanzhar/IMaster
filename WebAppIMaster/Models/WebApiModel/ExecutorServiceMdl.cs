@@ -106,5 +106,13 @@ namespace WebAppIMaster.Models.WebApiModel
 
             public ExecutorType ExecutorType { get; set; }
         }
+
+        public class ExecutorPassportFile
+        {
+            public int Id { get; set; }
+            public string ExecutorId { get; set; }
+            public string Url { get; set; }
+            public Status Status { get; set; }
+        }
     }
 }

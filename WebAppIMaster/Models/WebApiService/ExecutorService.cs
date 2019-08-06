@@ -13,6 +13,7 @@ using WebAppIMaster.Models.Enitities;
 using WebAppIMaster.Models.Enums;
 using WebAppIMaster.Models.IWebApiService;
 using WebAppIMaster.Models.WebApiModel;
+using static WebAppIMaster.Models.WebApiModel.ExecutorServiceMdl;
 using static WebAppWebAppIMaster.SmsService;
 
 namespace WebAppIMaster.Models.WebApiService
@@ -355,8 +356,15 @@ namespace WebAppIMaster.Models.WebApiService
 
         public void SendCheckingCodeForUpdatePhoneNumber(string newPhoneNumber)
         {
-            string phonenumber = "+" + newPhoneNumber;
-            var model = db.Executors.Where(e => e.User.PhoneNumber == phonenumber).FirstOrDefault();
+            string sendPhoneNumber = newPhoneNumber;
+            string sendphoneNumber = sendPhoneNumber.Replace("+", "");
+            string newPhonenumber = newPhoneNumber.Replace(" ", "");
+            newPhonenumber = newPhonenumber.Replace("+7", "8");
+
+            newPhonenumber = System.Text.RegularExpressions.Regex.Replace(newPhonenumber, @"\s+", "");
+            string phonenumber = newPhoneNumber.Substring(newPhonenumber.Length - 10, 10);
+
+            var model = db.Executors.Where(e => e.User.PhoneNumber == newPhonenumber).FirstOrDefault();
             ManageController manager = new ManageController();
             AddPhoneNumberViewModel addPhone = new AddPhoneNumberViewModel()
             {
@@ -365,24 +373,37 @@ namespace WebAppIMaster.Models.WebApiService
             //string code = manager.AddPhoneNumber1(addPhone, model.User.Id);
             // Find your Account Sid and Token at twilio.com/console
             // DANGER! This is insecure. See http://twil.io/secure
-            const string accountSid = "AC447e8467b7de404485f857a3495acfbf";
-            const string authToken = "59a8ffe9a848c07bfe598a99c43abfd2";
+            //const string accountSid = "AC447e8467b7de404485f857a3495acfbf";
+            //const string authToken = "59a8ffe9a848c07bfe598a99c43abfd2";
 
-            Random random = new Random();
-            int code = random.Next(100000, 999999);
-            TwilioClient.Init(accountSid, authToken);
-            var message = MessageResource.Create(
-                body: "Ваше код безопасности:" + code,
-                from: new Twilio.Types.PhoneNumber("+14193860152"),
-                to: new Twilio.Types.PhoneNumber(model.User.PhoneNumber)
-            );
-            PhoneCheckingCode phoneCheckingCode = new PhoneCheckingCode()
+            //Random random = new Random();
+            //int code = random.Next(100000, 999999);
+            //TwilioClient.Init(accountSid, authToken);
+            //var message = MessageResource.Create(
+            //    body: "Ваше код безопасности:" + code,
+            //    from: new Twilio.Types.PhoneNumber("+14193860152"),
+            //    to: new Twilio.Types.PhoneNumber(model.User.PhoneNumber)
+            //);
+            int code = 4444;
+            var cheking = db.phoneCheckingCodes.Where(p => p.PhoneNumber == newPhonenumber).FirstOrDefault();
+            PhoneCheckingCode phoneCheckingCode = null;
+            if (cheking != null)
             {
-                PhoneNumber = addPhone.Number,
-                CheckingCode = code.ToString(),
-                DateTime = DateTime.Now
-            };
-            db.phoneCheckingCodes.Add(phoneCheckingCode);
+                phoneCheckingCode = new PhoneCheckingCode()
+                {
+                    PhoneNumber = newPhonenumber,
+                    CheckingCode = code.ToString(),
+                    DateTime = DateTime.Now
+                };
+                db.phoneCheckingCodes.Add(phoneCheckingCode);
+            }
+            else
+            {
+                cheking.CheckingCode = code.ToString();
+                cheking.DateTime = DateTime.Now;
+                db.Entry(cheking).State = System.Data.Entity.EntityState.Modified;
+            }
+
             db.SaveChanges();
         }
 
@@ -554,6 +575,40 @@ namespace WebAppIMaster.Models.WebApiService
                 }
             }
             db.Entry(Executor).State = System.Data.Entity.EntityState.Modified;
+            db.SaveChanges();
+        }
+
+        public void SendExecutroPassportFile(string url, string executorId)
+        {
+            ExecutorPassportFiles files = new ExecutorPassportFiles()
+            {
+                ExecutorId = executorId,
+                ImageUrl = url,
+                Status = Status.Active,
+            };
+            db.ExecutorPassportFiles.Add(files);
+            db.SaveChanges();
+        }
+
+        public ExecutorPassportFile GetExecutorPassportFile(string executorId)
+        {
+            ApplicationDbContext db = new ApplicationDbContext();
+            db.Configuration.AutoDetectChangesEnabled = false;
+            db.Configuration.LazyLoadingEnabled = false;
+            var model = db.ExecutorPassportFiles.Where(epf => epf.ExecutorId == executorId).FirstOrDefault();
+            return new ExecutorPassportFile
+            {
+                Id = model.Id,
+                ExecutorId = executorId,
+                Url = model.ImageUrl == null ? null : "http://i-master.kz/api/GetExecutorPhoto?url=" + model.ImageUrl,
+                Status = model.Status,
+            };
+        }
+
+        public void deletePassportFile(string url)
+        {
+            var model = db.ExecutorPassportFiles.Where(epf => epf.ImageUrl == url).FirstOrDefault();
+            db.ExecutorPassportFiles.Remove(model);
             db.SaveChanges();
         }
     }
