@@ -86,7 +86,7 @@ namespace WebAppIMaster.Controllers.WebApi
         {
             ApplicationDbContext db = new ApplicationDbContext();
             ClientOrderService repository = new ClientOrderService(db);
-            var model = repository.GetList();
+            List<ClientOrderItemView> model = repository.GetList();
             return model;
         }
         /// <summary>

@@ -834,6 +834,18 @@
             </summary>
             <param name="files">Принимает параметр files.</param>
         </member>
+        <member name="M:WebAppIMaster.Controllers.WebApi.ExecutorServiceController.SaveExecutorWorkPhoto">
+            <summary>
+            api/SendExecutorPhoto  сохраняет фото ExecutprPassportFile  Request.Form["executorId"] и url
+            </summary>
+            <param name="files">Принимает параметр files.</param>
+        </member>
+        <member name="M:WebAppIMaster.Controllers.WebApi.ExecutorServiceController.DeleteExecutorWorkPhoto(System.String)">
+            <summary>
+            передайте (api/DeleteExecutorWorkPhoto/{Url}) обновляется  ExecutorService
+            </summary>
+            <param name="Url">Принимает параметр (Url).</param>
+        </member>
         <member name="M:WebAppIMaster.Controllers.WebApi.ExecutorServiceController.GetExecutorPassportFiles(System.String)">
             <summary>
             передайте (api/GetExecutorPassportFiles/{executorId}) обновляется  ExecutorService
@@ -844,7 +856,7 @@
             <summary>
             передайте (api/DeletePassportFiles/{Url}) обновляется  ExecutorService
             </summary>
-            <param name="url">Принимает параметр (executorId).</param>
+            <param name="Url">Принимает параметр (Url).</param>
         </member>
         <member name="T:WebAppIMaster.Controllers.WebApi.GenderServiceController">
             <summary>

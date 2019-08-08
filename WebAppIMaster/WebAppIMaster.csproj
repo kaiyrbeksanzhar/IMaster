@@ -242,6 +242,11 @@
     <Compile Include="Migrations\201908060205082_DbSetEdit1.Designer.cs">
       <DependentUpon>201908060205082_DbSetEdit1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201908072225164_WorkExecutorPhoto.cs" />
+    <Compile Include="Migrations\201908072225164_WorkExecutorPhoto.Designer.cs">
+      <DependentUpon>201908072225164_WorkExecutorPhoto.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Enitities\ExecutorWorkPhoto.cs" />
     <Compile Include="Models\NewManagerManage\PushNotificationManager.cs" />
     <Compile Include="Models\NewManagerModels\Data.cs" />
     <Compile Include="Controllers\AppController\HowDidYouAboutUsController.cs" />
@@ -993,6 +998,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201908060205082_DbSetEdit1.resx">
       <DependentUpon>201908060205082_DbSetEdit1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201908072225164_WorkExecutorPhoto.resx">
+      <DependentUpon>201908072225164_WorkExecutorPhoto.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Resource.kk-KZ.resx" />
     <EmbeddedResource Include="Resources\Resource.resx" />

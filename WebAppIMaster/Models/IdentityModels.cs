@@ -78,5 +78,6 @@ namespace WebAppIMaster.Models.Enitities
         public DbSet<OrganizationCategoryMarketInCategory> organizationCategoryMarketInCategories { get; set; }
         public DbSet<OrganizationCategory> organizationCategories { get; set; }
         public DbSet<RateHowItWorks> rateHowItWorks { get; set; }
+        public DbSet<ExecutorWorkPhoto>  executorWorkPhotos { get; set; }
     }
 }

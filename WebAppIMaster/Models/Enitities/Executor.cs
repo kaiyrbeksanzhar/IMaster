@@ -6,6 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WebAppIMaster.Models.Enitities;
 
 namespace WebAppIMaster.Models
 {
@@ -21,6 +22,7 @@ namespace WebAppIMaster.Models
             Responses = new HashSet<Response>();
             CallToClients = new HashSet<CallToClient>();
             BookmarkExecutors = new HashSet<BookmarkExecutor>();
+            executorWorkPhotos = new HashSet<ExecutorWorkPhoto>();
         }
 
         [Key]
@@ -59,5 +61,7 @@ namespace WebAppIMaster.Models
         public ICollection<Response> Responses { get; set; }
         public ICollection<CallToClient> CallToClients { get; set; }
         public ICollection<BookmarkExecutor> BookmarkExecutors { get; set; }
+        public ICollection<ExecutorWorkPhoto>  executorWorkPhotos { get; set; }
+        
     }
 }

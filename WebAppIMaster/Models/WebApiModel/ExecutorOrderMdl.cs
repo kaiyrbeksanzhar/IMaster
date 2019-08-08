@@ -22,6 +22,8 @@ namespace WebAppIMaster.Models.WebApiModel
             public OrderCostType CostType { get; set; }
             public int Cost { get; set; }
             public OrderState OrderStatus { get; set; }
+            public string CategoryName { get; set; }
+            public string SpecilizationName { get; set; }
         }
 
         public class ExecutorOrderDetails

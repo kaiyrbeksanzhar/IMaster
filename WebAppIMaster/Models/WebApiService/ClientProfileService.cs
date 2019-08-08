@@ -297,6 +297,7 @@ namespace WebAppIMaster.Models.WebApiService
                 GenderName = model.ApplicationUser.GenderId == 1 ? "Male" : "Female",
                 GenderId = model.ApplicationUser.GenderId,
                 CityName = model.InCity.Langs.Where(l => l.Langcode == langcode).Select(l => l.Name).FirstOrDefault(),
+                AvatarUrl = model.AvatarUrl,
 
             }).SingleOrDefault();
             if (item == null) throw new KeyNotFoundException();
@@ -318,7 +319,8 @@ namespace WebAppIMaster.Models.WebApiService
                 Bonus = (int?)item.Bonus,
                 GenderId = item.GenderId,
                 CityName = item.CityName,
-                Gender = item.GenderName
+                Gender = item.GenderName,
+                AvatarUrl = item.AvatarUrl == null ? null : "http://i-master.kz/api/GetClientProfilePhoto?url=" + item.AvatarUrl,
             };
         }
 

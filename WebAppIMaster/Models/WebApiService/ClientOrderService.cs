@@ -20,9 +20,9 @@ namespace WebAppIMaster.Models.WebApiService
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        public ClientOrderService( ApplicationDbContext db ) => this.db = db;
+        public ClientOrderService(ApplicationDbContext db) => this.db = db;
 
-        public ClientOrderDetailsView GetClientOrderDetailsView( int id )
+        public ClientOrderDetailsView GetClientOrderDetailsView(int id)
         {
             string langcode = LanguageController.CurrentCultureCode;
 
@@ -109,13 +109,13 @@ namespace WebAppIMaster.Models.WebApiService
             return item;
         }
 
-        public ClientOrderItemView GetClientOrderItemView( int id )
+        public ClientOrderItemView GetClientOrderItemView(int id)
         {
             CustomerOrder model = db.CustomerOrders.Find(id);
             return new ClientOrderItemView
             {
                 Id = model.Id,
-                StartingDatetime = model.StartedDate.ToShortDateString(),
+                StartingDatetime = model.StartedDate,
                 SpecializationName = model.Specialization.Langs.Where(l => l.Langcode == LanguageController.CurrentCultureCode).FirstOrDefault().Name,
                 Cost = Convert.ToInt32(model.Cost),
                 Title = model.Title,
@@ -137,9 +137,12 @@ namespace WebAppIMaster.Models.WebApiService
             {
                 clientOrderItemViews.Add(new ClientOrderItemView
                 {
-                    SpecializationName = item.Specialization.Langs.Where(l => l.Langcode == langcode).Select(l => l.Name).FirstOrDefault(),
+                    SpecializationName = db.SpecializationLangs.Where(l => l.Langcode == langcode).Where(l => l.SpecializationId == item.SpecializationId).Select(l => l.Name).FirstOrDefault(),
                     Cost = (int)item.Cost,
-                    StartingDatetime = item.StartedDate.ToShortDateString(),
+                    CategoryName = db.CategoryLangs.Where(l => l.Langcode == langcode).Where(l => l.CategoryId == item.Specialization.CategoryId).Select(l => l.Name).FirstOrDefault(),
+                    CostType = item.CostType,
+                    StartDateType = item.StartDateType,
+                    StartingDatetime = item.StartedDate,
                     Id = item.Id,
                     NewNotifications = item.NewNotifications,
                     Title = item.Title,
@@ -150,7 +153,7 @@ namespace WebAppIMaster.Models.WebApiService
         }
 
 
-        public bool ClientOrderEdit( ClientOrderEdit model )
+        public bool ClientOrderEdit(ClientOrderEdit model)
         {
             ApplicationDbContext db = new ApplicationDbContext();
             db.Configuration.AutoDetectChangesEnabled = false;
@@ -185,7 +188,7 @@ namespace WebAppIMaster.Models.WebApiService
         }
 
 
-        public int Create( ClientOrderCreate model )
+        public int Create(ClientOrderCreate model)
         {
             Dictionary<int, string> photos = new Dictionary<int, string>();
             int i = 1;
@@ -249,7 +252,7 @@ namespace WebAppIMaster.Models.WebApiService
             return customerOrder.Id;
         }
 
-        public List<ClientOrderItemView> GetListForClient( string clientId )
+        public List<ClientOrderItemView> GetListForClient(string clientId)
         {
             string langcode = LanguageController.CurrentCultureCode;
             List<ClientOrderItemView> clientOrders = new List<ClientOrderItemView>();
@@ -265,17 +268,20 @@ namespace WebAppIMaster.Models.WebApiService
                 {
                     Id = clientorder.Id,
                     Cost = (int)clientorder.Cost,
-                    SpecializationName = clientorder.Specialization.Langs.Where(l => l.Langcode == langcode).Select(l => l.Name).FirstOrDefault(),
-                    StartingDatetime = clientorder.StartedDate.ToShortDateString() + " " + clientorder.StartedDate.ToShortTimeString(),
+                    SpecializationName = db.SpecializationLangs.Where(l => l.Langcode == langcode).Where(l => l.SpecializationId == clientorder.SpecializationId).Select(l => l.Name).FirstOrDefault(),
+                    StartingDatetime = clientorder.StartedDate,
                     NewNotifications = clientorder.NewNotifications,
                     Title = clientorder.Title,
-                    Type = clientorder.OrderType
+                    Type = clientorder.OrderType,
+                    CategoryName = db.CategoryLangs.Where(l=>l.Langcode == langcode).Where(l=>l.CategoryId == clientorder.Specialization.CategoryId).Select(l=>l.Name).FirstOrDefault(),
+                    CostType = clientorder.CostType,
+                    StartDateType = clientorder.StartDateType,
                 });
             }
             return clientOrders;
         }
 
-        public List<ClientOrderItemView> GetListForExecutor( string executorId )
+        public List<ClientOrderItemView> GetListForExecutor(string executorId)
         {
             string langcode = LanguageController.CurrentCultureCode;
             List<ClientOrderItemView> clientOrders = new List<ClientOrderItemView>();
@@ -286,17 +292,20 @@ namespace WebAppIMaster.Models.WebApiService
                 {
                     Id = clientorder.Id,
                     Cost = (int)clientorder.Cost,
-                    SpecializationName = clientorder.Specialization.Langs.Where(l => l.Langcode == langcode).Select(l => l.Name).FirstOrDefault(),
-                    StartingDatetime = clientorder.StartedDate.ToShortDateString() + " " + clientorder.StartedDate.ToShortTimeString(),
+                    SpecializationName = db.SpecializationLangs.Where(l => l.Langcode == langcode).Where(l => l.SpecializationId == clientorder.SpecializationId).Select(l => l.Name).FirstOrDefault(),
+                    StartingDatetime = clientorder.StartedDate,
                     NewNotifications = clientorder.NewNotifications,
                     Title = clientorder.Title,
-                    Type = clientorder.OrderType
+                    Type = clientorder.OrderType,
+                    CategoryName = db.CategoryLangs.Where(l => l.Langcode == langcode).Where(l => l.CategoryId == clientorder.Specialization.CategoryId).Select(l => l.Name).FirstOrDefault(),
+                    CostType = clientorder.CostType,
+                    StartDateType = clientorder.StartDateType,
                 });
             }
             return clientOrders;
         }
 
-        public ClientCommonOrderDetailsView GetClientCommonOrderDetailsView( int orderId )
+        public ClientCommonOrderDetailsView GetClientCommonOrderDetailsView(int orderId)
         {
             string langcode = LanguageController.CurrentCultureCode;
 
@@ -382,7 +391,7 @@ namespace WebAppIMaster.Models.WebApiService
             };
         }
 
-        public void SendPhotoToOrder( string url, int orderId )
+        public void SendPhotoToOrder(string url, int orderId)
         {
             var CustomerOrder = db.CustomerOrders.Where(co => co.Id == orderId).FirstOrDefault();
             if (CustomerOrder != null)
@@ -408,7 +417,7 @@ namespace WebAppIMaster.Models.WebApiService
             db.SaveChanges();
         }
 
-        public bool ClientMyOrderFinish( ClientMyOrderFinish item )
+        public bool ClientMyOrderFinish(ClientMyOrderFinish item)
         {
             try
             {
@@ -431,7 +440,7 @@ namespace WebAppIMaster.Models.WebApiService
             }
         }
 
-        public bool CancelClientMyOrder( int orderId, CancelReason cancelReason )
+        public bool CancelClientMyOrder(int orderId, CancelReason cancelReason)
         {
             try
             {
@@ -449,7 +458,7 @@ namespace WebAppIMaster.Models.WebApiService
             }
         }
 
-        public bool DeletePhotoUrlAddress( string url, int orderId )
+        public bool DeletePhotoUrlAddress(string url, int orderId)
         {
             try
             {
