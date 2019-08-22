@@ -1,0 +1,68 @@
+﻿@model List<WebAppIMaster.Models.NewManagerModels.ReviewModel.ReviewSelect>
+@using WebAppIMaster.Resources
+@{
+    ViewBag.Title = "Index";
+}
+
+
+<style>
+    #example_wrapper {
+        padding: 5px;
+    }
+</style>
+
+<div class="card strpied-tabled-with-hover">
+    <div class="card-header ">
+        <h4 class="card-title">Отзыви</h4>
+        <p class="card-category">Список отзывов</p>
+    </div>
+    <div class="card-body table-full-width table-responsive">
+        <table id="example" class="display table-bordered" style="width:100%">
+            <thead>
+                <tr>
+                    <th>
+                        Исплнитель
+                    </th>
+                    <th>
+                        Оставил отзыв
+                    </th>
+                    <th>
+                        Рейтинг
+                    </th>
+                    <th>Действия</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @item.Rating
+                        </td>
+                        <td>
+                            @item.ReviewText
+                        </td>
+                        <td></td>
+                        <td>
+                            <a href="/Review/ReviewDetails?Id=@item.Id">Подробнее</a> |
+                        </td>
+                    </tr>
+                }
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th>
+                        Название
+                    </th>
+                    <th>
+                        Приоритет
+                    </th>
+                    <th>
+                        Количество специализации
+                    </th>
+                    <th></th>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>

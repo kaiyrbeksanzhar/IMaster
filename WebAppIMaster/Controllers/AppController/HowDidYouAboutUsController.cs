@@ -50,7 +50,7 @@ namespace WebAppIMaster.Controllers.AppController
             bool result = repository.Insert(model);
             if (result)
             {
-                return RedirectToAction("Index");
+                return RedirectToAction("IndexMain");
             }
             else
             {
@@ -77,7 +77,7 @@ namespace WebAppIMaster.Controllers.AppController
             int id = repository.Edit(model);
             if (id != -1)
             {
-                return RedirectToAction("Index");
+                return RedirectToAction("IndexMain");
             }
             else
             {
@@ -93,7 +93,7 @@ namespace WebAppIMaster.Controllers.AppController
             bool delete = repository.Delete(id);
             if (delete)
             {
-                return RedirectToAction("Index");
+                return RedirectToAction("IndexMain");
             }
             return View();
         }

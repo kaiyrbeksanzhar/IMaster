@@ -238,11 +238,18 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AppController\CategoryController.cs" />
     <Compile Include="Controllers\AppController\CityController.cs" />
+    <Compile Include="Controllers\AppController\ReviewController.cs" />
     <Compile Include="Migrations\201908060205082_DbSetEdit1.cs" />
     <Compile Include="Migrations\201908060205082_DbSetEdit1.Designer.cs">
       <DependentUpon>201908060205082_DbSetEdit1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201908251154250_ForReview.cs" />
+    <Compile Include="Migrations\201908251154250_ForReview.Designer.cs">
+      <DependentUpon>201908251154250_ForReview.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Enitities\Review.cs" />
     <Compile Include="Models\NewManagerManage\PushNotificationManager.cs" />
+    <Compile Include="Models\NewManagerManage\ReviewManagerModel.cs" />
     <Compile Include="Models\NewManagerModels\Data.cs" />
     <Compile Include="Controllers\AppController\HowDidYouAboutUsController.cs" />
     <Compile Include="Controllers\AppController\LandingPageController.cs" />
@@ -506,6 +513,7 @@
     <Compile Include="Models\NewManagerModels\PopulationDetailsVmMdl.cs" />
     <Compile Include="Models\NewManagerModels\PopulationQuestion.cs" />
     <Compile Include="Models\NewManagerModels\PopulationCreateMdl.cs" />
+    <Compile Include="Models\NewManagerModels\ReviewModel.cs" />
     <Compile Include="Models\NewManagerModels\SpecilizationModels.cs" />
     <Compile Include="Models\NewManagerModels\SupportVmMdl.cs" />
     <Compile Include="Models\UserAgreement.cs" />
@@ -711,6 +719,7 @@
     <Content Include="Images\Category\elitefon.ru_39190.jpg" />
     <Content Include="Images\Category\favicon.ico" />
     <Content Include="Images\Category\jubtFGDECpM.jpg" />
+    <Content Include="Images\Category\machine-learning-595x335_0.jpg" />
     <Content Include="Images\Category\qwe.png" />
     <Content Include="Images\Category\КАЗНУ.jpg" />
     <Content Include="Images\Category\КАЗНУ.png" />
@@ -724,6 +733,28 @@
     <Content Include="Scripts\2gis.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <None Include="Scripts\jquery-3.3.1.intellisense.js" />
+    <Content Include="Scripts\jquery-3.3.1.js" />
+    <Content Include="Scripts\jquery-3.3.1.min.js" />
+    <Content Include="Scripts\jquery-3.3.1.slim.js" />
+    <Content Include="Scripts\jquery-3.3.1.slim.min.js" />
+    <Content Include="Scripts\jquery-ui-1.9.2.js" />
+    <Content Include="Scripts\jquery-ui-1.9.2.min.js" />
+    <Content Include="Scripts\jquery.dataTables.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\knockout-2.2.0.debug.js" />
+    <Content Include="Scripts\knockout-2.2.0.js" />
+    <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\WebApiTestClient.js" />
+    <Content Include="Views\Scripts\2gis.js" />
+    <Content Include="Views\Scripts\bootstrap.js" />
+    <Content Include="Views\Scripts\bootstrap.min.js" />
     <Content Include="Images\media\images\Sorting icons.psd" />
     <Content Include="Areas\HelpPage\Views\_ViewStart.cshtml" />
     <Content Include="Areas\HelpPage\Views\Web.config" />
@@ -793,25 +824,28 @@
     <Content Include="Content\LangindPage\fonts\fontawesome-webfont.woff2-v=4.7.0" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile1.pubxml" />
-    <None Include="Scripts\jquery-3.3.1.intellisense.js" />
-    <Content Include="Scripts\jquery-3.3.1.js" />
-    <Content Include="Scripts\jquery-3.3.1.min.js" />
-    <Content Include="Scripts\jquery-3.3.1.slim.js" />
-    <Content Include="Scripts\jquery-3.3.1.slim.min.js" />
-    <None Include="Scripts\jquery.validate-vsdoc.js" />
-    <Content Include="Scripts\jquery-ui-1.9.2.js" />
-    <Content Include="Scripts\jquery-ui-1.9.2.min.js" />
-    <Content Include="Scripts\jquery.dataTables.js" />
-    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
-    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
-    <Content Include="Scripts\jquery.validate.js" />
-    <Content Include="Scripts\jquery.validate.min.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
-    <Content Include="Scripts\knockout-2.2.0.debug.js" />
-    <Content Include="Scripts\knockout-2.2.0.js" />
-    <Content Include="Scripts\modernizr-2.8.3.js" />
-    <Content Include="Scripts\WebApiTestClient.js" />
+    <Content Include="Scripts\jquery-3.3.1.min.map" />
+    <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
+    <Content Include="Views\Review\ReviewDetails.cshtml" />
+    <None Include="Views\Scripts\jquery-3.3.1.intellisense.js" />
+    <Content Include="Views\Scripts\jquery-3.3.1.js" />
+    <Content Include="Views\Scripts\jquery-3.3.1.min.js" />
+    <Content Include="Views\Scripts\jquery-3.3.1.slim.js" />
+    <Content Include="Views\Scripts\jquery-3.3.1.slim.min.js" />
+    <None Include="Views\Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Views\Scripts\jquery-ui-1.9.2.js" />
+    <Content Include="Views\Scripts\jquery-ui-1.9.2.min.js" />
+    <Content Include="Views\Scripts\jquery.dataTables.js" />
+    <Content Include="Views\Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Views\Scripts\jquery.unobtrusive-ajax.min.js" />
+    <Content Include="Views\Scripts\jquery.validate.js" />
+    <Content Include="Views\Scripts\jquery.validate.min.js" />
+    <Content Include="Views\Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Views\Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Views\Scripts\knockout-2.2.0.debug.js" />
+    <Content Include="Views\Scripts\knockout-2.2.0.js" />
+    <Content Include="Views\Scripts\modernizr-2.8.3.js" />
+    <Content Include="Views\Scripts\WebApiTestClient.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -881,6 +915,8 @@
     <Content Include="Views\Organization\CreateOrganizationPrice.cshtml" />
     <Content Include="Views\LandingPage\Index.cshtml" />
     <Content Include="Views\News\PushNotification.cshtml" />
+    <Content Include="Views\Specilization\Edit.cshtml" />
+    <Content Include="Views\Review\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Files\Organization\" />
@@ -906,8 +942,8 @@
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <None Include="packages.config" />
-    <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
-    <Content Include="Scripts\jquery-3.3.1.min.map" />
+    <Content Include="Views\Scripts\jquery-3.3.1.slim.min.map" />
+    <Content Include="Views\Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201906211928420_DbFirst.resx">
@@ -993,6 +1029,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201908060205082_DbSetEdit1.resx">
       <DependentUpon>201908060205082_DbSetEdit1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201908251154250_ForReview.resx">
+      <DependentUpon>201908251154250_ForReview.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Resource.kk-KZ.resx" />
     <EmbeddedResource Include="Resources\Resource.resx" />

@@ -35,6 +35,9 @@ namespace WebAppIMaster.Models.NewManagerModels
             public string Name_kz { get; set; }
             public string Name_ru { get; set; }
             public int Priority { get; set; }
+
+            // Добавлено CategoryId и причины ошибки
+         //   public int CategoryId { get; set; }
             public string PhotoUrl { get; set; }
             [ScaffoldColumn(false)]
             [NotMapped]

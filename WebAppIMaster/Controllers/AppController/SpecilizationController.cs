@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using static WebAppIMaster.Models.NewManagerModels.SpecilizationModels;
 using WebAppIMaster.Models.Enitities;
+using System.Threading.Tasks;
 
 namespace WebAppIMaster.Controllers.AppController
 {
@@ -72,14 +73,15 @@ namespace WebAppIMaster.Controllers.AppController
 
         // POST: Specilization/Edit/5
         [HttpPost]
-        public ActionResult Edit( int id, SpecilizationEdit model )
+        public async Task<ActionResult> Edit(SpecilizationEdit model)
         {
             ApplicationDbContext db = new ApplicationDbContext();
             SpecilizationManager repository = new SpecilizationManager(db);
             int specilizationId = repository.Edit(this, model);
             if (specilizationId != -1)
             {
-                return RedirectToAction("Index");
+                var catId = await db.Specializations.FindAsync(specilizationId);
+                return RedirectToAction("Index", "Specilization",new { catId.CategoryId });
             }
             else
             {
