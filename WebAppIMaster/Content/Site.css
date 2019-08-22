@@ -22,3 +22,9 @@ select,
 textarea {
     max-width: 280px;
 }
+
+.cat-image {
+    height: 200px;
+    width: 200px;
+    border: cadetblue solid 1px;
+}

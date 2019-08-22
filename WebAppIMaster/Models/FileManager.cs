@@ -5,6 +5,8 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using WebAppIMaster.Models.Enitities;
+using WebAppIMaster.Models.NewManagerManage;
 
 namespace WebAppIMaster.Models
 {
@@ -42,19 +44,65 @@ namespace WebAppIMaster.Models
         }
 
 
-        public static string SavePhoto1( Controller controller, HttpPostedFileBase postedFile )
+        public static string SavePhoto1( Controller controller, HttpPostedFileBase Photo )
         {
             if (!isFilesPathReady)
                 PrepareFilesPath(controller);
             string savedLogoUrl = "";
-            if (postedFile != null)
+            if (Photo != null)
             {
-                savedLogoUrl = CategoryImagesUrl + "/" + postedFile.FileName.Split('\\').Last();
-                postedFile.SaveAs(controller.Server.MapPath(savedLogoUrl));
+                 savedLogoUrl = CategoryImagesUrl + "/" + Photo.FileName.Split('\\').Last();
+                 Photo.SaveAs(controller.Server.MapPath(savedLogoUrl));
             }
             else
             {
                 savedLogoUrl = DefaulAvatarUrl;
+            }
+            return savedLogoUrl;
+        }
+
+        public static string EditSavePhoto1(Controller controller, HttpPostedFileBase Photo, int? Id)
+        {
+            if (!isFilesPathReady)
+                PrepareFilesPath(controller);
+            string savedLogoUrl = "";
+            if (Photo != null)
+            {
+                savedLogoUrl = CategoryImagesUrl + "/" + Photo.FileName.Split('\\').Last();
+                Photo.SaveAs(controller.Server.MapPath(savedLogoUrl));
+            }
+            else
+            {
+                if(Id != null)
+                {
+                    ApplicationDbContext db = new ApplicationDbContext();
+                    CategoryManagerModels repository = new CategoryManagerModels(db);
+                    var result = repository.ItemEditPhoto(Id);
+                    savedLogoUrl = result;
+                }
+            }
+            return savedLogoUrl;
+        }
+
+        public static string EditSavePhotoSpecilization(Controller controller, HttpPostedFileBase Photo, int? Id)
+        {
+            if (!isFilesPathReady)
+                PrepareFilesPath(controller);
+            string savedLogoUrl = "";
+            if (Photo != null)
+            {
+                savedLogoUrl = CategoryImagesUrl + "/" + Photo.FileName.Split('\\').Last();
+                Photo.SaveAs(controller.Server.MapPath(savedLogoUrl));
+            }
+            else
+            {
+                if (Id != null)
+                {
+                    ApplicationDbContext db = new ApplicationDbContext();
+                    SpecilizationManager repository = new SpecilizationManager(db);
+                    var result = repository.ItemEditPhoto(Id);
+                    savedLogoUrl = result;
+                }
             }
             return savedLogoUrl;
         }

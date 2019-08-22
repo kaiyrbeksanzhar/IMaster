@@ -75,7 +75,7 @@ namespace WebAppIMaster.Models.NewManagerManage
                 string lang_kz = LanguageController.GetKzCode();
                 string lang_ru = LanguageController.GetRuCode();
                 Specialization specialization = db.Specializations.Find(model.Id);
-                specialization.PhotoUrl = FileManager.SavePhoto1(controller, model.Photo);
+                specialization.PhotoUrl = FileManager.EditSavePhotoSpecilization(controller, model.Photo,model.Id);
                 specialization.Priority = model.Priority;
                 specialization.Langs = db.SpecializationLangs.Where(sl => sl.SpecializationId == specialization.Id).ToList();
                 specialization.Langs.Where(l => l.Langcode == lang_kz).FirstOrDefault().Name = model.Name_kz;
@@ -112,6 +112,17 @@ namespace WebAppIMaster.Models.NewManagerManage
             Specialization specialization = db.Specializations.Find(id);
             db.Specializations.Remove(specialization);
             db.SaveChanges();
+        }
+
+        public string ItemEditPhoto(int? Id)
+        {
+            Specialization cat = db.Specializations.Where(p => p.Id == Id).SingleOrDefault();
+            if (cat != null)
+            {
+                return cat.PhotoUrl;
+            }
+
+            return null;
         }
     }
 }

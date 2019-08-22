@@ -1,0 +1,77 @@
+﻿@model WebAppIMaster.Models.NewManagerModels.SpecilizationModels.SpecilizationEdit
+@using WebAppIMaster.Resources
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="card strpied-tabled-with-hover">
+    <div class="card-header ">
+        <h4 class="card-title">Редактировать Специализацию</h4>
+        <p class="card-category">Редактировать Специализацию</p>
+    </div>
+    <div class="card-body table-full-width table-responsive">
+
+        @using (Html.BeginForm("Edit", "Specilization", FormMethod.Post,
+                                    new { enctype = "multipart/form-data" }))
+        {
+        <div class="form-horizontal">
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.Id)
+            <div class="form-group">
+                <label class="control-label col-md-2">Название  на русском</label>
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Name_ru, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Name_ru, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-md-2">Название  на казахском</label>
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Name_kz, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Name_kz, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+
+                <label class="control-label col-md-2" for="SourceName_ru">Приоритет</label>
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Priority, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Priority, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-2">Прикрепленное <p></p> изображение</label>
+                <br />
+                <img src="@Model.PhotoUrl" class="cat-image" />
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-3">Изменить изображение</label>
+                <div class="col-md-9" style="padding-top:10px;">
+                    <input type="file" name="Photo" id="Photo"
+                           aria-describedby="inputGroupFileAddon01">
+                </div>
+            </div>
+
+        </div>
+
+            <div class="form-group ml-5">
+                <div class="d-inline">
+                    <input type="submit" value="@Resource.Save" class="btn btn-info btn-fill" />
+                </div>
+                <div class="d-inline" style="padding-left:15px;">
+                    <a href="/Specilization/Index" class="btn btn-info btn-fill">Назад</a>
+                </div>
+            </div>
+        }
+
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
