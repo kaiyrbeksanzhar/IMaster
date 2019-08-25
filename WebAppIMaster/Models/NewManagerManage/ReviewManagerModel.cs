@@ -23,8 +23,8 @@ namespace WebAppIMaster.Models.NewManagerManage
                             ReviewText = cl.ReviewText,
                             ExecutorId = cl.ExecutorId,
                             CustomerId = cl.CustomerId,
-                            Executor = cl.Executor.User.FirstName + cl.Executor.User.LastName,
-                            Customer = cl.Customer.ApplicationUser.FirstName + cl.Customer.ApplicationUser.LastName
+                            Executor = cl.Executor.User.FirstName + " " + cl.Executor.User.LastName,
+                            Customer = cl.Customer.ApplicationUser.FirstName + " " + cl.Customer.ApplicationUser.LastName
                         }).OrderBy(p=>p.Rating).ToList();
 
             return item;
@@ -54,8 +54,8 @@ namespace WebAppIMaster.Models.NewManagerManage
                             ReviewText = cl.ReviewText,
                             ExecutorId = cl.ExecutorId,
                             CustomerId = cl.CustomerId,
-                            Executor = cl.Executor.User.FirstName + cl.Executor.User.LastName,
-                            Customer = cl.Customer.ApplicationUser.FirstName + cl.Customer.ApplicationUser.LastName
+                            Executor = cl.Executor.User.FirstName + " " + cl.Executor.User.LastName,
+                            Customer = cl.Customer.ApplicationUser.FirstName + " " + cl.Customer.ApplicationUser.LastName
                         }).SingleOrDefault();
 
             return item;

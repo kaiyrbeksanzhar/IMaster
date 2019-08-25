@@ -21,7 +21,7 @@
             <thead>
                 <tr>
                     <th>
-                        Исплнитель
+                        Испoлнитель
                     </th>
                     <th>
                         Оставил отзыв
@@ -37,12 +37,14 @@
                 {
                     <tr>
                         <td>
-                            @item.Rating
+                            @item.Executor
                         </td>
                         <td>
-                            @item.ReviewText
+                            @item.Customer
                         </td>
-                        <td></td>
+                        <td>
+                            @item.Rating
+                        </td>
                         <td>
                             <a href="/Review/ReviewDetails?Id=@item.Id">Подробнее</a> |
                         </td>

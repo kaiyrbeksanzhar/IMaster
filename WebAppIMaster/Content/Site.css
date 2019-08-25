@@ -28,3 +28,8 @@ textarea {
     width: 200px;
     border: cadetblue solid 1px;
 }
+
+.create-market{
+    font-size:14px;
+    font-size:initial!important;
+}
