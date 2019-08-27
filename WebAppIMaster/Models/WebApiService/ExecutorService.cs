@@ -599,6 +599,9 @@ namespace WebAppIMaster.Models.WebApiService
 
             var executor = db.Executors.Where(e => e.Id == executorId).SingleOrDefault();
             executor.ExecutorType = item.ExecutorType;
+            List<ExecutorSpecialization> model = db.ExecutorSpecializations.Where(e => e.ExecutorId == executorId).ToList();
+            int itemSpecialtyLenght = item.SpecializationIds.Count();
+            for (int i = 0; i < itemSpecialtyLenght; i++)
             var model = db.ExecutorSpecializations.Where(e => e.ExecutorId == executorId).ToList();
             if (model != null)
             {
@@ -607,6 +610,7 @@ namespace WebAppIMaster.Models.WebApiService
             }
             foreach (var executorSpecialty in item.SpecializationIds)
             {
+                model[i].SpecializationId = item.SpecializationIds[i];
                 ExecutorSpecialization executorSpecialization = new ExecutorSpecialization()
                 {
                     ExecutorId = executorId,
@@ -616,6 +620,7 @@ namespace WebAppIMaster.Models.WebApiService
                 db.SaveChanges();
             }
             db.Entry(executor).State = System.Data.Entity.EntityState.Modified;
+            db.Entry(model).State = System.Data.Entity.EntityState.Modified;
             db.SaveChanges();
         }
 

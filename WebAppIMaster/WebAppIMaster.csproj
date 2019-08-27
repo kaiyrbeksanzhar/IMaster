@@ -716,6 +716,7 @@
     <Content Include="Images\Category\elitefon.ru_39190.jpg" />
     <Content Include="Images\Category\favicon.ico" />
     <Content Include="Images\Category\jubtFGDECpM.jpg" />
+    <Content Include="Images\Category\machine-learning-595x335_0.jpg" />
     <Content Include="Images\Category\qwe.png" />
     <Content Include="Images\Category\КАЗНУ.jpg" />
     <Content Include="Images\Category\КАЗНУ.png" />
@@ -886,6 +887,7 @@
     <Content Include="Views\Organization\CreateOrganizationPrice.cshtml" />
     <Content Include="Views\LandingPage\Index.cshtml" />
     <Content Include="Views\News\PushNotification.cshtml" />
+    <Content Include="Views\Specilization\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Files\Organization\" />

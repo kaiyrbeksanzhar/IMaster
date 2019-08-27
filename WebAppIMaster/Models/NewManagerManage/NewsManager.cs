@@ -43,6 +43,8 @@ namespace WebAppIMaster.Models.NewManagerManage
                            TypeRoles = n.TypeRoles,
                         }).OrderByDescending(n=>n.Id).ToList().ToPagedList(pageNumber ?? 1, 10);;
 
+
+
             return item;
         }
 

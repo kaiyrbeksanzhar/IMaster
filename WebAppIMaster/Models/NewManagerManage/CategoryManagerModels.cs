@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using static WebAppIMaster.Models.NewManagerModels.CategoryModels;
 using WebAppIMaster.Models.Enitities;
+using System.IO;
 
 namespace WebAppIMaster.Models.NewManagerManage
 {
@@ -14,7 +15,7 @@ namespace WebAppIMaster.Models.NewManagerManage
         ApplicationDbContext db = new ApplicationDbContext();
 
         public CategoryManagerModels( ApplicationDbContext db ) => this.db = db;
-
+         
         public List<CategorySelect> Select()
         {
             string langcode = LanguageController.CurrentCultureCode;
@@ -77,7 +78,7 @@ namespace WebAppIMaster.Models.NewManagerManage
                 string lang_ru = LanguageController.GetRuCode();
                 Category category = db.Categories.Find(model.Id);
                 category.Priority = model.Priority;
-                category.UrlPhoto = FileManager.SavePhoto1(controller, model.Photo);
+                category.UrlPhoto = FileManager.EditSavePhoto1(controller, model.Photo,model.Id);
                 category.Langs = db.CategoryLangs.Where(cl => cl.CategoryId == category.Id).ToList();
                 category.Langs.Where(l => l.Langcode == lang_kz).FirstOrDefault().Name = model.Name_kz;
                 category.Langs.Where(l => l.Langcode == lang_ru).FirstOrDefault().Name = model.Name_ru;
@@ -101,16 +102,30 @@ namespace WebAppIMaster.Models.NewManagerManage
                             Id = id,
                             Name_kz = c.Langs.Where(l => l.Langcode == lang_kz).Select(l => l.Name).FirstOrDefault(),
                             Name_ru = c.Langs.Where(l => l.Langcode == lang_ru).Select(l => l.Name).FirstOrDefault(),
-                            Priority = c.Priority
+                            Priority = c.Priority,
+                            UrlPhoto = c.UrlPhoto
                         }).SingleOrDefault();
+
             return item;
         }
+        //result = new StreamReader(file.InputStream).ReadToEnd();
         public void Delete( int id )
         {
             var models = db.Categories.Find(id);
             db.Categories.Remove(models);
             db.SaveChanges();
 
+        }
+
+        public string ItemEditPhoto(int? Id)
+        {
+            Category cat = db.Categories.Where(p => p.Id == Id).SingleOrDefault();
+            if(cat != null)
+            {
+                return cat.UrlPhoto;
+            }
+
+            return null;
         }
 
     }
