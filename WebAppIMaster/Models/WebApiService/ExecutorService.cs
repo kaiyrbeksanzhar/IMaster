@@ -28,6 +28,7 @@ namespace WebAppIMaster.Models.WebApiService
         public ExecutorServiceMdl.ExecutorProfile GetById(string id)
         {
             string langcode = LanguageController.CurrentCultureCode;
+            var passwordPhotos = db.ExecutorPassportFiles.Where(l => l.ExecutorId == id).ToList();
             //var model = db.Executors.Find(id);
             var model = (from e in db.Executors
                          where e.Id == id
@@ -68,25 +69,16 @@ namespace WebAppIMaster.Models.WebApiService
                 });
             }
             List<string> PhotoUrls = new List<string>();
-            Dictionary<byte[], string> photos = new Dictionary<byte[], string>();
-            var photosfileurl = db.ExecutorPhotoFiles.Where(epf => epf.ExecutorId == id).ToList();
+            var photosfileurl = db.executorWorkPhotos.Where(epf => epf.ExecutorId == id).ToList();
             Image img;
             if (photosfileurl.Count > 0)
             {
                 foreach (var pfu in photosfileurl)
                 {
-                    img = Image.FromFile(pfu.PhotoFileUrl);
-                    string PhotoType = pfu.PhotoFileUrl.Substring(pfu.PhotoFileUrl.LastIndexOf(".") + 1);
-                    byte[] Imagesbyte = FileManager.ImageToByteArray(img);
-                    string ImagesUrl = "http://i-master.kz/api/GetExecutorPhoto?url=" + pfu.PhotoFileUrl;
-                    PhotoUrls.Add(pfu.PhotoFileUrl == null ? null : "http://i-master.kz/api/GetExecutorPhoto?url=" + pfu.PhotoFileUrl);
+                    string ImagesUrl = "http://i-master.kz/api/GetExecutorPhoto?url=" + pfu.ImageUrl;
+                    PhotoUrls.Add(pfu.ImageUrl == null ? null : "http://i-master.kz/api/GetExecutorPhoto?url=" + pfu.ImageUrl);
                     //photos.Add(Imagesbyte, PhotoType);
-                    photos.Add(Imagesbyte, ImagesUrl);
                 }
-            }
-            else
-            {
-                photos = null;
             }
             var specialization = (from es in db.ExecutorSpecializations
                                   where es.ExecutorId == id
@@ -110,7 +102,64 @@ namespace WebAppIMaster.Models.WebApiService
                     ToCost = executorservice.ToCost
                 });
             }
-
+            if (passwordPhotos.Count == 2)
+            {
+                return new ExecutorServiceMdl.ExecutorProfile
+                {
+                    Id = model.Id,
+                    LastName = model.LastName,
+                    FirstName = model.FirstName,
+                    FatherName = model.FatherName,
+                    Rating = model.Rating,
+                    PhoneNumber = model.PhoneNumber,
+                    GenderId = model.GenderId,
+                    YouTubeUrl = model.YouTubeUrl,
+                    RegionId = model.RegionId,
+                    Region = model.Region,
+                    RegisteredAt = model.RegisteredAt == null ? DateTime.MinValue : model.RegisteredAt,
+                    ClosedOrdersCount = model.ClosedOrdersCount,
+                    Bonus = model.Bonus,
+                    BirthDay = model.BirthDay,
+                    ExecutorType = model.ExecutorType,
+                    Check = model.Check,
+                    Services = executiveServices,
+                    Specializations = specialization,
+                    Reviews = reviews,
+                    PhotosUrls = PhotoUrls,
+                    PasswordPhotoUrl1 = passwordPhotos[0]?.ImageUrl == null ? null : "http://i-master.kz/api/GetExecutorPhoto?url=" + passwordPhotos[0].ImageUrl,
+                    PasswordPhotoUrl2 = passwordPhotos[1]?.ImageUrl == null ? null : "http://i-master.kz/api/GetExecutorPhoto?url=" + passwordPhotos[1].ImageUrl,
+                    GenderName = model.GenderId == 1 ? "Male" : "Female",
+                };
+            }
+            else if (passwordPhotos.Count == 1)
+            {
+                return new ExecutorServiceMdl.ExecutorProfile
+                {
+                    Id = model.Id,
+                    LastName = model.LastName,
+                    FirstName = model.FirstName,
+                    FatherName = model.FatherName,
+                    Rating = model.Rating,
+                    PhoneNumber = model.PhoneNumber,
+                    GenderId = model.GenderId,
+                    YouTubeUrl = model.YouTubeUrl,
+                    RegionId = model.RegionId,
+                    Region = model.Region,
+                    RegisteredAt = model.RegisteredAt == null ? DateTime.MinValue : model.RegisteredAt,
+                    ClosedOrdersCount = model.ClosedOrdersCount,
+                    Bonus = model.Bonus,
+                    BirthDay = model.BirthDay,
+                    ExecutorType = model.ExecutorType,
+                    Check = model.Check,
+                    Services = executiveServices,
+                    Specializations = specialization,
+                    Reviews = reviews,
+                    PhotosUrls = PhotoUrls,
+                    PasswordPhotoUrl1 = passwordPhotos[0].ImageUrl == null ? null : "http://i-master.kz/api/GetExecutorPhoto?url=" + passwordPhotos[0].ImageUrl,
+                    PasswordPhotoUrl2 = null,
+                    GenderName = model.GenderId == 1 ? "Male" : "Female",
+                };
+            }
             return new ExecutorServiceMdl.ExecutorProfile
             {
                 Id = model.Id,
@@ -131,10 +180,13 @@ namespace WebAppIMaster.Models.WebApiService
                 Check = model.Check,
                 Services = executiveServices,
                 Specializations = specialization,
-                Photos = photos,
                 Reviews = reviews,
-                PhotosUrls = PhotoUrls
+                PhotosUrls = PhotoUrls,
+                PasswordPhotoUrl1 = null,
+                PasswordPhotoUrl2 = null,
+                GenderName = model.GenderId == 1 ? "Male" : "Female",
             };
+
         }
 
         public ExecutorServiceMdl.ExecutorProfile GetByPhoneNumber(string phoneNumber)
@@ -348,6 +400,14 @@ namespace WebAppIMaster.Models.WebApiService
                 //BannedDateTime = (DateTime?)DateTime.MinValue,
                 Banned = false,
             };
+            if (user.LastName == null)
+                user.LastName = item.LastName;
+            if (user.FirstName == null)
+                user.FirstName = item.FirstName;
+            if (user.FatherName == null)
+                user.FatherName = item.FatherName;
+
+            db.Entry(user).State = System.Data.Entity.EntityState.Modified;
             db.Executors.Add(executor);
             db.SaveChanges();
 
@@ -542,8 +602,22 @@ namespace WebAppIMaster.Models.WebApiService
             List<ExecutorSpecialization> model = db.ExecutorSpecializations.Where(e => e.ExecutorId == executorId).ToList();
             int itemSpecialtyLenght = item.SpecializationIds.Count();
             for (int i = 0; i < itemSpecialtyLenght; i++)
+            var model = db.ExecutorSpecializations.Where(e => e.ExecutorId == executorId).ToList();
+            if (model != null)
+            {
+                db.ExecutorSpecializations.RemoveRange(model);
+                db.SaveChanges();
+            }
+            foreach (var executorSpecialty in item.SpecializationIds)
             {
                 model[i].SpecializationId = item.SpecializationIds[i];
+                ExecutorSpecialization executorSpecialization = new ExecutorSpecialization()
+                {
+                    ExecutorId = executorId,
+                    SpecializationId = executorSpecialty,
+                };
+                db.ExecutorSpecializations.Add(executorSpecialization);
+                db.SaveChanges();
             }
             db.Entry(executor).State = System.Data.Entity.EntityState.Modified;
             db.Entry(model).State = System.Data.Entity.EntityState.Modified;
@@ -590,6 +664,17 @@ namespace WebAppIMaster.Models.WebApiService
             db.SaveChanges();
         }
 
+        public void SendExecutorWorkPhotoFile(string url, string executorId)
+        {
+            ExecutorWorkPhoto executorWorkPhoto = new ExecutorWorkPhoto()
+            {
+                ExecutorId = executorId,
+                ImageUrl = url,
+            };
+            db.executorWorkPhotos.Add(executorWorkPhoto);
+            db.SaveChanges();
+        }
+
         public ExecutorPassportFile GetExecutorPassportFile(string executorId)
         {
             ApplicationDbContext db = new ApplicationDbContext();
@@ -607,8 +692,17 @@ namespace WebAppIMaster.Models.WebApiService
 
         public void deletePassportFile(string url)
         {
-            var model = db.ExecutorPassportFiles.Where(epf => epf.ImageUrl == url).FirstOrDefault();
+            string SplitUrl = url.Split('=').Last();
+            var model = db.ExecutorPassportFiles.Where(epf => epf.ImageUrl == SplitUrl).FirstOrDefault();
             db.ExecutorPassportFiles.Remove(model);
+            db.SaveChanges();
+        }
+
+        public void DeleteWorkPhotoFile(string url)
+        {
+            string SplitUrl = url.Split('=').Last();
+            var model = db.executorWorkPhotos.Where(ewp => ewp.ImageUrl == SplitUrl).FirstOrDefault();
+            db.executorWorkPhotos.Remove(model);
             db.SaveChanges();
         }
     }

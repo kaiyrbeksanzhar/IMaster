@@ -74,9 +74,12 @@ namespace WebAppIMaster.Models.WebApiModel
         public int Id { get; set; }
         public string Title { get; set; }
         public string SpecializationName { get; set; }
-        public string StartingDatetime { get; set; }
+        public DateTime StartingDatetime { get; set; }
         public int Cost { get; set; }
         public OrderStatus Type { get; set; }
+        public OrderStartDateType StartDateType { get; set; }
+        public OrderCostType CostType { get; set; }
+        public string CategoryName { get; set; }
         public int NewNotifications { get; set; }
 
     }

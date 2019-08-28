@@ -81,5 +81,6 @@ namespace WebAppIMaster.Models.Enitities
 
         // Таблица для отзывы
         public DbSet<Review> Reviews { get; set; }
+        public DbSet<ExecutorWorkPhoto>  executorWorkPhotos { get; set; }
     }
 }

@@ -13,11 +13,11 @@ namespace WebAppIMaster.Models.WebApiService
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        public ExecutorOrderService( ApplicationDbContext db ) => this.db = db;
+        public ExecutorOrderService(ApplicationDbContext db) => this.db = db;
 
 
 
-        public void CallToClient( string executorId, int orderId )
+        public void CallToClient(string executorId, int orderId)
         {
             CallToClient callToClient = new CallToClient()
             {
@@ -29,7 +29,7 @@ namespace WebAppIMaster.Models.WebApiService
             db.SaveChanges();
         }
 
-        public void CancelOrder( string executorId, int orderId, string cancelReason)
+        public void CancelOrder(string executorId, int orderId, string cancelReason)
         {
 
             CancelOrder cancelOrder = new CancelOrder()
@@ -43,11 +43,11 @@ namespace WebAppIMaster.Models.WebApiService
             db.SaveChanges();
         }
 
-        public ExecutorOrderMdl.ExecutorOrderDetails GetDetails( int orderId, string userId )
+        public ExecutorOrderMdl.ExecutorOrderDetails GetDetails(int orderId, string userId)
         {
             string langcode = LanguageController.CurrentCultureCode;
 
-            var item = db.CustomerOrders.Where(u => u.Id == orderId).Select(u => new 
+            var item = db.CustomerOrders.Where(u => u.Id == orderId).Select(u => new
             {
                 OrderId = u.Id,
                 OrderTitle = u.Title,
@@ -105,7 +105,7 @@ namespace WebAppIMaster.Models.WebApiService
             return item;
         }
 
-        public List<ExecutorOrderMdl.ExecutorOrderItem> GetItemList( List<int> CategoryIds, List<int> SpecializationIds, string userId)
+        public List<ExecutorOrderMdl.ExecutorOrderItem> GetItemList(List<int> CategoryIds, List<int> SpecializationIds, string userId)
         {
             IQueryable<CustomerOrder> query = db.CustomerOrders.Where(u => u.OrderType == OrderStatus.Published);
             if (CategoryIds != null && 0 < CategoryIds.Count)
@@ -127,18 +127,22 @@ namespace WebAppIMaster.Models.WebApiService
                 ClientFirstName = u.Customer.ApplicationUser.FirstName,
                 ClientAvatarUri = u.Customer.AvatarUrl == null ? null : "http://i-master.kz/api/GetClientExecutorOrderPhoto?url=" + u.Customer.AvatarUrl,
                 Bookmark = db.BookmarkOrders.Any(b => b.OrderId == u.Id && b.UserId == userId),
-                Responded = u.Responses.Any(r => r.ExecutorId == userId), 
+                Responded = u.Responses.Any(r => r.ExecutorId == userId),
                 StartDateType = u.StartDateType,
                 StartDate = u.StartDateType == Enums.OrderStartDateType.SelectDate ? u.StartedDate : DateTime.Now,
                 CostType = u.CostType,
                 Cost = u.CostType == Enums.OrderCostType.ByAgreement ? 0 : (int)u.Cost,
                 OrderStatus = u.OrderState,
+                CategoryName = db.CategoryLangs.Where(l => l.Langcode == LanguageController.CurrentCultureCode).Where(l => l.CategoryId == u.Specialization.CategoryId).Select(l => l.Name).FirstOrDefault(),
+                SpecilizationName = db.SpecializationLangs.Where(l => l.Langcode == LanguageController.CurrentCultureCode).Where(l => l.SpecializationId == u.SpecializationId).Select(l => l.Name).FirstOrDefault(),
+                ClientLastName = u.Customer.ApplicationUser.LastName,
+                ClientFatherName = u.Customer.ApplicationUser.FatherName == null ? " " : u.Customer.ApplicationUser.FatherName,
             }).ToList();
 
             return list;
         }
 
-        public void Response( string executorId, int orderId, string responseComment )
+        public void Response(string executorId, int orderId, string responseComment)
         {
             Response responsies = new Response()
             {
@@ -151,7 +155,7 @@ namespace WebAppIMaster.Models.WebApiService
             db.SaveChanges();
         }
 
-        public void RemoveBookmark( string userId,int orderId )
+        public void RemoveBookmark(string userId, int orderId)
         {
             var item = (from b in db.BookmarkOrders
                         where b.UserId == userId
@@ -160,7 +164,7 @@ namespace WebAppIMaster.Models.WebApiService
             db.BookmarkOrders.Remove(item);
             db.SaveChanges();
         }
-        public void AddBookmark(string userId, int orderId )
+        public void AddBookmark(string userId, int orderId)
         {
             BookmarkOrder bookmark = new BookmarkOrder()
             {
