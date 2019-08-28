@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>CreatePhotoOrganization</h2>
+<h2>Добавление фото</h2>
 
 
 @using (Html.BeginForm("CreatePhotoOrganization", "Organization", FormMethod.Post,
@@ -28,7 +28,7 @@
             <input type="file" name="PhotoUrl1Type" value="" />
         </div>
     </div>
-
+    <br />
     <div class="form-group">
         <label class="col-md-2 control-label">
             Второе фото
@@ -37,7 +37,7 @@
             <input type="file" name="PhotoUrl2Type" value="" />
         </div>
     </div>
-
+    <br />
     <div class="form-group">
         <label class="col-md-2 control-label">
             Третяя фото
@@ -46,7 +46,7 @@
             <input type="file" name="PhotoUrl3Type" value="" />
         </div>
     </div>
-
+    <br />
     <div class="form-group">
         <label class="col-md-2 control-label">
             Четвертая фото
@@ -55,17 +55,13 @@
             <input type="file" name="PhotoUrl4Type" value="" />
         </div>
     </div>
-
+    <br />
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Create" class="btn btn-default" />
+            <input type="submit" value="Добавить" class="btn btn-info btn-fill pull-left" />
         </div>
     </div>
 }
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

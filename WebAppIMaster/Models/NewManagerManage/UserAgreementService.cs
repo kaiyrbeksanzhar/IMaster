@@ -50,5 +50,37 @@ namespace WebAppIMaster.Models.NewManagerManage
                         }).ToList();
             return item;
         }
+
+        public UserAgreementEdit UserAgreementEditSelect()
+        {
+            ApplicationDbContext db = new ApplicationDbContext();
+            string lang_kz = LanguageController.GetKzCode();
+            string lang_ru = LanguageController.GetRuCode();
+            var listUA = db.userAgreements.ToList();
+
+            UserAgreementEdit uae = new UserAgreementEdit
+            {
+                Description_kz = listUA.Where(p => p.Langcode == lang_kz).FirstOrDefault().Description,
+                Description_ru = listUA.Where(p => p.Langcode == lang_ru).FirstOrDefault().Description
+            };
+
+            return uae;
+        }
+
+        public void UserAgreementEditManager(UserAgreementEdit model)
+        {
+            ApplicationDbContext db = new ApplicationDbContext();
+            string lang_kz = LanguageController.GetKzCode();
+            string lang_ru = LanguageController.GetRuCode();
+
+            UserAgreement uakz = db.userAgreements.Where(p => p.Langcode == lang_kz).FirstOrDefault();
+            UserAgreement uaru = db.userAgreements.Where(p => p.Langcode == lang_ru).FirstOrDefault();
+            uakz.Description = model.Description_kz;
+            uaru.Description = model.Description_ru;
+
+            db.Entry(uakz).State = System.Data.Entity.EntityState.Modified;
+            db.Entry(uaru).State = System.Data.Entity.EntityState.Modified;
+            db.SaveChanges();
+        }
     }
 }

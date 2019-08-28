@@ -25,8 +25,17 @@ namespace WebAppIMaster.Models.NewManagerModels
             public int Id { get; set; }
             public string Name_kz { get; set; }
             public string Name_ru { get; set; }
-            public string Description_kz { get; set; }
-            public string Description_ru { get; set; }
+            public string Description_kz { get; set; } 
+            public string Description_ru { get; set; } 
         }
+    }
+
+    public class PopulationQuesEditMdl
+    {
+        public int Id { get; set; }
+        public string Name_kz { get; set; }
+        public string Name_ru { get; set; }
+        public string Description_kz { get; set; }
+        public string Description_ru { get; set; }
     }
 }

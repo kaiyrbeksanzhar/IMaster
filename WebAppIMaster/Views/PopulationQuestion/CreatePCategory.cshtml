@@ -7,14 +7,14 @@
 
 
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("CreatePCategory","PopulationQuestion", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
 
     <div class="container">
         <div class="card">
             <div class="card-header">
-                <h4>CreatePCategory</h4>
+                <h4>Добавить П категорию</h4>
             </div>
             <div class="card-body ">
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -50,7 +50,7 @@
 
                 <div class="form-group ml-5">
                     <div class="d-inline">
-                        <a href="/Category/Index" class="btn btn-info btn-fill">Назад</a>
+                        <a href="/PopulationQuestion/Index" class="btn btn-info btn-fill">Назад</a>
                     </div>
                     <div class="d-inline m-3">
                         <input id="btnSubmit" type="submit" value="@Resource.Create" class="btn btn-info btn-fill" />

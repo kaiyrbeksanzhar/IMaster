@@ -350,5 +350,50 @@ namespace WebAppIMaster.Models.NewManagerManage
 
             return item;
         }
+
+        public List<SelectEditPhotoOrganization> SelecEditPhotoOrganization(int organizationId)
+        {
+            var list = db.IPPhotosFilies.Where(p => p.OrganizationId == organizationId).ToList();
+
+            var res = (from d in list
+                             where d.OrganizationId == organizationId
+                             select new SelectEditPhotoOrganization
+                             {
+                                 Id = d.Id,
+                                 OrganizationId = d.OrganizationId,
+                                 PhotoUrl = d.PhotoUrl
+                             }
+                             ).ToList();
+
+            return res;
+        }
+
+        public SelectEditPhotoOrganization SelectOnePhotoOrganization(int Id)
+        {
+            var dat = db.IPPhotosFilies.Find(Id);
+            SelectEditPhotoOrganization sepo = new SelectEditPhotoOrganization
+            {
+                Id = dat.Id,
+                OrganizationId = dat.OrganizationId,
+                PhotoUrl = dat.PhotoUrl
+            };
+            return sepo;
+        }
+
+        public void PostSelectOnePhotoOrganization(SelectEditPhotoOrganization model)
+        {
+            var val = db.IPPhotosFilies.Where(p => p.Id == model.Id).SingleOrDefault();
+            val.PhotoUrl = FileManager.SaveOrganizationPhoto(model.Photo);
+            db.Entry(val).State = System.Data.Entity.EntityState.Modified;
+            db.SaveChanges();
+        }
+
+        public void EditLogoOrganization(OrganizationVmMdl model)
+        {
+            var org = db.Organizations.SingleOrDefault(p => p.Id == model.Id);
+            org.LogotypeUrl = FileManager.SaveOrganizationLogo(model.NewPhoto);
+            db.Entry(org).State = System.Data.Entity.EntityState.Modified;
+            db.SaveChanges();
+        }
     }
 }

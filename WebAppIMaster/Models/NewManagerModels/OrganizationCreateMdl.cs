@@ -97,6 +97,9 @@ namespace WebAppIMaster.Models.NewManagerModels
         public string Email { get; set; }
         public string Address { get; set; }
 
+
+        public HttpPostedFileBase NewPhoto { get; set; }
+
         public List<Photos> photos { get; set; }
 
         public class Photos
@@ -184,6 +187,15 @@ namespace WebAppIMaster.Models.NewManagerModels
         public OrganizationIpTarif TarifType { get; set; }
         public TypePriceOrganization Type { get; set; }
         public string ProductName { get; set; }
+    }
+
+    public class SelectEditPhotoOrganization
+    {
+        public int Id { get; set; }
+        public string PhotoUrl { get; set; }
+
+        public HttpPostedFileBase Photo { get; set; }
+        public int OrganizationId { get; set; }
     }
 }
 

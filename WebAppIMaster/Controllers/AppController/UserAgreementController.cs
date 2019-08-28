@@ -13,11 +13,12 @@ namespace WebAppIMaster.Controllers.AppController
     public class UserAgreementController : Controller
     {
         // GET: UserAgreement
-        public ActionResult Index()
+        public ActionResult Index(string inf)
         {
             ApplicationDbContext db = new ApplicationDbContext();
             UserAgreementService repository = new UserAgreementService();
             var model = repository.SelectList();
+            ViewBag.Inf = inf;
             return View(model);
         }
 
@@ -30,6 +31,12 @@ namespace WebAppIMaster.Controllers.AppController
         // GET: UserAgreement/Create
         public ActionResult Create()
         {
+            ApplicationDbContext db = new ApplicationDbContext();
+            if(db.userAgreements.Count() >= 2)
+            {
+                string inf = "Не возможно создать больше <Пользовательских соглашении>";
+                return RedirectToAction("Index", new { inf });
+            }
             return View(new UserAgreementGeneral());
         }
 
@@ -53,23 +60,23 @@ namespace WebAppIMaster.Controllers.AppController
         // GET: UserAgreement/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            UserAgreementService repository = new UserAgreementService();
+            var result = repository.UserAgreementEditSelect();
+
+            return View(result);
         }
 
         // POST: UserAgreement/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(UserAgreementEdit model)
         {
-            try
+            if(model.Description_kz != null && model.Description_ru != null)
             {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
+                UserAgreementService repository = new UserAgreementService();
+                repository.UserAgreementEditManager(model);
             }
-            catch
-            {
-                return View();
-            }
+            
+            return RedirectToAction("Index");
         }
 
         // GET: UserAgreement/Delete/5

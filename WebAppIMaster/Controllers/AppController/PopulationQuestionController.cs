@@ -56,6 +56,24 @@ namespace WebAppIMaster.Controllers.AppController
             }
         }
 
+
+        //--------------------b
+        public ActionResult ReQuestion(int id)
+        {
+            ApplicationDbContext db = new ApplicationDbContext();
+            WebAppIMaster.Models.NewManagerManage.PopulationQuestion repository = new WebAppIMaster.Models.NewManagerManage.PopulationQuestion();
+            var result = repository.GetQuestion(id);
+            return View(result);
+        }
+
+        [HttpPost]
+        public ActionResult ReQuestion(PopulationQuesEditMdl model)
+        {
+            WebAppIMaster.Models.NewManagerManage.PopulationQuestion repository = new WebAppIMaster.Models.NewManagerManage.PopulationQuestion();
+            repository.EditQuestion(model);
+            return RedirectToAction("Details", new { model.Id });
+        }
+
         public ActionResult CreatePCategory()
         {
             return View(new PopulationCategoryMdl());

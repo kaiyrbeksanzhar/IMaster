@@ -14,6 +14,7 @@ namespace WebAppIMaster.Models
         }
 
         public int Id { get; set; }
+        public string Plus { get; set; }
 
         public ICollection<AddressLang> Langs { get; set; }
         public ICollection<CustomerOrder> CustomerOrders { get; set; }

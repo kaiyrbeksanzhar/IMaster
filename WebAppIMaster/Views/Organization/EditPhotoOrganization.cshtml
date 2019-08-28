@@ -1,0 +1,26 @@
+﻿@model List<WebAppIMaster.Models.NewManagerModels.SelectEditPhotoOrganization>
+@using WebAppIMaster.Resources
+@{
+    ViewBag.Title = "EditPhotoOrganization";
+}
+
+<h2>Редактировать Фотографии организацы</h2>
+
+
+<div class="card strpied-tabled-with-hover">
+    <div class="card-header ">
+        <h4 class="card-title">Редактировать категории</h4>
+        <p class="card-category">Редактировать категории</p>
+    </div>
+    <div class="card-body table-full-width table-responsive">
+        @{
+            foreach (var b in Model)
+            {
+                <p>Фото</p>
+                <a class="btn btn-info btn-fill pull-left" href="/Organization/SelectOnePhoto?Id=@b.Id">Изменить Фотографию</a><br />
+                <img src="@Url.Content(b.PhotoUrl)" style="height:150px" />
+                <hr />
+            }
+        }
+    </div>
+</div>

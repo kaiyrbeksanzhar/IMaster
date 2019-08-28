@@ -5,15 +5,16 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
     @Html.HiddenFor(m => m.PopulationCategoryId)
 
     <div class="container">
-        <div class="card">
+        <div class="mard card">
             <div class="card-header ">
-                <h4>PopulationCreateMdl</h4>
+                <h4>Добавить вопрос к категорию</h4>
             </div>
             <div class="card-body">
                 <hr />
@@ -21,7 +22,7 @@
 
 
                 <div class="form-group">
-                    @Html.LabelFor(model => model.Name_kz, htmlAttributes: new { @class = "control-label col-md-2" })
+                    @Html.LabelFor(model => model.Name_kz, Resource.Name_kz, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
                         @Html.EditorFor(model => model.Name_kz, new { htmlAttributes = new { @class = "form-control" } })
                         @Html.ValidationMessageFor(model => model.Name_kz, "", new { @class = "text-danger" })
@@ -29,7 +30,7 @@
                 </div>
 
                 <div class="form-group">
-                    @Html.LabelFor(model => model.Name_ru, htmlAttributes: new { @class = "control-label col-md-2" })
+                    @Html.LabelFor(model => model.Name_ru, Resource.Name_ru, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
                         @Html.EditorFor(model => model.Name_ru, new { htmlAttributes = new { @class = "form-control" } })
                         @Html.ValidationMessageFor(model => model.Name_ru, "", new { @class = "text-danger" })
@@ -37,7 +38,7 @@
                 </div>
 
                 <div class="form-group">
-                    @Html.LabelFor(model => model.Description_kz, htmlAttributes: new { @class = "control-label col-md-2" })
+                    @Html.LabelFor(model => model.Description_kz,"Описание на каз", htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
                         @Html.EditorFor(model => model.Description_kz, new { htmlAttributes = new { @class = "form-control" } })
                         @Html.ValidationMessageFor(model => model.Description_kz, "", new { @class = "text-danger" })
@@ -45,7 +46,7 @@
                 </div>
 
                 <div class="form-group">
-                    @Html.LabelFor(model => model.Description_ru, htmlAttributes: new { @class = "control-label col-md-2" })
+                    @Html.LabelFor(model => model.Description_ru,"Описание на рус", htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
                         @Html.EditorFor(model => model.Description_ru, new { htmlAttributes = new { @class = "form-control" } })
                         @Html.ValidationMessageFor(model => model.Description_ru, "", new { @class = "text-danger" })
@@ -54,7 +55,7 @@
 
                 <div class="form-group ml-5">
                     <div class="d-inline">
-                        <a href="/Category/Index" class="btn btn-info btn-fill">Назад</a>
+                        <a href="/PopulationQuestion/Index" class="btn btn-info btn-fill">Назад</a>
                     </div>
                     <div class="d-inline m-3">
                         <input id="btnSubmit" type="submit" value="@Resource.Create" class="btn btn-info btn-fill" />

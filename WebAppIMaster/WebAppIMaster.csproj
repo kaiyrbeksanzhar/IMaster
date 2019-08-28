@@ -236,8 +236,13 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AppController\AdminController.cs" />
+    <Compile Include="Controllers\AppController\AdminOrganizationController.cs" />
     <Compile Include="Controllers\AppController\CategoryController.cs" />
+    <Compile Include="Controllers\AppController\CheckDocumentController.cs" />
     <Compile Include="Controllers\AppController\CityController.cs" />
+    <Compile Include="Controllers\AppController\OrderController.cs" />
+    <Compile Include="Controllers\AppController\ResponseController.cs" />
     <Compile Include="Controllers\AppController\ReviewController.cs" />
     <Compile Include="Migrations\201908060205082_DbSetEdit1.cs" />
     <Compile Include="Migrations\201908060205082_DbSetEdit1.Designer.cs">
@@ -247,9 +252,18 @@
     <Compile Include="Migrations\201908251154250_ForReview.Designer.cs">
       <DependentUpon>201908251154250_ForReview.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201908280628071_foradressadd.cs" />
+    <Compile Include="Migrations\201908280628071_foradressadd.Designer.cs">
+      <DependentUpon>201908280628071_foradressadd.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\Enitities\Review.cs" />
+    <Compile Include="Models\Frame\ApplicationUserManager.cs" />
+    <Compile Include="Models\NewManagerManage\CheckDocumentManager.cs" />
+    <Compile Include="Models\NewManagerManage\OrderManager.cs" />
     <Compile Include="Models\NewManagerManage\PushNotificationManager.cs" />
+    <Compile Include="Models\NewManagerManage\ResponseManager.cs" />
     <Compile Include="Models\NewManagerManage\ReviewManagerModel.cs" />
+    <Compile Include="Models\NewManagerModels\CheckDocumentModels.cs" />
     <Compile Include="Models\NewManagerModels\Data.cs" />
     <Compile Include="Controllers\AppController\HowDidYouAboutUsController.cs" />
     <Compile Include="Controllers\AppController\LandingPageController.cs" />
@@ -508,11 +522,13 @@
     <Compile Include="Models\NewManagerModels\MarketingMdl.cs" />
     <Compile Include="Models\NewManagerModels\Message.cs" />
     <Compile Include="Models\NewManagerModels\NewsMdl.cs" />
+    <Compile Include="Models\NewManagerModels\OrderModels.cs" />
     <Compile Include="Models\NewManagerModels\OrganizationCreateMdl.cs" />
     <Compile Include="Models\NewManagerModels\PopulationCategoryMdl.cs" />
     <Compile Include="Models\NewManagerModels\PopulationDetailsVmMdl.cs" />
     <Compile Include="Models\NewManagerModels\PopulationQuestion.cs" />
     <Compile Include="Models\NewManagerModels\PopulationCreateMdl.cs" />
+    <Compile Include="Models\NewManagerModels\ResponseModels.cs" />
     <Compile Include="Models\NewManagerModels\ReviewModel.cs" />
     <Compile Include="Models\NewManagerModels\SpecilizationModels.cs" />
     <Compile Include="Models\NewManagerModels\SupportVmMdl.cs" />
@@ -714,6 +730,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\Avatar\av1.png" />
     <Content Include="Images\Category\3ca3c94c-6447-4cbc-9d12-b5ef269d93c6-6-P70718-141124.jpg" />
     <Content Include="Images\Category\asdasd.jpg" />
     <Content Include="Images\Category\elitefon.ru_39190.jpg" />
@@ -724,6 +741,7 @@
     <Content Include="Images\Category\КАЗНУ.jpg" />
     <Content Include="Images\Category\КАЗНУ.png" />
     <Content Include="Images\Default\NoPhoto.png" />
+    <Content Include="Images\ExecutorDoc\Doc1.jpg" />
     <Content Include="Images\media\images\favicon.ico" />
     <Content Include="Images\media\images\sort_asc.png" />
     <Content Include="Images\media\images\sort_asc_disabled.png" />
@@ -827,6 +845,16 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
     <Content Include="Views\Review\ReviewDetails.cshtml" />
+    <Content Include="Views\PopulationQuestion\ReQuestion.cshtml" />
+    <Content Include="Views\Organization\EditPhotoOrganization.cshtml" />
+    <Content Include="Views\Organization\SelectOnePhoto.cshtml" />
+    <Content Include="Views\CheckDocument\DocumentList.cshtml" />
+    <Content Include="Views\CheckDocument\Details.cshtml" />
+    <Content Include="Views\CheckDocument\Document.cshtml" />
+    <Content Include="Views\Response\Index.cshtml" />
+    <Content Include="Views\Response\Details.cshtml" />
+    <Content Include="Views\AdminOrganization\Index.cshtml" />
+    <Content Include="Views\AdminOrganization\Profil.cshtml" />
     <None Include="Views\Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Views\Scripts\jquery-3.3.1.js" />
     <Content Include="Views\Scripts\jquery-3.3.1.min.js" />
@@ -917,11 +945,11 @@
     <Content Include="Views\News\PushNotification.cshtml" />
     <Content Include="Views\Specilization\Edit.cshtml" />
     <Content Include="Views\Review\Index.cshtml" />
+    <Content Include="Views\UserAgreement\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Files\Organization\" />
     <Folder Include="Files\SupportFiles\" />
-    <Folder Include="Images\Avatar\" />
     <Folder Include="Images\CustomerOrder\" />
     <Folder Include="Images\Customer\" />
     <Folder Include="Images\ExecutorFiles\" />
@@ -930,7 +958,9 @@
     <Folder Include="Images\OrganizationPhotos\" />
     <Folder Include="Images\PromotionAndDiscount\" />
     <Folder Include="Results\" />
+    <Folder Include="Views\Admin\" />
     <Folder Include="Views\Language\" />
+    <Folder Include="Views\Order\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -1032,6 +1062,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201908251154250_ForReview.resx">
       <DependentUpon>201908251154250_ForReview.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201908280628071_foradressadd.resx">
+      <DependentUpon>201908280628071_foradressadd.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Resource.kk-KZ.resx" />
     <EmbeddedResource Include="Resources\Resource.resx" />

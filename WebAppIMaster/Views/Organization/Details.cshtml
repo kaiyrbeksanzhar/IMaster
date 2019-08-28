@@ -6,39 +6,17 @@
 }
 
 
-<div>
+<div style="font-size:14px!important;">
     <h4>Подробнее об организаций: "@Model.OrganizationName"</h4>
     <hr />
     <dl class="dl-horizontal">
-        <dt>
-            Фото органицазций
-        </dt>
-        <dd>
-            @if (Model.photos.Count() == 0)
-            {
-                <a href="/Organization/CreatePhotoOrganization?organizationId=@Model.Id">Добавление фото для организаций</a>
-            }
-            else
-            {
-                foreach (var item in Model.photos)
-                {
-                    <img src="@Url.Content(item.PhotoUrl)" alt="Alternate Text" style="width:150px;">
-                }
-            }
-            @if (Model.photos.Count() > 0)
-            {
-                @*<a href="/Organization/EditPhotoOrganization?organizationId=@Model.Id">Редактировать фото для организаций</a>*@
-            }
-            else
-            {
-                <span> </span>
-            }
-        </dd>
+
         <dt>
             Логотип организации
         </dt>
         <dd>
-            <img src="@Url.Content(Model.PhotoUrl)" alt="Alternate Text" style="width:150px;">
+            <img src="@Url.Content(Model.PhotoUrl)" alt="Alternate Text" style="width:150px;"><p></p>
+            <button type="button" class="btn btn-info btn-fill pull-left" data-toggle="modal" data-target="#myModal">Изменить Логотип</button>
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.OrganizationName)
@@ -53,7 +31,7 @@
         </dt>
 
         <dd>
-            @foreach(var category in Model.catgoriesMarkets)
+            @foreach (var category in Model.catgoriesMarkets)
             {
                 @category.Name
             }
@@ -122,7 +100,29 @@
         <dd>
             @Html.DisplayFor(model => model.Address)
         </dd>
-
+        <hr />
+        <dt>
+            Фото органицазций
+        </dt>
+        <dd>
+            <div>
+                <a href="/Organization/EditPhotoOrganization?organizationId=@Model.Id" class="btn btn-info btn-fill pull-left">Редактировать фото организаций</a>
+            </div>
+        </dd>
+        <dd>
+            @if (Model.photos.Count() == 0)
+            {
+                <a href="/Organization/CreatePhotoOrganization?organizationId=@Model.Id">Добавление фото для организаций</a>
+            }
+            else
+            {
+                foreach (var item in Model.photos)
+                {
+                    <img src="@Url.Content(item.PhotoUrl)" alt="Alternate Text" style="width:150px;">
+                }
+            }
+        </dd>
+        <hr />
         <dt>
             Акция и скидки
         </dt>
@@ -146,13 +146,48 @@
             Цены
         </dt>
         <dd>
-            @foreach (var ipp in Model.iPOrganizationPrices)
-            {
-                <span>@ipp.ProductName     @ipp.To  - @ipp.From @ipp.TypeTarif</span>
-            }
-            <a href="/Organization/CreateOrganizationPrice?organizationId=@Model.Id">Добавить цены</a>
+            @*@foreach (var ipp in Model.iPOrganizationPrices)
+                {
+                    <span>@ipp.ProductName     @ipp.To  - @ipp.From @ipp.TypeTarif</span>
+                }*@
+            <a href="/Organization/IndexOrganizationPrice?Id=@Model.Id" class="btn btn-info btn-fill pull-left">Цены организацы</a>
+            <a href="/Organization/CreateOrganizationPrice?organizationId=@Model.Id" class="btn btn-info btn-fill pull-left">Добавить цены</a>
         </dd>
 
     </dl>
 </div>
 
+
+
+
+<!-- Modal Logo -->
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            @using (Html.BeginForm("EditLogoOrganization", "Organization", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Изменить Логотип @Model.OrganizationName</h4>
+                    @Html.HiddenFor(m=>m.Id)
+                </div>
+                <div class="modal-body">
+
+                    <div class="row">
+                        <div class="col-md-5">
+                            <img src="@Url.Content(Model.PhotoUrl)" alt="Alternate Text" style="width:100px;"><p></p>
+                        </div>
+                        <div class="col-md-5">
+                            <input type="file" name="NewPhoto" />
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-info btn-fill pull-left">Сохранить</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>

@@ -16,4 +16,11 @@ namespace WebAppIMaster.Models.NewManagerModels
         public int Id { get; set; }
         public string Description { get; set; }
     }
+
+    public class UserAgreementEdit
+    {
+        public int Id { get; set; }
+        public string Description_kz { get; set; }
+        public string Description_ru { get; set; }
+    }
 }

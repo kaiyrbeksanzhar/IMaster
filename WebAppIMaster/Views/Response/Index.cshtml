@@ -1,0 +1,52 @@
+﻿@model IEnumerable<WebAppIMaster.Models.NewManagerModels.ResponseModels.ResponseList>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Список откликов</h2>
+
+<div class="card strpied-tabled-with-hover">
+    <div class="card-header ">
+        <h4 class="card-title">Список</h4>
+        <p class="card-category">Отклики</p>
+    </div>
+    <div class="card-body table-full-width table-responsive">
+
+        <table class="table table-bordered">
+            <tr>
+                <th>
+                    Название Заказа
+                </th>
+                <th>
+                    Город
+                </th>
+                <th>
+                    Заказчик
+                </th>
+                <th>
+                    Исполнитель
+                </th>
+                <th>Действие</th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <th></th>
+                    <th></th>
+                    <th>
+                        @item.OrderUserName
+                    </th>
+                    <th>
+                        @item.ExecutorName
+                    </th>
+                    <th>
+                        <a href="/Response/Details?ExecutorId=@item.ExecutorId&OrderId=@item.OrderId">Подробнее</a>
+                    </th>
+                </tr>
+            }
+
+        </table>
+    </div>
+</div>

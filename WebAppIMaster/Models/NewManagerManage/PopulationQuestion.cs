@@ -45,6 +45,7 @@ namespace WebAppIMaster.Models.NewManagerManage
 
                         select new PopulationDetailsVmMdl
                         {
+                            Id = pq.Id,
                             Name = pq.Langs.Where(l=>l.LangCode == langcode).Select(l=>l.Title).FirstOrDefault(),
                             Description = pq.Langs.Where(l => l.LangCode == langcode).Select(l => l.Description).FirstOrDefault(),
                         }).SingleOrDefault();
@@ -140,6 +141,51 @@ namespace WebAppIMaster.Models.NewManagerManage
             ApplicationDbContext db = new ApplicationDbContext();
             var models = db.populationQuestions.Find(populationQuestionId);
             db.populationQuestions.Remove(models);
+            db.SaveChanges();
+        }
+
+        public PopulationQuesEditMdl GetQuestion(int Id)
+        {
+            string lang_kz = LanguageController.GetKzCode();
+            string lang_ru = LanguageController.GetRuCode();
+
+            ApplicationDbContext db = new ApplicationDbContext();
+            var ques = db.PopulationQuestionLangs.Where(p => p.PopulationQuestionId == Id).ToList();
+
+            PopulationQuesEditMdl mdl = new PopulationQuesEditMdl();
+            foreach(var t in ques)
+            {
+                if(t.LangCode == lang_kz)
+                {
+                    mdl.Description_kz = t.Description;
+                    mdl.Name_kz = t.Title;
+                }
+                else
+                {
+                    mdl.Description_ru = t.Description;
+                    mdl.Name_ru = t.Title;
+                }
+                mdl.Id = Id;
+            }
+
+            return mdl;
+        }
+
+        public void EditQuestion(PopulationQuesEditMdl model)
+        {
+            string lang_kz = LanguageController.GetKzCode();
+            string lang_ru = LanguageController.GetRuCode();
+
+            ApplicationDbContext db = new ApplicationDbContext();
+            var ques = db.PopulationQuestionLangs.Where(p => p.PopulationQuestionId == model.Id).ToList();
+
+            WebAppIMaster.Models.Enitities.PopulationQuestion pq = db.populationQuestions.Find(model.Id);
+            pq.Langs.Where(l => l.LangCode == LanguageController.GetKzCode()).FirstOrDefault().Description = model.Description_kz;
+            pq.Langs.Where(l => l.LangCode == LanguageController.GetRuCode()).FirstOrDefault().Description = model.Description_ru;
+            pq.Langs.Where(l => l.LangCode == LanguageController.GetKzCode()).FirstOrDefault().Title = model.Name_kz;
+            pq.Langs.Where(l => l.LangCode == LanguageController.GetRuCode()).FirstOrDefault().Title = model.Name_ru;
+
+            db.Entry(pq).State = System.Data.Entity.EntityState.Modified;
             db.SaveChanges();
         }
     }

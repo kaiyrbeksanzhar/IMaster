@@ -15,6 +15,7 @@
     <div class="card-header ">
         <h4 class="card-title">Пользовательское соглашение</h4>
         <p class="card-category">Пользовательское соглашение</p>
+        <p class="card-category" style="color:red;">@ViewBag.Inf</p>
     </div>
     <div class="card-body table-full-width table-responsive">
         <p>
@@ -26,6 +27,7 @@
                     <th>
                         Описание
                     </th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -34,6 +36,9 @@
                     <tr>
                         <td>
                             @item.Description
+                        </td>
+                        <td>
+                            <a href="/UserAgreement/Edit?Id=@item.Id">Редактировать</a>
                         </td>
                     </tr>
                 }

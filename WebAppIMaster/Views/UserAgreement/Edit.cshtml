@@ -1,0 +1,37 @@
+﻿@model WebAppIMaster.Models.NewManagerModels.UserAgreementEdit
+@using WebAppIMaster.Resources
+
+<div class="card strpied-tabled-with-hover">
+    <div class="card-header ">
+        <h4 class="card-title">Редактировать Пользовательскую соглашению</h4>
+        <p class="card-category">Редактировать Пользовательскую соглашению</p>
+    </div>
+    <div class="card-body table-full-width table-responsive">
+        @using (Html.BeginForm("Edit", "UserAgreement", FormMethod.Post))
+        {
+            <div class="form-horizontal">
+                <label class="control-label col-md-2">Описание на русском</label>
+                <div class="col-md-10">
+                    @Html.TextAreaFor(model => model.Description_ru, new { @class = "textarea2 textarea2-text" })
+                    @Html.ValidationMessageFor(model => model.Description_ru, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <hr />
+            <div class="form-horizontal">
+                <label class="control-label col-md-2">Описание на каз</label>
+                <div class="col-md-10">
+                    @Html.TextAreaFor(model => model.Description_kz, new { @class = "textarea2 textarea2-text" })
+                    @Html.ValidationMessageFor(model => model.Description_kz, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group ml-5">
+                <div class="d-inline">
+                    <input type="submit" value="@Resource.Save" class="btn btn-info btn-fill" />
+                </div>
+                <div class="d-inline" style="padding-left:15px;">
+                    <a href="/UserAgreement/Index" class="btn btn-info btn-fill">Назад</a>
+                </div>
+            </div>
+        }
+    </div>
+</div>

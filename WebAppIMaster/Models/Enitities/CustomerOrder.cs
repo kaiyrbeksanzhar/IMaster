@@ -47,7 +47,6 @@ namespace WebAppIMaster.Models
         public string CustomerId { get; set; }
         public virtual Customer Customer { get; set; }
 
-
         public string ExecutorId { get; set; }
         public virtual Executor Executor { get; set; }
 

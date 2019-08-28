@@ -1,0 +1,45 @@
+﻿@model IEnumerable<WebAppIMaster.Models.NewManagerManage.CheckDocumentModel.CheckDocumentList>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="card strpied-tabled-with-hover">
+    <div class="card-header ">
+        <h4 class="card-title">Подтверждение документов</h4>
+        <p class="card-category">Документы</p>
+    </div>
+    <div class="card-body table-full-width table-responsive">
+
+        <p class="card-category">Не подтвержденные</p>
+        <table class="table table-bordered">
+            <tr>
+                <th>
+                    Исполнитель
+                </th>
+                <th>
+                    Город
+                </th>
+                <th>
+                    Действие
+                </th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                    <tr>
+                        <th>
+                            @item.ExecutorName
+                        </th>
+                        <th>
+                            @item.ExecutorCity
+                        </th>
+                        <th>
+                            <a href="/CheckDocument/Details?Id=@item.Id">Подробнее</a>
+                        </th>
+                    </tr>
+            }
+
+        </table>
+    </div>
+</div>

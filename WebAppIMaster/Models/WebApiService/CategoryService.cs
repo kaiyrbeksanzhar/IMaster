@@ -25,7 +25,7 @@ namespace WebAppIMaster.Models.WebApiService
                 Name = model.FirstOrDefault().Name
             };
         }
-
+         
         public List<CategoryServiceMdl> GetList()
         {
             string langcode = LanguageController.CurrentCultureCode;
@@ -36,7 +36,8 @@ namespace WebAppIMaster.Models.WebApiService
                 categories.Add(new CategoryServiceMdl
                 {
                     Id = categoryl.CategoryId,
-                    Name = categoryl.Name
+                    Name = categoryl.Name,
+                    PhotoUrl = categoryl.Categories.UrlPhoto
                 });
             }
             return categories;

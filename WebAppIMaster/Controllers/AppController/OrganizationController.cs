@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using WebAppIMaster.Models;
 using WebAppIMaster.Models.Enitities;
 using WebAppIMaster.Models.NewManagerManage;
 using WebAppIMaster.Models.NewManagerModels;
@@ -34,6 +35,9 @@ namespace WebAppIMaster.Controllers.AppController
             ApplicationDbContext db = new ApplicationDbContext();
             OrganizationManagersModel repository = new OrganizationManagersModel(db);
             List<IndexOrganizationPrice> model = repository.SelectOrganizationPrice(id);
+
+            ViewBag.Org = db.OrganizationLangs.Where(p => p.OrganizationId == id).FirstOrDefault();
+
             return View(model);
         }
 
@@ -90,6 +94,42 @@ namespace WebAppIMaster.Controllers.AppController
                 return View(model);
             }
             return View(model);
+        }
+
+        public ActionResult EditPhotoOrganization(int organizationId)
+        {
+            ApplicationDbContext db = new ApplicationDbContext();
+            OrganizationManagersModel repository = new OrganizationManagersModel(db);
+            var list = repository.SelecEditPhotoOrganization(organizationId);
+            return View(list);
+        }
+
+        public ActionResult SelectOnePhoto(int Id)
+        {
+            ApplicationDbContext db = new ApplicationDbContext();
+            OrganizationManagersModel repository = new OrganizationManagersModel(db);
+            var res = repository.SelectOnePhotoOrganization(Id);
+            return View(res);
+        }
+
+        [HttpPost]
+        public ActionResult SelectOnePhoto(SelectEditPhotoOrganization model)
+        {
+            ApplicationDbContext db = new ApplicationDbContext();
+            OrganizationManagersModel repository = new OrganizationManagersModel(db);
+            repository.PostSelectOnePhotoOrganization(model);
+            int id = model.OrganizationId;
+            return RedirectToAction("Details", new { id });
+        }
+
+        [HttpPost]
+        public ActionResult EditLogoOrganization(OrganizationVmMdl model)
+        {
+            ApplicationDbContext db = new ApplicationDbContext();
+            OrganizationManagersModel repository = new OrganizationManagersModel(db);
+            repository.EditLogoOrganization(model);
+
+            return RedirectToAction("Details", new { model.Id });
         }
 
         // GET: Organization/Create
@@ -163,8 +203,6 @@ namespace WebAppIMaster.Controllers.AppController
                     CatgoryNames = new List<CategoryMarketVmMdl.CatgoryName>()
                     {
                         new CategoryMarketVmMdl.CatgoryName
-
-
                         {
                             Id =  1,
                             Name = "нет данных",

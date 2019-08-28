@@ -22,6 +22,19 @@ select,
 textarea {
     max-width: 280px;
 }
+.textarea2 {
+    height: 150px;
+    width: 80%;
+    max-width: 1000px!important;
+}
+
+.textarea2-text {
+    padding-top: 5px;
+    padding-left:5px;
+    padding-right:5px;
+    font-size: 12px;
+    font-weight: 400;
+}
 
 .cat-image {
     height: 200px;
@@ -32,4 +45,7 @@ textarea {
 .create-market{
     font-size:14px;
     font-size:initial!important;
+}
+.mard label{
+    margin-bottom:4px!important;
 }

@@ -1,0 +1,61 @@
+﻿@model WebAppIMaster.Models.NewManagerManage.CheckDocumentModel.DocumentDetail
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Подтверждение документа</h2>
+
+<div class="card strpied-tabled-with-hover">
+    <div class="card-header ">
+        <h4 class="card-title">Подтверждение документов</h4>
+        <p class="card-category">Документы</p>
+    </div>
+    <div class="card-body table-full-width table-responsive">
+        <div class="row" style="font-size:14px!important;">
+            <div class="col-md-1"></div>
+            <div class="col-md-3">
+                <img src="@Url.Content(Model.AvatarUrl)" style="height:150px;" /><p class="text-center">Аватар</p>
+            </div>
+            <div class="col-md-3">
+                <ul>
+                    <li>
+                        Имия: @Model.UserName
+                    </li>
+                    <li>
+                        Тип исполнителя: <b>Business</b>
+                    </li>
+                    <li>
+                        Спецализация: @Model.SpecialityName
+                    </li>
+                    <li>
+                        Возрост: @Model.BirthDay
+                    </li>
+                    <li>
+                        Пол: @Model.Gender
+                    </li>
+                    <li>
+                        Город: @Model.City
+                    </li>
+                    <li>
+                        Номер телефона: @Model.PhoneNumber
+                    </li>
+                </ul>
+            </div>
+            <div class="col-md-4">
+                <ul>
+                    <li>Рейтинг: @Model.Rating</li>
+                    <li>Статус: @Model.DocumentState</li>
+                </ul>
+            </div>
+        </div>
+        <hr />
+        <div class="row">
+            <div class="col-md-6">
+                <img src="@Url.Content(Model.DocUrl)" style="height:200px;" />
+            </div>
+            
+        </div>
+    </div>
+</div>

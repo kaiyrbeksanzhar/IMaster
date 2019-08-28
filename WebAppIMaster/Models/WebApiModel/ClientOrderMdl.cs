@@ -24,7 +24,7 @@ namespace WebAppIMaster.Models.WebApiModel
         public Dictionary<byte[], string> Photos { get; set; }
     }
     public class ClientOrderDetailsView
-    {
+    { 
         public int Id { get; set; }
         public string OrderNumber { get; set; }
         public string Title { get; set; }
@@ -44,6 +44,8 @@ namespace WebAppIMaster.Models.WebApiModel
         public string Address { get; set; }
         public Dictionary<byte[], string> Photos { get; set; }
         public IEnumerable<string> PhotoUris { get; set; }
+
+        public int? Viewcount { get; set; }
 
         public string PhotoUrl1 { get; set; }
         public string PhotoUrl2 { get; set; }

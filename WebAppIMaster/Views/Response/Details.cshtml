@@ -1,0 +1,26 @@
+﻿@model WebAppIMaster.Models.NewManagerModels.ResponseModels.ResponseSelect
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Отклик</h2>
+
+<div class="card strpied-tabled-with-hover">
+    <div class="card-header ">
+    </div>
+    <div class="card-body table-full-width table-responsive">
+        <div class="row">
+            <div class="col-md-4">
+                <h5>Отклик</h5>
+                <p class="card-category">Заказ</p>
+                <div class="col-md-4">
+                  <img src="@Model.Customer.AvatarUrl" style="height:100px;" />
+                </div>
+            </div>
+            <div class="col-md-5">
+
+            </div>
+        </div>
+    </div>
+</div>

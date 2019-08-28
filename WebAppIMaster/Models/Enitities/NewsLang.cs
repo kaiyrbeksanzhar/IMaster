@@ -14,6 +14,7 @@ namespace WebAppIMaster.Models
         public string ShortText { get; set; }
         public string Description { get; set; }
 
+
         public int NewsId { get; set; }
         public virtual News News { get; set; }
     }
