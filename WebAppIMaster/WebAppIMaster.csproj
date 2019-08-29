@@ -246,8 +246,27 @@
     <Compile Include="Migrations\201908072225164_WorkExecutorPhoto.Designer.cs">
       <DependentUpon>201908072225164_WorkExecutorPhoto.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201908251154250_ForReview.cs" />
+    <Compile Include="Migrations\201908251154250_ForReview.Designer.cs">
+      <DependentUpon>201908251154250_ForReview.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201908280628071_foradressadd.cs" />
+    <Compile Include="Migrations\201908280628071_foradressadd.Designer.cs">
+      <DependentUpon>201908280628071_foradressadd.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201908290949347_WorkedPhotos.cs" />
+    <Compile Include="Migrations\201908290949347_WorkedPhotos.Designer.cs">
+      <DependentUpon>201908290949347_WorkedPhotos.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\Enitities\ExecutorWorkPhoto.cs" />
+    <Compile Include="Models\Enitities\Review.cs" />
+    <Compile Include="Models\Frame\ApplicationUserManager.cs" />
+    <Compile Include="Models\NewManagerManage\CheckDocumentManager.cs" />
+    <Compile Include="Models\NewManagerManage\OrderManager.cs" />
     <Compile Include="Models\NewManagerManage\PushNotificationManager.cs" />
+    <Compile Include="Models\NewManagerManage\ResponseManager.cs" />
+    <Compile Include="Models\NewManagerManage\ReviewManagerModel.cs" />
+    <Compile Include="Models\NewManagerModels\CheckDocumentModels.cs" />
     <Compile Include="Models\NewManagerModels\Data.cs" />
     <Compile Include="Controllers\AppController\HowDidYouAboutUsController.cs" />
     <Compile Include="Controllers\AppController\LandingPageController.cs" />
@@ -506,11 +525,14 @@
     <Compile Include="Models\NewManagerModels\MarketingMdl.cs" />
     <Compile Include="Models\NewManagerModels\Message.cs" />
     <Compile Include="Models\NewManagerModels\NewsMdl.cs" />
+    <Compile Include="Models\NewManagerModels\OrderModels.cs" />
     <Compile Include="Models\NewManagerModels\OrganizationCreateMdl.cs" />
     <Compile Include="Models\NewManagerModels\PopulationCategoryMdl.cs" />
     <Compile Include="Models\NewManagerModels\PopulationDetailsVmMdl.cs" />
     <Compile Include="Models\NewManagerModels\PopulationQuestion.cs" />
     <Compile Include="Models\NewManagerModels\PopulationCreateMdl.cs" />
+    <Compile Include="Models\NewManagerModels\ResponseModels.cs" />
+    <Compile Include="Models\NewManagerModels\ReviewModel.cs" />
     <Compile Include="Models\NewManagerModels\SpecilizationModels.cs" />
     <Compile Include="Models\NewManagerModels\SupportVmMdl.cs" />
     <Compile Include="Models\UserAgreement.cs" />
@@ -818,7 +840,31 @@
     <Content Include="Scripts\knockout-2.2.0.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\WebApiTestClient.js" />
-    <Content Include="Web.config" />
+    <Content Include="Views\Scripts\2gis.js" />
+    <Content Include="Views\Scripts\bootstrap.js" />
+    <Content Include="Views\Scripts\bootstrap.min.js" />
+    <None Include="Views\Scripts\jquery-3.3.1.intellisense.js" />
+    <Content Include="Views\Scripts\jquery-3.3.1.js" />
+    <Content Include="Views\Scripts\jquery-3.3.1.min.js" />
+    <Content Include="Views\Scripts\jquery-3.3.1.slim.js" />
+    <Content Include="Views\Scripts\jquery-3.3.1.slim.min.js" />
+    <Content Include="Views\Scripts\jquery-ui-1.9.2.js" />
+    <Content Include="Views\Scripts\jquery-ui-1.9.2.min.js" />
+    <Content Include="Views\Scripts\jquery.dataTables.js" />
+    <Content Include="Views\Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Views\Scripts\jquery.unobtrusive-ajax.min.js" />
+    <None Include="Views\Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Views\Scripts\jquery.validate.js" />
+    <Content Include="Views\Scripts\jquery.validate.min.js" />
+    <Content Include="Views\Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Views\Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Views\Scripts\knockout-2.2.0.debug.js" />
+    <Content Include="Views\Scripts\knockout-2.2.0.js" />
+    <Content Include="Views\Scripts\modernizr-2.8.3.js" />
+    <Content Include="Views\Scripts\WebApiTestClient.js" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -888,6 +934,21 @@
     <Content Include="Views\LandingPage\Index.cshtml" />
     <Content Include="Views\News\PushNotification.cshtml" />
     <Content Include="Views\Specilization\Edit.cshtml" />
+    <Content Include="Views\AdminOrganization\Index.cshtml" />
+    <Content Include="Views\AdminOrganization\Profil.cshtml" />
+    <Content Include="Views\CheckDocument\Details.cshtml" />
+    <Content Include="Views\CheckDocument\Document.cshtml" />
+    <Content Include="Views\CheckDocument\DocumentList.cshtml" />
+    <Content Include="Views\Organization\EditPhotoOrganization.cshtml" />
+    <Content Include="Views\Organization\SelectOnePhoto.cshtml" />
+    <Content Include="Views\PopulationQuestion\ReQuestion.cshtml" />
+    <Content Include="Views\Response\Details.cshtml" />
+    <Content Include="Views\Response\Index.cshtml" />
+    <Content Include="Views\Review\Index.cshtml" />
+    <Content Include="Views\Review\ReviewDetails.cshtml" />
+    <Content Include="Views\Scripts\jquery-3.3.1.min.map" />
+    <Content Include="Views\Scripts\jquery-3.3.1.slim.min.map" />
+    <Content Include="Views\UserAgreement\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Files\Organization\" />
@@ -1003,6 +1064,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201908072225164_WorkExecutorPhoto.resx">
       <DependentUpon>201908072225164_WorkExecutorPhoto.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201908251154250_ForReview.resx">
+      <DependentUpon>201908251154250_ForReview.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201908280628071_foradressadd.resx">
+      <DependentUpon>201908280628071_foradressadd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201908290949347_WorkedPhotos.resx">
+      <DependentUpon>201908290949347_WorkedPhotos.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Resource.kk-KZ.resx" />
     <EmbeddedResource Include="Resources\Resource.resx" />

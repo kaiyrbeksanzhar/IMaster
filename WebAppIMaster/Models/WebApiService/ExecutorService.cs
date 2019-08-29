@@ -602,22 +602,23 @@ namespace WebAppIMaster.Models.WebApiService
             List<ExecutorSpecialization> model = db.ExecutorSpecializations.Where(e => e.ExecutorId == executorId).ToList();
             int itemSpecialtyLenght = item.SpecializationIds.Count();
             for (int i = 0; i < itemSpecialtyLenght; i++)
-            var model = db.ExecutorSpecializations.Where(e => e.ExecutorId == executorId).ToList();
-            if (model != null)
             {
-                db.ExecutorSpecializations.RemoveRange(model);
-                db.SaveChanges();
-            }
-            foreach (var executorSpecialty in item.SpecializationIds)
-            {
-                model[i].SpecializationId = item.SpecializationIds[i];
-                ExecutorSpecialization executorSpecialization = new ExecutorSpecialization()
+                if (model != null)
                 {
-                    ExecutorId = executorId,
-                    SpecializationId = executorSpecialty,
-                };
-                db.ExecutorSpecializations.Add(executorSpecialization);
-                db.SaveChanges();
+                    db.ExecutorSpecializations.RemoveRange(model);
+                    db.SaveChanges();
+                }
+                foreach (var executorSpecialty in item.SpecializationIds)
+                {
+                    model[i].SpecializationId = item.SpecializationIds[i];
+                    ExecutorSpecialization executorSpecialization = new ExecutorSpecialization()
+                    {
+                        ExecutorId = executorId,
+                        SpecializationId = executorSpecialty,
+                    };
+                    db.ExecutorSpecializations.Add(executorSpecialization);
+                    db.SaveChanges();
+                }
             }
             db.Entry(executor).State = System.Data.Entity.EntityState.Modified;
             db.Entry(model).State = System.Data.Entity.EntityState.Modified;
